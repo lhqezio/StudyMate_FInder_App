@@ -1,7 +1,7 @@
 namespace StudyMateTests;
-
+using StudyMate;
 [TestClass]
-public class UnitTest1
+public class ProjectTests410
 {
     [TestMethod]
     public void TestMethod1()
