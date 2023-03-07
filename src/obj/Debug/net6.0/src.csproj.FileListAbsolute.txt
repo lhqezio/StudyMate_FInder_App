@@ -13,3 +13,8 @@ C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\src\o
 C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\src\obj\Debug\net6.0\src.pdb
 C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\src\obj\Debug\net6.0\src.genruntimeconfig.cache
 C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\src\obj\Debug\net6.0\ref\src.dll
+H:\Programming\C#\410project\src\obj\Debug\net6.0\src.csproj.AssemblyReference.cache
+H:\Programming\C#\410project\src\obj\Debug\net6.0\src.GeneratedMSBuildEditorConfig.editorconfig
+H:\Programming\C#\410project\src\obj\Debug\net6.0\src.AssemblyInfoInputs.cache
+H:\Programming\C#\410project\src\obj\Debug\net6.0\src.AssemblyInfo.cs
+H:\Programming\C#\410project\src\obj\Debug\net6.0\src.csproj.CoreCompileInputs.cache
