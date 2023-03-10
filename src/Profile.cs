@@ -26,6 +26,14 @@ namespace StudyMate
             _canHelpCourses = canHelpCourses;
             _interests = interests;
         }
-        
+        // public List<string> ListCopier(List<string> oldList>){
+        //     List<string> newList
+        // }
+        public static void Main(string[] args){
+            List<string> myList=new List<string>{"a","b","c"};
+            List<string> myList2=myList;
+            myList[0]="hi";
+            System.Console.WriteLine(myList2[0]);
+        }
     }
 }
