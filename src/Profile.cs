@@ -4,6 +4,11 @@
 namespace StudyMate
 {
     public class Profile{
-        
+        private string _name;
+        private int _age;
+        private List<string> _coursesTaken;
+        private List<string> _needHelpCourses;
+        private List<string> _canHelpCourses;
+        private List<string> _interests
     }
 }
