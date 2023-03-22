@@ -4,23 +4,28 @@
 namespace StudyMate
 {
     public class Profile{
-        private string? _name;
-        public string Name{
-            get{
-                if(_name!=null){
-                    return _name;
-                    }
-                return "";
-                }
-            set{_name=value;}
-        }
-        private int _age;
-        public int Age{
-            get{return _age;}
-            set{_age=value;}
-        }
+        public string Name 
+        { get; set; }
+        public string Pronouns 
+        { get; set; }
+        public int Age
+        {get;set;}
+        public string School
+        {get;set;}
+        public string Program 
+        { get; set; }
+        public Courses TakenCourses
+        {get;set;}
+        public Courses NeedHelpCourse
+        {get;set;}
+        public string PersonalDescription
+        {get;set;}
+        public string ProfilePicture //Subjet to change
+        {get;set;}
+        public Interests Hobbies
+        {get;set;}
 
-        public Profile(string name, int age)
+        public Profile(string name, int age, string school,Courses needHelpCourse)
         {
             Name = name;
             Age = age;
