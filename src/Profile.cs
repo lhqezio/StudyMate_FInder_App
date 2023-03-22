@@ -6,29 +6,31 @@ namespace StudyMate
     public class Profile{
         public string Name 
         { get; set; }
-        public string Pronouns 
+        public string? Pronouns 
         { get; set; }
         public int Age
         {get;set;}
         public string School
         {get;set;}
-        public string Program 
+        public string? Program 
         { get; set; }
-        public Courses TakenCourses
+        public Courses? TakenCourses
         {get;set;}
         public Courses NeedHelpCourse
         {get;set;}
-        public string PersonalDescription
+        public string? PersonalDescription
         {get;set;}
-        public string ProfilePicture //Subjet to change
+        public string? ProfilePicture //Subjet to change
         {get;set;}
-        public Interests Hobbies
+        public Interests? Hobbies
         {get;set;}
 
         public Profile(string name, int age, string school,Courses needHelpCourse)
         {
             Name = name;
             Age = age;
+            School=school;
+            NeedHelpCourse=needHelpCourse;
         }
 
         // public static void Main(string[] args){
