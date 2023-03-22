@@ -4,19 +4,19 @@
 namespace StudyMate
 {
     public class Profile{
-        public string Name 
+        public string? Name 
         { get; set; }
         public string? Pronouns 
         { get; set; }
-        public int Age
+        public int? Age
         {get;set;}
-        public string School
+        public string? School
         {get;set;}
         public string? Program 
         { get; set; }
         public Courses? TakenCourses
         {get;set;}
-        public Courses NeedHelpCourse
+        public Courses? NeedHelpCourse
         {get;set;}
         public string? PersonalDescription
         {get;set;}
@@ -33,6 +33,18 @@ namespace StudyMate
             NeedHelpCourse=needHelpCourse;
         }
 
+        public void ClearProfile(){
+            Pronouns=null;
+            Age=null;
+            School=null;
+            Program=null;
+            TakenCourses=null;
+            NeedHelpCourse=null;
+            PersonalDescription=null;
+            ProfilePicture=null;
+            Hobbies=null;
+
+        }
         // public static void Main(string[] args){
         //     List<string> myList=new List<string>{"a","b","c"};
         //     List<string> myList2=myList;
