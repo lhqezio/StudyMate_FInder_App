@@ -1,6 +1,6 @@
 
 
-namespace Name
+namespace StudyMate
 {
     public static class Rgex_Const
     {
