@@ -12,9 +12,10 @@ public class Message{
     /// Initializes a new instance of the Message class with the specified sender, recipient, and body.
     /// </summary>
     /// <param name="sender">The name of the sender of the message.</param>
-    /// <param name="recipient">The name of the recipient of the message.</param>
     /// <param name="body">The body of the message.</param>
     /// <param name="timestamp">Timestamp of the message or the last edited.</param>
+    /// <param name="Edited">To check if the message is edited</param>
+    /// <param name="MessageStatus">To check if the message has been seen</param>
     public Message(string sender,string body)
     {
         Sender = sender;
