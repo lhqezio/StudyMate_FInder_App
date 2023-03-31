@@ -11,6 +11,6 @@ public class ProfileTests
         //Act
         profile.ClearProfile();
         //Assert
-        Assert.
+//        Assert
     }
 }
