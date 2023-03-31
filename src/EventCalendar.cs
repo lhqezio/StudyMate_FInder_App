@@ -1,6 +1,6 @@
-//EventCalendar class is responsible to create events for the user.
+//EventCalendar class represents user's event.
 //It also reminds the user of an event when it is approaching.
-//Also, the events are modifiable meaning they can be delted, modified or added.
+//Deleting, Modifying, Adding events will be delt with in EventManager.
 
 namespace StudyMate
 {
@@ -25,7 +25,7 @@ namespace StudyMate
             this.Title = title;
             this.CreatorId = creatorId;
             this.Participants = participants;
-            this.EventId = ; //Shouldn't be like that
+            this.EventId = ; //Generated 
             this.Date = date;
             this.IsSent = isSent;
             this.Note = note;

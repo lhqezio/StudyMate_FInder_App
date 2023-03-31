@@ -18,6 +18,7 @@ H:\Programming\C#\410project\src\obj\Debug\net6.0\src.GeneratedMSBuildEditorConf
 H:\Programming\C#\410project\src\obj\Debug\net6.0\src.AssemblyInfoInputs.cache
 H:\Programming\C#\410project\src\obj\Debug\net6.0\src.AssemblyInfo.cs
 H:\Programming\C#\410project\src\obj\Debug\net6.0\src.csproj.CoreCompileInputs.cache
+<<<<<<< HEAD
 C:\Users\alain\OneDrive\Documents\School\3)Cegep\DAWSON\AcademicPart\Courses\Concentration\Programming\Programming-IV\Project\410project\src\bin\Debug\net6.0\src.exe
 C:\Users\alain\OneDrive\Documents\School\3)Cegep\DAWSON\AcademicPart\Courses\Concentration\Programming\Programming-IV\Project\410project\src\bin\Debug\net6.0\src.deps.json
 C:\Users\alain\OneDrive\Documents\School\3)Cegep\DAWSON\AcademicPart\Courses\Concentration\Programming\Programming-IV\Project\410project\src\bin\Debug\net6.0\src.runtimeconfig.json
@@ -33,3 +34,20 @@ C:\Users\alain\OneDrive\Documents\School\3)Cegep\DAWSON\AcademicPart\Courses\Con
 C:\Users\alain\OneDrive\Documents\School\3)Cegep\DAWSON\AcademicPart\Courses\Concentration\Programming\Programming-IV\Project\410project\src\obj\Debug\net6.0\src.pdb
 C:\Users\alain\OneDrive\Documents\School\3)Cegep\DAWSON\AcademicPart\Courses\Concentration\Programming\Programming-IV\Project\410project\src\obj\Debug\net6.0\src.genruntimeconfig.cache
 C:\Users\alain\OneDrive\Documents\School\3)Cegep\DAWSON\AcademicPart\Courses\Concentration\Programming\Programming-IV\Project\410project\src\obj\Debug\net6.0\ref\src.dll
+=======
+C:\Users\2133044\Desktop\410project\src\obj\Debug\net6.0\src.csproj.AssemblyReference.cache
+C:\Users\2133044\Desktop\410project\src\obj\Debug\net6.0\src.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\2133044\Desktop\410project\src\obj\Debug\net6.0\src.AssemblyInfoInputs.cache
+C:\Users\2133044\Desktop\410project\src\obj\Debug\net6.0\src.AssemblyInfo.cs
+C:\Users\2133044\Desktop\410project\src\obj\Debug\net6.0\src.csproj.CoreCompileInputs.cache
+C:\Users\2133044\Desktop\410project\src\bin\Debug\net6.0\src.exe
+C:\Users\2133044\Desktop\410project\src\bin\Debug\net6.0\src.deps.json
+C:\Users\2133044\Desktop\410project\src\bin\Debug\net6.0\src.runtimeconfig.json
+C:\Users\2133044\Desktop\410project\src\bin\Debug\net6.0\src.dll
+C:\Users\2133044\Desktop\410project\src\bin\Debug\net6.0\src.pdb
+C:\Users\2133044\Desktop\410project\src\obj\Debug\net6.0\src.dll
+C:\Users\2133044\Desktop\410project\src\obj\Debug\net6.0\refint\src.dll
+C:\Users\2133044\Desktop\410project\src\obj\Debug\net6.0\src.pdb
+C:\Users\2133044\Desktop\410project\src\obj\Debug\net6.0\src.genruntimeconfig.cache
+C:\Users\2133044\Desktop\410project\src\obj\Debug\net6.0\ref\src.dll
+>>>>>>> b1da8558cb6db8d60c7953dc931835216ef7a136

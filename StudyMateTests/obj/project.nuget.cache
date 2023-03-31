@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "AMNRTW7bNdfev3+OTfcKdfDOdrZwbwcqBOEO1zSz5Cd8uRJUAR+TKMzNIIFmF12wc10WdY5ea+02CYVPWwU/ww==",
+  "dgSpecHash": "UmrSlCx3h3VzSvjVZHLReifG1Ew1MBH9ig9rrTY3dcnBxWouJvriOVovj6pPkAIj7cYxldr2If+Z3Ecx+/8ABA==",
   "success": true,
-  "projectFilePath": "H:\\Programming\\C#\\410project\\StudyMateTests\\StudyMateTests.csproj",
+  "projectFilePath": "C:\\Users\\2133044\\Desktop\\410project\\StudyMateTests\\StudyMateTests.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\2133044\\.nuget\\packages\\coverlet.collector\\3.1.2\\coverlet.collector.3.1.2.nupkg.sha512",
     "C:\\Users\\2133044\\.nuget\\packages\\microsoft.codecoverage\\17.1.0\\microsoft.codecoverage.17.1.0.nupkg.sha512",

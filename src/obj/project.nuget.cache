@@ -1,8 +1,14 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "QEI8vsL5OA1MLdJJ92EmR7dxPHIsBenHwDTXUyMqsplRFo3ZN0eeiYjEGE71YgkWUTR75O+p9G5qcoaZDwuoNw==",
   "success": true,
   "projectFilePath": "C:\\Users\\alain\\OneDrive\\Documents\\School\\3)Cegep\\DAWSON\\AcademicPart\\Courses\\Concentration\\Programming\\Programming-IV\\Project\\410project\\src\\src.csproj",
+=======
+  "dgSpecHash": "YAHzDynsua0dSIhyQUMvmjXfaZBOQj7tZbGpcgvLSmsw+ZLOJo9taiaHQIghcF5AD9GjBLj2HS89nw+BbO9cxg==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\2133044\\Desktop\\410project\\src\\src.csproj",
+>>>>>>> b1da8558cb6db8d60c7953dc931835216ef7a136
   "expectedPackageFiles": [],
   "logs": []
 }
