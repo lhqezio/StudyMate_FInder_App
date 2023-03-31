@@ -1,28 +1,26 @@
 public class Conversation
 {
-    public string Name { get; }
-    public int Id{get;}
-    private List<Message>? messages;
+    public string Name { 
+        get;set;
+    }
+    private int __id;
+    private List<int> __messages_id;
+    private List<Message>? __messages;
     public List<Message>? Messages { get {
-       if (messages.Count == 0)
-       {
-            // messages = ChatServices.GetMessages(Id);
-            return messages;
-       }
-         else
-        {
-                return messages;
-        }
-    } }
+        //__messages = ChatServices.GetMessages(__messages_id);
+        //return __messages;
+        return new List<Message>();
+    }}
 
     /// <summary>
     /// Initializes a new instance of the Conversation class with the specified name.
     /// </summary>
     /// <param name="name">The name of the conversation.</param>
-    public Conversation(string name, int id)
+    public Conversation(string name, int id,List<int>__messages_id)
     {
         Name = name;
-        Id = id;
+        __id = id;
+        this.__messages_id=__messages_id;
     }
 
     /// <summary>
