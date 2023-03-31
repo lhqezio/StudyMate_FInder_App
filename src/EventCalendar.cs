@@ -1,6 +1,6 @@
 //EventCalendar class represents user's event.
 //It also reminds the user of an event when it is approaching.
-//Deleting, Modifying, Adding events will be delt with in EventManager.
+//Editing is implicitly done through set to be able to edit specific fields
 
 namespace StudyMate
 {
@@ -8,43 +8,46 @@ namespace StudyMate
     {
         //Properties
         public string Title {get; set;}
-        public User CreatorId {get; set;}
-        public List<User> Participants {get; set;}
-        public int EventId {get; set;}
-        public DateTime Date {get; set;} 
+        private Profile __creatorId {get;}
+        public List<Profile> Participants {get; set;}
+        private int __eventId {get; }
+        public DateTimeOffset Date {get; set;} 
         public bool IsSent {get; set;}
-        public string Note {get; set;}
-        public Courses Course {get; set;}
-        public string Subject {get; set;}
-        public string School {get; set;}
-        public string Project {get; set;}
+        public string Description {get; set;}
+        public List<Courses> CourseList {get; set;}
+        public List<string> SubjectList {get; set;}
+        public List<string> SchoolList {get; set;}
+        public List<string> ProjectList {get; set;}
 
 
         //Constructor
-        public EventCalendar(string title, User creatorId, List<User> participants, DateTime date, bool isSent, string note, Courses course, string subject, string school, string project){
+        public EventCalendar(string title, Profile creatorId, List<Profile> participants, DateTimeOffset date, bool isSent, string description, List<Courses> courses, List<string> subjects, List<string> schools, List<string> projects){
             this.Title = title;
-            this.CreatorId = creatorId;
+            this.__creatorId = creatorId;
             this.Participants = participants;
-            this.EventId = ; //Generated 
+//            this.__eventId; 
             this.Date = date;
             this.IsSent = isSent;
-            this.Note = note;
-            this.Course = course;
-            this.Subject = subject;
-            this.School = school;
-            this.Project = project;
+            this.Description = description;
+            this.CourseList = courses;
+            this.SubjectList = subjects;
+            this.SchoolList = schools;
+            this.ProjectList = projects;
         }
 
         public string toString(){
             string printedEvent="";
             printedEvent =  "Title: "+this.Title+
-                            " \nEventId: "+this.EventId+
-                            " \nCreatorId: "+this.CreatorId+
+                            " \nEventId: "+this.__eventId+
+                            " \nCreator: "+this.__creatorId.Name+
                             " \nParticipants: "+this.Participants+
-                            " \nCreatorId: "+this.CreatorId+
+                            " \nCreatorId: "+this.__creatorId+
                             " \nDate: "+this.Date+
-                            " \nDescription: "+this.Note+
-                            " \nAssociated to: "+this.Course+this.Subject+this.School+this.Project;
+                            " \nDescription: "+this.Description+
+                            " \nCourse(s) associated: "+this.CourseList+
+                            " \nSubject(s) associated: "+this.SubjectList+
+                            " \nSchool(s) associated: "+this.SchoolList+
+                            " \nProject(s) associated: "+this.ProjectList;
             return printedEvent;
         }
     }

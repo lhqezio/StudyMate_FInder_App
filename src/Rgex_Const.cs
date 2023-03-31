@@ -12,9 +12,14 @@ namespace StudyMate
 
     public static class Profile_Config
     {
-        public static Profile clearProfile = new Profile(null, 0, null, Courses.Default_Subject);
+        public static List<Courses> needHelp = new List<Courses>((int)Courses.Default_Subject);
+        public static Profile clearProfile = new Profile(null, 0, null, needHelp);
+    }
 
-
+    public static class User_Config
+    {
+        public static List<Courses> needHelp = new List<Courses>((int)Courses.Default_Subject);
+        public static Profile clearProfile = new Profile(null, 0, null, needHelp);
     }
 }
          

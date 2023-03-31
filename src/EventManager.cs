@@ -1,7 +1,7 @@
-//Also, the events are modifiable meaning they can be delted or added.
+//In EventManager the events can be deleted/added from an array that will contain * events
 
-namespace StudyMate
-{
+namespace StudyMate{
+
     public class EventManager
     {
         //Property
@@ -12,10 +12,12 @@ namespace StudyMate
             listEvents = new List<EventCalendar>();
         }
 
+        //AddEvent Method => Add event to the list of events
         public void AddEvent(EventCalendar e){
             listEvents.Add(e);
         }
 
+        //DeleteEvent Method => Delete event to the list of events
         public void DeleteEvent(EventCalendar e){
             listEvents.Remove(e);
         }
