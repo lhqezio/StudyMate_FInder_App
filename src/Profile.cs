@@ -14,23 +14,23 @@ namespace StudyMate
         {get;set;}
         public string? Program 
         { get; set; }
-        public Courses? TakenCourses
+        public List<Courses>? TakenCourses
         {get;set;}
-        public Courses? NeedHelpCourse
+        public List<Courses>? NeedHelpCourses
         {get;set;}
         public string? PersonalDescription
         {get;set;}
         public string? ProfilePicture //Subjet to change
         {get;set;}
-        public Interests? Hobbies
+        public List<Interests>? Hobbies
         {get;set;}
 
-        public Profile(string name, int age, string school,Courses needHelpCourse)
+        public Profile(string name, int age, string school,List<Courses> needHelpCourses)
         {
             Name = name;
             Age = age;
             School=school;
-            NeedHelpCourse=needHelpCourse;
+            NeedHelpCourses=needHelpCourses;
         }
 
         public void ClearProfile(){
@@ -39,17 +39,16 @@ namespace StudyMate
             School=null;
             Program=null;
             TakenCourses=null;
-            NeedHelpCourse=null;
+            NeedHelpCourses=null;
             PersonalDescription=null;
             ProfilePicture=null;
             Hobbies=null;
 
         }
-        // public static void Main(string[] args){
-        //     List<string> myList=new List<string>{"a","b","c"};
-        //     List<string> myList2=myList;
-        //     myList[0]="hi";
-        //     System.Console.WriteLine(myList2[0]);
-        // }
+        public static void Main(string[] args){
+            Profile profile=new Profile("Amir",12,"Akabar gholi",new List<Courses>(){Courses.Art});
+            profile.NeedHelpCourses.Add(Courses.History);
+            System.Console.WriteLine(profile.NeedHelpCourses[1]);
+        }
     }
 }
