@@ -2,11 +2,11 @@
 /// Represents a message with a sender, recipient, body, and timestamp.
 /// </summary>
 public class Message{
-    public string Sender { get; set;}
+    public string Sender { get;}
     public string Body { get; private set; }
-    public DateTime Timestamp { get; }
+    public string Timestamp { get; }
     public bool Edited { get; private set; }
-    public bool MessageStatus{get;}
+    public bool MessageStatus{get; private set;}
 
     /// <summary>
     /// Initializes a new instance of the Message class with the specified sender, recipient, and body.
@@ -15,13 +15,13 @@ public class Message{
     /// <param name="recipient">The name of the recipient of the message.</param>
     /// <param name="body">The body of the message.</param>
     /// <param name="timestamp">Timestamp of the message or the last edited.</param>
-    public Message(string sender,string body,DateTime timestamp, bool edited,bool messageStatus)
+    public Message(string sender,string body)
     {
         Sender = sender;
         Body = body;
-        Timestamp = timestamp;
-        Edited = edited;
-        MessageStatus=messageStatus;
+        Timestamp = DateTime.Now.ToString("dd/MM/yyyy hh:mm:ss");
+        Edited = false;
+        MessageStatus=false;
     }
 
     //This methods allows the user to edit a messgae that was already sent. It wll
@@ -30,12 +30,16 @@ public class Message{
         this.Body=newMessage;
         this.Edited=true;
     }
+
+    public void MessageSeen(){
+        this.MessageStatus=true;
+    }
     /// <summary>
     /// Returns a string that represents the current message, use for debugging purposes only.
     /// </summary>
     /// <returns>A string that represents the current message.</returns>
     public override string ToString()
     {
-        return $"From: {Sender}\nTo: {Recipient}\nSent: {Timestamp}\n\n{Body}";
+        return $"From: {Sender}\n\nSent: {Timestamp}\n\n{Body}";
     }
 }
