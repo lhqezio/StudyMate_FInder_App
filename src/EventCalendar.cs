@@ -35,7 +35,7 @@ namespace StudyMate
             this.ProjectList = projects;
         }
 
-        public string toString(){
+        public override string ToString(){
             string printedEvent="";
             printedEvent =  "Title: "+this.Title+
                             " \nEventId: "+this.__eventId+
