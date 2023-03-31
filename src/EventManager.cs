@@ -1,4 +1,4 @@
-//Also, the events are modifiable meaning they can be delted, modified or added.
+//Also, the events are modifiable meaning they can be delted or added.
 
 namespace StudyMate
 {
@@ -9,19 +9,15 @@ namespace StudyMate
 
         //Constructor
         public EventManager(){
-
+            listEvents = new List<EventCalendar>();
         }
 
-        public void AddEvent(){
-
-        }
-
-        public void EditEvent(EventCalendar e){
-
+        public void AddEvent(EventCalendar e){
+            listEvents.Add(e);
         }
 
         public void DeleteEvent(EventCalendar e){
-
+            listEvents.Remove(e);
         }
     }
 }

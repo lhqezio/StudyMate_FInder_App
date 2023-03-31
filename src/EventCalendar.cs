@@ -14,14 +14,14 @@ namespace StudyMate
         public DateTime Date {get; set;} 
         public bool IsSent {get; set;}
         public string Note {get; set;}
-        public Course Course {get; set;}
+        public Courses Course {get; set;}
         public string Subject {get; set;}
         public string School {get; set;}
         public string Project {get; set;}
 
 
         //Constructor
-        public EventCalendar(string title, User creatorId, List<User> participants, DateTime date, bool isSent, string note, Course course, string subject, string school, string project){
+        public EventCalendar(string title, User creatorId, List<User> participants, DateTime date, bool isSent, string note, Courses course, string subject, string school, string project){
             this.Title = title;
             this.CreatorId = creatorId;
             this.Participants = participants;
