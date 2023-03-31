@@ -45,10 +45,5 @@ namespace StudyMate
             Hobbies=null;
 
         }
-        public static void Main(string[] args){
-            Profile profile=new Profile("Amir",12,"Akabar gholi",new List<Courses>(){Courses.Art});
-            profile.NeedHelpCourses.Add(Courses.History);
-            System.Console.WriteLine(profile.NeedHelpCourses[1]);
-        }
     }
 }
