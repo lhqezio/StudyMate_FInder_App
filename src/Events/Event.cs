@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudyMate
 {
-    public class EventCalendar
+    public class Event
     {
         [Required(ErrorMessage = "Title is required")]
         //Properties
@@ -31,7 +31,7 @@ namespace StudyMate
 
 
         //Constructor
-        public EventCalendar(string title, Profile creatorId, List<Profile> participants, DateTimeOffset date, bool isSent, string description, List<Courses> courses, List<string> SubjectSchoolProjectList){
+        public Event(string title, Profile creatorId, List<Profile> participants, DateTimeOffset date, bool isSent, string description, List<Courses> courses, List<string> SubjectSchoolProjectList){
             this.Title = title;
             this.__creatorId = creatorId;
             this.Participants = participants; 
