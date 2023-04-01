@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\2133044\\Desktop\\410project\\StudyMateTests\\StudyMateTests.csproj": {}
+    "C:\\Users\\alain\\OneDrive\\Documents\\School\\Cegep\\DAWSON\\AcademicPart\\Courses\\Concentration\\Programming\\Programming-IV\\Project\\410project\\StudyMateTests\\StudyMateTests.csproj": {}
   },
   "projects": {
-    "C:\\Users\\2133044\\Desktop\\410project\\src\\src.csproj": {
+    "C:\\Users\\alain\\OneDrive\\Documents\\School\\Cegep\\DAWSON\\AcademicPart\\Courses\\Concentration\\Programming\\Programming-IV\\Project\\410project\\src\\src.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\2133044\\Desktop\\410project\\src\\src.csproj",
+        "projectUniqueName": "C:\\Users\\alain\\OneDrive\\Documents\\School\\Cegep\\DAWSON\\AcademicPart\\Courses\\Concentration\\Programming\\Programming-IV\\Project\\410project\\src\\src.csproj",
         "projectName": "src",
-        "projectPath": "C:\\Users\\2133044\\Desktop\\410project\\src\\src.csproj",
-        "packagesPath": "C:\\Users\\2133044\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\2133044\\Desktop\\410project\\src\\obj\\",
+        "projectPath": "C:\\Users\\alain\\OneDrive\\Documents\\School\\Cegep\\DAWSON\\AcademicPart\\Courses\\Concentration\\Programming\\Programming-IV\\Project\\410project\\src\\src.csproj",
+        "packagesPath": "C:\\Users\\alain\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alain\\OneDrive\\Documents\\School\\Cegep\\DAWSON\\AcademicPart\\Courses\\Concentration\\Programming\\Programming-IV\\Project\\410project\\src\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\2133044\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\alain\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -53,21 +53,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\Users\\2133044\\Desktop\\410project\\StudyMateTests\\StudyMateTests.csproj": {
+    "C:\\Users\\alain\\OneDrive\\Documents\\School\\Cegep\\DAWSON\\AcademicPart\\Courses\\Concentration\\Programming\\Programming-IV\\Project\\410project\\StudyMateTests\\StudyMateTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\2133044\\Desktop\\410project\\StudyMateTests\\StudyMateTests.csproj",
+        "projectUniqueName": "C:\\Users\\alain\\OneDrive\\Documents\\School\\Cegep\\DAWSON\\AcademicPart\\Courses\\Concentration\\Programming\\Programming-IV\\Project\\410project\\StudyMateTests\\StudyMateTests.csproj",
         "projectName": "StudyMateTests",
-        "projectPath": "C:\\Users\\2133044\\Desktop\\410project\\StudyMateTests\\StudyMateTests.csproj",
-        "packagesPath": "C:\\Users\\2133044\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\2133044\\Desktop\\410project\\StudyMateTests\\obj\\",
+        "projectPath": "C:\\Users\\alain\\OneDrive\\Documents\\School\\Cegep\\DAWSON\\AcademicPart\\Courses\\Concentration\\Programming\\Programming-IV\\Project\\410project\\StudyMateTests\\StudyMateTests.csproj",
+        "packagesPath": "C:\\Users\\alain\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\alain\\OneDrive\\Documents\\School\\Cegep\\DAWSON\\AcademicPart\\Courses\\Concentration\\Programming\\Programming-IV\\Project\\410project\\StudyMateTests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\2133044\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\alain\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -79,8 +79,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\Users\\2133044\\Desktop\\410project\\src\\src.csproj": {
-                "projectPath": "C:\\Users\\2133044\\Desktop\\410project\\src\\src.csproj"
+              "C:\\Users\\alain\\OneDrive\\Documents\\School\\Cegep\\DAWSON\\AcademicPart\\Courses\\Concentration\\Programming\\Programming-IV\\Project\\410project\\src\\src.csproj": {
+                "projectPath": "C:\\Users\\alain\\OneDrive\\Documents\\School\\Cegep\\DAWSON\\AcademicPart\\Courses\\Concentration\\Programming\\Programming-IV\\Project\\410project\\src\\src.csproj"
               }
             }
           }
@@ -128,7 +128,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
         }
       }
     }
