@@ -47,7 +47,7 @@ namespace StudyMate
             string stringParticipants = "";
             foreach (var participant in this.Participants)
             {
-                stringParticipant = stringParticipant + participant.Name+", ";
+                stringParticipants = stringParticipants + participant.Name+", ";
             }
             printedEvent =  "Title: "+this.Title+
                             " \nCreator: "+this.__creatorId.Name+

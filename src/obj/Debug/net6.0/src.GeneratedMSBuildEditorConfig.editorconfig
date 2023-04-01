@@ -7,8 +7,4 @@ build_property.InvariantGlobalization =
 build_property.PlatformNeutralAssembly = 
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = src
-<<<<<<< HEAD
 build_property.ProjectDir = c:\Users\alain\OneDrive\Documents\School\3)Cegep\DAWSON\AcademicPart\Courses\Concentration\Programming\Programming-IV\Project\410project\src\
-=======
-build_property.ProjectDir = c:\Users\2133044\Desktop\410project\src\
->>>>>>> b1da8558cb6db8d60c7953dc931835216ef7a136
