@@ -6,8 +6,6 @@ namespace StudyMate
         public const string Month = "12";
         
         public const string EventCalendarTitleValidator = "";
-
-           
     }
 
     public static class Profile_Config

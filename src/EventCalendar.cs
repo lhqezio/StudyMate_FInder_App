@@ -44,11 +44,14 @@ namespace StudyMate
 
         public override string ToString(){
             string printedEvent="";
+            string stringParticipants = "";
+            foreach (var participant in this.Participants)
+            {
+                stringParticipant = stringParticipant + participant.Name+", ";
+            }
             printedEvent =  "Title: "+this.Title+
-                            " \nEventId: "+this.__eventId+
                             " \nCreator: "+this.__creatorId.Name+
-                            " \nParticipants: "+this.Participants+
-                            " \nCreatorId: "+this.__creatorId+
+                            " \nParticipants: "+stringParticipants+
                             " \nDate: "+this.Date+
                             " \nDescription: "+this.Description+
                             " \nCourse(s), nSubject(s), School(s) associated: "+this.SubjectSchoolProjectList;
