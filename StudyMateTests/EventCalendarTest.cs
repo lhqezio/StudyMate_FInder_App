@@ -36,7 +36,8 @@ public class EventCalendarTest
         Assert.AreEqual(subjectSchoolProjectList, eC.SubjectSchoolProjectList);
         Assert.IsInstanceOfType(eC, typeof(EventCalendar));
     }
-
+    
+    [TestMethod]
     public void TestEventCalendarToString(){
         //Arrange
         List<Courses> nCourses1 = new List<Courses>(Art, Calculus, Math, History);
