@@ -6352,19 +6352,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\2133044\\.nuget\\packages\\": {}
+    "C:\\Users\\amirr\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\2133044\\Desktop\\410project\\StudyMateTests\\StudyMateTests.csproj",
+      "projectUniqueName": "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\StudyMateTests\\StudyMateTests.csproj",
       "projectName": "StudyMateTests",
-      "projectPath": "C:\\Users\\2133044\\Desktop\\410project\\StudyMateTests\\StudyMateTests.csproj",
-      "packagesPath": "C:\\Users\\2133044\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\2133044\\Desktop\\410project\\StudyMateTests\\obj\\",
+      "projectPath": "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\StudyMateTests\\StudyMateTests.csproj",
+      "packagesPath": "C:\\Users\\amirr\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\StudyMateTests\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\2133044\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\amirr\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
@@ -6376,8 +6376,8 @@
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\Users\\2133044\\Desktop\\410project\\src\\src.csproj": {
-              "projectPath": "C:\\Users\\2133044\\Desktop\\410project\\src\\src.csproj"
+            "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\src\\src.csproj": {
+              "projectPath": "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\src\\src.csproj"
             }
           }
         }
@@ -6425,7 +6425,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.404\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
       }
     }
   }

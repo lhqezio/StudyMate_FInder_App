@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\2133044\\Desktop\\410project\\src\\src.csproj": {}
+    "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\src\\src.csproj": {}
   },
   "projects": {
-    "C:\\Users\\2133044\\Desktop\\410project\\src\\src.csproj": {
+    "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\src\\src.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\2133044\\Desktop\\410project\\src\\src.csproj",
+        "projectUniqueName": "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\src\\src.csproj",
         "projectName": "src",
-        "projectPath": "C:\\Users\\2133044\\Desktop\\410project\\src\\src.csproj",
-        "packagesPath": "C:\\Users\\2133044\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\2133044\\Desktop\\410project\\src\\obj\\",
+        "projectPath": "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\src\\src.csproj",
+        "packagesPath": "C:\\Users\\amirr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\src\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\2133044\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\amirr\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
@@ -53,7 +53,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.404\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
         }
       }
     }

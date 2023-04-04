@@ -7,10 +7,12 @@ public class ProfileTests
     public void ClearProfileTest_MakesAllPropertiesNull_ReturnsVoid()
     {
         //Arrange
-        Profile profile = new Profile("Amir",20,"Dawson",Courses.Calculus);
-        //Act
-        profile.ClearProfile();
-        //Assert
-        Assert.
+        Profile profile1=new Profile("Amir",Genders.Male,20,"Dawson College",new List<Courses>(){Courses.History});
+        Profile profile2=new Profile("Samanta",Genders.Female,18,"Vanier",new List<Courses>(){Courses.Computer_Science});
+        // //Act
+        profile1.ClearProfile();
+        profile2.ClearProfile();
+        // Assert
+        Assert.AreEqual(profile1,profile2);
     }
 }
