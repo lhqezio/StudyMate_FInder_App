@@ -4,32 +4,23 @@
 namespace StudyMate
 {
     public class Profile{
-        public string? Name 
-        { get; set; }
-        public string? Pronouns 
-        { get; set; }
-        public int? Age
-        {get;set;}
-        public string? School
-        {get;set;}
-        public string? Program 
-        { get; set; }
-        public List<Courses>? TakenCourses
-        {get;set;}
-        public List<Courses>? NeedHelpCourses
-        {get;set;}
-        public string? PersonalDescription
-        {get;set;}
-        public string? ProfilePicture //Subjet to change since we don't know how to exaclty take a profile picture yet.
-        {get;set;}
-        public List<Interests>? Hobbies
-        {get;set;}
+        public string Name { get; set; }="";
+        public string Pronouns { get; set; }="";
+        public int? Age { get; set; }
+        public string School { get; set; }="";
+        public string Program { get; set; }="";
+        public List<Courses> TakenCourses { get; set; } = new List<Courses>();
+        public List<Courses> NeedHelpCourses { get; set; } = new List<Courses>();
+        public string PersonalDescription { get; set; } = "";
+        public string ProfilePicture { get; set; } = ""; //Subject to change because we still do not know exactly if we must use a string to store a picture
+        public List<Interests> Hobbies { get; set; } = new List<Interests>();
 
         //Constructor that builds a profile object with the mandatory fields. The user can set the optional fileds later using the 
         //setters.
-        public Profile(string name, int age, string school,List<Courses> needHelpCourses)
+        public Profile(string name,string pronouns,int age, string school,List<Courses> needHelpCourses)
         {
             Name = name;
+            Pronouns=pronouns;
             Age = age;
             School=school;
             NeedHelpCourses=needHelpCourses;
@@ -37,15 +28,15 @@ namespace StudyMate
 
         //This mehtod allows to clear all the fields of the profile class in one shot.
         public void ClearProfile(){
-            Pronouns=null;
+            Pronouns="";
             Age=null;
-            School=null;
-            Program=null;
-            TakenCourses=null;
-            NeedHelpCourses=null;
-            PersonalDescription=null;
-            ProfilePicture=null;
-            Hobbies=null;
+            School="";
+            Program="";
+            TakenCourses.Clear();
+            NeedHelpCourses.Clear();
+            PersonalDescription="";
+            ProfilePicture="";
+            Hobbies.Clear();
 
         }
 
