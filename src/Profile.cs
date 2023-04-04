@@ -5,7 +5,7 @@ namespace StudyMate
 {
     public class Profile{
         public string Name { get; set; }="";
-        public string Pronouns { get; set; }="";
+        public Genders? Gender { get; set; }
         public int? Age { get; set; }
         public string School { get; set; }="";
         public string Program { get; set; }="";
@@ -17,10 +17,10 @@ namespace StudyMate
 
         //Constructor that builds a profile object with the mandatory fields. The user can set the optional fileds later using the 
         //setters.
-        public Profile(string name,string pronouns,int age, string school,List<Courses> needHelpCourses)
+        public Profile(string name,Genders gender,int age, string school,List<Courses> needHelpCourses)
         {
             Name = name;
-            Pronouns=pronouns;
+            Gender=gender;
             Age = age;
             School=school;
             NeedHelpCourses=needHelpCourses;
@@ -28,7 +28,8 @@ namespace StudyMate
 
         //This mehtod allows to clear all the fields of the profile class in one shot.
         public void ClearProfile(){
-            Pronouns="";
+            Name="";
+            Gender=null;
             Age=null;
             School="";
             Program="";
@@ -50,7 +51,7 @@ namespace StudyMate
             Profile profile = (Profile)obj;
             return (
                 profile.Name==this.Name &&
-                profile.Pronouns == this.Pronouns &&
+                profile.Gender == this.Gender &&
                 profile.Age == this.Age &&
                 profile.School == this.School &&
                 profile.Program == this.Program &&
@@ -90,7 +91,7 @@ namespace StudyMate
         public override int GetHashCode()
         {
             return Name.GetHashCode() ^
-                Pronouns.GetHashCode() ^
+                Gender.GetHashCode() ^
                 Age.GetHashCode() ^
                 School.GetHashCode() ^
                 Program.GetHashCode() ^
