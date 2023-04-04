@@ -39,4 +39,16 @@ public class ProfileTests
         // Assert
         Assert.AreEqual(false,AreNotEqual);
     }
+
+    [TestMethod]
+    public void EqualsTest_ComparesProfileObjectWithSomethingElse_ReturnsFalse()
+    {
+        //Arrange
+        Profile profile1=new Profile("Amir",Genders.Male,20,"Dawson College",new List<Courses>(){Courses.History});
+        String s=new String("Hi");
+        // //Act
+        bool AreNotEqual=profile1.Equals(s);
+        // Assert
+        Assert.AreEqual(false,AreNotEqual);
+    }
 }
