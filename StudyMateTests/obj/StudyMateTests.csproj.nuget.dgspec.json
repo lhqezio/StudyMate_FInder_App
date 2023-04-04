@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "H:\\Programming\\C#\\410project\\StudyMateTests\\StudyMateTests.csproj": {}
+    "C:\\Users\\2133044\\Desktop\\410project\\StudyMateTests\\StudyMateTests.csproj": {}
   },
   "projects": {
-    "H:\\Programming\\C#\\410project\\src\\src.csproj": {
+    "C:\\Users\\2133044\\Desktop\\410project\\src\\src.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\Programming\\C#\\410project\\src\\src.csproj",
+        "projectUniqueName": "C:\\Users\\2133044\\Desktop\\410project\\src\\src.csproj",
         "projectName": "src",
-        "projectPath": "H:\\Programming\\C#\\410project\\src\\src.csproj",
+        "projectPath": "C:\\Users\\2133044\\Desktop\\410project\\src\\src.csproj",
         "packagesPath": "C:\\Users\\2133044\\.nuget\\packages\\",
-        "outputPath": "H:\\Programming\\C#\\410project\\src\\obj\\",
+        "outputPath": "C:\\Users\\2133044\\Desktop\\410project\\src\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\2133044\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -57,14 +57,14 @@
         }
       }
     },
-    "H:\\Programming\\C#\\410project\\StudyMateTests\\StudyMateTests.csproj": {
+    "C:\\Users\\2133044\\Desktop\\410project\\StudyMateTests\\StudyMateTests.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "H:\\Programming\\C#\\410project\\StudyMateTests\\StudyMateTests.csproj",
+        "projectUniqueName": "C:\\Users\\2133044\\Desktop\\410project\\StudyMateTests\\StudyMateTests.csproj",
         "projectName": "StudyMateTests",
-        "projectPath": "H:\\Programming\\C#\\410project\\StudyMateTests\\StudyMateTests.csproj",
+        "projectPath": "C:\\Users\\2133044\\Desktop\\410project\\StudyMateTests\\StudyMateTests.csproj",
         "packagesPath": "C:\\Users\\2133044\\.nuget\\packages\\",
-        "outputPath": "H:\\Programming\\C#\\410project\\StudyMateTests\\obj\\",
+        "outputPath": "C:\\Users\\2133044\\Desktop\\410project\\StudyMateTests\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\2133044\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -79,8 +79,8 @@
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "H:\\Programming\\C#\\410project\\src\\src.csproj": {
-                "projectPath": "H:\\Programming\\C#\\410project\\src\\src.csproj"
+              "C:\\Users\\2133044\\Desktop\\410project\\src\\src.csproj": {
+                "projectPath": "C:\\Users\\2133044\\Desktop\\410project\\src\\src.csproj"
               }
             }
           }
