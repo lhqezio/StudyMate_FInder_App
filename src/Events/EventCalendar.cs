@@ -9,18 +9,74 @@ namespace StudyMate
 {
     public class EventCalendar
     {
-        //Properties
-        public string Title {get; set;}
+        //Properties - Validation done here since it will also work when edited 
+        private string __title;
+        public string Title{
+            get { return __title; }
+            set{
+                if(String.IsNullOrEmpty(value)||String.IsNullOrWhiteSpace(value)){
+                    throw new ArgumentException("Title can't be empty, null, whitespaces");
+                }
+                __title = value;
+            }
+        }
         
-        public Profile __creatorId {get;}
+
+        private Profile __creator;
+        public Profile Creator{
+            get { return __creator; }
+            set{
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Creator can't be null");
+                    }
+                    __creator = value;
+            }
+        }
         
-        public List<Profile> Participants {get; set;}
-        
-        public int __eventId {get; }
-        
-        public DateTimeOffset Date {get; set;} 
+
+        private List<Profile> __participants;
+        public List<Profile> Participants{
+            get { return __participants; }
+            set{
+                if (value == null)
+                {
+                    throw new ArgumentNullException("There should be at least one participant");
+                    }
+                    __participants = value;
+            }
+        }
+
+
+        public int EventId {get; } //Will be dealt with in dtb part
+
+
+        private DateTimeOffset __date;
+        public DateTimeOffset Date {
+            get { return __date; }
+            set {
+                if(value < DateTimeOffset.Now){
+                    throw new ArgumentException("The event can't should be in the future");
+                }
+                __date = value;
+            }
+        }
+
+
         public bool IsSent {get; set;}
-        public string Description {get; set;}
+
+
+        private string __description;
+        public string Description{
+            get { return __description; }
+            set { 
+                if(String.IsNullOrWhiteSpace(value)){
+                    throw new ArgumentException("Your description can't be empty");
+                }
+                __description = value; 
+            }
+        }
+
 
         public List<Courses> CourseList {get; set;}
 
@@ -28,10 +84,10 @@ namespace StudyMate
         
 
 
-        //Constructor
-        public EventCalendar(string title, Profile creatorId, List<Profile> participants, DateTimeOffset date, bool isSent, string description, List<Courses> courses, List<string> SubjectSchoolProjectList){
+        //Constructors
+        public EventCalendar(string title, Profile creator, List<Profile> participants, DateTimeOffset date, bool isSent, string description, List<Courses> courses, List<string> SubjectSchoolProjectList){
             this.Title = title;
-            this.__creatorId = creatorId;
+            this.Creator = creator;
             this.Participants = participants; 
             this.Date = date;
             this.IsSent = isSent;
@@ -39,6 +95,8 @@ namespace StudyMate
             this.CourseList = courses;
             this.SubjectSchoolProjectList = SubjectSchoolProjectList;
         }
+
+        private EventCalendar(){} //For EF
 
         public override string ToString(){
             string printedEvent="";
@@ -48,7 +106,7 @@ namespace StudyMate
                 stringParticipants = stringParticipants + participant.Name+", ";
             }
             printedEvent =  "Title: "+this.Title+
-                            " \nCreator: "+this.__creatorId.Name+
+                            " \nCreator: "+this.Creator.Name+
                             " \nParticipants: "+stringParticipants+
                             " \nDate: "+this.Date+
                             " \nDescription: "+this.Description+
