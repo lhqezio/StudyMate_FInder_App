@@ -13,19 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-<<<<<<< HEAD
-      "projectUniqueName": "C:\\Users\\alain\\OneDrive\\Documents\\School\\3)Cegep\\DAWSON\\AcademicPart\\Courses\\Concentration\\Programming\\Programming-IV\\Project\\410project\\src\\src.csproj",
+      "projectUniqueName": "C:\\Users\\alain\\OneDrive\\Documents\\School\\Cegep\\DAWSON\\AcademicPart\\Courses\\Concentration\\Programming\\Programming-IV\\Project\\Project\\src\\src.csproj",
       "projectName": "src",
-      "projectPath": "C:\\Users\\alain\\OneDrive\\Documents\\School\\3)Cegep\\DAWSON\\AcademicPart\\Courses\\Concentration\\Programming\\Programming-IV\\Project\\410project\\src\\src.csproj",
+      "projectPath": "C:\\Users\\alain\\OneDrive\\Documents\\School\\Cegep\\DAWSON\\AcademicPart\\Courses\\Concentration\\Programming\\Programming-IV\\Project\\Project\\src\\src.csproj",
       "packagesPath": "C:\\Users\\alain\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\alain\\OneDrive\\Documents\\School\\3)Cegep\\DAWSON\\AcademicPart\\Courses\\Concentration\\Programming\\Programming-IV\\Project\\410project\\src\\obj\\",
-=======
-      "projectUniqueName": "C:\\Users\\2133044\\Desktop\\410project\\src\\src.csproj",
-      "projectName": "src",
-      "projectPath": "C:\\Users\\2133044\\Desktop\\410project\\src\\src.csproj",
-      "packagesPath": "C:\\Users\\2133044\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\2133044\\Desktop\\410project\\src\\obj\\",
->>>>>>> b1da8558cb6db8d60c7953dc931835216ef7a136
+      "outputPath": "C:\\Users\\alain\\OneDrive\\Documents\\School\\Cegep\\DAWSON\\AcademicPart\\Courses\\Concentration\\Programming\\Programming-IV\\Project\\Project\\src\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\alain\\AppData\\Roaming\\NuGet\\NuGet.Config"
