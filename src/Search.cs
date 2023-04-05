@@ -14,7 +14,7 @@ namespace StudyMate
 
         }
 
-        public List<EventCalendar> searchEventsByCourseProgramSchool(string course, string program, string school){
+        public List<EventCalendar> SearchEventsByCourseProgramSchool(string course, string program, string school){
             var events = /*dtb*/.EventCalendar
                         .Where(e => e.Course == course || e.Program == program || e.School == school)
                         .ToList();
@@ -22,7 +22,7 @@ namespace StudyMate
             return events;
         }
 
-        public List<User> FindUsersByCourseProgramSchool(string course, string program, string school)
+        public List<User> SearchUsersByCourseProgramSchool(string course, string program, string school)
         {
             var users = /*dtb*/.Users
                         .Where(u => u.Course == course || u.Program == program || u.School == school)
@@ -31,7 +31,7 @@ namespace StudyMate
         return users;
         }
 
-        public List<EventCalendar> FindEventsByKeyword(string keyword)
+        public List<EventCalendar> SearchEventsByKeyword(string keyword)
         {
             var events = /*dtb*/.Events
                 .Where(e => e.Title.Contains(keyword) || e.Description.Contains(keyword))
@@ -40,7 +40,7 @@ namespace StudyMate
             return events;
         }
 
-        public List<User> FindUsersByKeyword(string keyword)
+        public List<User> SearchUsersByKeyword(string keyword)
         {
             var users = /*dtb*/.Users
                 .Where(u => u.Blurb.Contains(keyword) || u.Interests.Contains(keyword))
