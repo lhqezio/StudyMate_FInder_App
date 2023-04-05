@@ -7,10 +7,5 @@ namespace StudyMate
         
         public const string EventCalendarTitleValidator = "";
     }
-
-    public static class Profile_Config
-    {
-        public static List<Courses> needHelp = new List<Courses>((int)Courses.Default_Subject);
-    }
 }
          
