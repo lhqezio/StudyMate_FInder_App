@@ -1,8 +1,5 @@
-//EventCalendar class represents user's event.
-//It also reminds the user of an event when it is approaching.
-//Editing is implicitly done through set to be able to edit specific fields
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 
 namespace StudyMate
 {
@@ -10,15 +7,15 @@ namespace StudyMate
     {
         // Fields
         private string _title;
-        private Profile _creator;
-        private List<Profile> _participants;
+        private string _creatorId;
+        private List<string> _participantIds;
         private DateTimeOffset _date;
         private string _description;
 
-        // Properties - Validation done here since it will also work when edited 
+        // Properties
         public string Title
         {
-            get { return _title; }
+            get => _title;
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
@@ -28,36 +25,36 @@ namespace StudyMate
                 _title = value;
             }
         }
-        
-        public Profile Creator
+
+        public string CreatorId
         {
-            get { return _creator; }
+            get => _creatorId;
             set
             {
-                if (value == null)
+                if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentNullException("Creator can't be null.");
+                    throw new ArgumentException("CreatorId can't be empty, null, or whitespace.");
                 }
-                _creator = value;
+                _creatorId = value;
             }
         }
-        
-        public List<Profile> Participants
+
+        public List<string> ParticipantIds
         {
-            get { return _participants; }
+            get => _participantIds;
             set
             {
                 if (value == null || value.Count == 0)
                 {
                     throw new ArgumentException("There should be at least one participant.");
                 }
-                _participants = value;
+                _participantIds = value;
             }
         }
-        
+
         public DateTimeOffset Date
         {
-            get { return _date; }
+            get => _date;
             set
             {
                 if (value < DateTimeOffset.Now)
@@ -67,39 +64,39 @@ namespace StudyMate
                 _date = value;
             }
         }
-        
+
         public string Description
         {
-            get { return _description; }
+            get => _description;
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("Unsupported characters");
+                    throw new ArgumentException("Description can't be empty, null, or whitespace.");
                 }
-                _description = value; 
+                _description = value;
             }
         }
-        
-        public int EventId { get; } //Will be dealt with in dtb part
-        
+
+        public int EventId { get; set; }
+
         public bool IsSent { get; set; }
-        
+
         public List<Courses> CourseList { get; set; }
-        
+
         public List<string> SubjectSchoolProjectList { get; set; }
 
         // Constructors
-        public EventCalendar(string title, Profile creator, List<Profile> participants, DateTimeOffset date, bool isSent, string description, List<Courses> courses, List<string> subjectSchoolProjectList)
+        public EventCalendar(string title, string creatorId, List<string> participantIds, DateTimeOffset date, bool isSent, string description, List<Courses> courses, List<string> subjectSchoolProjectList)
         {
             Title = title;
-            Creator = creator;
-            Participants = participants; 
+            CreatorId = creatorId;
+            ParticipantIds = participantIds;
             Date = date;
             IsSent = isSent;
             Description = description;
-            CourseList = courses;
-            SubjectSchoolProjectList = subjectSchoolProjectList;
+            CourseList = courses ?? new List<Courses>();
+            SubjectSchoolProjectList = subjectSchoolProjectList ?? new List<string>();
         }
 
         // Methods
@@ -107,12 +104,12 @@ namespace StudyMate
         {
             string printedEvent = "";
             string stringParticipants = "";
-            foreach (var participant in Participants)
+            foreach (var participantId in ParticipantIds)
             {
-                stringParticipants = stringParticipants + participant.Name + ", ";
+                stringParticipants = stringParticipants + participantId + ", ";
             }
-            printedEvent =  "Title: " + Title +
-                            " \nCreator: " + Creator.Name +
+            printedEvent = "Title: " + Title +
+                            " \nCreator: " + CreatorId +
                             " \nParticipants: " + stringParticipants +
                             " \nDate: " + Date +
                             " \nDescription: " + Description +
