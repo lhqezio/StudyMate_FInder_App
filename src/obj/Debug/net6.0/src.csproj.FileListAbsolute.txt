@@ -1,5 +1,0 @@
-C:\Users\alain\OneDrive\Documents\School\Cegep\DAWSON\AcademicPart\Courses\Concentration\Programming\Programming-IV\Project\Project\src\obj\Debug\net6.0\src.csproj.AssemblyReference.cache
-C:\Users\alain\OneDrive\Documents\School\Cegep\DAWSON\AcademicPart\Courses\Concentration\Programming\Programming-IV\Project\Project\src\obj\Debug\net6.0\src.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\alain\OneDrive\Documents\School\Cegep\DAWSON\AcademicPart\Courses\Concentration\Programming\Programming-IV\Project\Project\src\obj\Debug\net6.0\src.AssemblyInfoInputs.cache
-C:\Users\alain\OneDrive\Documents\School\Cegep\DAWSON\AcademicPart\Courses\Concentration\Programming\Programming-IV\Project\Project\src\obj\Debug\net6.0\src.AssemblyInfo.cs
-C:\Users\alain\OneDrive\Documents\School\Cegep\DAWSON\AcademicPart\Courses\Concentration\Programming\Programming-IV\Project\Project\src\obj\Debug\net6.0\src.csproj.CoreCompileInputs.cache
