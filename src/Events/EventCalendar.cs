@@ -1,21 +1,18 @@
-using System;
-using System.Collections.Generic;
-
 namespace StudyMate
 {
     public class EventCalendar
     {
         // Fields
         private string _title;
-        private string _creatorId;
-        private List<string> _participantIds;
+        private Profile _creator;
+        private List<Profile> _participants;
         private DateTimeOffset _date;
         private string _description;
 
-        // Properties
+        // Properties - Validation done here since it will also work when edited 
         public string Title
         {
-            get => _title;
+            get { return _title; }
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
@@ -25,78 +22,78 @@ namespace StudyMate
                 _title = value;
             }
         }
-
-        public string CreatorId
+        
+        public Profile Creator
         {
-            get => _creatorId;
+            get { return _creator; }
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
+                if (value == null)
                 {
-                    throw new ArgumentException("CreatorId can't be empty, null, or whitespace.");
+                    throw new ArgumentNullException("Creator can't be null.");
                 }
-                _creatorId = value;
+                _creator = value;
             }
         }
-
-        public List<string> ParticipantIds
+        
+        public List<Profile> Participants
         {
-            get => _participantIds;
+            get { return _participants; }
             set
             {
                 if (value == null || value.Count == 0)
                 {
                     throw new ArgumentException("There should be at least one participant.");
                 }
-                _participantIds = value;
+                _participants = value;
             }
         }
-
+        
         public DateTimeOffset Date
         {
-            get => _date;
+            get { return _date; }
             set
             {
                 if (value < DateTimeOffset.Now)
                 {
-                    throw new ArgumentException("The date must be scheduled in the future and cannot be in the past.");
+                    throw new ArgumentException("The event can't be in the past.");
                 }
                 _date = value;
             }
         }
-
+        
         public string Description
         {
-            get => _description;
+            get { return _description; }
             set
             {
                 if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("Description can't be empty, null, or whitespace.");
+                    throw new ArgumentException("Your description can't be empty.");
                 }
-                _description = value;
+                _description = value; 
             }
         }
-
-        public int EventId { get; set; }
-
+        
+        public int EventId { get; } //Will be dealt with in dtb part
+        
         public bool IsSent { get; set; }
-
+        
         public List<Courses> CourseList { get; set; }
-
+        
         public List<string> SubjectSchoolProjectList { get; set; }
 
         // Constructors
-        public EventCalendar(string title, string creatorId, List<string> participantIds, DateTimeOffset date, bool isSent, string description, List<Courses> courses, List<string> subjectSchoolProjectList)
+        public EventCalendar(string title, Profile creator, List<Profile> participants, DateTimeOffset date, bool isSent, string description, List<Courses> courses, List<string> subjectSchoolProjectList)
         {
             Title = title;
-            CreatorId = creatorId;
-            ParticipantIds = participantIds;
+            Creator = creator;
+            Participants = participants; 
             Date = date;
             IsSent = isSent;
             Description = description;
-            CourseList = courses ?? new List<Courses>();
-            SubjectSchoolProjectList = subjectSchoolProjectList ?? new List<string>();
+            CourseList = courses;
+            SubjectSchoolProjectList = subjectSchoolProjectList;
         }
 
         // Methods
@@ -104,12 +101,12 @@ namespace StudyMate
         {
             string printedEvent = "";
             string stringParticipants = "";
-            foreach (var participantId in ParticipantIds)
+            foreach (var participant in Participants)
             {
-                stringParticipants = stringParticipants + participantId + ", ";
+                stringParticipants = stringParticipants + participant.Name + ", ";
             }
-            printedEvent = "Title: " + Title +
-                            " \nCreator: " + CreatorId +
+            printedEvent =  "Title: " + Title +
+                            " \nCreator: " + Creator.Name +
                             " \nParticipants: " + stringParticipants +
                             " \nDate: " + Date +
                             " \nDescription: " + Description +
