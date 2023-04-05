@@ -1,9 +1,12 @@
 ﻿// This class hold all the information about a user profile such as
 //its interests, courses they are taking, their age, gender and name
 //and so on.
+using System.Collections.Generic;
+
 namespace StudyMate
 {
     public class Profile{
+
         public string? Name 
         { get; set; }
         public string? Pronouns 
@@ -20,7 +23,7 @@ namespace StudyMate
         {get;set;}
         public string? PersonalDescription
         {get;set;}
-        public string? ProfilePicture //Subjet to change
+        public string? ProfilePicture //Subject to change
         {get;set;}
         public List<Interests>? Hobbies
         {get;set;}
