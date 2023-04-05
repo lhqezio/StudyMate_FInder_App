@@ -1,21 +1,21 @@
 //This class takes of searching. It uses REGEX to find the profile that user wants to see.
 //Its constructor takes as input a DatabaseReader object and 
-using System.Collections.Generic;
-using System;
-
+/*
 namespace StudyMate
 {
     public class Search
     {
         //Properties
-        
+
         // Dtbcontext needed
-        public Search(){
+        public Search()
+        {
 
         }
 
-        public List<EventCalendar> SearchEventsByCourseProgramSchool(string course, string program, string school){
-            var events = /*dtb*/.EventCalendar
+        public List<EventCalendar> SearchEventsByCourseProgramSchool(string course, string program, string school)
+        {
+            var events = /*dt.EventCalendar
                         .Where(e => e.Course == course || e.Program == program || e.School == school)
                         .ToList();
 
@@ -24,16 +24,16 @@ namespace StudyMate
 
         public List<User> SearchUsersByCourseProgramSchool(string course, string program, string school)
         {
-            var users = /*dtb*/.Users
+            var users = /*dtb.Users
                         .Where(u => u.Course == course || u.Program == program || u.School == school)
                         .ToList();
 
-        return users;
+            return users;
         }
 
         public List<EventCalendar> SearchEventsByKeyword(string keyword)
         {
-            var events = /*dtb*/.Events
+            var events = /*dtb*.Events
                 .Where(e => e.Title.Contains(keyword) || e.Description.Contains(keyword))
                 .ToList();
 
@@ -42,7 +42,7 @@ namespace StudyMate
 
         public List<User> SearchUsersByKeyword(string keyword)
         {
-            var users = /*dtb*/.Users
+            var users = /*dtb*.Users
                 .Where(u => u.Blurb.Contains(keyword) || u.Interests.Contains(keyword))
                 .ToList();
 
@@ -50,3 +50,4 @@ namespace StudyMate
         }
     }
 }
+*/
