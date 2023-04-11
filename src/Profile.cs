@@ -11,11 +11,11 @@ namespace StudyMate
     {
         //Generates a random primary key for the Profile class
         [Key]
-        public Guid ProfileId { get; set; }
+        public string ProfileId { get; set; }
         
         //Links the UserDB Primary key to this foreign key
         [ForeignKey("UserDB")]
-        public Guid UserId { get; set; }
+        public string UserId { get; set; }
 
         public string Name { get; set; } = "";
         public Genders? Gender { get; set; }
@@ -32,7 +32,7 @@ namespace StudyMate
         //setters.
         public Profile(string name, int age, string school, List<Courses> needHelpCourses, UserDB user, Genders gender = Genders.Undisclosed)
         {
-            ProfileId=Guid.NewGuid();
+            ProfileId=Guid.NewGuid().ToString();
             user.ProfileId=ProfileId;
             UserId=user.UserId;
             Name = name;
