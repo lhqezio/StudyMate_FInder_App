@@ -12,7 +12,7 @@ namespace StudyMate
         [Key]
         public Guid ProfileId { get; set; }
         [ForeignKey("UserDB")]
-        public int UserId { get; set; }
+        public Guid UserId { get; set; }
         public string Name { get; set; } = "";
         public Genders? Gender { get; set; }
         public int? Age { get; set; }
@@ -26,9 +26,11 @@ namespace StudyMate
 
         //Constructor that builds a profile object with the mandatory fields. The user can set the optional fileds later using the 
         //setters.
-        public Profile(string name, int age, string school, List<Courses> needHelpCourses,Genders gender = Genders.Undisclosed)
+        public Profile(string name, int age, string school, List<Courses> needHelpCourses, UserDB user, Genders gender = Genders.Undisclosed)
         {
             ProfileId=Guid.NewGuid();
+            user.ProfileId=ProfileId;
+            UserId=user.UserId;
             Name = name;
             Gender = gender;
             Age = age;

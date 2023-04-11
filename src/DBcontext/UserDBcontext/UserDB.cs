@@ -8,7 +8,7 @@ public class UserDB
     [Key]
     public Guid UserId{get;set;}
     [ForeignKey("Profile")]
-    public int ProfileId{get;set;}
+    public Guid ProfileId{get;set;}
     public string Username { get; set; }
     public string Email { get; set; }
     public string? Salt { get; set; }
