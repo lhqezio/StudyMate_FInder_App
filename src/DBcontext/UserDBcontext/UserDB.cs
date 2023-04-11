@@ -1,9 +1,18 @@
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace StudyMate;
-[PrimaryKey(nameof(Id))]
 public class UserDB
 {
-    public string Id { get; set; }
+    //Generates a random primary key for the UserDB class
+    [Key]
+    public string UserId{get;set;}
+
+    //Links the Profile Primary key to this foreign key
+    [ForeignKey("Profile")]
+    public string? ProfileId{get;set;}
+
     public string Username { get; set; }
     public string Email { get; set; }
     public string? Salt { get; set; }
@@ -13,7 +22,7 @@ public class UserDB
     
     public UserDB(string username, string email,string salt,string password)
     {
-        Id = Guid.NewGuid().ToString();
+        UserId = Guid.NewGuid().ToString();
         Username = username;
         Email = email;
         Salt = salt;
