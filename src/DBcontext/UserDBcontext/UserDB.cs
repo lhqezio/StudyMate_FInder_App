@@ -11,7 +11,7 @@ public class UserDB
 
     //Links the Profile Primary key to this foreign key
     [ForeignKey("Profile")]
-    public string ProfileId{get;set;}
+    public string? ProfileId{get;set;}
 
     public string Username { get; set; }
     public string Email { get; set; }
