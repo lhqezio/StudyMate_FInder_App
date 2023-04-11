@@ -11,7 +11,8 @@ namespace StudyMate
     {
         [Key]
         public int ProfileId { get; set; }
-        [ForeignKey("User")]
+        [ForeignKey("UserDB")]
+        public int UserId { get; set; }
         public string Name { get; set; } = "";
         public Genders? Gender { get; set; }
         public int? Age { get; set; }

@@ -1,9 +1,14 @@
 using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace StudyMate;
-[PrimaryKey(nameof(Id))]
 public class UserDB
 {
-    public string Id { get; set; }
+    [Key]
+    public int UserId{get;set;}
+    [ForeignKey("Profile")]
+    public int ProfileId{get;set;}
     public string Username { get; set; }
     public string Email { get; set; }
     public string? Salt { get; set; }
@@ -13,7 +18,6 @@ public class UserDB
     
     public UserDB(string username, string email,string salt,string password)
     {
-        Id = Guid.NewGuid().ToString();
         Username = username;
         Email = email;
         Salt = salt;
