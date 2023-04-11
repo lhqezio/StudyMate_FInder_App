@@ -2,11 +2,16 @@
 //its interests, courses they are taking, their age, gender and name
 //and so on.
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudyMate
 {
     public class Profile
     {
+        [Key]
+        public int ProfileId { get; set; }
+        [ForeignKey("User")]
         public string Name { get; set; } = "";
         public Genders? Gender { get; set; }
         public int? Age { get; set; }
