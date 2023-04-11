@@ -5,10 +5,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace StudyMate;
 public class UserDB
 {
+    //Generates a random primary key for the UserDB class
     [Key]
     public Guid UserId{get;set;}
+
+    //Links the Profile Primary key to this foreign key
     [ForeignKey("Profile")]
     public Guid ProfileId{get;set;}
+
     public string Username { get; set; }
     public string Email { get; set; }
     public string? Salt { get; set; }

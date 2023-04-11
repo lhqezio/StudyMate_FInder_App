@@ -9,10 +9,14 @@ namespace StudyMate
 {
     public class Profile
     {
+        //Generates a random primary key for the Profile class
         [Key]
         public Guid ProfileId { get; set; }
+        
+        //Links the UserDB Primary key to this foreign key
         [ForeignKey("UserDB")]
         public Guid UserId { get; set; }
+
         public string Name { get; set; } = "";
         public Genders? Gender { get; set; }
         public int? Age { get; set; }
