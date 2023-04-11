@@ -1,3 +1,5 @@
+using System.Linq;
+
 namespace StudyMate
 {
     public class EventCalendar
@@ -8,6 +10,7 @@ namespace StudyMate
         private List<Profile> _participants;
         private DateTimeOffset _date;
         private string _description;
+
 
         // Properties - Validation done here since it will also work when edited 
         public string Title
@@ -96,22 +99,19 @@ namespace StudyMate
             SubjectSchoolProjectList = subjectSchoolProjectList;
         }
 
-        // Methods
-        public override string ToString()
-        {
-            string printedEvent = "";
-            string stringParticipants = "";
-            foreach (var participant in Participants)
-            {
-                stringParticipants = stringParticipants + participant.Name + ", ";
+        //Method to add Participants
+        public void AddParticipant(Profile participant){
+            if(_participants.Contains(participant)){
+                throw new ArgumentException("This participant is already part of the event");
             }
-            printedEvent =  "Title: " + Title +
-                            " \nCreator: " + Creator.Name +
-                            " \nParticipants: " + stringParticipants +
-                            " \nDate: " + Date +
-                            " \nDescription: " + Description +
-                            " \nCourse(s), Subject(s), School(s) associated: " + string.Join(", ", SubjectSchoolProjectList);
-            return printedEvent;
         }
+
+        //Method to remove Participants
+        public void RemoveParticipant(Profile participant){
+            if(!_participants.Contains(participant)){
+                throw new ArgumentException("This participant isn't part of the event in the first place");
+            }
+        }
+
     }
 }
