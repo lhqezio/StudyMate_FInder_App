@@ -10,7 +10,7 @@ namespace StudyMate
     public class Profile
     {
         [Key]
-        public int ProfileId { get; set; }
+        public Guid ProfileId { get; set; }
         [ForeignKey("UserDB")]
         public int UserId { get; set; }
         public string Name { get; set; } = "";
@@ -28,6 +28,7 @@ namespace StudyMate
         //setters.
         public Profile(string name, int age, string school, List<Courses> needHelpCourses,Genders gender = Genders.Undisclosed)
         {
+            ProfileId=Guid.NewGuid();
             Name = name;
             Gender = gender;
             Age = age;

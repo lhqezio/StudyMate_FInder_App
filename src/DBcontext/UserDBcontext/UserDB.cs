@@ -6,7 +6,7 @@ namespace StudyMate;
 public class UserDB
 {
     [Key]
-    public int UserId{get;set;}
+    public Guid UserId{get;set;}
     [ForeignKey("Profile")]
     public int ProfileId{get;set;}
     public string Username { get; set; }
@@ -18,6 +18,7 @@ public class UserDB
     
     public UserDB(string username, string email,string salt,string password)
     {
+        UserId = Guid.NewGuid();
         Username = username;
         Email = email;
         Salt = salt;
