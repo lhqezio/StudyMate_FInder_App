@@ -113,5 +113,11 @@ namespace StudyMate
             }
         }
 
+        //Method to Check if participant is attending the event
+        public bool Attends(Profile user)
+        {
+            return _participants.Contains(user);
+        }
+
     }
 }

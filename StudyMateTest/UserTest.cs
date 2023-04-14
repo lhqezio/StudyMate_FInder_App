@@ -110,7 +110,7 @@ namespace StudyMate.Test
 
             // Assert
             Assert.AreEqual(1, _context.Users.Count());
-            Assert.AreEqual(user.Id, _context.Users.Find(user.Id).Id);
+            Assert.AreEqual(user.Id, _context.Users.Find(user.).Id);
         }
 
         [TestMethod]

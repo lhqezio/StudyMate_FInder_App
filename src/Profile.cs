@@ -2,11 +2,21 @@
 //its interests, courses they are taking, their age, gender and name
 //and so on.
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudyMate
 {
     public class Profile
     {
+        //Generates a random primary key for the Profile class
+        [Key]
+        public string ProfileId { get; set; }
+        
+        //Links the UserDB Primary key to this foreign key
+        [ForeignKey("UserDB")]
+        public string UserId { get; set; }
+
         public string Name { get; set; } = "";
         public Genders? Gender { get; set; }
         public int? Age { get; set; }
@@ -20,8 +30,11 @@ namespace StudyMate
 
         //Constructor that builds a profile object with the mandatory fields. The user can set the optional fileds later using the 
         //setters.
-        public Profile(string name, int age, string school, List<Courses> needHelpCourses,Genders gender = Genders.Undisclosed)
+        public Profile(string name, int age, string school, List<Courses> needHelpCourses, UserDB user, Genders gender = Genders.Undisclosed)
         {
+            ProfileId=Guid.NewGuid().ToString();
+            user.ProfileId=ProfileId;
+            UserId=user.UserId;
             Name = name;
             Gender = gender;
             Age = age;
