@@ -7,6 +7,8 @@ A study mate matching app, based on favorite subjects and interest.
 ## Initial Design
 1. We are going to use the original flavour of the Study Buddy app with an improved matching system 
 2. Main Classes:
+
+
             - User class contains 
                 the following fiels:
                     - username
