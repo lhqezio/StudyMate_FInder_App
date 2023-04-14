@@ -100,10 +100,11 @@ namespace StudyMate
         }
 
         //Method to add Participants
-        public void AddParticipant(Profile participant){
-            if(_participants.Contains(participant)){
+        public void AddParticipant(Profile newParticipant){
+            if(_participants.Contains(newParticipant)){
                 throw new ArgumentException("This participant is already part of the event");
             }
+            _participants.Add(newParticipant);
         }
 
         //Method to remove Participants
@@ -111,6 +112,7 @@ namespace StudyMate
             if(!_participants.Contains(participant)){
                 throw new ArgumentException("This participant isn't part of the event in the first place");
             }
+            _participants.Remove(participant);
         }
 
         //Method to Check if participant is attending the event
