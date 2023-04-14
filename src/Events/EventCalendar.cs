@@ -1,3 +1,5 @@
+using System.Net;
+using System.Net.Mail;
 using System.Linq;
 
 namespace StudyMate
@@ -121,5 +123,40 @@ namespace StudyMate
             return _participants.Contains(user);
         }
 
+        //Reminder => Send a reminder to the email of the participants
+        public void RemindParticipants(){
+            TimeSpan timeBeforeEvent = TimeSpan.FromDays(1); //Will remind 1 day before
+            var gapNowEvent = _date - DateTimeOffset.Now; //Calculate time gap between now and event
+            if(IsSent){
+                Console.WriteLine("Participant already received a reminder");
+                return;
+            }
+            if (gapNowEvent <= timeBeforeEvent && !IsSent){
+                SmtpClient sC = new SmtpClient();
+                sC.Credentials = new NetworkCredential("StudyMate1@hotmail.com", "dawson1234");
+                sC.EnableSsl = true;
+
+                foreach (var participant in _participants)
+                {
+                    MailMessage mail = new MailMessage(); //Using MailMessage obj to send email
+                    mail.From = new MailAddress("StudyMate1@hotmail.com");
+                    mail.Subject = "Reminder StudyMate Event: " + Title;
+                    mail.Body = "Hello "+participant.Name+" \n Don't forget the event: "+ Title + " on " + Date.ToString("f");                           
+                    mail.To.Add(FindParticipantMail(participant));
+                    sC.Send(mail); //Send email 
+                }
+            }
+            IsSent = true;
+        }
+
+        //Find participant mail
+        public MailAddress FindParticipantMail(Profile participant){
+            StudyMateDbContext db = new StudyMateDbContext();
+            var user = db.Users
+                        .Where(u => u.__user_id.Contains(participant.UserId))
+                        .ToList();
+            MailAddress participantMail = new MailAddress(user[0].email); 
+            return participantMail;
+        }
     }
 }
