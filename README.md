@@ -5,8 +5,8 @@
 A study mate matching app, based on favorite subjects and interest.
 
 ## Initial Design
-    1. We will be using the Study Buddy app 
-    2.  Main Classes:
+1. We are going to use the original flavour of the Study Buddy app with an improved matching system 
+2. Main Classes:
             - User class contains 
                 the following fiels:
                     - username
@@ -88,6 +88,9 @@ A study mate matching app, based on favorite subjects and interest.
             - CoursesEnum will contain all the possible courses
             - gendersEnum will contain all the possible genders 
             - InterestsEnum will contain all the possible Interests
+
+3. Every single class will be tested thus each of these class will have its corresponding unit test
+
 ## Work Planning
 
 1. Amir: Profile, dtb for profile, unit test for profile, message, partially conversation, matching, link primary key foreign key for user (1 to 1 relationship) 
