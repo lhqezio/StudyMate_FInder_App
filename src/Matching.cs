@@ -31,9 +31,14 @@ namespace StudyMate
                     }
                     bestMatches.Add(points,i);
                 }
-                return profiles;
+                bestMatches = (Dictionary<int, int>)bestMatches.OrderByDescending(x => x.Key);
+                List<Profile> SortedProfiles=new List<Profile>();
+                foreach (int value in bestMatches.Values)
+                {
+                    SortedProfiles.Add(profiles[value]);
+                }
+                return SortedProfiles;
             }
         }  
     }
-
 }
