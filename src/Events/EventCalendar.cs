@@ -1,6 +1,8 @@
+using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 using System.Linq;
+using System.ComponentModel.DataAnnotations;
 
 namespace StudyMate
 {
@@ -80,7 +82,8 @@ namespace StudyMate
             }
         }
         
-        public int EventId { get; } //Will be dealt with in dtb part
+        [Key]
+        public string EventId { get; } //Will be dealt with in dtb part
         
         public bool IsSent { get; set; }
         
@@ -89,14 +92,15 @@ namespace StudyMate
         public List<string> SubjectSchoolProjectList { get; set; }
 
         // Constructors
-        public EventCalendar(string title, Profile creator, List<Profile> participants, DateTimeOffset date, bool isSent, string description, List<Courses> courses, List<string> subjectSchoolProjectList)
+        public EventCalendar(string title, Profile creator, List<Profile> participants, DateTimeOffset date, string description, List<Courses> courses, List<string> subjectSchoolProjectList)
         {
-            Title = title;
-            Creator = creator;
-            Participants = participants; 
-            Date = date;
-            IsSent = isSent;
-            Description = description;
+            EventId = Guid.NewGuid().ToString();
+            _title = title; //Make sure if it take _title or Title
+            _creator = creator;
+            _participants = participants; 
+            _date = date;
+            IsSent = false;
+            _description = description;
             CourseList = courses;
             SubjectSchoolProjectList = subjectSchoolProjectList;
         }
@@ -127,19 +131,19 @@ namespace StudyMate
         public void RemindParticipants(){
             TimeSpan timeBeforeEvent = TimeSpan.FromDays(1); //Will remind 1 day before
             var gapNowEvent = _date - DateTimeOffset.Now; //Calculate time gap between now and event
-            if(IsSent){
+            if(IsSent){ 
                 Console.WriteLine("Participant already received a reminder");
                 return;
             }
             if (gapNowEvent <= timeBeforeEvent && !IsSent){
                 SmtpClient sC = new SmtpClient();
-                sC.Credentials = new NetworkCredential("StudyMate1@hotmail.com", "dawson1234");
+                sC.Credentials = new NetworkCredential("StudyMate1@hotmail.com", "dawson1234"); 
                 sC.EnableSsl = true;
 
                 foreach (var participant in _participants)
                 {
                     MailMessage mail = new MailMessage(); //Using MailMessage obj to send email
-                    mail.From = new MailAddress("StudyMate1@hotmail.com");
+                    mail.From = new MailAddress("StudyMate1@hotmail.com"); 
                     mail.Subject = "Reminder StudyMate Event: " + Title;
                     mail.Body = "Hello "+participant.Name+" \n Don't forget the event: "+ Title + " on " + Date.ToString("f");                           
                     mail.To.Add(FindParticipantMail(participant));
@@ -152,7 +156,7 @@ namespace StudyMate
         //Find participant mail
         public MailAddress FindParticipantMail(Profile participant){
             StudyMateDbContext db = new StudyMateDbContext();
-            var user = db.Users
+            var user = db.Users //Add email in Users
                         .Where(u => u.__user_id.Contains(participant.UserId))
                         .ToList();
             MailAddress participantMail = new MailAddress(user[0].email); 
