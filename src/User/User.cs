@@ -1,6 +1,3 @@
-using Microsoft.EntityFrameworkCore;
-using System.Linq;
-
 namespace StudyMate
 {
     public class User {
@@ -20,7 +17,7 @@ namespace StudyMate
             __user_id = user_id;
         }
 
-        public void changePassword(string newPassword, UserDbContext dbContext){
+        public void changePassword(string newPassword, StudyMateDbContext dbContext){
             // Take and verify session key then change password
             var userToUpdate = dbContext.Users.FirstOrDefault(u => u.Id == __user_id);
             if (userToUpdate != null)
@@ -30,14 +27,14 @@ namespace StudyMate
             }
         }
 
-        public static void register(string username, string password, UserDbContext dbContext){
+        public static void register(string username, string password, StudyMateDbContext dbContext){
             // Register user
             var newUser = new UserDB(username, "", "", password);
             dbContext.Users.Add(newUser);
             dbContext.SaveChanges();
         }
 
-        public static User login(string username, string password, UserDbContext dbContext){
+        public static User login(string username, string password, StudyMateDbContext dbContext){
             // Check if user exists and password is correct
             var userFromDb = dbContext.Users.FirstOrDefault(u => u.Username == username);
             if (userFromDb != null && PasswordHasher.VerifyPassword(password, $"{userFromDb.Salt}.{userFromDb.PasswordHash}"))
