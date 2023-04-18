@@ -1,27 +1,27 @@
 using Microsoft.Extensions.Configuration;
 
 namespace StudyMate;
-public static class UserConfig {
-    public static string Read(string key) {
-        var config = new ConfigurationBuilder()
-            .SetBasePath(Path.Join(Directory.GetCurrentDirectory(), "config_files"))
+public class UserConfig {
+    public static readonly string configPath = Path.Join(Directory.GetCurrentDirectory(), "config_files", "userconfig.json");
+    public static IConfigurationRoot config = new ConfigurationBuilder() .SetBasePath(Path.Join(Directory.GetCurrentDirectory(), "config_files"))
             .AddJsonFile("userconfig.json", optional: true, reloadOnChange: true)
             .Build();
+    public static void Initialize() {
+        if(!File.Exists(configPath)){
+            File.Create(configPath);
+            Write("encryptedPassword", "");
+            Write("encryptedSessionKey", "");
+            Write("encryptedUsername", "");
+        };
+    }
+    public static string Read(string key) {
         return config[key];
     }
     public static void Write(string key, string value) {
-        var config = new ConfigurationBuilder()
-            .SetBasePath(Path.Join(Directory.GetCurrentDirectory(), "config_files"))
-            .AddJsonFile("userconfig.json", optional: true, reloadOnChange: true)
-            .Build();
         config[key] = value;
     }
 
     public static void Empty(){
-        var config = new ConfigurationBuilder()
-            .SetBasePath(Path.Join(Directory.GetCurrentDirectory(), "config_files"))
-            .AddJsonFile("userconfig.json", optional: true, reloadOnChange: true)
-            .Build();
         config["encryptedPassword"] = "";
         config["encryptedSessionKey"] = "";
         config["encryptedUsername"] = "";
