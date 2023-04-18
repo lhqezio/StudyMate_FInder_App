@@ -1,16 +1,16 @@
 namespace StudyMate
 {
-    public class CoursesTaken
+    public class CoursesHelp
     {
         public int CourseId { get; set; }
         public Courses Course { get; set; }
         public string ProfileId { get; set; }
         public Profile profile{get;set;}=null!;        
-        public CoursesTaken()
+        public CoursesHelp()
         {
         }
 
-        public CoursesTaken(Courses course)
+        public CoursesHelp(Courses course)
         {
             Course = course;
         }
