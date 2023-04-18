@@ -2,7 +2,6 @@ namespace StudyMate
 {
     public class CoursesTaken
     {
-        public int CourseId => (int)Courses;
         public Courses Course { get; set; }
         public string ProfileId { get; set; }
         public Profile profile{get;set;}=null!;        
@@ -10,9 +9,10 @@ namespace StudyMate
         {
         }
 
-        public CoursesTaken(Courses course)
+        public CoursesTaken(Courses course, string profileId)
         {
             Course = course;
+            ProfileId=profileId;
         }
     }
 }
