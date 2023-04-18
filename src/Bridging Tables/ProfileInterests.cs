@@ -2,16 +2,17 @@ namespace StudyMate
 {
     public class ProfileInterests
     {
-        public Interests interests { get; set; }
+        public int InterestId{get;set;}
+        public Interests Interests { get; set; }
         public string ProfileId { get; set; }
         public Profile profile{get;set;}=null!;        
         public ProfileInterests()
         {
         }
 
-        public ProfileInterests(Courses course)
+        public ProfileInterests(Interests interests)
         {
-            Course = course;
+            Interests = interests;
         }
     }
 }

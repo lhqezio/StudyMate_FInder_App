@@ -23,7 +23,7 @@ namespace StudyMate
                     {
                         for (int y = 0; y < profiles[i].CanHelpCourses.Count; y++)
                         {
-                            if (__profile.NeedHelpCourses[x]==profiles[i].CanHelpCourses[y])
+                            if (__profile.NeedHelpCourses[x].Equals(profiles[i].CanHelpCourses[y]))
                             {
                                 points++;
                             }

@@ -22,7 +22,7 @@ namespace StudyMate
         public int? Age { get; set; }
         public string School { get; set; } = "";
         public string Program { get; set; } = "";
-        public List<CoursesTaken> TakenCourses { get; set; } = new();
+        public List<CoursesTaken> TakenCourses { get; set; }= new();
         public List<CoursesHelp> NeedHelpCourses { get; set; } = new();
         public List<CoursesCanHelp> CanHelpCourses { get; set; } = new();
         public string PersonalDescription { get; set; } = "";
@@ -33,7 +33,7 @@ namespace StudyMate
 
         //Constructor that builds a profile object with the mandatory fields. The user can set the optional fileds later using the 
         //setters.
-        public Profile(string name, int age, string school, List<CoursesMapping> needHelpCourses, UserDB user, Genders gender = Genders.Undisclosed)
+        public Profile(string name, int age, string school, List<CoursesHelp> needHelpCourses, UserDB user, Genders gender = Genders.Undisclosed)
         {
             ProfileId=Guid.NewGuid().ToString();
             user.ProfileId=ProfileId;
