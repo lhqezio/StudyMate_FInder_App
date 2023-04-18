@@ -22,9 +22,9 @@ namespace StudyMate
         public int? Age { get; set; }
         public string School { get; set; } = "";
         public string Program { get; set; } = "";
-        public List<CoursesMapping> TakenCourses { get; set; } = new List<CoursesMapping>();
-        public List<CoursesMapping> NeedHelpCourses { get; set; } = new List<CoursesMapping>();
-        public List<CoursesMapping> CanHelpCourses { get; set; } = new List<CoursesMapping>();
+        public List<Courses> TakenCourses { get; set; } = new List<Courses>();
+        public List<Courses> NeedHelpCourses { get; set; } = new List<Courses>();
+        public List<Courses> CanHelpCourses { get; set; } = new List<Courses>();
         public string PersonalDescription { get; set; } = "";
         public string ProfilePicture { get; set; } = ""; //Subject to change because we still do not know exactly if we must use a string to store a picture
         public List<Interests> Hobbies { get; set; } = new List<Interests>();

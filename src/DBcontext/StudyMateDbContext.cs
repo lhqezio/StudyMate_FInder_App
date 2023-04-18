@@ -9,6 +9,7 @@ namespace StudyMate
     {
         public DbSet<Profile>? Profiles { get; set; }
         public DbSet<UserDB>? Users { get; set; }
+        public DbSet<CoursesMapping>? CoursesMappings { get; set; }
         // The following configures EF to connect to an oracle database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){
             string? oracleUser=Environment.GetEnvironmentVariable("ORACLE_APP_USER");
@@ -18,10 +19,20 @@ namespace StudyMate
         }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Student>()
-                .HasMany<Course>(s => s.Courses)
-                .WithMany(c => c.Students)
-                .UsingEntity(j => j.ToTable("StudentCourses"));
+            modelBuilder.Entity<CoursesMapping>()
+                .HasKey(c => new { c.ProfileId, c.Course });
+
+            modelBuilder.Entity<CoursesMapping>()
+                .HasOne(c => c.Course)
+                .WithMany()
+                .HasForeignKey(c => c.Course)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<CoursesMapping>()
+                .HasOne(c => c.Profile)
+                .WithMany(p => p.CoursesMappings)
+                .HasForeignKey(c => c.ProfileId)
+                .OnDelete(DeleteBehavior.Restrict);
         }
     }
 }
