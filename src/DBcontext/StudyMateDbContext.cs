@@ -9,7 +9,11 @@ namespace StudyMate
     {
         public DbSet<Profile>? Profiles { get; set; }
         public DbSet<UserDB>? Users { get; set; }
-        
+        public StudyMateDbContext(DbContextOptions<StudyMateDbContext> options):base(options)
+        {}
+        public StudyMateDbContext():base()
+        {}
+
         // The following configures EF to connect to an oracle database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){
             string? oracleUser=Environment.GetEnvironmentVariable("ORACLE_APP_USER");
