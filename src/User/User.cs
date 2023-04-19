@@ -19,7 +19,7 @@ namespace StudyMate
 
         public void changePassword(string newPassword, StudyMateDbContext dbContext){
             // Take and verify session key then change password
-            var userToUpdate = dbContext.Users.FirstOrDefault(u => u.UserId == __user_id);
+            var userToUpdate = dbContext.Users.FirstOrDefault(u => u.Id == __user_id);
             if (userToUpdate != null)
             {
                 userToUpdate.Password = newPassword;
@@ -40,7 +40,7 @@ namespace StudyMate
             if (userFromDb != null && PasswordHasher.VerifyPassword(password, $"{userFromDb.Salt}.{userFromDb.PasswordHash}"))
             {
                 //Session Key implementation to be done later
-                return new User(userFromDb.Username, Guid.NewGuid().ToString(), userFromDb.UserId);
+                return new User(userFromDb.Username, Guid.NewGuid().ToString(), userFromDb.Id);
             }
             else
             {
