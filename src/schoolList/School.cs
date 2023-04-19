@@ -1,6 +1,5 @@
 
-
-namespace Study
+namespace StudyMate
 {
 
     public class School{

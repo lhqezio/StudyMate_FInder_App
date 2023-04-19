@@ -1,6 +1,6 @@
 
 
-namespace Study
+namespace StudyMate
 {
 
     public class SchoolManager{
