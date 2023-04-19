@@ -19,16 +19,14 @@ namespace StudyMate
         private DateTimeOffset _date;
         private string _description;
         private string? _location;
-        private RecurringFrequency _frequency;        
         public bool IsSent { get; set; }
-        
         public List<Courses> CourseList { get; set; }
         
-        public string SubjectSchoolProjectList { get; set; }
-
+        public List<School> Schools{get; set;} //Will be a dropdown list for user input
+        public List<String> Subjects { get; set; }
+        public List<String> Projects { get; set; }
         public string? Location{get; set;}
 
-        public RecurringFrequency Frequency;
 
 
         // Properties - Validation done here since it will also work when edited 
@@ -98,7 +96,7 @@ namespace StudyMate
         }
         
         // Constructors
-        public EventCalendar(string title, Profile creator, List<Profile> participants, DateTimeOffset date, string description, List<Courses> courses, string subjectSchoolProjectList, RecurringFrequency freq, string? location = null)
+        public EventCalendar(string title, Profile creator, List<Profile> participants, DateTimeOffset date, string description, List<Courses> courses, List<School>schools, List<String> subjects, List<String> projects, string? location = null)
         {
             EventId = Guid.NewGuid().ToString();
             _title = title; //Make sure if it take _title or Title
@@ -108,9 +106,10 @@ namespace StudyMate
             IsSent = false;
             _description = description;
             CourseList = courses;
-            SubjectSchoolProjectList = subjectSchoolProjectList;
+            Schools = schools;
+            Subjects = subjects;
+            Projects = projects;
             _location = location;
-            _frequency = freq;
         }
 
    
