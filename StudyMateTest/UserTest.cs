@@ -36,7 +36,7 @@ namespace StudyMate.Test
             var password = "testpassword";
 
             // Act
-            User.register(username, password, _dbContext);
+            User.Register(username, password, _dbContext);
 
             // Assert
             var userFromDb = _dbContext.Users.FirstOrDefault(u => u.Username == username);
@@ -51,10 +51,10 @@ namespace StudyMate.Test
             // Arrange
             var username = "testuser";
             var password = "testpassword";
-            User.register(username, password, _dbContext);
+            User.Register(username, password, _dbContext);
 
             // Act
-            var user = User.login(username, password, _dbContext);
+            var user = User.Login(username, password, _dbContext);
 
             // Assert
             Assert.AreEqual(username, user.Username);
@@ -69,8 +69,8 @@ namespace StudyMate.Test
             var username = "testuser";
             var oldPassword = "testpassword";
             var newPassword = "newpassword";
-            User.register(username, oldPassword, _dbContext);
-            var user = User.login(username, oldPassword, _dbContext);
+            User.Register(username, oldPassword, _dbContext);
+            var user = User.Login(username, oldPassword, _dbContext);
 
             // Act
             user.changePassword(newPassword, _dbContext);
