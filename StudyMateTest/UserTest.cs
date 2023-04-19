@@ -7,17 +7,17 @@ namespace StudyMate.Test
     [TestClass]
     public class UserTest
     {
-        private static DbContextOptions<UserDbContext> _options;
-        private static UserDbContext _dbContext;
+        private static DbContextOptions<StudyMateDbContext> _options;
+        private static StudyMateDbContext _dbContext;
 
         [ClassInitialize]
         public static void ClassInitialize(TestContext context)
         {
             // Initialize database context and options
-            _options = new DbContextOptionsBuilder<UserDbContext>()
+            _options = new DbContextOptionsBuilder<StudyMateDbContext>()
                 .UseInMemoryDatabase(databaseName: "TestDatabase")
                 .Options;
-            _dbContext = new UserDbContext(_options);
+            _dbContext = new StudyMateDbContext(_options);
         }
 
         [ClassCleanup]
@@ -83,19 +83,19 @@ namespace StudyMate.Test
     }
 
     [TestClass]
-    public class UserDbContextTests
+    public class StudyMateDbContextTests
     {
-        private DbContextOptions<UserDbContext> _options;
-        private UserDbContext _context;
+        private DbContextOptions<StudyMateDbContext> _options;
+        private StudyMateDbContext _context;
 
         [TestInitialize]
         public void Initialize()
         {
-            _options = new DbContextOptionsBuilder<UserDbContext>()
+            _options = new DbContextOptionsBuilder<StudyMateDbContext>()
                 .UseInMemoryDatabase(databaseName: "testDb")
                 .Options;
 
-            _context = new UserDbContext(_options);
+            _context = new StudyMateDbContext(_options);
         }
 
         [TestMethod]

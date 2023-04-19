@@ -24,6 +24,7 @@ namespace StudyMate
         public string Program { get; set; } = "";
         public List<Courses> TakenCourses { get; set; } = new List<Courses>();
         public List<Courses> NeedHelpCourses { get; set; } = new List<Courses>();
+        public List<Courses> CanHelpCourses { get; set; } = new List<Courses>();
         public string PersonalDescription { get; set; } = "";
         public string ProfilePicture { get; set; } = ""; //Subject to change because we still do not know exactly if we must use a string to store a picture
         public List<Interests> Hobbies { get; set; } = new List<Interests>();
@@ -34,7 +35,7 @@ namespace StudyMate
         {
             ProfileId=Guid.NewGuid().ToString();
             user.ProfileId=ProfileId;
-            UserId=user.UserId;
+            UserId=user.Id;
             Name = name;
             Gender = gender;
             Age = age;
@@ -52,6 +53,7 @@ namespace StudyMate
             Program = "";
             TakenCourses.Clear();
             NeedHelpCourses.Clear();
+            CanHelpCourses.Clear();
             PersonalDescription = "";
             ProfilePicture = "";
             Hobbies.Clear();
@@ -72,6 +74,7 @@ namespace StudyMate
                 && Program == other.Program
                 && TakenCourses.SequenceEqual(other.TakenCourses)
                 && NeedHelpCourses.SequenceEqual(other.NeedHelpCourses)
+                && CanHelpCourses.SequenceEqual(other.CanHelpCourses)
                 && PersonalDescription == other.PersonalDescription
                 && ProfilePicture == other.ProfilePicture
                 && Hobbies.SequenceEqual(other.Hobbies);
@@ -98,6 +101,7 @@ namespace StudyMate
                 Program.GetHashCode() ^
                 TakenCourses.GetHashCode() ^
                 NeedHelpCourses.GetHashCode() ^
+                CanHelpCourses.GetHashCode() ^
                 PersonalDescription.GetHashCode() ^
                 ProfilePicture.GetHashCode() ^
                 Hobbies.GetHashCode();
