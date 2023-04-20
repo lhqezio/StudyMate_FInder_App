@@ -12,11 +12,10 @@ namespace StudyMate
         public string Title{get{return _title;}set{_title=value;}}
         public List<Profile> Participants {get;set;}=new();
         public List<CourseEvent> CourseEvents {get;set;}=new();
-        public DateTimeOffset Date;
-        public string Description;
-        public string? Location;
+        public DateTimeOffset Date {get;set;}
+        public string Description {get;set;}
+        public string Location {get;set;}
         public bool IsSent { get; set; }
-        public List<Courses> CourseList { get; set; }
         public List<School> Schools{get; set;} //Will be a dropdown list for user input
 
         // Properties - Validation done here since it will also work when edited 
@@ -86,6 +85,7 @@ namespace StudyMate
         // }
         
         // Constructors
+        public EventCalendar(){}
         public EventCalendar(string title, List<Profile> participants, DateTimeOffset date, string description,  List<School>schools, List<CourseEvent> courseEvents, string location , bool isSent=false)
         {
             EventId = Guid.NewGuid().ToString();

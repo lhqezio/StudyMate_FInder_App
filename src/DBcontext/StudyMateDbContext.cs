@@ -12,10 +12,10 @@ namespace StudyMate
         public DbSet<CanHelpCourses>? CanHelpCourses { get; set; }
         public DbSet<NeedHelpCourses>? NeedHelpCourses { get; set;}
         public DbSet<TakenCourses>? TakenCourses { get; set;}
-        public StudyMateDbContext(DbContextOptions<StudyMateDbContext> options):base(options)
-        {}
-        public StudyMateDbContext():base()
-        {}
+        // public StudyMateDbContext(DbContextOptions<StudyMateDbContext> options):base(options)
+        // {}
+        // public StudyMateDbContext():base()
+        // {}
 
         // The following configures EF to connect to an oracle database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){
