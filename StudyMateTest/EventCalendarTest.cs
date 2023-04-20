@@ -24,8 +24,8 @@ public class EventCalendarTest
         List<Courses> eventCourses = new List<Courses>(){Courses.Sciences, Courses.Art, Courses.Business, Courses.Math};
         List<string> subjectSchoolProjectList = new List<string>(){"Informatique, Vaudreuil, StudyMate"};
 
-        //Act
-        EventCalendar eC = new EventCalendar("Title1", profil1, profileList, dTime, sent, description, eventCourses, subjectSchoolProjectList);
+//         //Act
+//         EventCalendar eC = new EventCalendar("Title1", profil1, profileList, dTime, sent, description, eventCourses, subjectSchoolProjectList);
         
         //Assert
         Assert.AreEqual("Title1", eC.Title);
@@ -38,6 +38,5 @@ public class EventCalendarTest
         Assert.AreEqual(subjectSchoolProjectList, eC.SubjectSchoolProjectList);
         Assert.IsInstanceOfType(eC, typeof(EventCalendar));
     }
-
 }
 

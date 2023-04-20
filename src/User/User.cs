@@ -3,7 +3,7 @@ using System.Text;
 
 namespace StudyMate
 {
-    public class User {
+public class User {
         public static readonly User EMPTY_USER = new User("",Guid.Empty.ToString(),Guid.Empty.ToString());
         private string __username;
         public string Username {

@@ -7,12 +7,13 @@ public class ProfileTests
     public void ClearProfileTest_MakesAllPropertiesNull_ReturnsVoid()
     {
         //Arrange
-        Profile profile1=new Profile("Amir",20,"Dawson College",new List<Courses>(){Courses.History});
-        Profile profile2=new Profile("Samanta",18,"Vanier",new List<Courses>(){Courses.Computer_Science});
-        // //Act
+        UserDB userDB=new UserDB("amirreza","amir@example.com","ABCD","pwd");
+        Profile profile1=new Profile("Amir",20,"Dawson College",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},userDB);
+        Profile profile2=new Profile("Samanta",18,"Vanier",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Computer_Science)},userDB);
+        //Act
         profile1.ClearProfile();
         profile2.ClearProfile();
-        // Assert
+        //Assert
         Assert.AreEqual(profile1,profile2);
     }
 
@@ -20,11 +21,12 @@ public class ProfileTests
     public void EqualsTest_ComparesTwoProfileObjects_ReturnsTrue()
     {
         //Arrange
-        Profile profile1=new Profile("Amir",20,"Dawson College",new List<Courses>(){Courses.History});
-        Profile profile2=new Profile("Amir",20,"Dawson College",new List<Courses>(){Courses.History});
-        // //Act
+        UserDB userDB=new UserDB("amirreza","amir@example.com","ABCD","pwd");
+        Profile profile1=new Profile("Amir",20,"Dawson College",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},userDB);
+        Profile profile2=new Profile("Amir",20,"Dawson College",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},userDB);
+        //Act
         bool AreEqual=profile1.Equals(profile2);
-        // Assert
+        //Assert
         Assert.AreEqual(true,AreEqual);
     }
 
@@ -32,11 +34,12 @@ public class ProfileTests
     public void EqualsTest_ComparesTwoProfileObjects_ReturnsFalse()
     {
         //Arrange
-        Profile profile1=new Profile("Amir",20,"Dawson College",new List<Courses>(){Courses.History});
-        Profile profile2=new Profile("Samanta",18,"Vanier",new List<Courses>(){Courses.Computer_Science});
-        // //Act
+        UserDB userDB=new UserDB("amirreza","amir@example.com","ABCD","pwd");
+        Profile profile1=new Profile("Amir",20,"Dawson College",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},userDB);
+        Profile profile2=new Profile("Samanta",18,"Vanier",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Computer_Science)},userDB);
+        //Act
         bool AreNotEqual=profile1.Equals(profile2);
-        // Assert
+        //Assert
         Assert.AreEqual(false,AreNotEqual);
     }
 
@@ -44,11 +47,12 @@ public class ProfileTests
     public void EqualsTest_ComparesProfileObjectWithSomethingElse_ReturnsFalse()
     {
         //Arrange
-        Profile profile1=new Profile("Amir",20,"Dawson College",new List<Courses>(){Courses.History});
+        UserDB userDB=new UserDB("amirreza","amir@example.com","ABCD","pwd");
+        Profile profile1=new Profile("Amir",20,"Dawson College",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},userDB);
         String s=new String("Hi");
-        // //Act
+        //Act
         bool AreNotEqual=profile1.Equals(s);
-        // Assert
+        //Assert
         Assert.AreEqual(false,AreNotEqual);
     }
 }
