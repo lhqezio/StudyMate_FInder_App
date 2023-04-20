@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Reflection.Emit;
 //This class takes of searching. It uses REGEX to find the profile that user wants to see.
 //Its constructor takes as input a DatabaseReader object and 
@@ -25,40 +26,58 @@ namespace StudyMate
             _context = context;
         }
 
-        public List<EventCalendar> SearchEventsByCourseProgramSchool(string course, string program, string school)
+        public List<EventCalendar> SearchEventsByCourseProgramSchool(Courses? course = null, string? program = null, School? school = null)
         {
-            var events = _context.EventCalendar
-                        .Where(e => e.Course == course || e.Program == program || e.School == school)
+            var events = _context.Events
+                        .Where(e => e.CourseList.Contains((Courses)course) || e.Program.Contains(program) || e.Schools.Contains(school))
                         .ToList();
 
             return events;
         }
 
-        public List<User> SearchUsersByCourseProgramSchool(string course, string program, string school)
+        public List<Profile> SearchProfileByCourseProgramSchool(Courses? course = null, string? program = null, string? school = null)
         {
-            var users = dtb.Users
-                        .Where(u => u.Course == course || u.Program == program || u.School == school)
+            var profiles = _context.Profiles
+                        .Where(p => p.TakenCourses.Contains((Courses)course) || p.CanHelpCourses.Contains((Courses)course) || p.NeedHelpCourses.Contains((Courses)course) || p.Program == program || p.School == school)
                         .ToList();
 
-            return users;
+            return profiles;
         }
 
         public List<EventCalendar> SearchEventsByKeyword(string keyword)
         {
-            var events = dtb.Events
+            var events = _context.Events
                 .Where(e => e.Title.Contains(keyword) || e.Description.Contains(keyword))
                 .ToList();
 
             return events;
         }
 
-        public List<User> SearchUsersByKeyword(string keyword)
+        public List<UserDB> SearchUsersByKeyword(string keyword)
         {
-            var users = dtb.Users
-                .Where(u => u.Blurb.Contains(keyword) || u.Interests.Contains(keyword))
+            var users = _context.Users
+                .Where(u => u.Username.Contains(keyword) || u.Email.Contains(keyword))
                 .ToList();
 
             return users;
+        }
+
+        public List<Profile> SearchProfileByKeyword(string keyword)
+        {
+            var profiles = _context.Profiles
+                .Where(p => p.Name.Contains(keyword) || p.Age.ToString().Contains(keyword) || p.School.Contains(keyword) || p.Program.Contains(keyword) || p.PersonalDescription.Contains(keyword))
+                .ToList();
+
+            return profiles;
+        }
+
+        public List<Profile> SearchProfileByHobbies(Interests hobbies)
+        {
+            var profiles = _context.Profiles
+                .Where(p => p.Hobbies.Contains(hobbies))
+                .ToList();
+
+            return profiles;
         }
     }
 }

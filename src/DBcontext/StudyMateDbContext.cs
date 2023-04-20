@@ -9,6 +9,8 @@ namespace StudyMate
     {
         public DbSet<Profile>? Profiles { get; set; }
         public DbSet<UserDB>? Users { get; set; }
+
+        public DbSet<EventCalendar>? Events {get; set;}
         public StudyMateDbContext(DbContextOptions<StudyMateDbContext> options):base(options)
         {}
         public StudyMateDbContext():base()
