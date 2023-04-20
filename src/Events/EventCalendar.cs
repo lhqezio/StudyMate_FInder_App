@@ -8,27 +8,15 @@ namespace StudyMate
         // Fields
         [Key]
         public string EventId { get; set;} 
-        private string _title;
-
-        //Links the Profiles Primary key to this foreign key
-        [ForeignKey("Profiles")]
-        private string? creatorId;
-
-        private Profile _creator;
-        private List<Profile> _participants;
-        private DateTimeOffset _date;
-        private string _description;
-        private string? _location;
+        public string Title;
+        public List<Profile> Participants {get;set;}=new();
+        public List<CourseEvent> CourseEvents {get;set;}=new();
+        public DateTimeOffset Date;
+        public string Description;
+        public string? Location;
         public bool IsSent { get; set; }
         public List<Courses> CourseList { get; set; }
-        
         public List<School> Schools{get; set;} //Will be a dropdown list for user input
-        public List<String> Subjects { get; set; }
-        public List<String> Projects { get; set; }
-        public List<String> Program { get; set; }
-        public string? Location{get; set;}
-
-
 
         // Properties - Validation done here since it will also work when edited 
         public string Title
