@@ -56,10 +56,10 @@ namespace StudyMate
         }
 
         //SearchProfileBlurbInterest
-        public List<Profile> SearchProfileBlurbInterest(string keyword)
+        public List<Profile> SearchProfileBlurbInterest(string? keyword = null, InterestsProfile? interestProfile = null)
         {
-             var profiles = _context.Profiles
-                 .Where(p => p.Name.Contains(keyword) || p.Age.ToString().Contains(keyword) || p.School.Contains(keyword) || p.Program.Contains(keyword) || p.PersonalDescription.Contains(keyword))
+             var profiles = _context.Profiles!
+                 .Where(p => p.PersonalDescription.Contains(keyword!) || p.Hobbies.Contains(interestProfile!))
                  .ToList();
 
              return profiles;
