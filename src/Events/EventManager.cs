@@ -22,5 +22,10 @@ namespace StudyMate{
         public void DeleteEvent(EventCalendar e){
             listEvents.Remove(e);
         }
+
+        //SaveEvents Method => Save listEvents to dtb
+        public void SaveEvents(){
+            
+        }
     }
 }
