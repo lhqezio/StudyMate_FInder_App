@@ -22,18 +22,18 @@ namespace StudyMate
         public int? Age { get; set; }
         public string School { get; set; } = "";
         public string Program { get; set; } = "";
-        public List<CoursesTaken> TakenCourses { get; set; }= new();
-        public List<CoursesHelp> NeedHelpCourses { get; set; } = new();
-        public List<CoursesCanHelp> CanHelpCourses { get; set; } = new();
+        public List<TakenCourses> TakenCourses { get; set; }= new();
+        public List<NeedHelpCourses> NeedHelpCourses { get; set; } = new();
+        public List<CanHelpCourses> CanHelpCourses { get; set; } = new();
         public string PersonalDescription { get; set; } = "";
         public string ProfilePicture { get; set; } = ""; //Subject to change because we still do not know exactly if we must use a string to store a picture
-        public List<ProfileInterests> Hobbies { get; set; } = new();
+        public List<InterestsProfile> Hobbies { get; set; } = new();
 
         public Profile(){}
 
         //Constructor that builds a profile object with the mandatory fields. The user can set the optional fileds later using the 
         //setters.
-        public Profile(string name, int age, string school, List<CoursesHelp> needHelpCourses, UserDB user, Genders gender = Genders.Undisclosed)
+        public Profile(string name, int age, string school, List<NeedHelpCourses> needHelpCourses, UserDB user, Genders gender = Genders.Undisclosed)
         {
             ProfileId=Guid.NewGuid().ToString();
             user.ProfileId=ProfileId;

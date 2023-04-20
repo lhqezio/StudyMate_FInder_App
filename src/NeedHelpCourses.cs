@@ -2,15 +2,15 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudyMate
 {
-    public class CanHelpCourses
+    public class NeedHelpCourses
     {
         [Key]
         public string CourseId{get;set;}
         public Courses Course{get;set;}       
-        public List<Profile> Profiles{get;}=new();
+        public List<Profile> profiles{get;}=new();
 
-        public CanHelpCourses(){}
-        public CanHelpCourses(Courses course)
+        public NeedHelpCourses(){}
+        public NeedHelpCourses(Courses course)
         {
             CourseId=Guid.NewGuid().ToString();
             Course = course;

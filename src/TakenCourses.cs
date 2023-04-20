@@ -1,13 +1,18 @@
+using System.ComponentModel.DataAnnotations;
+
 namespace StudyMate
 {
     public class TakenCourses
     {
-        public int CourseId{get;set;}
+        [Key]
+        public string CourseId{get;set;}
         public Courses Course{get;set;}       
-        public List<CoursesTaken> CoursesTaken{get;}=new();
+        public List<Profile> Profiles{get;}=new();
 
+        public TakenCourses(){}
         public TakenCourses(Courses course)
         {
+            CourseId=Guid.NewGuid().ToString();
             Course = course;
         }
     }
