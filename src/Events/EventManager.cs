@@ -7,7 +7,7 @@ namespace StudyMate{
     {
         //Property
         public List<EventCalendar> listEvents {get; set;}
-
+        StudyMateDbContext db = new StudyMateDbContext();
         //Constructor
         public EventManager(){
             listEvents = new List<EventCalendar>();
@@ -16,11 +16,15 @@ namespace StudyMate{
         //AddEvent Method => Add event to the list of events
         public void AddEvent(EventCalendar e){
             listEvents.Add(e);
+            db.Add(e);
+            db.SaveChanges();
         }
 
         //DeleteEvent Method => Delete event to the list of events
         public void DeleteEvent(EventCalendar e){
             listEvents.Remove(e);
+            db.Remove(e);
+            db.SaveChanges();
         }
     }
 }
