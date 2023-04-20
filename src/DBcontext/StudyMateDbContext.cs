@@ -9,6 +9,9 @@ namespace StudyMate
     {
         public DbSet<Profile>? Profiles { get; set; }
         public DbSet<UserDB>? Users { get; set; }
+        public DbSet<CanHelpCourses>? CanHelpCourses { get; set; }
+        public DbSet<NeedHelpCourses>? NeedHelpCourses { get; set;}
+        public DbSet<TakenCourses>? TakenCourses { get; set;}
         public StudyMateDbContext(DbContextOptions<StudyMateDbContext> options):base(options)
         {}
         public StudyMateDbContext():base()
@@ -18,8 +21,8 @@ namespace StudyMate
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){
             string? oracleUser=Environment.GetEnvironmentVariable("ORACLE_APP_USER");
             string? oraclePassword=Environment.GetEnvironmentVariable("ORACLE_APP_PASSWORD");
-            optionsBuilder.UseOracle(@$"User Id={oracleUser}; Password={oraclePassword};
-		        Data Source=198.168.52.211:1521/pdbora19c.dawsoncollege.qc.ca;");
+            string dataSource=@"198.168.52.211:1521/pdbora19c.dawsoncollege.qc.ca";
+            optionsBuilder.UseOracle($"User Id={oracleUser}; Password={oraclePassword}; Data Source={dataSource};");
         }
         public override int SaveChanges()
         {
