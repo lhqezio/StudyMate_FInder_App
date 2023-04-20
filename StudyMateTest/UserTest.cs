@@ -114,22 +114,22 @@ namespace StudyMate.Test
         }
 
         [TestMethod]
-    public void TestSavePasswordHash()
-    {
-        // Arrange
-        UserDB user = new UserDB("testuser", "testuser@example.com", "salt", "password");
-        _context.Users.Add(user);
-        _context.SaveChanges();
+        public void TestSavePasswordHash()
+        {
+            // Arrange
+            UserDB user = new UserDB("testuser", "testuser@example.com", "salt", "password");
+            _context.Users.Add(user);
+            _context.SaveChanges();
 
-        // Act
-        user.Password = "newpassword";
-        _context.SaveChanges();
+            // Act
+            user.Password = "newpassword";
+            _context.SaveChanges();
 
-        // Assert
-        Assert.IsNull(user.Password);
-        Assert.IsNotNull(user.PasswordHash);
-        Assert.IsNotNull(user.Salt);
-        Assert.AreNotEqual("newpassword", user.PasswordHash);
+            // Assert
+            Assert.IsNull(user.Password);
+            Assert.IsNotNull(user.PasswordHash);
+            Assert.IsNotNull(user.Salt);
+            Assert.AreNotEqual("newpassword", user.PasswordHash);
+        }
     }
-}
 }
