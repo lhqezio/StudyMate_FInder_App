@@ -11,6 +11,7 @@ namespace StudyMate
         private string _title; 
         public string Title{get{return _title;}set{_title=value;}}
         public List<Profile> Participants {get;set;}=new();
+        public List<Profile> EventCreators {get;set;}=new();
         public List<CourseEvent> CourseEvents {get;set;}=new();
         public DateTimeOffset Date {get;set;}
         public string Description {get;set;}

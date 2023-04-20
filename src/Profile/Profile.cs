@@ -16,13 +16,10 @@ namespace StudyMate
         //Links the UserDB Primary key to this foreign key
         [ForeignKey("UserDB")]
         public string UserId { get; set; }
-
-        [ForeignKey("EventCalendar")]
-        public string? CreatedEventId{get;set;}
-
         //Many-to-many relationships
         public List<InterestsProfile> Hobbies { get; set; } = new();
         public List<EventCalendar> Events{get;set;}=new();
+        public List<EventCalendar> EventsCreated{get;set;}=new();
         public List<TakenCourses> TakenCourses { get; set; }= new();
         public List<NeedHelpCourses> NeedHelpCourses { get; set; } = new();
         public List<CanHelpCourses> CanHelpCourses { get; set; } = new();
@@ -41,7 +38,7 @@ namespace StudyMate
 
         //Constructor that builds a profile object with the mandatory fields. The user can set the optional fileds later using the 
         //setters.
-        public Profile(string name, int age, School school, List<NeedHelpCourses> needHelpCourses, UserDB user, Genders gender = Genders.Undisclosed,EventCalendar? eventCalender = null)
+        public Profile(string name, int age, School school, List<NeedHelpCourses> needHelpCourses, UserDB user, Genders gender = Genders.Undisclosed)
         {
             ProfileId=Guid.NewGuid().ToString();
             user.ProfileId=ProfileId;
@@ -49,12 +46,9 @@ namespace StudyMate
             Name = name;
             Gender = gender;
             Age = age;
+            SchoolId=school.id;
             School = school;
             NeedHelpCourses = needHelpCourses;
-            if (eventCalender != null)
-            {
-                CreatedEventId=eventCalender.EventId;
-            }
         }
 
         //This mehtod allows to clear all the fields of the profile class in one shot.
@@ -90,6 +84,7 @@ namespace StudyMate
                 && NeedHelpCourses.SequenceEqual(other.NeedHelpCourses)
                 && CanHelpCourses.SequenceEqual(other.CanHelpCourses)
                 && Events.SequenceEqual(other.Events)
+                && EventsCreated.SequenceEqual(other.EventsCreated)
                 && PersonalDescription == other.PersonalDescription
                 && ProfilePicture == other.ProfilePicture
                 && Hobbies.SequenceEqual(other.Hobbies);
