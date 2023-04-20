@@ -37,7 +37,7 @@ namespace StudyMate
         {
             ProfileId=Guid.NewGuid().ToString();
             user.ProfileId=ProfileId;
-            UserId=user.UserId;
+            UserId=user.Id;
             Name = name;
             Gender = gender;
             Age = age;

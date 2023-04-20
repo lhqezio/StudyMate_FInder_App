@@ -1,13 +1,33 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using System.ComponentModel.DataAnnotations;
+
 namespace StudyMate
 {
     public class EventCalendar
     {
         // Fields
+        [Key]
+        public string EventId { get; set;} 
         private string _title;
+
+        //Links the Profiles Primary key to this foreign key
+        [ForeignKey("Profiles")]
+        private string? creatorId;
+
         private Profile _creator;
         private List<Profile> _participants;
         private DateTimeOffset _date;
         private string _description;
+        private string? _location;
+        public bool IsSent { get; set; }
+        public List<Courses> CourseList { get; set; }
+        
+        public List<School> Schools{get; set;} //Will be a dropdown list for user input
+        public List<String> Subjects { get; set; }
+        public List<String> Projects { get; set; }
+        public string? Location{get; set;}
+
+
 
         // Properties - Validation done here since it will also work when edited 
         public string Title
@@ -75,43 +95,44 @@ namespace StudyMate
             }
         }
         
-        public int EventId { get; } //Will be dealt with in dtb part
-        
-        public bool IsSent { get; set; }
-        
-        public List<Courses> CourseList { get; set; }
-        
-        public List<string> SubjectSchoolProjectList { get; set; }
-
         // Constructors
-        public EventCalendar(string title, Profile creator, List<Profile> participants, DateTimeOffset date, bool isSent, string description, List<Courses> courses, List<string> subjectSchoolProjectList)
+        public EventCalendar(string title, Profile creator, List<Profile> participants, DateTimeOffset date, string description, List<Courses> courses, List<School>schools, List<String> subjects, List<String> projects, string? location = null)
         {
-            Title = title;
-            Creator = creator;
-            Participants = participants; 
-            Date = date;
-            IsSent = isSent;
-            Description = description;
+            EventId = Guid.NewGuid().ToString();
+            _title = title; //Make sure if it take _title or Title
+            _creator = creator;
+            _participants = participants; 
+            _date = date;
+            IsSent = false;
+            _description = description;
             CourseList = courses;
-            SubjectSchoolProjectList = subjectSchoolProjectList;
+            Schools = schools;
+            Subjects = subjects;
+            Projects = projects;
+            _location = location;
         }
 
-        // Methods
-        public override string ToString()
-        {
-            string printedEvent = "";
-            string stringParticipants = "";
-            foreach (var participant in Participants)
-            {
-                stringParticipants = stringParticipants + participant.Name + ", ";
+   
+        //Method to add Participants
+        public void AddParticipant(Profile newParticipant){
+            if(_participants.Contains(newParticipant)){
+                throw new ArgumentException("This participant is already part of the event");
             }
-            printedEvent =  "Title: " + Title +
-                            " \nCreator: " + Creator.Name +
-                            " \nParticipants: " + stringParticipants +
-                            " \nDate: " + Date +
-                            " \nDescription: " + Description +
-                            " \nCourse(s), Subject(s), School(s) associated: " + string.Join(", ", SubjectSchoolProjectList);
-            return printedEvent;
+            _participants.Add(newParticipant);
+        }
+
+        //Method to remove Participants
+        public void RemoveParticipant(Profile participant){
+            if(!_participants.Contains(participant)){
+                throw new ArgumentException("This participant isn't part of the event in the first place");
+            }
+            _participants.Remove(participant);
+        }
+
+        //Method to Check if participant is attending the event
+        public bool Attends(Profile user)
+        {
+            return _participants.Contains(user);
         }
     }
 }

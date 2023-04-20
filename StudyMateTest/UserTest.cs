@@ -2,23 +2,23 @@
 // using Microsoft.VisualStudio.TestTools.UnitTesting;
 // using StudyMate;
 
-// namespace StudyMate.Test
-// {
-//     [TestClass]
-//     public class UserTest
-//     {
-//         private static DbContextOptions<UserDbContext> _options;
-//         private static UserDbContext _dbContext;
+namespace StudyMate.Test
+{
+    [TestClass]
+    public class UserTest
+    {
+        private static DbContextOptions<StudyMateDbContext> _options;
+        private static StudyMateDbContext _dbContext;
 
-//         [ClassInitialize]
-//         public static void ClassInitialize(TestContext context)
-//         {
-//             // Initialize database context and options
-//             _options = new DbContextOptionsBuilder<UserDbContext>()
-//                 .UseInMemoryDatabase(databaseName: "TestDatabase")
-//                 .Options;
-//             _dbContext = new UserDbContext(_options);
-//         }
+        [ClassInitialize]
+        public static void ClassInitialize(TestContext context)
+        {
+            // Initialize database context and options
+            _options = new DbContextOptionsBuilder<StudyMateDbContext>()
+                .UseInMemoryDatabase(databaseName: "TestDatabase")
+                .Options;
+            _dbContext = new StudyMateDbContext(_options);
+        }
 
 //         [ClassCleanup]
 //         public static void ClassCleanup()
@@ -35,8 +35,8 @@
 //             var username = "testuser";
 //             var password = "testpassword";
 
-//             // Act
-//             User.register(username, password, _dbContext);
+            // Act
+            User.Register(username, password, _dbContext);
 
 //             // Assert
 //             var userFromDb = _dbContext.Users.FirstOrDefault(u => u.Username == username);
@@ -45,16 +45,16 @@
 //             Assert.IsTrue(PasswordHasher.VerifyPassword(password, $"{userFromDb.Salt}.{userFromDb.PasswordHash}"));
 //         }
 
-//         [TestMethod]
-//         public void TestLogin()
-//         {
-//             // Arrange
-//             var username = "testuser";
-//             var password = "testpassword";
-//             User.register(username, password, _dbContext);
+        [TestMethod]
+        public void TestLogin()
+        {
+            // Arrange
+            var username = "testuser";
+            var password = "testpassword";
+            User.Register(username, password, _dbContext);
 
-//             // Act
-//             var user = User.login(username, password, _dbContext);
+            // Act
+            var user = User.Login(username, password, _dbContext);
 
 //             // Assert
 //             Assert.AreEqual(username, user.Username);
@@ -62,15 +62,15 @@
 //             Assert.IsFalse(string.IsNullOrEmpty(user.__user_id));
 //         }
 
-//         [TestMethod]
-//         public void TestChangePassword()
-//         {
-//             // Arrange
-//             var username = "testuser";
-//             var oldPassword = "testpassword";
-//             var newPassword = "newpassword";
-//             User.register(username, oldPassword, _dbContext);
-//             var user = User.login(username, oldPassword, _dbContext);
+        [TestMethod]
+        public void TestChangePassword()
+        {
+            // Arrange
+            var username = "testuser";
+            var oldPassword = "testpassword";
+            var newPassword = "newpassword";
+            User.Register(username, oldPassword, _dbContext);
+            var user = User.Login(username, oldPassword, _dbContext);
 
 //             // Act
 //             user.changePassword(newPassword, _dbContext);
@@ -82,21 +82,21 @@
 //         }
 //     }
 
-//     [TestClass]
-//     public class UserDbContextTests
-//     {
-//         private DbContextOptions<UserDbContext> _options;
-//         private UserDbContext _context;
+    [TestClass]
+    public class StudyMateDbContextTests
+    {
+        private DbContextOptions<StudyMateDbContext> _options;
+        private StudyMateDbContext _context;
 
-//         [TestInitialize]
-//         public void Initialize()
-//         {
-//             _options = new DbContextOptionsBuilder<UserDbContext>()
-//                 .UseInMemoryDatabase(databaseName: "testDb")
-//                 .Options;
+        [TestInitialize]
+        public void Initialize()
+        {
+            _options = new DbContextOptionsBuilder<StudyMateDbContext>()
+                .UseInMemoryDatabase(databaseName: "testDb")
+                .Options;
 
-//             _context = new UserDbContext(_options);
-//         }
+            _context = new StudyMateDbContext(_options);
+        }
 
 //         [TestMethod]
 //         public void TestAddUser()
@@ -108,10 +108,10 @@
 //             _context.Users.Add(user);
 //             _context.SaveChanges();
 
-//             // Assert
-//             Assert.AreEqual(1, _context.Users.Count());
-//             Assert.AreEqual(user.Id, _context.Users.Find(user.Id).Id);
-//         }
+            // Assert
+            Assert.AreEqual(1, _context.Users.Count());
+            Assert.AreEqual(user.Id, _context.Users.Find(user.Id));
+        }
 
 //         [TestMethod]
 //     public void TestSavePasswordHash()

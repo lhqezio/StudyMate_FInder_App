@@ -22,10 +22,5 @@ namespace StudyMate{
         public void DeleteEvent(EventCalendar e){
             listEvents.Remove(e);
         }
-
-        //StoreEvents Method => Takes this list and store in dtb
-        public void StoreEvents(EventCalendar e){
-
-        }
     }
 }
