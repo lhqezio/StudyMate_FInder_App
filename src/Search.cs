@@ -36,58 +36,34 @@ namespace StudyMate
         }
 
         //SearchProfileCourseSchool
-        public List<Profile> SearchProfileCourseSchool(CourseEvent? course = null, School? school = null)
+        public List<Profile> SearchProfileCourseSchool(TakenCourses? tcourse = null, NeedHelpCourses? nhcourse = null, CanHelpCourses? chcourse = null, School? school = null)
         {
             var events = _context.Profiles!
-                        .Where(p => p..Contains(course!) || e.Schools.Contains(school!))
+                        .Where(p => p.TakenCourses.Contains(tcourse!) || p.NeedHelpCourses.Contains(nhcourse!) || p.CanHelpCourses.Contains(chcourse!) || p.School.Equals(school))
                         .ToList();
 
            return events;
         }
 
-        public List<Profile> SearchProfileByCourseProgramSchool(Courses? course = null, string? program = null, string? school = null)
+        //SearchEventTitleDescription
+        public List<EventCalendar> SearchEventTitleDescription(string keyword)
         {
-            var profiles = _context.Profiles
-                        .Where(p => p.TakenCourses.Where(tc => tc.Course.CompareTo(course)) || p.CanHelpCourses.Contains((Courses)course) || p.NeedHelpCourses.Contains((Courses)course) || p.Program == program || p.School == school)
-                        .ToList();
-
-               return profiles;
-           }
-
-           public List<EventCalendar> SearchEventsByKeyword(string keyword)
-           {
-               var events = _context.Events
+               var events = _context.Events!
                .Where(e => e.Title.Contains(keyword) || e.Description.Contains(keyword))
                  .ToList();
 
              return events;
-         }
+        }
 
-         public List<UserDB> SearchUsersByKeyword(string keyword)
-         {
-             var users = _context.Users
-                 .Where(u => u.Username.Contains(keyword) || u.Email.Contains(keyword))
-                 .ToList();
-
-             return users;
-         }
-
-         public List<Profile> SearchProfileByKeyword(string keyword)
-         {
+        //SearchProfileBlurbInterest
+        public List<Profile> SearchProfileBlurbInterest(string keyword)
+        {
              var profiles = _context.Profiles
                  .Where(p => p.Name.Contains(keyword) || p.Age.ToString().Contains(keyword) || p.School.Contains(keyword) || p.Program.Contains(keyword) || p.PersonalDescription.Contains(keyword))
                  .ToList();
 
              return profiles;
-         }
+        }
 
-        public List<Profile> SearchProfileByHobbies(Interests hobbies)
-         {
-             var profiles = _context.Profiles
-                 .Where(p => p.Hobbies.Contains(hobbies))
-                 .ToList();
-
-             return profiles;
-         }
      }
  }
