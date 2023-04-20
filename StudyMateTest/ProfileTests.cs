@@ -8,8 +8,8 @@ public class ProfileTests
     {
         //Arrange
         UserDB userDB=new UserDB("amirreza","amir@example.com","ABCD","pwd");
-        Profile profile1=new Profile("Amir",20,"Dawson College",new List<Courses>(){Courses.History},userDB);
-        Profile profile2=new Profile("Samanta",18,"Vanier",new List<Courses>(){Courses.Computer_Science},userDB);
+        Profile profile1=new Profile("Amir",20,"Dawson College",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},userDB);
+        Profile profile2=new Profile("Samanta",18,"Vanier",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Computer_Science)},userDB);
         //Act
         profile1.ClearProfile();
         profile2.ClearProfile();
@@ -22,8 +22,8 @@ public class ProfileTests
     {
         //Arrange
         UserDB userDB=new UserDB("amirreza","amir@example.com","ABCD","pwd");
-        Profile profile1=new Profile("Amir",20,"Dawson College",new List<Courses>(){Courses.History},userDB);
-        Profile profile2=new Profile("Amir",20,"Dawson College",new List<Courses>(){Courses.History},userDB);
+        Profile profile1=new Profile("Amir",20,"Dawson College",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},userDB);
+        Profile profile2=new Profile("Amir",20,"Dawson College",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},userDB);
         //Act
         bool AreEqual=profile1.Equals(profile2);
         //Assert
@@ -35,8 +35,8 @@ public class ProfileTests
     {
         //Arrange
         UserDB userDB=new UserDB("amirreza","amir@example.com","ABCD","pwd");
-        Profile profile1=new Profile("Amir",20,"Dawson College",new List<Courses>(){Courses.History},userDB);
-        Profile profile2=new Profile("Samanta",18,"Vanier",new List<Courses>(){Courses.Computer_Science},userDB);
+        Profile profile1=new Profile("Amir",20,"Dawson College",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},userDB);
+        Profile profile2=new Profile("Samanta",18,"Vanier",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Computer_Science)},userDB);
         //Act
         bool AreNotEqual=profile1.Equals(profile2);
         //Assert
@@ -48,7 +48,7 @@ public class ProfileTests
     {
         //Arrange
         UserDB userDB=new UserDB("amirreza","amir@example.com","ABCD","pwd");
-        Profile profile1=new Profile("Amir",20,"Dawson College",new List<Courses>(){Courses.History},userDB);
+        Profile profile1=new Profile("Amir",20,"Dawson College",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},userDB);
         String s=new String("Hi");
         //Act
         bool AreNotEqual=profile1.Equals(s);

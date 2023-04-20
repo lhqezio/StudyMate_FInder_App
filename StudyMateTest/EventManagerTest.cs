@@ -1,7 +1,7 @@
 
-// using StudyMate;
+using StudyMate;
 
-// namespace StudyMateTests;
+namespace StudyMateTests;
 
 [TestClass]
 public class EventTest
@@ -17,10 +17,10 @@ public class EventTest
         Assert.IsInstanceOfType(eM, typeof(EventManager));
     }
 
-//     [TestMethod]
-//     public void TestEventCalendarAddEvent(){//Test 2 - Check if event is added to List
-//         //Arrange
-//         EventManager eM = new EventManager();
+    [TestMethod]
+    public void TestEventCalendarAddEvent(){//Test 2 - Check if event is added to List
+        //Arrange
+        EventManager eM = new EventManager();
         
         List<Courses> nCourses1 = new List<Courses>(){Courses.Art, Courses.Calculus, Courses.Math, Courses.History};
         List<Courses> nCourses2 = new List<Courses>(){Courses.Business, Courses.Communication, Courses.Journalism, Courses.Political_Science};
@@ -39,9 +39,9 @@ public class EventTest
         List<string> subjectSchoolProjectList = new List<string>(){"Informatique, Vaudreuil, StudyMate"};
 
 
-//         //Act
-//         EventCalendar eC = new EventCalendar("Title1", profil1, profileList, dTime, sent, description, eventCourses, subjectSchoolProjectList);
-//         eM.AddEvent(eC);
+        //Act
+        EventCalendar eC = new EventCalendar("Title1", profil1, profileList, dTime, sent, description, eventCourses, subjectSchoolProjectList);
+        eM.AddEvent(eC);
 
         //Assert
         Assert.AreEqual(eC, eM.listEvents[0]);

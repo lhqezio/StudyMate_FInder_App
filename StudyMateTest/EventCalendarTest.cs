@@ -1,6 +1,6 @@
-// using StudyMate;
+using StudyMate;
 
-// namespace StudyMateTests;
+namespace StudyMateTests;
 
 [TestClass]
 public class EventCalendarTest
@@ -38,6 +38,5 @@ public class EventCalendarTest
         Assert.AreEqual(subjectSchoolProjectList, eC.SubjectSchoolProjectList);
         Assert.IsInstanceOfType(eC, typeof(EventCalendar));
     }
-
-// }
+}
 
