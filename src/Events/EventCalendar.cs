@@ -25,6 +25,7 @@ namespace StudyMate
         public List<School> Schools{get; set;} //Will be a dropdown list for user input
         public List<String> Subjects { get; set; }
         public List<String> Projects { get; set; }
+        public List<String> Program { get; set; }
         public string? Location{get; set;}
 
 
@@ -96,7 +97,7 @@ namespace StudyMate
         }
         
         // Constructors
-        public EventCalendar(string title, Profile creator, List<Profile> participants, DateTimeOffset date, string description, List<Courses> courses, List<School>schools, List<String> subjects, List<String> projects, string? location = null)
+        public EventCalendar(string title, Profile creator, List<Profile> participants, DateTimeOffset date, string description, List<Courses> courses, List<School>schools, List<String> subjects, List<String> projects, List<string> program, string? location = null)
         {
             EventId = Guid.NewGuid().ToString();
             _title = title; //Make sure if it take _title or Title
@@ -110,6 +111,7 @@ namespace StudyMate
             Subjects = subjects;
             Projects = projects;
             _location = location;
+            Program = program;
         }
 
    
