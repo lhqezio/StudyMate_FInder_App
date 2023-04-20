@@ -29,7 +29,7 @@ namespace StudyMate
         public List<EventCalendar> SearchEventsByCourseProgramSchool(Courses? course = null, string? program = null, School? school = null)
         {
             var events = _context.Events
-                        .Where(e => e.CourseList.Contains((Courses)course) || e.Program.Contains(program) || e.Schools.Contains(school))
+                        .Where(e => e.CourseListcourse) || e.Program.Contains(program) || e.Schools.Contains(school))
                         .ToList();
 
             return events;
@@ -38,7 +38,7 @@ namespace StudyMate
         public List<Profile> SearchProfileByCourseProgramSchool(Courses? course = null, string? program = null, string? school = null)
         {
             var profiles = _context.Profiles
-                        .Where(p => p.TakenCourses.Contains((Courses)course) || p.CanHelpCourses.Contains((Courses)course) || p.NeedHelpCourses.Contains((Courses)course) || p.Program == program || p.School == school)
+                        .Where(p => p.TakenCourses.Where(tc => tc.Course.CompareTo(course)) || p.CanHelpCourses.Contains((Courses)course) || p.NeedHelpCourses.Contains((Courses)course) || p.Program == program || p.School == school)
                         .ToList();
 
             return profiles;

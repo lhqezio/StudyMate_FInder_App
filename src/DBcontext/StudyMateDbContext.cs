@@ -9,6 +9,7 @@ namespace StudyMate
     {
         public DbSet<Profile>? Profiles { get; set; }
         public DbSet<UserDB>? Users { get; set; }
+        public DbSet<EventCalendar>? Events { get; set; }
         public DbSet<CanHelpCourses>? CanHelpCourses { get; set; }
         public DbSet<NeedHelpCourses>? NeedHelpCourses { get; set;}
         public DbSet<TakenCourses>? TakenCourses { get; set;}

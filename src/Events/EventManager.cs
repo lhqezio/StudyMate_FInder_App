@@ -5,26 +5,38 @@ namespace StudyMate{
 
     public class EventManager
     {
-        //Property
-        public List<EventCalendar> listEvents {get; set;}
-        StudyMateDbContext db = new StudyMateDbContext();
+        
+         //Properties
+        private static EventManager? _instance;
+        private StudyMateDbContext _context = null!;
+
+        private EventManager(){
+
+        }
+
+        public static EventManager getInstance(){
+            if(_instance is null){
+                _instance = new EventManager();
+            }
+            return _instance;
+        }
+        
         //Constructor
-        public EventManager(){
-            listEvents = new List<EventCalendar>();
+        public EventManager(StudyMateDbContext context){
+              _context = context;
         }
 
         //AddEvent Method => Add event to the list of events
         public void AddEvent(EventCalendar e){
-            listEvents.Add(e);
-            db.Add(e);
-            db.SaveChanges();
+            _context.Events.Add(e);
+            _context.SaveChanges();
         }
 
         //DeleteEvent Method => Delete event to the list of events
         public void DeleteEvent(EventCalendar e){
-            listEvents.Remove(e);
-            db.Remove(e);
-            db.SaveChanges();
+
+            _context.Events.Remove(e);
+            _context.SaveChanges();
         }
     }
 }
