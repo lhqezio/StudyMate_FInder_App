@@ -37,6 +37,14 @@ namespace StudyMate
             Events!.Remove(e);
             SaveChanges();
         }
+        
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<EventCalendar>()
+                .HasOne(e => e.EventCreator)
+                .WithMany(p => p.EventsCreated)
+                .HasForeignKey(e => e.ProfileId);
+        }
         public override int SaveChanges()
         {
             // Hash passwords before saving to the database
@@ -62,3 +70,4 @@ namespace StudyMate
         }
     }
 }
+

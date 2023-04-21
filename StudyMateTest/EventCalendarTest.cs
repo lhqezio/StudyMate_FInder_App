@@ -1,6 +1,6 @@
-using StudyMate;
+// using StudyMate;
 
-namespace StudyMateTests;
+// namespace StudyMateTests;
 
 [TestClass]
 public class EventCalendarTest

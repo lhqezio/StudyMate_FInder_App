@@ -7,7 +7,7 @@ namespace StudyMate
         [Key]
         public string CourseId{get;set;}
         public Courses Course{get;set;}       
-        public List<Profile> Profiles{get;}=new();
+        public List<User> Profiles{get;}=new();
 
         public NeedHelpCourses(){}
         public NeedHelpCourses(Courses course)

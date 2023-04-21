@@ -4,15 +4,15 @@ namespace StudyMate
 {
 
     public class Matching{
-        private Profile __profile{get;set;}
-        public Matching(Profile profile){
+        private User __profile{get;set;}
+        public Matching(User profile){
             __profile=profile;
         }
-        public List<Profile> BestMatches(){
+        public List<User> BestMatches(){
             using (var dbContext = new StudyMateDbContext())
             {
                 Dictionary<int, int> bestMatches = new Dictionary<int, int>();
-                List<Profile> profiles = dbContext.Profiles.ToList();
+                List<User> profiles = dbContext.Profiles.ToList();
                 for (int i = 0; i < profiles.Count; i++)
                 {
                     int points=0;
@@ -32,7 +32,7 @@ namespace StudyMate
                     bestMatches.Add(points,i);
                 }
                 bestMatches = (Dictionary<int, int>)bestMatches.OrderByDescending(x => x.Key);
-                List<Profile> SortedProfiles=new List<Profile>();
+                List<User> SortedProfiles=new List<User>();
                 foreach (int value in bestMatches.Values)
                 {
                     SortedProfiles.Add(profiles[value]);

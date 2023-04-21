@@ -36,7 +36,7 @@ namespace StudyMate
         }
 
         //SearchProfileCourseSchool
-        public List<Profile> SearchProfileCourseSchool(TakenCourses? tcourse = null, NeedHelpCourses? nhcourse = null, CanHelpCourses? chcourse = null, School? school = null)
+        public List<User> SearchProfileCourseSchool(TakenCourses? tcourse = null, NeedHelpCourses? nhcourse = null, CanHelpCourses? chcourse = null, School? school = null)
         {
             var events = _context.Profiles!
                         .Where(p => p.TakenCourses.Contains(tcourse!) || p.NeedHelpCourses.Contains(nhcourse!) || p.CanHelpCourses.Contains(chcourse!) || p.School.Equals(school))
@@ -56,7 +56,7 @@ namespace StudyMate
         }
 
         //SearchProfileBlurbInterest
-        public List<Profile> SearchProfileBlurbInterest(string? keyword = null, InterestsProfile? interestProfile = null)
+        public List<User> SearchProfileBlurbInterest(string? keyword = null, InterestsProfile? interestProfile = null)
         {
              var profiles = _context.Profiles!
                  .Where(p => p.PersonalDescription.Contains(keyword!) || p.Hobbies.Contains(interestProfile!))
