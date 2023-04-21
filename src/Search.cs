@@ -29,7 +29,7 @@ namespace StudyMate
         public List<EventCalendar> SearchEventsCourseSchool(CourseEvent? course = null, School? school = null)
         {
             var events = _context.Events!
-                        .Where(e => e.CourseEvents.Contains(course!) || e.Schools.Contains(school!))
+                        .Where(e => e.CourseEvents.Contains(course!) || e.School.Equals(school!))
                         .ToList();
 
            return events;

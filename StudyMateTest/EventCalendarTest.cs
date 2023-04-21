@@ -34,7 +34,7 @@ public class EventCalendarTest
         eventCourses.Add(ce1);
         eventCourses.Add(ce2);
         eventCourses.Add(ce3);
-        List<School> schoolList = new List<School>(){sch1};
+        School schoolList = sch1;
         string location = "Montreal";
 
         //Act
@@ -48,7 +48,7 @@ public class EventCalendarTest
         Assert.AreEqual(description, eC.Description);
         Assert.AreEqual(sent, eC.IsSent);
         Assert.AreEqual(eventCourses, eC.CourseEvents);
-        Assert.AreEqual(schoolList, eC.Schools);
+        Assert.AreEqual(schoolList, eC.School);
         Assert.IsInstanceOfType(eC, typeof(EventCalendar));
     }
 

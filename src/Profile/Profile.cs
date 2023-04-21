@@ -16,23 +16,27 @@ namespace StudyMate
         //Links the UserDB Primary key to this foreign key
         [ForeignKey("UserDB")]
         public string UserId { get; set; }
-        //Many-to-many relationships
-        public List<InterestsProfile> Hobbies { get; set; } = new();
-        public List<EventCalendar> Events{get;set;}=new();
-        public List<EventCalendar> EventsCreated{get;set;}=new();
-        public List<TakenCourses> TakenCourses { get; set; }= new();
-        public List<NeedHelpCourses> NeedHelpCourses { get; set; } = new();
-        public List<CanHelpCourses> CanHelpCourses { get; set; } = new();
 
+        //Profile specific properties
         public string Name { get; set; } = "";
         public Genders? Gender { get; set; }
         public int? Age { get; set; }
-        public string SchoolId{get;set;}
-        public School? School{get;set;}
         public string Program { get; set; } = "";
-        
         public string PersonalDescription { get; set; } = "";
         public string ProfilePicture { get; set; } = ""; //Subject to change because we still do not know exactly if we must use a string to store a picture
+
+        //Many-to-many relationships
+        public List<InterestsProfile> Hobbies { get;} = new();
+        public List<EventCalendar> Events {get;}=new();
+        public List<EventCalendar> EventsCreated {get;}=new();
+        public List<TakenCourses> TakenCourses { get;}= new();
+        public List<NeedHelpCourses> NeedHelpCourses { get;} = new();
+        public List<CanHelpCourses> CanHelpCourses { get;} = new();
+
+        //One-to-many relationships
+        public string SchoolId{get;set;}
+        public School? School{get;set;}
+        
         
         public Profile(){}
 
@@ -44,9 +48,9 @@ namespace StudyMate
             user.ProfileId=ProfileId;
             UserId=user.Id;
             Name = name;
-            Gender = gender;
             Age = age;
-            SchoolId=school.id;
+            Gender = gender;
+            SchoolId=school.SchoolId;
             School = school;
             NeedHelpCourses = needHelpCourses;
         }
