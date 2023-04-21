@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
@@ -20,8 +21,6 @@ namespace StudyMate
                     throw new ArgumentException("Title can't be empty, null, or whitespace.");
                 }
                 _title = value;
-
-                if(Application.db.ValidateSessionKey(Application.currentUser.__session_key) && Application.currentUser. )
             }
         }
         
@@ -79,6 +78,12 @@ namespace StudyMate
         public bool Attends(Profile participant)
         {
             return Participants.Contains(participant);
+        }
+
+        //Method to view participants
+        public List<Profile> ShowParticipants()
+        {
+            return Participants;
         }
     }
 }

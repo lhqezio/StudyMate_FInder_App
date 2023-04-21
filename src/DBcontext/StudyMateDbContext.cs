@@ -70,9 +70,37 @@ namespace StudyMate
                 if(sent != null){
                     editEvent.IsSent = sent;
                 }
+                SaveChanges();
             }
         }
 
+        //AddParticipant => Add participant to event
+        public virtual void AddParticipant(User u, EventCalendar e, Profile p){
+            if(ValidateSessionKey(u.__session_key)){
+                e.AddParticipant(p);
+                SaveChanges();
+            }
+        }
+
+        //RemoveParticipant => Add participant to event
+        public virtual void RemoveParticipant(User u, EventCalendar e, Profile p){
+            if(ValidateSessionKey(u.__session_key)){
+                e.RemoveParticipant(p);
+                SaveChanges();
+            }
+        }
+
+        //ShowParticipant => Add participant to event
+        public virtual string ShowParticipants(User u, EventCalendar e){
+            if(ValidateSessionKey(u.__session_key)){
+                List<Profile> participants = e.ShowParticipants();
+                string pString = "";
+                foreach (Profile participant in participants){
+                    pString = pString + participant.Name + "; ";
+                }
+                return pString;
+            }
+        }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<EventCalendar>()

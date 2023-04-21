@@ -46,7 +46,7 @@ namespace StudyMate
             string location = "Montreal";
 
             //Act
-            EventCalendar eC = new EventCalendar("Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location, sent);
+            db.CreateEvent(user1,"Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location, sent);
             db.AddEvent(eC, user1);
 
             // 4.	Log out from user1
@@ -69,10 +69,11 @@ namespace StudyMate
             // 8.	Mark user4 as attending user1’s event
             ec.AddParticipant(profile4);
 
-            // 9.	Attempt to edit user1’s event as user2 (should fail)
-            
+            // 9.	Attempt to edit user1’s event as user4 (should fail)
+            db.EditEvent(user4, ec, "New Title as user4");
 
             // 10.	Perform a search that finds user1’s profile
+            Profile profileUser1 = search.SearchProfileByUser(user1);
 
             // 11.	Send 3 messages from user2 to user1
 
@@ -88,10 +89,14 @@ namespace StudyMate
 
             // 17.	Send a message to user2 from user1.
 
-            // 18.	Find and view the attendees of user1’s event
+            // 18.	Find and view the attendees of profile1’s event
+            EventCalendar profile1Event = search.SearchEventsCreator(profile1);
+            db.ShowParticipants(user1, profile1Event);
 
             // 19.	Modify user1’s event.
-
+            db.EditEvent(user1, "New Title as user1");
+            db.ShowParticipants(user1, profile1Event);
+            
             // 20.	Delete user1’s profile
 
             // 21.	Delete user1’s account
