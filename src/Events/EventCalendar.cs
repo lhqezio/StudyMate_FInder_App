@@ -8,10 +8,11 @@ namespace StudyMate
         // Fields
         [Key]
         public string EventId { get; set;}
-        private string _title; 
-        public string Title{get{return _title;}set{_title=value;}}
+        // private string _title; 
+        public string Title{get;set;}
         public List<Profile> Participants {get;set;}=new();
-        public List<Profile> EventCreators {get;set;}=new();
+        public string ProfileId{get;set;}
+        public Profile EventCreator {get;set;}=null!;
         public List<CourseEvent> CourseEvents {get;set;}=new();
         public DateTimeOffset Date {get;set;}
         public string Description {get;set;}
@@ -87,10 +88,11 @@ namespace StudyMate
         
         // Constructors
         public EventCalendar(){}
-        public EventCalendar(string title, List<Profile> participants, DateTimeOffset date, string description,  List<School>schools, List<CourseEvent> courseEvents, string location , bool isSent=false)
+        public EventCalendar(string title,Profile EventCreator, List<Profile> participants, DateTimeOffset date, string description,  List<School>schools, List<CourseEvent> courseEvents, string location , bool isSent=false)
         {
             EventId = Guid.NewGuid().ToString();
             Title = title;
+            ProfileId=EventCreator.ProfileId;
             Participants = participants; 
             Date = date;
             Description = description;
