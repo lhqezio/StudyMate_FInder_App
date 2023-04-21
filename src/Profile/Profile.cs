@@ -63,6 +63,7 @@ namespace StudyMate
             NeedHelpCourses.Clear();
             CanHelpCourses.Clear();
             Events.Clear();
+            EventsCreated.Clear();
             PersonalDescription = "";
             ProfilePicture = "";
             Hobbies.Clear();
@@ -101,7 +102,8 @@ namespace StudyMate
                 TakenCourses.GetHashCode() ^
                 NeedHelpCourses.GetHashCode() ^
                 CanHelpCourses.GetHashCode() ^
-                Events.GetHashCode()^
+                Events.GetHashCode() ^
+                EventsCreated.GetHashCode() ^
                 PersonalDescription.GetHashCode() ^
                 ProfilePicture.GetHashCode() ^
                 Hobbies.GetHashCode();
