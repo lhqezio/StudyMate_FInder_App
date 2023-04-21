@@ -35,6 +35,16 @@ namespace StudyMate
            return events;
         }
 
+        //SearchEventsCourseSchool
+        public List<EventCalendar> SearchEventsCreator(Profile? creator = null)
+        {
+            var events = _context.Events!
+                        .Where(e => e.EventCreator.Equals(creator) )
+                        .ToList();
+
+           return events;
+        }
+
         //SearchProfileCourseSchool
         public List<Profile> SearchProfileCourseSchool(TakenCourses? tcourse = null, NeedHelpCourses? nhcourse = null, CanHelpCourses? chcourse = null, School? school = null)
         {

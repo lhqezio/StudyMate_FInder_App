@@ -20,9 +20,9 @@ public class User {
             __user_id = user_id;
         }
 
-        public static void Register(string username,string email, string password, StudyMateDbContext dbContext){
+        public static User Register(string username,string email, string password, StudyMateDbContext dbContext){
             // Register user
-            dbContext.register(username,email, password);
+            return dbContext.register(username,email, password);
         }
 
         public static User Login(string username, string password, StudyMateDbContext dbContext, bool rememberMe = false){
