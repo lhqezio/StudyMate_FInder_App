@@ -38,7 +38,41 @@ namespace StudyMate
                 SaveChanges();
             }
         }
-        
+
+        //CreateEvent Method => Create an event
+        public virtual EventCalendar CreateEvent(User u, string title, Profile profileCreator, List<Profile> participants, DateTimeOffset date, School school, List<CourseEvent> courseEvents, string location ){
+            if(ValidateSessionKey(u.__session_key)){
+                EventCalendar newEvent = new EventCalendar(title, profileCreator, participants, date, description, school, courseEvents, location);
+            }
+        }
+
+        //EditEvent Method => Edit an event
+        public virtual EventCalendar EditEvent(User u, EventCalendar editEvent, string title = null, List<Profile> participants = null, DateTimeOffset date = null, School school = null, List<CourseEvent> courseEvents = null, string location = null, bool sent = null){
+            if(ValidateSessionKey(u.__session_key)){
+                if(title != null){
+                    editEvent.Title = title;
+                }
+                if(participants != null){
+                    editEvent.Participants = participants;
+                }
+                if(date != null){
+                    editEvent.Date = date;
+                }
+                if(school != null){
+                    editEvent.School = school;
+                }
+                if(courseEvents != null){
+                    editEvent.CourseEvents = courseEvents;
+                }
+                if(location != null){
+                    editEvent.Location = location;
+                }
+                if(sent != null){
+                    editEvent.IsSent = sent;
+                }
+            }
+        }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<EventCalendar>()
