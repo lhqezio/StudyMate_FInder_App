@@ -17,23 +17,49 @@ namespace StudyMate
         [ForeignKey("UserDB")]
         public string UserId { get; set; }
 
+<<<<<<< HEAD
+        [ForeignKey("EventCalendar")]
+        public string CreatedEventId{get;set;}
+
+        //Many-to-many relationships
+        public List<InterestsProfile> Hobbies { get; set; } = new();
+        public List<EventCalendar> Events{get;set;}=new();
+        public List<TakenCourses> TakenCourses { get; set; }= new();
+        public List<NeedHelpCourses> NeedHelpCourses { get; set; } = new();
+        public List<CanHelpCourses> CanHelpCourses { get; set; } = new();
+
+=======
+>>>>>>> b4a1d44bf99f8f316e9e1ec18e7bbff849817c2b
         public string Name { get; set; } = "";
         public Genders? Gender { get; set; }
         public int? Age { get; set; }
         public string School { get; set; } = "";
         public string Program { get; set; } = "";
+<<<<<<< HEAD
+        
+        public string PersonalDescription { get; set; } = "";
+        public string ProfilePicture { get; set; } = ""; //Subject to change because we still do not know exactly if we must use a string to store a picture
+        
+
+        
+=======
         public List<TakenCourses> TakenCourses { get; set; }= new();
         public List<NeedHelpCourses> NeedHelpCourses { get; set; } = new();
         public List<CanHelpCourses> CanHelpCourses { get; set; } = new();
         public string PersonalDescription { get; set; } = "";
         public string ProfilePicture { get; set; } = ""; //Subject to change because we still do not know exactly if we must use a string to store a picture
         public List<InterestsProfile> Hobbies { get; set; } = new();
+>>>>>>> b4a1d44bf99f8f316e9e1ec18e7bbff849817c2b
 
         public Profile(){}
 
         //Constructor that builds a profile object with the mandatory fields. The user can set the optional fileds later using the 
         //setters.
+<<<<<<< HEAD
+        public Profile(string name, int age, string school, List<NeedHelpCourses> needHelpCourses, UserDB user, Genders gender = Genders.Undisclosed,EventCalendar? eventCalender = null)
+=======
         public Profile(string name, int age, string school, List<NeedHelpCourses> needHelpCourses, UserDB user, Genders gender = Genders.Undisclosed)
+>>>>>>> b4a1d44bf99f8f316e9e1ec18e7bbff849817c2b
         {
             ProfileId=Guid.NewGuid().ToString();
             user.ProfileId=ProfileId;
@@ -43,6 +69,13 @@ namespace StudyMate
             Age = age;
             School = school;
             NeedHelpCourses = needHelpCourses;
+<<<<<<< HEAD
+            if (eventCalender != null)
+            {
+                CreatedEventId=eventCalender.EventId;
+            }
+=======
+>>>>>>> b4a1d44bf99f8f316e9e1ec18e7bbff849817c2b
         }
 
         //This mehtod allows to clear all the fields of the profile class in one shot.
