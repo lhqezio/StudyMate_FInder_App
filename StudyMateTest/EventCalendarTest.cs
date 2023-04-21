@@ -1,5 +1,5 @@
 using StudyMate;
-
+using Moq;
 namespace StudyMateTests;
 
 [TestClass]
@@ -8,35 +8,54 @@ public class EventCalendarTest
     [TestMethod]
     public void TestEventCalendarConstructor(){//Test 1 
         //Arrange
-        List<Courses> nCourses1 = new List<Courses>(){Courses.Art, Courses.Calculus, Courses.Math, Courses.History};
-        List<Courses> nCourses2 = new List<Courses>(){Courses.Business, Courses.Communication, Courses.Journalism, Courses.Political_Science};
-        List<Courses> nCourses3 = new List<Courses>(){Courses.Sciences, Courses.Statistics, Courses.Chemistry, Courses.Linear_Algebra};
-        UserDB userDB1 = new UserDB("Alain", "alain@hotmail.com", "salt", "password");
-        UserDB userDB2 = new UserDB("Sam", "sam@hotmail.com", "salt", "password1");
-        UserDB userDB3 = new UserDB("Jack", "jack@hotmail.com", "salt", "password2");
-        Profile profil1 = new Profile("Alain", 25, "Henri Bourassa", nCourses1, userDB1);
-        Profile profil2 = new Profile("Sam", 20, "St-Ex", nCourses2, userDB2);
-        Profile profil3 = new Profile("Jack", 15, "PST", nCourses3, userDB3);
-        List<Profile> profileList = new List<Profile>(){profil2, profil3};
+        School sch1 = new School("Dawson College");
+        School sch2 = new School("Henri-Bourassa");
+        School sch3 = new School("Saint-Ex");
+            //Users
+        UserDB user1 = new UserDB("Alain", "alain@hotmail.com", "password");
+        UserDB user2 = new UserDB("Sam", "sam@hotmail.com", "password1");
+        UserDB user3 = new UserDB("Jack", "jack@hotmail.com", "password2");
+            //Profile
+        Profile profile1 = new Profile("Alain", 15, sch1, new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)}, user1);
+        Profile profile2 = new Profile("Sam", 20, sch2, new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Art)}, user2);
+        Profile profile3 = new Profile("Jack", 18, sch3, new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Calculus)}, user3);
+            //Profile list
+        List<Profile> profileList = new List<Profile>();
+        profileList.Add(profile2);
+        profileList.Add(profile3);
         DateTimeOffset dTime = DateTimeOffset.Now.AddMonths(1);
         bool sent = false;
         string description = "Study with the homies";
-        List<Courses> eventCourses = new List<Courses>(){Courses.Sciences, Courses.Art, Courses.Business, Courses.Math};
-        List<string> subjectSchoolProjectList = new List<string>(){"Informatique, Vaudreuil, StudyMate"};
+            //Courses
+        List<CourseEvent> eventCourses = new List<CourseEvent>();
+        CourseEvent ce1 = new CourseEvent(Courses.Math);
+        CourseEvent ce2 = new CourseEvent(Courses.Sciences);
+        CourseEvent ce3 = new CourseEvent(Courses.Business);
+        eventCourses.Add(ce1);
+        eventCourses.Add(ce2);
+        eventCourses.Add(ce3);
+        School schoolList = sch1;
+        string location = "Montreal";
 
-//         //Act
-//         EventCalendar eC = new EventCalendar("Title1", profil1, profileList, dTime, sent, description, eventCourses, subjectSchoolProjectList);
+        //Act
+        EventCalendar eC = new EventCalendar("Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location, sent);
         
         //Assert
         Assert.AreEqual("Title1", eC.Title);
-        //Assert.AreEqual(profil1, eC.Creator.);
+        Assert.AreEqual(profile1, eC.EventCreator);
         Assert.AreEqual(profileList, eC.Participants);
         Assert.AreEqual(dTime, eC.Date);
-        Assert.AreEqual(sent, eC.IsSent);
         Assert.AreEqual(description, eC.Description);
-        Assert.AreEqual(eventCourses, eC.CourseList);
-        Assert.AreEqual(subjectSchoolProjectList, eC.SubjectSchoolProjectList);
+        Assert.AreEqual(sent, eC.IsSent);
+        Assert.AreEqual(eventCourses, eC.CourseEvents);
+        Assert.AreEqual(schoolList, eC.School);
         Assert.IsInstanceOfType(eC, typeof(EventCalendar));
+    }
+
+    [TestMethod]
+    public void TestEventCalendarAdd(){//Test 1 
+        //Arrange
+        
     }
 }
 

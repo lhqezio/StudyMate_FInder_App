@@ -17,65 +17,42 @@ namespace StudyMate
         [ForeignKey("UserDB")]
         public string UserId { get; set; }
 
-<<<<<<< HEAD
-        [ForeignKey("EventCalendar")]
-        public string CreatedEventId{get;set;}
-
-        //Many-to-many relationships
-        public List<InterestsProfile> Hobbies { get; set; } = new();
-        public List<EventCalendar> Events{get;set;}=new();
-        public List<TakenCourses> TakenCourses { get; set; }= new();
-        public List<NeedHelpCourses> NeedHelpCourses { get; set; } = new();
-        public List<CanHelpCourses> CanHelpCourses { get; set; } = new();
-
-=======
->>>>>>> b4a1d44bf99f8f316e9e1ec18e7bbff849817c2b
+        //Profile specific properties
         public string Name { get; set; } = "";
         public Genders? Gender { get; set; }
         public int? Age { get; set; }
-        public string School { get; set; } = "";
         public string Program { get; set; } = "";
-<<<<<<< HEAD
-        
         public string PersonalDescription { get; set; } = "";
         public string ProfilePicture { get; set; } = ""; //Subject to change because we still do not know exactly if we must use a string to store a picture
-        
 
-        
-=======
-        public List<TakenCourses> TakenCourses { get; set; }= new();
-        public List<NeedHelpCourses> NeedHelpCourses { get; set; } = new();
-        public List<CanHelpCourses> CanHelpCourses { get; set; } = new();
-        public string PersonalDescription { get; set; } = "";
-        public string ProfilePicture { get; set; } = ""; //Subject to change because we still do not know exactly if we must use a string to store a picture
-        public List<InterestsProfile> Hobbies { get; set; } = new();
->>>>>>> b4a1d44bf99f8f316e9e1ec18e7bbff849817c2b
+        //Many-to-many relationships
+        public List<InterestsProfile> Hobbies { get;} = new();
+        public List<EventCalendar> Events {get;}=new();
+        public List<EventCalendar> EventsCreated {get;}=new();
+        public List<TakenCourses> TakenCourses { get;}= new();
+        public List<NeedHelpCourses> NeedHelpCourses { get;} = new();
+        public List<CanHelpCourses> CanHelpCourses { get;} = new();
 
+        //One-to-many relationships
+        public string SchoolId{get;set;}
+        public School? School{get;set;}
+        
+        
         public Profile(){}
 
         //Constructor that builds a profile object with the mandatory fields. The user can set the optional fileds later using the 
         //setters.
-<<<<<<< HEAD
-        public Profile(string name, int age, string school, List<NeedHelpCourses> needHelpCourses, UserDB user, Genders gender = Genders.Undisclosed,EventCalendar? eventCalender = null)
-=======
-        public Profile(string name, int age, string school, List<NeedHelpCourses> needHelpCourses, UserDB user, Genders gender = Genders.Undisclosed)
->>>>>>> b4a1d44bf99f8f316e9e1ec18e7bbff849817c2b
+        public Profile(string name, int age, School school, List<NeedHelpCourses> needHelpCourses, UserDB user, Genders gender = Genders.Undisclosed)
         {
             ProfileId=Guid.NewGuid().ToString();
             user.ProfileId=ProfileId;
             UserId=user.Id;
             Name = name;
-            Gender = gender;
             Age = age;
+            Gender = gender;
+            SchoolId=school.SchoolId;
             School = school;
             NeedHelpCourses = needHelpCourses;
-<<<<<<< HEAD
-            if (eventCalender != null)
-            {
-                CreatedEventId=eventCalender.EventId;
-            }
-=======
->>>>>>> b4a1d44bf99f8f316e9e1ec18e7bbff849817c2b
         }
 
         //This mehtod allows to clear all the fields of the profile class in one shot.
@@ -84,11 +61,13 @@ namespace StudyMate
             Name = "";
             Gender = null;
             Age = null;
-            School = "";
+            School=null;
             Program = "";
             TakenCourses.Clear();
             NeedHelpCourses.Clear();
             CanHelpCourses.Clear();
+            Events.Clear();
+            EventsCreated.Clear();
             PersonalDescription = "";
             ProfilePicture = "";
             Hobbies.Clear();
@@ -101,7 +80,6 @@ namespace StudyMate
         {
             if (obj is not Profile other)
                 return false;
-
             return Name == other.Name
                 && Gender == other.Gender
                 && Age == other.Age
@@ -110,20 +88,11 @@ namespace StudyMate
                 && TakenCourses.SequenceEqual(other.TakenCourses)
                 && NeedHelpCourses.SequenceEqual(other.NeedHelpCourses)
                 && CanHelpCourses.SequenceEqual(other.CanHelpCourses)
+                && Events.SequenceEqual(other.Events)
+                && EventsCreated.SequenceEqual(other.EventsCreated)
                 && PersonalDescription == other.PersonalDescription
                 && ProfilePicture == other.ProfilePicture
                 && Hobbies.SequenceEqual(other.Hobbies);
-        }
-
-        //ListsAreEqual is used to check if two lists are actually equal. We need this method since a lot of the fields
-        //in this object are lists. This method is used in the Equals method. This is a generic method since the type of lists
-        //we are comparing can be different each time. For exmaple we may be comparing Hobbies once and Courses the other time.
-        private static bool ListsAreEqual<T>(IList<T>? list1, IList<T>? list2)
-        {
-            if (list1 is null || list2 is null)
-                return list1 == list2;
-
-            return list1.SequenceEqual(list2);
         }
 
         //Since we are overriding the Equals method, we must also override the GetHashCode method.
@@ -137,6 +106,8 @@ namespace StudyMate
                 TakenCourses.GetHashCode() ^
                 NeedHelpCourses.GetHashCode() ^
                 CanHelpCourses.GetHashCode() ^
+                Events.GetHashCode() ^
+                EventsCreated.GetHashCode() ^
                 PersonalDescription.GetHashCode() ^
                 ProfilePicture.GetHashCode() ^
                 Hobbies.GetHashCode();

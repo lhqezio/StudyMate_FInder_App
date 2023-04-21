@@ -5,32 +5,85 @@ namespace StudyMate
 {
     public class EventCalendar
     {
-        // Fields
+        // Generates a random primary key for the EventCalendar class 
         [Key]
         public string EventId { get; set;}
-        private string _title; 
-        public string Title{get{return _title;}set{_title=value;}}
-        public List<Profile> Participants {get;set;}=new();
-        public List<CourseEvent> CourseEvents {get;set;}=new();
+
+        // EventCalendar specific properties
+        public string Title
+        {
+            get { return _title; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Title can't be empty, null, or whitespace.");
+                }
+                _title = value;
+
+                if(Application.db.ValidateSessionKey(Application.currentUser.__session_key) && Application.currentUser. )
+            }
+        }
+        
+        private string _title;
         public DateTimeOffset Date {get;set;}
         public string Description {get;set;}
         public string Location {get;set;}
         public bool IsSent { get; set; }
-        public List<School> Schools{get; set;} //Will be a dropdown list for user input
 
-        // Properties - Validation done here since it will also work when edited 
-        // public string Title
-        // {
-        //     get { return _title; }
-        //     set
-        //     {
-        //         if (string.IsNullOrWhiteSpace(value))
-        //         {
-        //             throw new ArgumentException("Title can't be empty, null, or whitespace.");
-        //         }
-        //         _title = value;
-        //     }
-        // }
+        // Many-to-many relationships
+        public List<Profile> Participants {get;}=new();
+        public List<CourseEvent> CourseEvents {get;}=new();
+        
+        // One-to-many relationships
+        public string ProfileId{get;set;}
+        public Profile EventCreator {get;set;}=null!;
+        public string SchoolId{get;set;}
+        public School School{get; set;}=null!; //Will be a dropdown list for user input
+        
+        // Constructors
+        public EventCalendar(){}
+        public EventCalendar(string title,Profile EventCreator, List<Profile> participants, DateTimeOffset date, string description,  School school, List<CourseEvent> courseEvents, string location , bool isSent=false)
+        {
+            EventId = Guid.NewGuid().ToString();
+            Title = title;
+            ProfileId=EventCreator.ProfileId;
+            Participants = participants; 
+            Date = date;
+            Description = description;
+            SchoolId=school.SchoolId;
+            School = school;
+            Location = location;
+            CourseEvents=courseEvents;
+            IsSent=isSent;
+        }
+
+   
+        //Method to add Participants
+        public void AddParticipant(Profile newParticipant){
+            if(Participants.Contains(newParticipant)){
+                throw new ArgumentException("This participant is already part of the event");
+            }
+            Participants.Add(newParticipant);
+        }
+
+        //Method to remove Participants
+        public void RemoveParticipant(Profile participant){
+            if(!Participants.Contains(participant)){
+                throw new ArgumentException("This participant isn't part of the event in the first place");
+            }
+            Participants.Remove(participant);
+        }
+
+        //Method to Check if participant is attending the event
+        public bool Attends(Profile participant)
+        {
+            return Participants.Contains(participant);
+        }
+    }
+}
+
+    // Properties - Validation done here since it will also work when edited 
         
         // public Profile Creator
         // {
@@ -84,42 +137,4 @@ namespace StudyMate
         //     }
         // }
         
-        // Constructors
-        public EventCalendar(){}
-        public EventCalendar(string title, List<Profile> participants, DateTimeOffset date, string description,  List<School>schools, List<CourseEvent> courseEvents, string location , bool isSent=false)
-        {
-            EventId = Guid.NewGuid().ToString();
-            Title = title;
-            Participants = participants; 
-            Date = date;
-            Description = description;
-            Schools = schools;
-            Location = location;
-            CourseEvents=courseEvents;
-            IsSent=isSent;
-        }
-
-   
-        //Method to add Participants
-        public void AddParticipant(Profile newParticipant){
-            if(Participants.Contains(newParticipant)){
-                throw new ArgumentException("This participant is already part of the event");
-            }
-            Participants.Add(newParticipant);
-        }
-
-        //Method to remove Participants
-        public void RemoveParticipant(Profile participant){
-            if(!Participants.Contains(participant)){
-                throw new ArgumentException("This participant isn't part of the event in the first place");
-            }
-            Participants.Remove(participant);
-        }
-
-        //Method to Check if participant is attending the event
-        public bool Attends(Profile participant)
-        {
-            return Participants.Contains(participant);
-        }
-    }
-}
+       

@@ -20,12 +20,11 @@ public class UserDB
     public string? Password {get;set;}
     
     
-    public UserDB(string username, string email,string salt,string password)
+    public UserDB(string username, string email,string password)
     {
         Id = Guid.NewGuid().ToString();
         Username = username;
         Email = email;
-        Salt = salt;
         Password = password;
     }
 }

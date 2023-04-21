@@ -20,63 +20,68 @@ public class User {
             __user_id = user_id;
         }
 
-        public void changePassword(string newPassword, StudyMateDbContext dbContext){
-            // Take and verify session key then change password
-            var userToUpdate = dbContext.Users.FirstOrDefault(u => u.Id == __user_id);
-            if (userToUpdate != null)
-            {
-                userToUpdate.Password = newPassword;
-                dbContext.SaveChanges();
-            }
-        }
-
-        public static void Register(string username, string password, StudyMateDbContext dbContext){
+        public static User Register(string username,string email, string password, StudyMateDbContext dbContext){
             // Register user
-            var newUser = new UserDB(username, "", "", password);
-            dbContext.Users.Add(newUser);
-            dbContext.SaveChanges();
+            return dbContext.register(username,email, password);
         }
 
         public static User Login(string username, string password, StudyMateDbContext dbContext, bool rememberMe = false){
-            // Check if user exists and password is correct
-            var userFromDb = dbContext.Users.FirstOrDefault(u => u.Username == username);
-            if (userFromDb != null && PasswordHasher.VerifyPassword(password, $"{userFromDb.Salt}.{userFromDb.PasswordHash}"))
-            {
+           User user = dbContext.login(username, password);
+              if(user != null){
                 if(rememberMe){
-                    byte[] usernameBytes = Encoding.UTF8.GetBytes(username);
-                    byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
-                    byte[] encryptedUsernameBytes = ProtectedData.Protect(usernameBytes, null, DataProtectionScope.CurrentUser);
-                    byte[] encryptedPasswordBytes = ProtectedData.Protect(passwordBytes, null, DataProtectionScope.CurrentUser);
-                    string encryptedUsername = Convert.ToBase64String(encryptedUsernameBytes);
-                    string encryptedPassword = Convert.ToBase64String(encryptedPasswordBytes);
-                    UserConfig.Write("encryptedUsername", encryptedUsername);
-                    UserConfig.Write("encryptedPassword", encryptedPassword);
+                     byte[] usernameBytes = Encoding.UTF8.GetBytes(username);
+                     byte[] passwordBytes = Encoding.UTF8.GetBytes(password);
+                     byte[] encryptedUsernameBytes = ProtectedData.Protect(usernameBytes, null, DataProtectionScope.CurrentUser);
+                     byte[] encryptedPasswordBytes = ProtectedData.Protect(passwordBytes, null, DataProtectionScope.CurrentUser);
+                     string encryptedUsername = Convert.ToBase64String(encryptedUsernameBytes);
+                     string encryptedPassword = Convert.ToBase64String(encryptedPasswordBytes);
+                     UserConfig.Write("encryptedUsername", encryptedUsername);
+                     UserConfig.Write("encryptedPassword", encryptedPassword);
                 }
-                //Session Key implementation to be done later
-                return new User(userFromDb.Username, Guid.NewGuid().ToString(), userFromDb.Id);
-            }
-            else
-            {
-                return EMPTY_USER;
-            }
+              }
+              else {
+                user = EMPTY_USER;
+              }
+              return user;
         }
 
         public static User AutoLogin(StudyMateDbContext dbContext){
-            // Check if user exists and password is correct
-            string encryptedUsername = UserConfig.Read("encryptedUsername");
-            string encryptedPassword = UserConfig.Read("encryptedPassword");
-            if(encryptedUsername != null && encryptedPassword != null){
+            if(UserConfig.Read("encryptedSessionKey") != null){
+                string encryptedSessionKey = UserConfig.Read("encryptedSessionKey");
+                byte[] encryptedSessionKeyBytes = Convert.FromBase64String(encryptedSessionKey);
+                byte[] sessionKeyBytes = ProtectedData.Unprotect(encryptedSessionKeyBytes, null, DataProtectionScope.CurrentUser);
+                string sessionKey = Encoding.UTF8.GetString(sessionKeyBytes);
+                User user = dbContext.getUserFromSessionKey(sessionKey);
+                if(user != null){
+                    return user;
+                }
+            }
+            else if(UserConfig.Read("encryptedUsername") != null && UserConfig.Read("encryptedPassword") != null){
+                string encryptedUsername = UserConfig.Read("encryptedUsername");
+                string encryptedPassword = UserConfig.Read("encryptedPassword");
                 byte[] encryptedUsernameBytes = Convert.FromBase64String(encryptedUsername);
                 byte[] encryptedPasswordBytes = Convert.FromBase64String(encryptedPassword);
                 byte[] usernameBytes = ProtectedData.Unprotect(encryptedUsernameBytes, null, DataProtectionScope.CurrentUser);
                 byte[] passwordBytes = ProtectedData.Unprotect(encryptedPasswordBytes, null, DataProtectionScope.CurrentUser);
                 string username = Encoding.UTF8.GetString(usernameBytes);
                 string password = Encoding.UTF8.GetString(passwordBytes);
-                return Login(username, password, dbContext);
+                User user = Login(username, password, dbContext);
+                if(user != null){
+                    return user;
+                }
             }
-            else{
-                return EMPTY_USER;
-            }
+            return EMPTY_USER;
+        }
+        public void Logout(StudyMateDbContext dbContext){
+            dbContext.logout(__session_key);
+            UserConfig.Write("encryptedSessionKey", null);
+            UserConfig.Write("encryptedUsername", null);
+            UserConfig.Write("encryptedPassword", null);
+        }
+
+        public void changePassword(String newPassword, StudyMateDbContext dbContext){
+            dbContext.changePassword(__session_key, newPassword);
+            Logout(dbContext);
         }
     }
 }
