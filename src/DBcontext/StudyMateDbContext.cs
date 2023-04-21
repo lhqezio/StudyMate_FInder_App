@@ -148,12 +148,50 @@ namespace StudyMate
             // Add the user to the database
             Users.Add(user);
             SaveChanges();
+            return login(username, password);
+        }
 
-            // Generate a session key
-            string sessionKey = GenerateSessionKey(user.Id);
+        public void logout(string sessionKey)
+        {
+            // Get the session from the database
+            SessionDB session = Sessions.FirstOrDefault(s => s.SessionKey == sessionKey);
 
-            // Return a User object
-            return new User(user.Username, sessionKey, user.Id);
+            // If the session doesn't exist, return
+            if (session == null)
+            {
+                return;
+            }
+
+            // Remove the session from the database
+            Sessions.Remove(session);
+            SaveChanges();
+        }
+        public void changePassword(string sessionKey, string newPassword)
+        {
+            // Get the session from the database
+            SessionDB session = Sessions.FirstOrDefault(s => s.SessionKey == sessionKey);
+
+            // If the session doesn't exist, return
+            if (session == null)
+            {
+                return;
+            }
+
+            // Get the user from the database
+            UserDB user = Users.FirstOrDefault(u => u.Id == session.UserId);
+
+            // If the user doesn't exist, return
+            if (user == null)
+            {
+                return;
+            }
+
+            // Change the user's password
+            user.Password = newPassword;
+
+            // Update the user in the database
+            Users.Update(user);
+            SaveChanges();
         }
     }
 }
