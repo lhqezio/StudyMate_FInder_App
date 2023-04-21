@@ -24,6 +24,14 @@ namespace StudyMate
             string dataSource=@"198.168.52.211:1521/pdbora19c.dawsoncollege.qc.ca";
             optionsBuilder.UseOracle($"User Id={oracleUser}; Password={oraclePassword}; Data Source={dataSource};");
         }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<EventCalendar>()
+                .HasOne(e => e.EventCreator)
+                .WithMany(p => p.EventsCreated)
+                .HasForeignKey(e => e.ProfileId);
+        }
         public override int SaveChanges()
         {
             // Hash passwords before saving to the database
