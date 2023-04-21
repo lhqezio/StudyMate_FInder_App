@@ -10,7 +10,8 @@ namespace StudyMate
         public string EventId { get; set;}
         private string _title; 
         public string Title{get{return _title;}set{_title=value;}}
-        public List<Profile> Participants {get;set;}=new();
+        public User Owner {get; set;}
+        public List<User> Participants {get;set;}=new();
         public List<CourseEvent> CourseEvents {get;set;}=new();
         public DateTimeOffset Date {get;set;}
         public string Description {get;set;}
@@ -86,10 +87,11 @@ namespace StudyMate
         
         // Constructors
         public EventCalendar(){}
-        public EventCalendar(string title, List<Profile> participants, DateTimeOffset date, string description,  List<School>schools, List<CourseEvent> courseEvents, string location , bool isSent=false)
+        public EventCalendar(string title, User owner, List<User> participants, DateTimeOffset date, string description,  List<School>schools, List<CourseEvent> courseEvents, string location , bool isSent=false)
         {
             EventId = Guid.NewGuid().ToString();
             Title = title;
+            Owner = owner;
             Participants = participants; 
             Date = date;
             Description = description;
@@ -101,7 +103,7 @@ namespace StudyMate
 
    
         //Method to add Participants
-        public void AddParticipant(Profile newParticipant){
+        public void AddParticipant(User newParticipant){
             if(Participants.Contains(newParticipant)){
                 throw new ArgumentException("This participant is already part of the event");
             }
@@ -109,7 +111,7 @@ namespace StudyMate
         }
 
         //Method to remove Participants
-        public void RemoveParticipant(Profile participant){
+        public void RemoveParticipant(User participant){
             if(!Participants.Contains(participant)){
                 throw new ArgumentException("This participant isn't part of the event in the first place");
             }
@@ -117,7 +119,7 @@ namespace StudyMate
         }
 
         //Method to Check if participant is attending the event
-        public bool Attends(Profile participant)
+        public bool Attends(User participant)
         {
             return Participants.Contains(participant);
         }
