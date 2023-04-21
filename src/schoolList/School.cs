@@ -9,8 +9,8 @@ namespace StudyMate
         public string SchoolId {get;set;}
         public string Name {get; set;}
 
-        public List<EventCalendar> Events {get;set;}=new();
-        public List<Profile> Profiles {get;set;}=new();
+        public List<EventCalendar> Events {get;}=new();
+        public List<Profile> Profiles {get;}=new();
 
         public School(){}
         public School(string name){

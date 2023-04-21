@@ -17,8 +17,8 @@ namespace StudyMate
         public bool IsSent { get; set; }
 
         // Many-to-many relationships
-        public List<Profile> Participants {get;set;}=new();
-        public List<CourseEvent> CourseEvents {get;set;}=new();
+        public List<Profile> Participants {get;}=new();
+        public List<CourseEvent> CourseEvents {get;}=new();
         
         // One-to-many relationships
         public string ProfileId{get;set;}
