@@ -88,10 +88,11 @@ namespace StudyMate
         
         // Constructors
         public EventCalendar(){}
-        public EventCalendar(string title,Profile EventCreator, List<Profile> participants, DateTimeOffset date, string description,  List<School>schools, List<CourseEvent> courseEvents, string location , bool isSent=false)
+        public EventCalendar(string title, Profile eventCreator, List<Profile> participants, DateTimeOffset date, string description,  List<School>schools, List<CourseEvent> courseEvents, string location , bool isSent=false)
         {
             EventId = Guid.NewGuid().ToString();
             Title = title;
+            EventCreator = eventCreator;
             ProfileId=EventCreator.ProfileId;
             Participants = participants; 
             Date = date;

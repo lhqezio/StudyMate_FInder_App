@@ -7,13 +7,13 @@ namespace StudyMate
 {
     public class StudyMateDbContext : DbContext
     {
-        public DbSet<Profile>? Profiles { get; set; }
-        public DbSet<UserDB>? Users { get; set; }
-        public DbSet<EventCalendar>? Events { get; set; }
-        public DbSet<CanHelpCourses>? CanHelpCourses { get; set; }
-        public DbSet<NeedHelpCourses>? NeedHelpCourses { get; set;}
-        public DbSet<TakenCourses>? TakenCourses { get; set;}
-        public DbSet<SessionDB>? Sessions { get; set; }
+        public virtual  DbSet<Profile>? Profiles { get; set; }
+        public virtual  DbSet<UserDB>? Users { get; set; }
+        public virtual DbSet<EventCalendar>? Events { get; set; }
+        public virtual  DbSet<CanHelpCourses>? CanHelpCourses { get; set; }
+        public virtual  DbSet<NeedHelpCourses>? NeedHelpCourses { get; set;}
+        public virtual  DbSet<TakenCourses>? TakenCourses { get; set;}
+        public virtual  DbSet<SessionDB>? Sessions { get; set; }
 
         // The following configures EF to connect to an oracle database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){
@@ -24,15 +24,19 @@ namespace StudyMate
         }
 
         //AddEvent Method => Add event to the list of events
-        public void AddEvent(EventCalendar e){
-            Events!.Add(e);
-            SaveChanges();
+        public virtual void AddEvent(EventCalendar e, User u){
+            if(ValidateSessionKey(u.__session_key)){
+                Events!.Add(e);
+                SaveChanges();
+            }
         }
 
         //DeleteEvent Method => Delete event to the list of events
-        public void DeleteEvent(EventCalendar e){
-            Events!.Remove(e);
-            SaveChanges();
+        public virtual void DeleteEvent(EventCalendar e, User u){
+            if(ValidateSessionKey(u.__session_key)){ 
+                Events!.Remove(e);
+                SaveChanges();
+            }
         }
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -66,7 +70,7 @@ namespace StudyMate
             return base.SaveChanges();
         }
 
-        public string GenerateSessionKey(string userId)
+        public virtual string GenerateSessionKey(string userId)
         {
             // Generate a session key
             string sessionKey = Guid.NewGuid().ToString();
@@ -81,7 +85,7 @@ namespace StudyMate
             return sessionKey;
         }
 
-        public bool ValidateSessionKey(string sessionKey)
+        public virtual bool ValidateSessionKey(string sessionKey)
         {
             // Get the session from the database
             SessionDB session = Sessions.FirstOrDefault(s => s.SessionKey == sessionKey);
@@ -102,7 +106,7 @@ namespace StudyMate
             return true;
         }
         
-        public User login(string username, string password)
+        public virtual User login(string username, string password)
         {
             // Get the user from the database
             UserDB user = Users.FirstOrDefault(u => u.Username == username);
@@ -123,7 +127,7 @@ namespace StudyMate
             return new User(user.Username, sessionKey, user.Id);
         }
 
-        public User getUserFromSessionKey(string session_key){
+        public virtual User getUserFromSessionKey(string session_key){
             // Get the session from the database
             SessionDB session = Sessions.FirstOrDefault(s => s.SessionKey == session_key);
 
@@ -152,7 +156,7 @@ namespace StudyMate
             return new User(user.Username, session_key, user.Id);
         }
 
-        public User register(string username, string email, string password)
+        public virtual User register(string username, string email, string password)
         {
             // Get the user from the database
             UserDB user = Users.FirstOrDefault(u => u.Username == username);
@@ -172,7 +176,7 @@ namespace StudyMate
             return login(username, password);
         }
 
-        public void logout(string sessionKey)
+        public virtual void logout(string sessionKey)
         {
             // Get the session from the database
             SessionDB session = Sessions.FirstOrDefault(s => s.SessionKey == sessionKey);
@@ -187,7 +191,7 @@ namespace StudyMate
             Sessions.Remove(session);
             SaveChanges();
         }
-        public void changePassword(string sessionKey, string newPassword)
+        public virtual void changePassword(string sessionKey, string newPassword)
         {
             // Get the session from the database
             SessionDB session = Sessions.FirstOrDefault(s => s.SessionKey == sessionKey);
