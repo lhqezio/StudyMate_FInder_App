@@ -6,7 +6,7 @@ namespace StudyMate
 
     public class School{
         [Key]
-        public string id{get;set;}
+        public string SchoolId{get;set;}
         public string Name {get; set;}
 
         public List<EventCalendar> Event{get;set;}=new();
@@ -14,7 +14,7 @@ namespace StudyMate
 
         public School(){}
         public School(string name){
-            id=Guid.NewGuid().ToString();
+            SchoolId=Guid.NewGuid().ToString();
             Name = name;
         }
     }
