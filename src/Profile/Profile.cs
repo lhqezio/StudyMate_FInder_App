@@ -27,8 +27,8 @@ namespace StudyMate
 
         //Many-to-many relationships
         public List<InterestsProfile> Hobbies { get; set; } = new();
-        public List<EventCalendar> Events{get;set;}=new();
-        public List<EventCalendar> EventsCreated{get;set;}=new();
+        public List<EventCalendar> Events {get;set;}=new();
+        public List<EventCalendar> EventsCreated {get;set;}=new();
         public List<TakenCourses> TakenCourses { get; set; }= new();
         public List<NeedHelpCourses> NeedHelpCourses { get; set; } = new();
         public List<CanHelpCourses> CanHelpCourses { get; set; } = new();
