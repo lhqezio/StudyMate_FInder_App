@@ -19,14 +19,14 @@ public class User {
             __session_key = session_key;
             __user_id = user_id;
         }
-
+        public StudyMateDbContext Db{get;set;}
         public static User Register(string username,string email, string password, StudyMateDbContext dbContext){
             // Register user
             return dbContext.register(username,email, password);
         }
 
-        public static User Login(string username, string password, StudyMateDbContext dbContext, bool rememberMe = false){
-           User user = dbContext.login(username, password);
+        public User Login(string username, string password, bool rememberMe = false){
+           User user = Db.login(username, password);
               if(user != null){
                 if(rememberMe){
                      byte[] usernameBytes = Encoding.UTF8.GetBytes(username);
@@ -45,13 +45,13 @@ public class User {
               return user;
         }
 
-        public static User AutoLogin(StudyMateDbContext dbContext){
+        public User AutoLogin(){
             if(UserConfig.Read("encryptedSessionKey") != null){
                 string encryptedSessionKey = UserConfig.Read("encryptedSessionKey");
                 byte[] encryptedSessionKeyBytes = Convert.FromBase64String(encryptedSessionKey);
                 byte[] sessionKeyBytes = ProtectedData.Unprotect(encryptedSessionKeyBytes, null, DataProtectionScope.CurrentUser);
                 string sessionKey = Encoding.UTF8.GetString(sessionKeyBytes);
-                User user = dbContext.getUserFromSessionKey(sessionKey);
+                User user = Db.getUserFromSessionKey(sessionKey);
                 if(user != null){
                     return user;
                 }
@@ -65,7 +65,7 @@ public class User {
                 byte[] passwordBytes = ProtectedData.Unprotect(encryptedPasswordBytes, null, DataProtectionScope.CurrentUser);
                 string username = Encoding.UTF8.GetString(usernameBytes);
                 string password = Encoding.UTF8.GetString(passwordBytes);
-                User user = Login(username, password, dbContext);
+                User user = Login(username, password);
                 if(user != null){
                     return user;
                 }
@@ -79,9 +79,9 @@ public class User {
             UserConfig.Write("encryptedPassword", null);
         }
 
-        public void changePassword(String newPassword, StudyMateDbContext dbContext){
-            dbContext.changePassword(__session_key, newPassword);
-            Logout(dbContext);
+        public void changePassword(String newPassword){
+            Db.changePassword(__session_key, newPassword);
+            Logout(Db);
         }
     }
 }
