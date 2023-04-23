@@ -32,7 +32,6 @@ namespace StudyMate
             profileList.Add(profile2);
             profileList.Add(profile3);
             DateTimeOffset dTime = DateTimeOffset.Now.AddMonths(1);
-            bool sent = false;
             string description = "Study with the homies";
             //Courses
             List<CourseEvent> eventCourses = new List<CourseEvent>();
@@ -45,10 +44,8 @@ namespace StudyMate
             School schoolList = sch1;
             string location = "Montreal";
 
-            //Act
-            db.CreateEvent(user1,"Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location, sent);
-            db.AddEvent(eC, user1);
-
+            db.CreateEvent(user1,"Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location);
+            
             // 4.	Log out from user1
             currentUser.Logout(db);
 
@@ -73,7 +70,7 @@ namespace StudyMate
             db.EditEvent(user4, ec, "New Title as user4");
 
             // 10.	Perform a search that finds user1’s profile
-            Profile profileUser1 = search.SearchProfileByUser(user1);
+            var profileUser1 = search.SearchProfileByUser(user1);
 
             // 11.	Send 3 messages from user2 to user1
 
@@ -90,11 +87,11 @@ namespace StudyMate
             // 17.	Send a message to user2 from user1.
 
             // 18.	Find and view the attendees of profile1’s event
-            EventCalendar profile1Event = search.SearchEventsCreator(profile1);
+            EventCalendar profile1Event = search.SearchEventsCreator(profile1)[0];
             db.ShowParticipants(user1, profile1Event);
 
             // 19.	Modify user1’s event.
-            db.EditEvent(user1, "New Title as user1");
+            db.EditEvent(user1, profile1Event, "New Title as user1");
             db.ShowParticipants(user1, profile1Event);
             
             // 20.	Delete user1’s profile

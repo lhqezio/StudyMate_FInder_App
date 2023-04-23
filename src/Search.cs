@@ -79,7 +79,7 @@ namespace StudyMate
         public List<Profile> SearchProfileByUser(User u)
         {
              var profiles =  _context.Profiles!
-                            .Where(p => p.UserId = u.__user_id)
+                            .Where(p => p.UserId.Equals(u.__user_id))
                             .ToList();
             return profiles;
         }

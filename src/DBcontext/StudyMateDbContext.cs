@@ -40,14 +40,13 @@ namespace StudyMate
         }
 
         //CreateEvent Method => Create an event
-        public virtual EventCalendar CreateEvent(User u, string title, Profile profileCreator, List<Profile> participants, DateTimeOffset date, School school, List<CourseEvent> courseEvents, string location ){
-            if(ValidateSessionKey(u.__session_key)){
+        public virtual void CreateEvent(User u, string title, Profile profileCreator, List<Profile> participants, DateTimeOffset date, string description, School school, List<CourseEvent> courseEvents, string location ){
                 EventCalendar newEvent = new EventCalendar(title, profileCreator, participants, date, description, school, courseEvents, location);
-            }
+                AddEvent(newEvent, u);
         }
 
         //EditEvent Method => Edit an event
-        public virtual EventCalendar EditEvent(User u, EventCalendar editEvent, string title = null, List<Profile> participants = null, DateTimeOffset date = null, School school = null, List<CourseEvent> courseEvents = null, string location = null, bool sent = null){
+        public virtual void EditEvent(User u, EventCalendar editEvent, string title = null, List<Profile> participants = null, DateTimeOffset? date = null, School school = null, List<CourseEvent> courseEvents = null, string location = null, bool? sent = null){
             if(ValidateSessionKey(u.__session_key)){
                 if(title != null){
                     editEvent.Title = title;
@@ -56,7 +55,7 @@ namespace StudyMate
                     editEvent.Participants = participants;
                 }
                 if(date != null){
-                    editEvent.Date = date;
+                    editEvent.Date = (DateTimeOffset)date;
                 }
                 if(school != null){
                     editEvent.School = school;
@@ -68,7 +67,7 @@ namespace StudyMate
                     editEvent.Location = location;
                 }
                 if(sent != null){
-                    editEvent.IsSent = sent;
+                    editEvent.IsSent = (bool)sent;
                 }
                 SaveChanges();
             }
@@ -100,7 +99,11 @@ namespace StudyMate
                 }
                 return pString;
             }
+            else{
+                return "User not Authorized";
+            }
         }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<EventCalendar>()
