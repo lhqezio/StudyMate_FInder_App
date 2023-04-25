@@ -4,8 +4,11 @@ namespace StudyMate
     public class Application{
         public static User currentUser = null;
         public static StudyMateDbContext db = null;
+        public static StudyMateService service = StudyMateService.getInstance();
+
         public static void Main(string[] args){
             db = new StudyMateDbContext();
+            service.setStudyMateDbContext(db);
 
             // 1.	Create a new user account (user1)
             var user1 = User.Register("user1", "user1@hotmail.com", "testpassword", db);
@@ -44,7 +47,7 @@ namespace StudyMate
             School schoolList = sch1;
             string location = "Montreal";
 
-            db.CreateEvent(user1,"Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location);
+            service.CreateEvent(user1,"Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location);
             
             // 4.	Log out from user1
             currentUser.Logout(db);
@@ -67,7 +70,7 @@ namespace StudyMate
             ec.AddParticipant(profile4);
 
             // 9.	Attempt to edit user1’s event as user4 (should fail)
-            db.EditEvent(user4, ec, "New Title as user4");
+            service.EditEvent(user4, ec, "New Title as user4");
 
             // 10.	Perform a search that finds user1’s profile
             var profileUser1 = search.SearchProfileByUser(user1);
@@ -88,11 +91,11 @@ namespace StudyMate
 
             // 18.	Find and view the attendees of profile1’s event
             EventCalendar profile1Event = search.SearchEventsCreator(profile1)[0];
-            db.ShowParticipants(user1, profile1Event);
+            service.ShowParticipants(user1, profile1Event);
 
             // 19.	Modify user1’s event.
-            db.EditEvent(user1, profile1Event, "New Title as user1");
-            db.ShowParticipants(user1, profile1Event);
+            service.EditEvent(user1, profile1Event, "New Title as user1");
+            service.ShowParticipants(user1, profile1Event);
             
             // 20.	Delete user1’s profile
 
