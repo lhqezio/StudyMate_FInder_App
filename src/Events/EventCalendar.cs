@@ -25,21 +25,74 @@ namespace StudyMate
         }
         
         private string _title;
-        public DateTimeOffset Date {get;set;}
-        public string Description {get;set;}
+        private DateTimeOffset _date {get;set;}
+        private string _description {get;set;}
         public string Location {get;set;}
         public bool IsSent { get; set; }
 
         // Many-to-many relationships
-        public List<Profile> Participants {get; set;}
+        private List<Profile> _participants {get; set;}
         public List<CourseEvent> CourseEvents {get; set;}
         
         // One-to-many relationships
         public string ProfileId{get;set;}
-        public Profile EventCreator {get;set;}
+        private Profile _eventCreator {get;set;}
         public string SchoolId{get;set;}
         public School School{get; set;} //Will be a dropdown list for user input
         
+        // Properties - Validation done here since it will also work when edited 
+        public Profile EventCreator
+        {
+            get { return _eventCreator; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentNullException("Creator can't be null.");
+                }
+                _eventCreator = value;
+            }
+        }
+        
+        public List<Profile> Participants
+        {
+            get { return _participants; }
+            set
+            {
+                if (value == null || value.Count == 0)
+                {
+                    throw new ArgumentException("There should be at least one participant.");
+                }
+                _participants = value;
+            }
+        }
+        
+        public DateTimeOffset Date
+        {
+            get { return _date; }
+            set
+            {
+                if (value < DateTimeOffset.Now)
+                {
+                    throw new ArgumentException("The event can't be in the past.");
+                }
+                _date = value;
+            }
+        }
+        
+        public string Description
+        {
+            get { return _description; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Your description can't be empty.");
+                }
+                _description = value; 
+            }
+        }
+
         // Constructors
         public EventCalendar(){}
         public EventCalendar(string title, Profile eventCreator, List<Profile> participants, DateTimeOffset date, string description,  School school, List<CourseEvent> courseEvents, string location , bool isSent=false)
@@ -88,59 +141,5 @@ namespace StudyMate
         }
     }
 }
-
-    // Properties - Validation done here since it will also work when edited 
-        
-        // public Profile Creator
-        // {
-        //     get { return _creator; }
-        //     set
-        //     {
-        //         if (value == null)
-        //         {
-        //             throw new ArgumentNullException("Creator can't be null.");
-        //         }
-        //         _creator = value;
-        //     }
-        // }
-        
-        // public List<Profile> Participants
-        // {
-        //     get { return _participants; }
-        //     set
-        //     {
-        //         if (value == null || value.Count == 0)
-        //         {
-        //             throw new ArgumentException("There should be at least one participant.");
-        //         }
-        //         _participants = value;
-        //     }
-        // }
-        
-        // public DateTimeOffset Date
-        // {
-        //     get { return _date; }
-        //     set
-        //     {
-        //         if (value < DateTimeOffset.Now)
-        //         {
-        //             throw new ArgumentException("The event can't be in the past.");
-        //         }
-        //         _date = value;
-        //     }
-        // }
-        
-        // public string Description
-        // {
-        //     get { return _description; }
-        //     set
-        //     {
-        //         if (string.IsNullOrWhiteSpace(value))
-        //         {
-        //             throw new ArgumentException("Your description can't be empty.");
-        //         }
-        //         _description = value; 
-        //     }
-        // }
         
        
