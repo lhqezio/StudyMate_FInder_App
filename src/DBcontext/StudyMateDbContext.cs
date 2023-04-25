@@ -38,72 +38,7 @@ namespace StudyMate
                 SaveChanges();
             }
         }
-
-        //CreateEvent Method => Create an event
-        public virtual void CreateEvent(User u, string title, Profile profileCreator, List<Profile> participants, DateTimeOffset date, string description, School school, List<CourseEvent> courseEvents, string location ){
-                EventCalendar newEvent = new EventCalendar(title, profileCreator, participants, date, description, school, courseEvents, location);
-                AddEvent(newEvent, u);
-        }
-
-        //EditEvent Method => Edit an event
-        public virtual void EditEvent(User u, EventCalendar editEvent, string title = null, List<Profile> participants = null, DateTimeOffset? date = null, School school = null, List<CourseEvent> courseEvents = null, string location = null, bool? sent = null){
-            if(ValidateSessionKey(u.__session_key)){
-                if(title != null){
-                    editEvent.Title = title;
-                }
-                if(participants != null){
-                    editEvent.Participants = participants;
-                }
-                if(date != null){
-                    editEvent.Date = (DateTimeOffset)date;
-                }
-                if(school != null){
-                    editEvent.School = school;
-                }
-                if(courseEvents != null){
-                    editEvent.CourseEvents = courseEvents;
-                }
-                if(location != null){
-                    editEvent.Location = location;
-                }
-                if(sent != null){
-                    editEvent.IsSent = (bool)sent;
-                }
-                SaveChanges();
-            }
-        }
-
-        //AddParticipant => Add participant to event
-        public virtual void AddParticipant(User u, EventCalendar e, Profile p){
-            if(ValidateSessionKey(u.__session_key)){
-                e.AddParticipant(p);
-                SaveChanges();
-            }
-        }
-
-        //RemoveParticipant => Add participant to event
-        public virtual void RemoveParticipant(User u, EventCalendar e, Profile p){
-            if(ValidateSessionKey(u.__session_key)){
-                e.RemoveParticipant(p);
-                SaveChanges();
-            }
-        }
-
-        //ShowParticipant => Add participant to event
-        public virtual string ShowParticipants(User u, EventCalendar e){
-            if(ValidateSessionKey(u.__session_key)){
-                List<Profile> participants = e.ShowParticipants();
-                string pString = "";
-                foreach (Profile participant in participants){
-                    pString = pString + participant.Name + "; ";
-                }
-                return pString;
-            }
-            else{
-                return "User not Authorized";
-            }
-        }
-
+        
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<EventCalendar>()
