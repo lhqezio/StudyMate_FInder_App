@@ -109,29 +109,6 @@ namespace StudyMate{
             }
         }
 
-        public override int SaveChanges()
-            {
-                // Hash passwords before saving to the database
-                var modifiedUsers = _context.ChangeTracker.Entries<UserDB>()
-                    .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified )
-                    .ToList();
-                
-                foreach (var entry in modifiedUsers)
-                {
-                    var user = entry.Entity;
-
-                    if (!string.IsNullOrEmpty(user.Password))
-                    {
-                        string hashedPassword = PasswordHasher.HashPassword(user.Password);
-                        string[] parts = hashedPassword.Split('.');
-                        user.PasswordHash=parts[1];
-                        user.Salt=parts[0];
-                        user.Password = null;
-                    }
-                }
-
-                return base.SaveChanges();
-            }
 
             public virtual string GenerateSessionKey(string userId)
             {
