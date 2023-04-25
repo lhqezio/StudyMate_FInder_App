@@ -122,7 +122,7 @@ namespace StudyMate
 
         //Method to remove Participants
         public void RemoveParticipant(Profile participant){
-            if(!Participants.Contains(participant)){
+            if(!(Participants.Contains(participant))){
                 throw new ArgumentException("This participant isn't part of the event in the first place");
             }
             Participants.Remove(participant);
