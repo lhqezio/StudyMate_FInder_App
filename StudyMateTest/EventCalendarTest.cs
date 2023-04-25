@@ -110,7 +110,7 @@ public class EventCalendarTest
             //Profile
         Profile profile1 = new Profile("Alain", 15, sch1, new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)}, user1);
         Profile profile2 = new Profile("Sam", 20, sch2, new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Art)}, user2);
-        Profile profile3 = new Profile("Jack", 18, sch3, new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Calculus)}, user3);
+        Profile profile3 = new Profile("Jack", 18, sch3, new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Calculus)}, user3); 
             //Profile list
         List<Profile> profileList = new List<Profile>();
         profileList.Add(profile2);

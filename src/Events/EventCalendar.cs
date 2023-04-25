@@ -162,19 +162,18 @@ namespace StudyMate
         //Since we are overriding the Equals method, we must also override the GetHashCode method.
         public override int GetHashCode()
         {
-            return Name.GetHashCode() ^
-                Gender.GetHashCode() ^
-                Age.GetHashCode() ^
+            return EventId.GetHashCode() ^
+                _title.GetHashCode() ^
+                ProfileId.GetHashCode() ^
+                _eventCreator.GetHashCode() ^
+                _participants.GetHashCode() ^
+                _date.GetHashCode() ^
+                _description.GetHashCode() ^
+                SchoolId.GetHashCode() ^
                 School.GetHashCode() ^
-                Program.GetHashCode() ^
-                TakenCourses.GetHashCode() ^
-                NeedHelpCourses.GetHashCode() ^
-                CanHelpCourses.GetHashCode() ^
-                Events.GetHashCode() ^
-                EventsCreated.GetHashCode() ^
-                PersonalDescription.GetHashCode() ^
-                ProfilePicture.GetHashCode() ^
-                Hobbies.GetHashCode();
+                Location.GetHashCode() ^
+                CourseEvents.GetHashCode() ^
+                IsSent.GetHashCode();
         }
     }
 }
