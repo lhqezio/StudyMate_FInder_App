@@ -11,24 +11,7 @@ namespace StudyMate
         public string EventId { get; set;}
 
         // EventCalendar specific properties
-<<<<<<< HEAD
         public string Title{get;set;}
-=======
-        public string Title
-        {
-            get { return _title; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("Title can't be empty, null, or whitespace.");
-                }
-                _title = value;
-            }
-        }
-        
-        private string _title;
->>>>>>> 4c9f2cabbd58f44f01a16db1ff0dc247035f6e88
         public DateTimeOffset Date {get;set;}
         public string Description {get;set;}
         public string Location {get;set;}
@@ -40,11 +23,7 @@ namespace StudyMate
         
         // One-to-many relationships
         public string ProfileId{get;set;}
-<<<<<<< HEAD
         public Profile? EventCreator {get;set;}=null!;
-=======
-        public Profile EventCreator {get;set;}
->>>>>>> 4c9f2cabbd58f44f01a16db1ff0dc247035f6e88
         public string SchoolId{get;set;}
         public School School{get; set;} //Will be a dropdown list for user input
         

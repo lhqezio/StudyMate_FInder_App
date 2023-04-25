@@ -26,8 +26,8 @@ public class User {
             __session_key = session_key;
             __user_id = user_id;
         }
-        public StudyMateDbContext Db{get;set;}
-        public static User Register(string username,string email, string password, StudyMateDbContext dbContext){
+        public StudyMateService Db{get;set;}
+        public static User Register(string username,string email, string password, StudyMateService dbContext){
             // Register user
             return dbContext.register(username,email, password);
         }
@@ -79,7 +79,7 @@ public class User {
             }
             return EMPTY_USER;
         }
-        public void Logout(StudyMateDbContext dbContext){
+        public void Logout(StudyMateService dbContext){
             dbContext.logout(__session_key);
             UserConfig.Write("encryptedSessionKey", null);
             UserConfig.Write("encryptedUsername", null);

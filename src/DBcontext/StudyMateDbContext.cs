@@ -15,6 +15,7 @@ namespace StudyMate
         public virtual  DbSet<TakenCourses>? TakenCourses { get; set;}
         public virtual  DbSet<SessionDB>? Sessions { get; set; }
 
+        private StudyMateDbContext _context = null!;
         // The following configures EF to connect to an oracle database
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder){
             string? oracleUser=Environment.GetEnvironmentVariable("ORACLE_APP_USER");
