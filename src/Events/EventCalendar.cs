@@ -10,22 +10,7 @@ namespace StudyMate
         public string EventId { get; set;}
 
         // EventCalendar specific properties
-        public string Title
-        {
-            get { return _title; }
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("Title can't be empty, null, or whitespace.");
-                }
-                _title = value;
-
-                if(Application.db.ValidateSessionKey(Application.currentUser.__session_key) && Application.currentUser. )
-            }
-        }
-        
-        private string _title;
+        public string Title{get;set;}
         public DateTimeOffset Date {get;set;}
         public string Description {get;set;}
         public string Location {get;set;}
