@@ -1,5 +1,8 @@
 using System.Security.Cryptography;
 using System.Text;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudyMate
 {
@@ -11,8 +14,12 @@ public class User {
                 return __username;
             }
         }
-        public string __session_key;
-        public string __user_id;
+        public string __session_key{get;set;}
+        [Key]
+        public string __user_id{get;set;}
+        public Profile? Profile{get;set;}
+
+        public User(){}
 
         public User(string username,string session_key,string user_id){
             __username = username;
