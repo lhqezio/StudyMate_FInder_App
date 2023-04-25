@@ -16,7 +16,7 @@ namespace StudyMate
         //One-to-one relationship
         [ForeignKey("User")]
         public string UserId { get; set; }
-        public User? User{get;set;}=null!;
+        public User User{get;set;}=null!;
 
         //Profile specific properties
         public string Name { get; set; } = "";
@@ -63,7 +63,7 @@ namespace StudyMate
             Name = "";
             Gender = null;
             Age = null;
-            School=null;
+            School=new();
             SchoolId="";
             Program = "";
             TakenCourses.Clear();
@@ -83,9 +83,7 @@ namespace StudyMate
         {
             if (obj is not Profile other)
                 return false;
-            return
-                   Name == other.Name
-                && User.Equals(other.User)
+            return Name == other.Name
                 && Gender == other.Gender
                 && Age == other.Age
                 && School.Equals(other.School)
