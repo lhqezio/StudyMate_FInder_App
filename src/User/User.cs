@@ -20,9 +20,6 @@ public class User {
             __user_id = user_id;
         }
         public StudyMateDbContext Db{get;set;}
-        public static User Register(string username,string email, string password, StudyMateDbContext dbContext){
-            // Register user
-            return dbContext.Register(username,email, password);
-        }
+
     }
 }
