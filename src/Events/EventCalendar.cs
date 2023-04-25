@@ -37,7 +37,7 @@ namespace StudyMate
         
         // One-to-many relationships
         public string ProfileId{get;set;}
-        public Profile EventCreator {get;set;}=null!;
+        public Profile? EventCreator {get;set;}=null!;
         public string SchoolId{get;set;}
         public School School{get; set;}=null!; //Will be a dropdown list for user input
         
