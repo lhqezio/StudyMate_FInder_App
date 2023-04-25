@@ -106,7 +106,7 @@ namespace StudyMate
             return true;
         }
         
-        public virtual User login(string username, string password)
+        public virtual User Login(string username, string password)
         {
             // Get the user from the database
             UserDB user = Users.FirstOrDefault(u => u.Username == username);
@@ -127,7 +127,7 @@ namespace StudyMate
             return new User(user.Username, sessionKey, user.Id);
         }
 
-        public virtual User getUserFromSessionKey(string session_key){
+        public virtual User LoginFromSessionKey(string session_key){
             // Get the session from the database
             SessionDB session = Sessions.FirstOrDefault(s => s.SessionKey == session_key);
 
@@ -156,7 +156,7 @@ namespace StudyMate
             return new User(user.Username, session_key, user.Id);
         }
 
-        public virtual User register(string username, string email, string password)
+        public virtual User Register(string username, string email, string password)
         {
             // Get the user from the database
             UserDB user = Users.FirstOrDefault(u => u.Username == username);
@@ -173,10 +173,10 @@ namespace StudyMate
             // Add the user to the database
             Users.Add(user);
             SaveChanges();
-            return login(username, password);
+            return Login(username, password);
         }
 
-        public virtual void logout(string sessionKey)
+        public virtual void Logout(string sessionKey)
         {
             // Get the session from the database
             SessionDB session = Sessions.FirstOrDefault(s => s.SessionKey == sessionKey);
@@ -191,7 +191,7 @@ namespace StudyMate
             Sessions.Remove(session);
             SaveChanges();
         }
-        public virtual void changePassword(string sessionKey, string newPassword)
+        public virtual void ChangePassword(string sessionKey, string newPassword)
         {
             // Get the session from the database
             SessionDB session = Sessions.FirstOrDefault(s => s.SessionKey == sessionKey);
