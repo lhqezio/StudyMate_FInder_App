@@ -735,22 +735,6 @@
           "lib/netstandard2.0/_._": {}
         }
       },
-      "Microsoft.EntityFrameworkCore.InMemory/7.0.4": {
-        "type": "package",
-        "dependencies": {
-          "Microsoft.EntityFrameworkCore": "7.0.4"
-        },
-        "compile": {
-          "lib/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
-            "related": ".xml"
-          }
-        },
-        "runtime": {
-          "lib/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll": {
-            "related": ".xml"
-          }
-        }
-      },
       "Microsoft.EntityFrameworkCore.Relational/7.0.4": {
         "type": "package",
         "dependencies": {
@@ -4580,20 +4564,6 @@
         "lib/netstandard2.0/_._",
         "microsoft.entityframeworkcore.analyzers.7.0.5.nupkg.sha512",
         "microsoft.entityframeworkcore.analyzers.nuspec"
-      ]
-    },
-    "Microsoft.EntityFrameworkCore.InMemory/7.0.4": {
-      "sha512": "enWK5KFD21mq6z1qs5i2PsGQbfud5hLF9erQvPCSC0HCSTQUuOqIxccUEbxu4QRrdqpjwVofZs+yNSM5qoe6bg==",
-      "type": "package",
-      "path": "microsoft.entityframeworkcore.inmemory/7.0.4",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "Icon.png",
-        "lib/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll",
-        "lib/net6.0/Microsoft.EntityFrameworkCore.InMemory.xml",
-        "microsoft.entityframeworkcore.inmemory.7.0.4.nupkg.sha512",
-        "microsoft.entityframeworkcore.inmemory.nuspec"
       ]
     },
     "Microsoft.EntityFrameworkCore.Relational/7.0.4": {
@@ -10738,7 +10708,6 @@
     "net6.0": [
       "MSTest.TestAdapter >= 2.2.8",
       "MSTest.TestFramework >= 2.2.8",
-      "Microsoft.EntityFrameworkCore.InMemory >= 7.0.4",
       "Microsoft.NET.Test.Sdk >= 17.1.0",
       "Moq >= 4.18.4",
       "coverlet.collector >= 3.1.2",
@@ -10746,40 +10715,32 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\alain\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "C:\\Users\\amirr\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\ProgIVProject\\410project\\StudyMateTest\\StudyMateTest.csproj",
+      "projectUniqueName": "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\StudyMateTest\\StudyMateTest.csproj",
       "projectName": "StudyMateTest",
-      "projectPath": "C:\\ProgIVProject\\410project\\StudyMateTest\\StudyMateTest.csproj",
-      "packagesPath": "C:\\Users\\alain\\.nuget\\packages\\",
-      "outputPath": "C:\\ProgIVProject\\410project\\StudyMateTest\\obj\\",
+      "projectPath": "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\StudyMateTest\\StudyMateTest.csproj",
+      "packagesPath": "C:\\Users\\amirr\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\StudyMateTest\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\alain\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\amirr\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net6.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
           "projectReferences": {
-            "C:\\ProgIVProject\\410project\\src\\src.csproj": {
-              "projectPath": "C:\\ProgIVProject\\410project\\src\\src.csproj"
+            "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\src\\src.csproj": {
+              "projectPath": "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\src\\src.csproj"
             }
           }
         }
@@ -10801,10 +10762,6 @@
           "MSTest.TestFramework": {
             "target": "Package",
             "version": "[2.2.8, )"
-          },
-          "Microsoft.EntityFrameworkCore.InMemory": {
-            "target": "Package",
-            "version": "[7.0.4, )"
           },
           "Microsoft.NET.Test.Sdk": {
             "target": "Package",
@@ -10835,7 +10792,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
       }
     }
   }
