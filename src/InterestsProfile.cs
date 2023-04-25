@@ -15,5 +15,20 @@ namespace StudyMate
             InterestId=Guid.NewGuid().ToString();
             Interests = interest;
         }
+
+        //Override of Equals method. This is used to compare two course objects.
+        public override bool Equals(object? obj)
+        {
+            if (obj is not InterestsProfile other){
+                return false;
+            }   
+            return Interests == other.Interests;
+        }
+
+        //Since we are overriding the Equals method, we must also override the GetHashCode method.
+        public override int GetHashCode()
+        {
+            return Interests.GetHashCode();
+        }
     }
 }
