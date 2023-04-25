@@ -7,14 +7,9 @@ namespace StudyMate
 {   
     public class Search{
 
+        private StudyMateDbContext _context = null!;
+        
         private Search(){}
-
-        public static Search getInstance(){
-            if(_instance is null){
-                _instance = new Search();
-            }
-            return _instance;
-        }
 
         //Constructor
         public Search(StudyMateDbContext context){

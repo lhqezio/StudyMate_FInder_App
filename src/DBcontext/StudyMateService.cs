@@ -32,7 +32,7 @@ namespace StudyMate{
         public virtual void AddEvent(EventCalendar e, User u){
             if(ValidateSessionKey(u.__session_key)){
                 _context.Events!.Add(e);
-                SaveChanges();
+                _context.SaveChanges();
             }
         }
 
@@ -40,7 +40,7 @@ namespace StudyMate{
         public virtual void DeleteEvent(EventCalendar e, User u){
             if(ValidateSessionKey(u.__session_key)){ 
                 _context.Events!.Remove(e);
-                SaveChanges();
+                _context.SaveChanges();
             }
         }
 
@@ -74,7 +74,7 @@ namespace StudyMate{
                 if(sent != null){
                     editEvent.IsSent = (bool)sent;
                 }
-                SaveChanges();
+                _context.SaveChanges();
             }
         }
 
@@ -82,7 +82,7 @@ namespace StudyMate{
         public virtual void AddParticipant(User u, EventCalendar e, Profile p){
             if(ValidateSessionKey(u.__session_key)){
                 e.AddParticipant(p);
-                SaveChanges();
+                _context.SaveChanges();
             }
         }
 
@@ -90,7 +90,7 @@ namespace StudyMate{
         public virtual void RemoveParticipant(User u, EventCalendar e, Profile p){
             if(ValidateSessionKey(u.__session_key)){
                 e.RemoveParticipant(p);
-                SaveChanges();
+                _context.SaveChanges();
             }
         }
 
@@ -120,7 +120,7 @@ namespace StudyMate{
 
                 // Add the session to the database
                 _context.Sessions!.Add(session);
-                SaveChanges();
+                _context.SaveChanges();
 
                 return sessionKey;
             }
@@ -212,7 +212,7 @@ namespace StudyMate{
 
                 // Add the user to the database
                 _context.Users!.Add(user);
-                SaveChanges();
+                _context.SaveChanges();
                 return login(username, password);
             }
 
@@ -229,7 +229,7 @@ namespace StudyMate{
 
                 // Remove the session from the database
                 _context.Sessions!.Remove(session);
-                SaveChanges();
+                _context.SaveChanges();
             }
             public virtual void changePassword(string sessionKey, string newPassword)
             {
@@ -256,7 +256,7 @@ namespace StudyMate{
 
                 // Update the user in the database
                 _context.Users!.Update(user);
-                SaveChanges();
+                _context.SaveChanges();
             }
     }
 }
