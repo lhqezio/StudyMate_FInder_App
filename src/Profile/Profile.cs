@@ -60,9 +60,6 @@ namespace StudyMate
         //This mehtod allows to clear all the fields of the profile class in one shot.
         public void ClearProfile()
         {
-            ProfileId="";
-            UserId="";
-            User=null;
             Name = "";
             Gender = null;
             Age = null;
