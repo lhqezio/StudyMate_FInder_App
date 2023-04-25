@@ -3,8 +3,8 @@ H:\Programming\C#\410project\src\obj\Debug\net6.0\src.GeneratedMSBuildEditorConf
 H:\Programming\C#\410project\src\obj\Debug\net6.0\src.AssemblyInfoInputs.cache
 H:\Programming\C#\410project\src\obj\Debug\net6.0\src.AssemblyInfo.cs
 H:\Programming\C#\410project\src\obj\Debug\net6.0\src.csproj.CoreCompileInputs.cache
-c:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\src\obj\Debug\net6.0\src.csproj.AssemblyReference.cache
-c:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\src\obj\Debug\net6.0\src.GeneratedMSBuildEditorConfig.editorconfig
-c:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\src\obj\Debug\net6.0\src.AssemblyInfoInputs.cache
-c:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\src\obj\Debug\net6.0\src.AssemblyInfo.cs
-c:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\src\obj\Debug\net6.0\src.csproj.CoreCompileInputs.cache
+C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\src\obj\Debug\net6.0\src.csproj.AssemblyReference.cache
+C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\src\obj\Debug\net6.0\src.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\src\obj\Debug\net6.0\src.AssemblyInfoInputs.cache
+C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\src\obj\Debug\net6.0\src.AssemblyInfo.cs
+C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\src\obj\Debug\net6.0\src.csproj.CoreCompileInputs.cache
