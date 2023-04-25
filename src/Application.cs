@@ -32,7 +32,6 @@ namespace StudyMate
             profileList.Add(profile2);
             profileList.Add(profile3);
             DateTimeOffset dTime = DateTimeOffset.Now.AddMonths(1);
-            bool sent = false;
             string description = "Study with the homies";
             //Courses
             List<CourseEvent> eventCourses = new List<CourseEvent>();
@@ -45,10 +44,8 @@ namespace StudyMate
             School schoolList = sch1;
             string location = "Montreal";
 
-            //Act
-            EventCalendar eC = new EventCalendar("Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location, sent);
-            db.AddEvent(eC, user1);
-
+            db.CreateEvent(user1,"Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location);
+            
             // 4.	Log out from user1
             currentUser.Logout(db);
 
@@ -69,10 +66,11 @@ namespace StudyMate
             // 8.	Mark user4 as attending user1’s event
             ec.AddParticipant(profile4);
 
-            // 9.	Attempt to edit user1’s event as user2 (should fail)
-            
+            // 9.	Attempt to edit user1’s event as user4 (should fail)
+            db.EditEvent(user4, ec, "New Title as user4");
 
             // 10.	Perform a search that finds user1’s profile
+            var profileUser1 = search.SearchProfileByUser(user1);
 
             // 11.	Send 3 messages from user2 to user1
 
@@ -88,10 +86,14 @@ namespace StudyMate
 
             // 17.	Send a message to user2 from user1.
 
-            // 18.	Find and view the attendees of user1’s event
+            // 18.	Find and view the attendees of profile1’s event
+            EventCalendar profile1Event = search.SearchEventsCreator(profile1)[0];
+            db.ShowParticipants(user1, profile1Event);
 
             // 19.	Modify user1’s event.
-
+            db.EditEvent(user1, profile1Event, "New Title as user1");
+            db.ShowParticipants(user1, profile1Event);
+            
             // 20.	Delete user1’s profile
 
             // 21.	Delete user1’s account
