@@ -122,7 +122,7 @@ namespace StudyMate
 
         //Method to remove Participants
         public void RemoveParticipant(Profile participant){
-            if(!(Participants.Contains(participant))){
+            if(Participants.Contains(participant)){
                 throw new ArgumentException("This participant isn't part of the event in the first place");
             }
             Participants.Remove(participant);
@@ -138,6 +138,43 @@ namespace StudyMate
         public List<Profile> ShowParticipants()
         {
             return Participants;
+        }
+
+        //Override of Equals method. This is used to compare two event objects.
+        public override bool Equals(object? obj)
+        {
+            if (obj is not EventCalendar other)
+                return false;
+            return EventId == other.EventId
+                && _title == other._title
+                && ProfileId == other.ProfileId
+                && _eventCreator == other._eventCreator 
+                && _participants.SequenceEqual(other._participants)
+                && _date == other._date
+                && _description == other._description
+                && SchoolId == other.SchoolId
+                && School == other.School
+                && Location == other.Location
+                && CourseEvents.SequenceEqual(other.CourseEvents)
+                && IsSent == other.IsSent;
+        }
+
+        //Since we are overriding the Equals method, we must also override the GetHashCode method.
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode() ^
+                Gender.GetHashCode() ^
+                Age.GetHashCode() ^
+                School.GetHashCode() ^
+                Program.GetHashCode() ^
+                TakenCourses.GetHashCode() ^
+                NeedHelpCourses.GetHashCode() ^
+                CanHelpCourses.GetHashCode() ^
+                Events.GetHashCode() ^
+                EventsCreated.GetHashCode() ^
+                PersonalDescription.GetHashCode() ^
+                ProfilePicture.GetHashCode() ^
+                Hobbies.GetHashCode();
         }
     }
 }
