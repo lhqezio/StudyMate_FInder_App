@@ -24,20 +24,7 @@ namespace StudyMate
         }
 
         //AddEvent Method => Add event to the list of events
-        public virtual void AddEvent(EventCalendar e, User u){
-            if(ValidateSessionKey(u.__session_key)){
-                Events!.Add(e);
-                SaveChanges();
-            }
-        }
-
-        //DeleteEvent Method => Delete event to the list of events
-        public virtual void DeleteEvent(EventCalendar e, User u){
-            if(ValidateSessionKey(u.__session_key)){ 
-                Events!.Remove(e);
-                SaveChanges();
-            }
-        }
+        
         
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
