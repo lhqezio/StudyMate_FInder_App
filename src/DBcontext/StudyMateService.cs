@@ -45,13 +45,13 @@ namespace StudyMate{
         }
 
         //CreateEvent Method => Create an event
-        public virtual void CreateEvent(User u, string title, Profile profileCreator, List<Profile> participants, DateTimeOffset date, string description, School school, List<CourseEvent> courseEvents, string location ){
-            EventCalendar newEvent = new EventCalendar(title, profileCreator, participants, date, description, school, courseEvents, location);
+        public virtual void CreateEvent(User u, string title, List<User> participants, DateTimeOffset date, string description, School school, List<CourseEvent> courseEvents, string location ){
+            EventCalendar newEvent = new EventCalendar(title, u, participants, date, description, school, courseEvents, location);
             AddEvent(newEvent, u);
         }
 
         //EditEvent Method => Edit an event
-        public virtual void EditEvent(User u, EventCalendar editEvent, string? title = null, List<Profile>? participants = null, DateTimeOffset? date = null, School? school = null, List<CourseEvent>? courseEvents = null, string? location = null, bool? sent = null){
+        public virtual void EditEvent(User u, EventCalendar editEvent, string? title = null, List<User>? participants = null, DateTimeOffset? date = null, School? school = null, List<CourseEvent>? courseEvents = null, string? location = null, bool? sent = null){
             if(ValidateSessionKey(u.__session_key)){
                 if(title != null){
                     editEvent.Title = title;
@@ -79,17 +79,17 @@ namespace StudyMate{
         }
 
         //AddParticipant => Add participant to event
-        public virtual void AddParticipant(User u, EventCalendar e, Profile p){
+        public virtual void AddParticipant(User u, EventCalendar e, User participant){
             if(ValidateSessionKey(u.__session_key)){
-                e.AddParticipant(p);
+                e.AddParticipant(participant);
                 _context.SaveChanges();
             }
         }
 
         //RemoveParticipant => Add participant to event
-        public virtual void RemoveParticipant(User u, EventCalendar e, Profile p){
+        public virtual void RemoveParticipant(User u, EventCalendar e, User participant){
             if(ValidateSessionKey(u.__session_key)){
-                e.RemoveParticipant(p);
+                e.RemoveParticipant(participant);
                 _context.SaveChanges();
             }
         }
@@ -97,10 +97,10 @@ namespace StudyMate{
         //ShowParticipant => Add participant to event
         public virtual string ShowParticipants(User u, EventCalendar e){
             if(ValidateSessionKey(u.__session_key)){
-                List<Profile> participants = e.ShowParticipants();
+                List<User> participants = e.ShowParticipants();
                 string pString = "";
-                foreach (Profile participant in participants){
-                    pString = pString + participant.Name + "; ";
+                foreach (User participant in participants){
+                    pString = pString + participant.Username + "; ";
                 }
                 return pString;
             }

@@ -29,8 +29,8 @@ namespace StudyMate
         {
             modelBuilder.Entity<EventCalendar>()
                 .HasOne(e => e.EventCreator)
-                .WithMany(p => p.EventsCreated)
-                .HasForeignKey(e => e.ProfileId);
+                .WithMany(u => u.Profile.EventsCreated)
+                .HasForeignKey(e => e.UserId);
         }
 
         public override int SaveChanges()
