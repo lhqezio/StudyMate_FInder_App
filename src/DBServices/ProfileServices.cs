@@ -20,11 +20,11 @@ public class ProfileServices
 
     public virtual void AddProfile(Profile profile, User u)
     {
-        if (_context.ValidateSessionKey(u.__session_key))
-        {
+        // if (_context.ValidateSessionKey(u.__session_key))
+        // {
             _context.Profiles!.Add(profile);
             _context.SaveChanges();
-        }
+        //}
     }
 
     public virtual void DeleteProfile(Profile profile, User u)
