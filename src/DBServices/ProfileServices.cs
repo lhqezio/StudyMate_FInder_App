@@ -38,13 +38,12 @@ public class ProfileServices
         // }
     }
 
-    public virtual void UpdateProfile(Profile profileToUpdate,Profile updateProfile, User u)
+    public virtual void UpdateProfile(Profile profile, User u)
     {
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
-            updateProfile.ProfileId=profileToUpdate.ProfileId;
-            _context.Entry(updateProfile).State = EntityState.Modified;
+            _context.Profiles!.Update(profile);
             _context.SaveChanges();
         // }
     }

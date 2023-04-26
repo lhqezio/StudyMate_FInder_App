@@ -41,18 +41,16 @@ public class ProfileServicesTests
 
     [TestMethod]
     public void UpdateProfileTest_UpdatesProfileInDB_ReturnsVoid(){
-        //Arrange
         User user1 = new User("amirreza", "PK1", "1");
-        Profile profileToUpdate = new Profile("Amir", 20, new School("Dawson College"), "Computer Science", new List<NeedHelpCourses>() { new NeedHelpCourses(Courses.History) }, user1, Genders.Male);
-        Profile updateProfile = new Profile("Amirreza", 27, new School("Concordia University"), "Art", new List<NeedHelpCourses>() { new NeedHelpCourses(Courses.Journalism), new NeedHelpCourses(Courses.Art) }, user1, Genders.Male);
+        var profile = new Profile("Amir", 20, new School("Dawson College"), "Computer Science", new List<NeedHelpCourses>() { new NeedHelpCourses(Courses.History) }, user1, Genders.Male);
         var mockSet = new Mock<DbSet<Profile>>();
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(p => p.Profiles).Returns(mockSet.Object);
         var service = ProfileServices.getInstance(mockContext.Object);
         //Act
-        service.UpdateProfile(profileToUpdate, updateProfile, user1);
+        service.UpdateProfile(profile, user1);
         //Assert
-        mockSet.Verify(p => p.Attach(profileToUpdate), Times.Once());
+        mockSet.Verify(p => p.Update(It.IsAny<Profile>()), Times.Once());
         mockContext.Verify(p => p.SaveChanges(), Times.Once());
     }
 
