@@ -13,9 +13,10 @@ namespace StudyMate
         [Key]
         public string ProfileId { get; set; }
         
-        //Links the UserDB Primary key to this foreign key
-        [ForeignKey("UserDB")]
+        //One-to-one relationship
+        [ForeignKey("User")]
         public string UserId { get; set; }
+        public User User{get;set;}=null!;
 
         //Profile specific properties
         public string Name { get; set; } = "";
@@ -28,31 +29,32 @@ namespace StudyMate
         //Many-to-many relationships
         public List<InterestsProfile> Hobbies { get;} = new();
         public List<EventCalendar> Events {get;}=new();
-        public List<EventCalendar> EventsCreated {get;}=new();
         public List<TakenCourses> TakenCourses { get;}= new();
         public List<NeedHelpCourses> NeedHelpCourses { get;} = new();
         public List<CanHelpCourses> CanHelpCourses { get;} = new();
 
         //One-to-many relationships
+        [ForeignKey("School")]
         public string SchoolId{get;set;}
-        public School? School{get;set;}
+        public School? School{get;set;}=null!;
+        public List<EventCalendar> EventsCreated {get;}=new();
         
         
         public Profile(){}
 
         //Constructor that builds a profile object with the mandatory fields. The user can set the optional fileds later using the 
         //setters.
-        public Profile(string name, int age, School school, List<NeedHelpCourses> needHelpCourses, UserDB user, Genders gender = Genders.Undisclosed)
+        public Profile(string name, int age, School school, string program, List<NeedHelpCourses> needHelpCourses, User user, Genders gender = Genders.Undisclosed)
         {
             ProfileId=Guid.NewGuid().ToString();
-            user.ProfileId=ProfileId;
-            UserId=user.Id;
             Name = name;
             Age = age;
+            Program = program;
             Gender = gender;
             SchoolId=school.SchoolId;
             School = school;
             NeedHelpCourses = needHelpCourses;
+            UserId=user.__user_id;
         }
 
         //This mehtod allows to clear all the fields of the profile class in one shot.
@@ -61,7 +63,8 @@ namespace StudyMate
             Name = "";
             Gender = null;
             Age = null;
-            School=null;
+            School=new();
+            SchoolId="";
             Program = "";
             TakenCourses.Clear();
             NeedHelpCourses.Clear();
@@ -83,7 +86,7 @@ namespace StudyMate
             return Name == other.Name
                 && Gender == other.Gender
                 && Age == other.Age
-                && School == other.School
+                && School.Equals(other.School)
                 && Program == other.Program
                 && TakenCourses.SequenceEqual(other.TakenCourses)
                 && NeedHelpCourses.SequenceEqual(other.NeedHelpCourses)
@@ -99,6 +102,7 @@ namespace StudyMate
         public override int GetHashCode()
         {
             return Name.GetHashCode() ^
+                User.GetHashCode() ^
                 Gender.GetHashCode() ^
                 Age.GetHashCode() ^
                 School.GetHashCode() ^

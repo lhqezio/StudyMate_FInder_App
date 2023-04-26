@@ -1,6 +1,7 @@
 using StudyMate;
 using Moq;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace StudyMateTests;
 

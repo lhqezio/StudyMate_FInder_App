@@ -1,24 +1,15 @@
 using System.Linq;
 using System.Reflection.Emit;
+
 //This class takes of searching. It uses REGEX to find the profile that user wants to see.
 //Its constructor takes as input a DatabaseReader object and 
-
 namespace StudyMate
-{
-    public class Search
-    {
-        //Properties
-        private static Search? _instance;
+{   
+    public class Search{
+
         private StudyMateDbContext _context = null!;
-
+        
         private Search(){}
-
-        public static Search getInstance(){
-            if(_instance is null){
-                _instance = new Search();
-            }
-            return _instance;
-        }
 
         //Constructor
         public Search(StudyMateDbContext context){

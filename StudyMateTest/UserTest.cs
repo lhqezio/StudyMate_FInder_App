@@ -1,5 +1,6 @@
 using Moq;
 using StudyMate;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace StudyMateTest
 {
     [TestClass]
@@ -13,9 +14,9 @@ namespace StudyMateTest
         {
             //Arrange
             var mockUserDB = new Mock<StudyMateDbContext>();
-            mockUserDB.Object.register(username, email, password);
+            mockUserDB.Object.Register(username, email, password);
             //Act
-            var result = mockUserDB.Object.login(username, password);
+            var result = mockUserDB.Object.Login(username, password);
             UserDB userDB = mockUserDB.Object.Users.FirstOrDefault(u => u.Username == username);
             //Assert
             Assert.AreEqual(result.Username, username);
@@ -28,20 +29,20 @@ namespace StudyMateTest
             //Arrange
             var mockUserDB = new Mock<StudyMateDbContext>();
             //Act
-            mockUserDB.Object.register(username, email, password);
+            mockUserDB.Object.Register(username, email, password);
             UserDB userDB = mockUserDB.Object.Users.FirstOrDefault(u => u.Username == username);
             //Assert
             Assert.AreEqual(userDB.Username, username);
             Assert.IsTrue(PasswordHasher.VerifyPassword(password, $"{userDB.Salt}.{userDB.PasswordHash}"));
         }
         [TestMethod]
-        public void GetUserFromSessionKeyTest()
+        public void LoginFromSessionKeyTest()
         {
             //Arrange
             var mockUserDB = new Mock<StudyMateDbContext>();
-            var result = mockUserDB.Object.register(username, email, password);
+            var result = mockUserDB.Object.Register(username, email, password);
             //Act
-            var user = mockUserDB.Object.getUserFromSessionKey(result.__session_key);
+            var user = mockUserDB.Object.LoginFromSessionKey(result.__session_key);
             UserDB userDB = mockUserDB.Object.Users.FirstOrDefault(u => u.Username == username);
             //Assert
             Assert.AreEqual(user.Username, username);
@@ -53,10 +54,10 @@ namespace StudyMateTest
         {
             //Arrange
             var mockUserDB = new Mock<StudyMateDbContext>();
-            var result = mockUserDB.Object.register(username, email, password);
+            var result = mockUserDB.Object.Register(username, email, password);
             //Act
-            var user = mockUserDB.Object.getUserFromSessionKey(result.__session_key);
-            mockUserDB.Object.logout(result.__session_key);
+            var user = mockUserDB.Object.LoginFromSessionKey(result.__session_key);
+            mockUserDB.Object.Logout(result.__session_key);
             //Assert
             Assert.IsNull(user);
         }
@@ -65,10 +66,10 @@ namespace StudyMateTest
         {
             //Arrange
             var mockUserDB = new Mock<StudyMateDbContext>();
-            var result = mockUserDB.Object.register(username, email, password);
+            var result = mockUserDB.Object.Register(username, email, password);
             //Act
-            var user = mockUserDB.Object.getUserFromSessionKey(result.__session_key);
-            mockUserDB.Object.changePassword(result.__session_key, "test1234");
+            var user = mockUserDB.Object.LoginFromSessionKey(result.__session_key);
+            mockUserDB.Object.ChangePassword(result.__session_key, "test1234");
             UserDB userDB = mockUserDB.Object.Users.FirstOrDefault(u => u.Username == username);
             //Assert
             Assert.IsTrue(PasswordHasher.VerifyPassword("test1234", $"{userDB.Salt}.{userDB.PasswordHash}"));

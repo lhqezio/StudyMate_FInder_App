@@ -17,6 +17,19 @@ namespace StudyMate
             SchoolId=Guid.NewGuid().ToString();
             Name = name;
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is not School other)
+                return false;
+            return Name == other.Name;
+        }
+
+        //Since we are overriding the Equals method, we must also override the GetHashCode method.
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode();
+        }
     }
 
 }

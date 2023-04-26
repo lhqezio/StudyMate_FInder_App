@@ -1,4 +1,5 @@
 namespace StudyMateTest;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using StudyMate;
 [TestClass]
 public class MatchingTests
