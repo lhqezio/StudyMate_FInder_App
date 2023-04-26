@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace StudyMate;
-class ProfileServices
+public class ProfileServices
 {
     private StudyMateDbContext _context = null!;
     private static ProfileServices? _instance;
