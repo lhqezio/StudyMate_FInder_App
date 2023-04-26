@@ -26,12 +26,8 @@ public class User {
             __session_key = session_key;
             __user_id = user_id;
         }
-        public UserServices Db{get;set;}
-        public static User Register(string username,string email, string password, UserServices dbContext){
-            // Register user
-            return dbContext.Register(username,email, password);
-        }
-
+        public StudyMateDbContext Db{get;set;}
+    
         //Override of Equals method. This is used to compare two course objects.
         public override bool Equals(object? obj)
         {
