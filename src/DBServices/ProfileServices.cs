@@ -36,11 +36,14 @@ class ProfileServices
         }
     }
 
-    public void UpdateProfile(Profile profileToUpdate,Profile updateProfile)
+    public virtual void UpdateProfile(Profile profileToUpdate,Profile updateProfile, User u)
     {
-        updateProfile.ProfileId=profileToUpdate.ProfileId;
-        _context.Entry(updateProfile).State = EntityState.Modified;
-        _context.SaveChanges();
+        if (_context.ValidateSessionKey(u.__session_key))
+        {
+            updateProfile.ProfileId=profileToUpdate.ProfileId;
+            _context.Entry(updateProfile).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
     }
 
 }

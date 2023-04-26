@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace StudyMate;
 class EventServices
 {
@@ -30,6 +32,16 @@ class EventServices
         if (_context.ValidateSessionKey(u.__session_key))
         {
             _context.Events!.Remove(e);
+            _context.SaveChanges();
+        }
+    }
+
+    public virtual void UpdateEvent(EventCalendar eventToUpdate, EventCalendar updateEvent, User u)
+    {
+        if (_context.ValidateSessionKey(u.__session_key))
+        {
+            updateEvent.EventId=eventToUpdate.EventId;
+            _context.Entry(updateEvent).State = EntityState.Modified;
             _context.SaveChanges();
         }
     }
