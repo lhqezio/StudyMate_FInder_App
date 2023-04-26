@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace StudyMate;
 class ProfileServices
 {
@@ -16,7 +18,7 @@ class ProfileServices
         _context = context;
     }
 
-    public virtual void AddEvent(Profile profile, User u)
+    public virtual void AddProfile(Profile profile, User u)
     {
         if (_context.ValidateSessionKey(u.__session_key))
         {
@@ -24,4 +26,21 @@ class ProfileServices
             _context.SaveChanges();
         }
     }
+
+    public virtual void DeleteProfile(Profile profile, User u)
+    {
+        if (_context.ValidateSessionKey(u.__session_key))
+        {
+            _context.Profiles!.Remove(profile);
+            _context.SaveChanges();
+        }
+    }
+
+    public void UpdateProfile(Profile profileToUpdate,Profile updateProfile)
+    {
+        updateProfile.ProfileId=profileToUpdate.ProfileId;
+        _context.Entry(updateProfile).State = EntityState.Modified;
+        _context.SaveChanges();
+    }
+
 }
