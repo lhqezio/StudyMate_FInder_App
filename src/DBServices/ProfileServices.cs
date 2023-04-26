@@ -15,4 +15,13 @@ class ProfileServices
     {
         _context = context;
     }
+
+    public virtual void AddEvent(Profile profile, User u)
+    {
+        if (_context.ValidateSessionKey(u.__session_key))
+        {
+            _context.Profiles!.Add(profile);
+            _context.SaveChanges();
+        }
+    }
 }
