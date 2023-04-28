@@ -5,14 +5,15 @@ namespace StudyMate
 
     public class Matching{
         private Profile __profile{get;set;}
-        public Matching(Profile profile){
+        private ProfileServices __profileService{get;set;}
+        public Matching(Profile profile, ProfileServices profileService){
             __profile=profile;
+            __profileService=profileService;
         }
         
         public List<Profile> BestMatches(){
-            var profileService = new ProfileServices(new StudyMateDbContext());
             Dictionary<int, int> bestMatches = new Dictionary<int, int>();
-            List<Profile> profiles = profileService.GetAllProfiles();
+            List<Profile> profiles = __profileService.GetAllProfiles();
             for (int i = 0; i < profiles.Count; i++)
             {
                 int points=0;
