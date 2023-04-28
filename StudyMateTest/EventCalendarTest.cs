@@ -45,7 +45,7 @@ public class EventCalendarTest
         
         //Assert
         Assert.AreEqual("Title1", eC.Title);
-        Assert.AreEqual(user1, eC.EventCreator);
+        Assert.AreEqual(profile1, eC.EventCreator);
         Assert.AreEqual(profileList, eC.Participants);
         Assert.AreEqual(dTime, eC.Date);
         Assert.AreEqual(description, eC.Description);

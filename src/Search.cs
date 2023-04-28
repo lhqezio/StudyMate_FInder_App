@@ -67,7 +67,7 @@ namespace StudyMate
         }
 
         //SearchProfileByUser
-        public List<Profile> SearchProfileByUser(Profile u)
+        public List<Profile> SearchProfileByUser(User u)
         {
              var profiles =  _context.Profiles!
                             .Where(p => p.UserId.Equals(u.__user_id))
