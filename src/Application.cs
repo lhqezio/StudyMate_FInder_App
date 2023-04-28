@@ -51,7 +51,7 @@
                 //Act
                 EventCalendar eC = new EventCalendar("Study event", profile1, profileList, dTime, description, school, eventCourses, location, sent);
                 profile1.Events.Add(eC);
-                profileService.UpdateProfile();
+                profileService.UpdateProfile(profile1,currentUser);
 
                 // 4.	Log out from user1
                 db.Logout(currentUser.__session_key);
