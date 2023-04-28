@@ -32,6 +32,14 @@ namespace StudyMate
                 .HasOne(e => e.EventCreator)
                 .WithMany(u => u.EventsCreated)
                 .HasForeignKey(e => e.ProfileId);
+
+            modelBuilder.Entity<UserDB>()
+                .HasIndex(u => u.Username)
+                .IsUnique();
+
+            modelBuilder.Entity<UserDB>()
+                .HasIndex(u => u.Email)
+                .IsUnique();
         }
 
         // public override int SaveChanges()
