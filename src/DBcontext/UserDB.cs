@@ -16,6 +16,7 @@ public class UserDB
     public string Email { get; set; }
     public string PasswordHash { get; set; }
     
+    public UserDB(){}
     public UserDB(string username, string email,string password)
     {
         UserId = Guid.NewGuid().ToString();

@@ -23,11 +23,10 @@ public class ProfileServices
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
-            using (_context)
-            {
-                _context.Profiles!.Add(profile);
-                _context.SaveChanges();
-            }
+            
+            _context.Profiles!.Add(profile);
+            _context.SaveChanges();
+            
         //}
     }
 
@@ -36,11 +35,10 @@ public class ProfileServices
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
-            using (_context)
-            {
-                _context.Profiles!.Remove(profile);
-                _context.SaveChanges();
-            }
+            
+            _context.Profiles!.Remove(profile);
+            _context.SaveChanges();
+            
         // }
     }
 
@@ -49,11 +47,8 @@ public class ProfileServices
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
-            using (_context)
-            {
-                _context.Profiles!.Update(profile);
-                _context.SaveChanges();
-            }
+            _context.Profiles!.Update(profile);
+            _context.SaveChanges();
         // }
     }
 
@@ -62,10 +57,9 @@ public class ProfileServices
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
-            using (_context)
-            {
-                return _context.Profiles!.ToList();
-            }
+            
+            return _context.Profiles!.ToList();
+            
         //}
     }
 
@@ -74,10 +68,7 @@ public class ProfileServices
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
-            using (_context)
-            {
-                return _context.Profiles!.FirstOrDefault(p => p.ProfileId == profileId);
-            }  
+            return _context.Profiles!.FirstOrDefault(p => p.ProfileId == profileId);
         //}
     }
 
@@ -86,10 +77,7 @@ public class ProfileServices
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
-            using (_context)
-            {
                 return _context.Profiles!.FirstOrDefault(p => p.Equals(profile));
-            }
         //}
     }
 }
