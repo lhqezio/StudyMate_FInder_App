@@ -106,7 +106,6 @@ namespace StudyMate
             IsSent=isSent;
         }
 
-   
         //Method to add Participants
         public void AddParticipant(Profile newParticipant){
             if(Participants.Contains(newParticipant)){

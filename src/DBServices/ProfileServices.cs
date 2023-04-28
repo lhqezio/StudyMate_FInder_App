@@ -35,10 +35,12 @@ public class ProfileServices
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
-            
-            _context.Profiles!.Remove(profile);
-            _context.SaveChanges();
-            
+            var toDeleteProfile = _context.Profiles!.FirstOrDefault(p => p.Equals(profile));
+            if (toDeleteProfile is not null)
+            {
+                _context.Profiles!.Remove(toDeleteProfile);
+                _context.SaveChanges();
+            }
         // }
     }
 
@@ -47,8 +49,12 @@ public class ProfileServices
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
-            _context.Profiles!.Update(profile);
-            _context.SaveChanges();
+            var toUpdateProfile = _context.Profiles!.FirstOrDefault(p => p.Equals(profile));
+            if (toUpdateProfile is not null)
+            {
+                _context.Profiles!.Update(toUpdateProfile);
+                _context.SaveChanges();
+            }
         // }
     }
 
