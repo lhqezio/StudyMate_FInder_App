@@ -14,9 +14,10 @@ public class ProfileServicesTests
         var mockSet = new Mock<DbSet<Profile>>();
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(p => p.Profiles).Returns(mockSet.Object);
-        var service = new ProfileServices(mockContext.Object);
         //Act
-        service.AddProfile(new Profile("Amir",20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},user1,Genders.Male),user1);
+        using(var service = ProfileServices.getInstance(mockContext.Object)){
+            service.AddProfile(new Profile("Amir",20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},user1,Genders.Male),user1);
+        }
         //Assert
         mockSet.Verify(p => p.Add(It.IsAny<Profile>()), Times.Once());
         mockContext.Verify(p => p.SaveChanges(), Times.Once());
@@ -31,9 +32,10 @@ public class ProfileServicesTests
         var mockSet = new Mock<DbSet<Profile>>();
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(p => p.Profiles).Returns(mockSet.Object);
-        var service = new ProfileServices(mockContext.Object);
         // Act
-        service.DeleteProfile(profileToDelete, user1);
+        using(var service = ProfileServices.getInstance(mockContext.Object)){
+            service.DeleteProfile(profileToDelete, user1);
+        }
         // Assert
         mockSet.Verify(p => p.Remove(It.IsAny<Profile>()), Times.Once());
         mockContext.Verify(p => p.SaveChanges(), Times.Once());
@@ -47,9 +49,10 @@ public class ProfileServicesTests
         var mockSet = new Mock<DbSet<Profile>>();
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(p => p.Profiles).Returns(mockSet.Object);
-        var service = new ProfileServices(mockContext.Object);
         //Act
-        service.UpdateProfile(profile, user1);
+        using(var service = ProfileServices.getInstance(mockContext.Object)){
+            service.UpdateProfile(profile, user1);
+        }
         //Assert
         mockSet.Verify(p => p.Update(It.IsAny<Profile>()), Times.Once());
         mockContext.Verify(p => p.SaveChanges(), Times.Once());
@@ -73,9 +76,13 @@ public class ProfileServicesTests
         mockSet.As<IQueryable<Profile>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(p => p.Profiles).Returns(mockSet.Object);
-        var service = new ProfileServices(mockContext.Object);
+        List<Profile> profiles;
+        
         //Act
-        var profiles = service.GetAllProfiles();
+        using(var service=ProfileServices.getInstance(mockContext.Object)){
+            profiles = service.GetAllProfiles();
+        }
+
         //Assert
         Assert.AreEqual(2,profiles.Count);
     }
@@ -99,10 +106,14 @@ public class ProfileServicesTests
         mockSet.As<IQueryable<Profile>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(c => c.Profiles).Returns(mockSet.Object);
-        var service = new ProfileServices(mockContext.Object);
+        
         // Act
-        var retrievedProfile = service.GetSpecificProfileById(profile1.ProfileId);
-        // Assert
+        Profile retrievedProfile;
+        using(var service = ProfileServices.getInstance(mockContext.Object)){
+            retrievedProfile = service.GetSpecificProfileById(profile1.ProfileId);
+
+        }
+                // Assert
         Assert.AreEqual(profile1, retrievedProfile);
     }
 
