@@ -113,9 +113,9 @@ namespace StudyMate
             {
                 return null;
             }
-            var sessionKey = GenerateSessionKey(user.Id);
+            var sessionKey = GenerateSessionKey(user.UserId);
             // If the user is valid, return a User object
-            return new User(user.Username, sessionKey, user.Id);
+            return new User(user.Username, sessionKey, user.UserId);
         }
 
         public virtual User LoginFromSessionKey(string session_key){
@@ -135,7 +135,7 @@ namespace StudyMate
             }
 
             // Get the user from the database
-            UserDB user = Users.FirstOrDefault(u => u.Id == session.UserId);
+            UserDB user = Users.FirstOrDefault(u => u.UserId == session.UserId);
 
             // If the user doesn't exist, return null
             if (user == null)
@@ -144,7 +144,7 @@ namespace StudyMate
             }
 
             // If the user is valid, return a User object
-            return new User(user.Username, session_key, user.Id);
+            return new User(user.Username, session_key, user.UserId);
         }
 
         public virtual User Register(string username, string email, string password)
@@ -194,7 +194,7 @@ namespace StudyMate
             }
 
             // Get the user from the database
-            UserDB user = Users.FirstOrDefault(u => u.Id == session.UserId);
+            UserDB user = Users.FirstOrDefault(u => u.UserId == session.UserId);
 
             // If the user doesn't exist, return
             if (user == null)

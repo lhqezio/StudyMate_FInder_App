@@ -7,7 +7,7 @@ public class UserDB
 {
     //Generates a random primary key for the UserDB class
     [Key]
-    public string Id{get;set;}
+    public string UserId{get;set;}
 
     //Links the Profile Primary key to this foreign key
     [ForeignKey("Profile")]
@@ -22,7 +22,7 @@ public class UserDB
     
     public UserDB(string username, string email,string password)
     {
-        Id = Guid.NewGuid().ToString();
+        UserId = Guid.NewGuid().ToString();
         Username = username;
         Email = email;
         Password = password;

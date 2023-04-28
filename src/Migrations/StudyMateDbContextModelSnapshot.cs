@@ -175,7 +175,7 @@ namespace src.Migrations
 
                     b.HasIndex("SchoolId");
 
-                    b.ToTable("EventCalendar");
+                    b.ToTable("Events");
                 });
 
             modelBuilder.Entity("StudyMate.InterestsProfile", b =>
@@ -237,11 +237,13 @@ namespace src.Migrations
 
                     b.Property<string>("UserId")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.HasKey("ProfileId");
 
                     b.HasIndex("SchoolId");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("Profiles");
                 });
@@ -292,7 +294,7 @@ namespace src.Migrations
 
             modelBuilder.Entity("StudyMate.UserDB", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("UserId")
                         .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("Email")
@@ -315,7 +317,7 @@ namespace src.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("Users");
                 });
@@ -437,7 +439,15 @@ namespace src.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("StudyMate.Profile", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.Navigation("School");
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("StudyMate.Profile", b =>
