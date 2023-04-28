@@ -140,41 +140,41 @@ namespace StudyMate
             return Participants;
         }
 
-        //Override of Equals method. This is used to compare two event objects.
-        public override bool Equals(object? obj)
-        {
-            if (obj is not EventCalendar other)
-                return false;
-            return EventId == other.EventId
-                && _title == other._title
-                && ProfileId == other.ProfileId
-                && _eventCreator == other._eventCreator 
-                && _participants.SequenceEqual(other._participants)
-                && _date == other._date
-                && _description == other._description
-                && SchoolId == other.SchoolId
-                && School == other.School
-                && Location == other.Location
-                && CourseEvents.SequenceEqual(other.CourseEvents)
-                && IsSent == other.IsSent;
-        }
+        // //Override of Equals method. This is used to compare two event objects.
+        // public override bool Equals(object? obj)
+        // {
+        //     if (obj is not EventCalendar other)
+        //         return false;
+        //     return EventId == other.EventId
+        //         && _title == other._title
+        //         && ProfileId == other.ProfileId
+        //         && _eventCreator == other._eventCreator 
+        //         && _participants.SequenceEqual(other._participants)
+        //         && _date == other._date
+        //         && _description == other._description
+        //         && SchoolId == other.SchoolId
+        //         && School == other.School
+        //         && Location == other.Location
+        //         && CourseEvents.SequenceEqual(other.CourseEvents)
+        //         && IsSent == other.IsSent;
+        // }
 
-        //Since we are overriding the Equals method, we must also override the GetHashCode method.
-        public override int GetHashCode()
-        {
-            return EventId.GetHashCode() ^
-                _title.GetHashCode() ^
-                ProfileId.GetHashCode() ^
-                _eventCreator.GetHashCode() ^
-                _participants.GetHashCode() ^
-                _date.GetHashCode() ^
-                _description.GetHashCode() ^
-                SchoolId.GetHashCode() ^
-                School.GetHashCode() ^
-                Location.GetHashCode() ^
-                CourseEvents.GetHashCode() ^
-                IsSent.GetHashCode();
-        }
+        // //Since we are overriding the Equals method, we must also override the GetHashCode method.
+        // public override int GetHashCode()
+        // {
+        //     return EventId.GetHashCode() ^
+        //         _title.GetHashCode() ^
+        //         ProfileId.GetHashCode() ^
+        //         _eventCreator.GetHashCode() ^
+        //         _participants.GetHashCode() ^
+        //         _date.GetHashCode() ^
+        //         _description.GetHashCode() ^
+        //         SchoolId.GetHashCode() ^
+        //         School.GetHashCode() ^
+        //         Location.GetHashCode() ^
+        //         CourseEvents.GetHashCode() ^
+        //         IsSent.GetHashCode();
+        // }
     }
 }
         

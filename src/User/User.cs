@@ -6,8 +6,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudyMate
 {
-public class Profile {
-        public static readonly Profile EMPTY_USER = new Profile("",Guid.Empty.ToString(),Guid.Empty.ToString());
+public class User {
+        public static readonly User EMPTY_USER = new User("",Guid.Empty.ToString(),Guid.Empty.ToString());
         private string __username;
         public string Username {
             get{
@@ -20,9 +20,9 @@ public class Profile {
         
         public Profile? Profile{get;set;}
 
-        public Profile(){}
+        public User(){}
 
-        public Profile(string username,string session_key,string user_id){
+        public User(string username,string session_key,string user_id){
             __username = username;
             __session_key = session_key;
             __user_id = user_id;
@@ -35,7 +35,7 @@ public class Profile {
         //Override of Equals method. This is used to compare two course objects.
         public override bool Equals(object? obj)
         {
-            if (obj is not Profile other){
+            if (obj is not User other){
                 return false;
             }   
             return __username == other.__username

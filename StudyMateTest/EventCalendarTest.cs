@@ -15,13 +15,17 @@ public class EventCalendarTest
         School sch2 = new School("Henri-Bourassa");
         School sch3 = new School("Saint-Ex");
             //Users
-        Profile user1 = new Profile("Alain", "alain@hotmail.com", "password");
-        Profile user2 = new Profile("Sam", "sam@hotmail.com", "password1");
-        Profile user3 = new Profile("Jack", "jack@hotmail.com", "password2");
-            //userLis list
-        List<Profile> userList = new List<Profile>();
-        userList.Add(user2);
-        userList.Add(user3);
+        User user1 = new User("Alain", "alain@hotmail.com", "password");
+        User user2 = new User("Sam", "sam@hotmail.com", "password1");
+        User user3 = new User("Jack", "jack@hotmail.com", "password2");
+            //Profiles
+        Profile profile1 = new Profile("Alain", 20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Computer_Science)},user1,Genders.Male);
+        Profile profile2 = new Profile("Samantha", 18,new School("Henri-Bourassa"),"Social Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Political_Science)},user2,Genders.Female);
+        Profile profile3 = new Profile("Jackie", 19,new School("Vanier COllege"),"Business",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Business)},user3,Genders.Undisclosed);
+            //profileList list
+        List<Profile> profileList = new List<Profile>();
+        profileList.Add(profile2);
+        profileList.Add(profile3);
         DateTimeOffset dTime = DateTimeOffset.Now.AddMonths(1);
         bool sent = false;
         string description = "Study with the homies";
@@ -37,12 +41,12 @@ public class EventCalendarTest
         string location = "Montreal";
 
         //Act
-        EventCalendar eC = new EventCalendar("Title1", user1, userList, dTime, description, schoolList, eventCourses, location, sent);
+        EventCalendar eC = new EventCalendar("Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location, sent);
         
         //Assert
         Assert.AreEqual("Title1", eC.Title);
         Assert.AreEqual(user1, eC.EventCreator);
-        Assert.AreEqual(userList, eC.Participants);
+        Assert.AreEqual(profileList, eC.Participants);
         Assert.AreEqual(dTime, eC.Date);
         Assert.AreEqual(description, eC.Description);
         Assert.AreEqual(sent, eC.IsSent);
@@ -58,12 +62,16 @@ public class EventCalendarTest
         School sch2 = new School("Henri-Bourassa");
         School sch3 = new School("Saint-Ex");
             //Users
-        Profile user1 = new Profile("Alain", "alain@hotmail.com", "password");
-        Profile user2 = new Profile("Sam", "sam@hotmail.com", "password1");
-        Profile user3 = new Profile("Jack", "jack@hotmail.com", "password2");
-            //userLis list
-        List<Profile> userList = new List<Profile>();
-        userList.Add(user2);
+        User user1 = new User("Alain", "alain@hotmail.com", "password");
+        User user2 = new User("Sam", "sam@hotmail.com", "password1");
+        User user3 = new User("Jack", "jack@hotmail.com", "password2");
+            //Profiles
+        Profile profile1 = new Profile("Alain", 20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Computer_Science)},user1,Genders.Male);
+        Profile profile2 = new Profile("Samantha", 18,new School("Henri-Bourassa"),"Social Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Political_Science)},user2,Genders.Female);
+        Profile profile3 = new Profile("Jackie", 19,new School("Vanier COllege"),"Business",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Business)},user3,Genders.Undisclosed);
+            //profileList list
+        List<Profile> profileList = new List<Profile>();
+        profileList.Add(profile2);
         DateTimeOffset dTime = DateTimeOffset.Now.AddMonths(1);
         bool sent = false;
         string description = "Study with the homies";
@@ -79,14 +87,14 @@ public class EventCalendarTest
         string location = "Montreal";
 
         //Act
-        EventCalendar eC = new EventCalendar("Title1", user1, userList, dTime, description, schoolList, eventCourses, location, sent);
+        EventCalendar eC = new EventCalendar("Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location, sent);
             //Add user3 to Event
-        eC.AddParticipant(user3); 
+        eC.AddParticipant(profile3); 
             //Add user3 to profileList
-        userList.Add(user3);
+        profileList.Add(profile3);
 
         //Assert
-        Assert.AreEqual(userList, eC.Participants);
+        Assert.AreEqual(profileList, eC.Participants);
     }
 
     [TestMethod]
@@ -96,13 +104,17 @@ public class EventCalendarTest
         School sch2 = new School("Henri-Bourassa");
         School sch3 = new School("Saint-Ex");
             //Users
-        Profile user1 = new Profile("Alain", "alain@hotmail.com", "password");
-        Profile user2 = new Profile("Sam", "sam@hotmail.com", "password1");
-        Profile user3 = new Profile("Jack", "jack@hotmail.com", "password2");
-            //userLis list
-        List<Profile> userList = new List<Profile>();
-        userList.Add(user2);
-        userList.Add(user3);
+        User user1 = new User("Alain", "alain@hotmail.com", "password");
+        User user2 = new User("Sam", "sam@hotmail.com", "password1");
+        User user3 = new User("Jack", "jack@hotmail.com", "password2");
+            //Profiles
+        Profile profile1 = new Profile("Alain", 20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Computer_Science)},user1,Genders.Male);
+        Profile profile2 = new Profile("Samantha", 18,new School("Henri-Bourassa"),"Social Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Political_Science)},user2,Genders.Female);
+        Profile profile3 = new Profile("Jackie", 19,new School("Vanier COllege"),"Business",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Business)},user3,Genders.Undisclosed);
+            //profileList list
+        List<Profile> profileList = new List<Profile>();
+        profileList.Add(profile2);
+        profileList.Add(profile3);
         DateTimeOffset dTime = DateTimeOffset.Now.AddMonths(1);
         bool sent = false;
         string description = "Study with the homies";
@@ -118,15 +130,14 @@ public class EventCalendarTest
         string location = "Montreal";
 
         //Act
-            //Contains user3
-        EventCalendar eC = new EventCalendar("Title1", user1, userList, dTime, description, schoolList, eventCourses, location, sent);
-            //Removed user3 to Event
-        eC.RemoveParticipant(user3); 
+        EventCalendar eC = new EventCalendar("Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location, sent);
+            //Removed profile3 to Event
+        eC.RemoveParticipant(profile3); 
             //Removed user3 to userList
-        userList.Remove(user3);
+        profileList.Remove(profile3);
 
         //Assert
-        Assert.AreEqual(userList, eC.Participants);
+        Assert.AreEqual(profileList, eC.Participants);
     }
 
     [TestMethod]
@@ -136,13 +147,17 @@ public class EventCalendarTest
         School sch2 = new School("Henri-Bourassa");
         School sch3 = new School("Saint-Ex");
             //Users
-        Profile user1 = new Profile("Alain", "alain@hotmail.com", "password");
-        Profile user2 = new Profile("Sam", "sam@hotmail.com", "password1");
-        Profile user3 = new Profile("Jack", "jack@hotmail.com", "password2");
-            //userLis list
-        List<Profile> userList = new List<Profile>();
-        userList.Add(user2);
-        userList.Add(user3);
+        User user1 = new User("Alain", "alain@hotmail.com", "password");
+        User user2 = new User("Sam", "sam@hotmail.com", "password1");
+        User user3 = new User("Jack", "jack@hotmail.com", "password2");
+            //Profiles
+        Profile profile1 = new Profile("Alain", 20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Computer_Science)},user1,Genders.Male);
+        Profile profile2 = new Profile("Samantha", 18,new School("Henri-Bourassa"),"Social Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Political_Science)},user2,Genders.Female);
+        Profile profile3 = new Profile("Jackie", 19,new School("Vanier COllege"),"Business",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Business)},user3,Genders.Undisclosed);
+            //profileList list
+        List<Profile> profileList = new List<Profile>();
+        profileList.Add(profile2);
+        profileList.Add(profile3);
         DateTimeOffset dTime = DateTimeOffset.Now.AddMonths(1);
         bool sent = false;
         string description = "Study with the homies";
@@ -158,12 +173,11 @@ public class EventCalendarTest
         string location = "Montreal";
 
         //Act
-            //Contains user3
-        EventCalendar eC = new EventCalendar("Title1", user1, userList, dTime, description, schoolList, eventCourses, location, sent);
+        EventCalendar eC = new EventCalendar("Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location, sent);
         
         //Assert
-        Assert.IsTrue(eC.Attends(user2));
-        Assert.IsTrue(eC.Attends(user3));
+        Assert.IsTrue(eC.Attends(profile2));
+        Assert.IsTrue(eC.Attends(profile3));
     }
 }
 
