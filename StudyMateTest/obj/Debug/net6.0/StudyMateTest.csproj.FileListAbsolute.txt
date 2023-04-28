@@ -49,7 +49,6 @@ C:\ProgIVProject\410project\StudyMateTest\bin\Debug\net6.0\Microsoft.EntityFrame
 C:\ProgIVProject\410project\StudyMateTest\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
 <<<<<<< HEAD
 =======
-C:\ProgIVProject\410project\StudyMateTest\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.InMemory.dll
 >>>>>>> 105573717a0e6e5c563f33dec65ef16717c7ec44
 C:\ProgIVProject\410project\StudyMateTest\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
 C:\ProgIVProject\410project\StudyMateTest\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Sqlite.dll
@@ -246,8 +245,6 @@ C:\ProgIVProject\410project\StudyMateTest\obj\Debug\net6.0\refint\StudyMateTest.
 C:\ProgIVProject\410project\StudyMateTest\obj\Debug\net6.0\StudyMateTest.pdb
 C:\ProgIVProject\410project\StudyMateTest\obj\Debug\net6.0\StudyMateTest.genruntimeconfig.cache
 C:\ProgIVProject\410project\StudyMateTest\obj\Debug\net6.0\ref\StudyMateTest.dll
-<<<<<<< HEAD
-=======
 c:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMateTest\bin\Debug\net6.0\CoverletSourceRootsMapping
 c:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMateTest\bin\Debug\net6.0\testhost.dll
 c:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMateTest\bin\Debug\net6.0\src.deps.json
@@ -492,4 +489,3 @@ c:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\Study
 c:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMateTest\obj\Debug\net6.0\StudyMateTest.pdb
 c:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMateTest\obj\Debug\net6.0\StudyMateTest.genruntimeconfig.cache
 c:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMateTest\obj\Debug\net6.0\ref\StudyMateTest.dll
->>>>>>> 105573717a0e6e5c563f33dec65ef16717c7ec44
