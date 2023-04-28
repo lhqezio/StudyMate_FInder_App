@@ -2,7 +2,7 @@ using System.Security.Cryptography;
 using System.Text;
 
 namespace StudyMate;
-class UserServices
+class UserServices : IDisposable
 {
     private StudyMateDbContext _context = null!;
     private static UserServices? _instance;
@@ -62,5 +62,10 @@ class UserServices
             }
         }
         return null;
+    }
+
+    public void Dispose()
+    {
+        _context.Dispose();
     }
 }

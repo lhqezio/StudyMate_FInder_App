@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace StudyMate;
-public class ProfileServices
+public class ProfileServices:IDisposable
 {
     private StudyMateDbContext _context = null!;
     private static ProfileServices? _instance;
@@ -66,5 +66,8 @@ public class ProfileServices
         //}
     }
 
-
+    public void Dispose()
+    {
+        _context.Dispose();
+    }
 }
