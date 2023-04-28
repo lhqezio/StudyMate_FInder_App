@@ -13,6 +13,7 @@
                 //I just store the password here as plain text for simplicity. Otherwise the password should come as an input from the user.
                 var user1 = new UserDB("amirXoXo","example@gmail.com","Random password");
                 // userService.RemoveUser(user1);
+                userService.RemoveUser(user1);
                 userService.AddUser(user1);
                 User currentUser = new User(user1,"100");
                 // UserDB userDb1 = db.Users.FirstOrDefault(u => u.Username == user1.Username);
@@ -58,21 +59,21 @@
 
 
                 // 5.	Create a new user account (user2)
-                var user2 = new UserDB("user2", "user2@hotmail.com", "testpassword");
-                userService.AddUser(user2);
-                currentUser = new User(user2,"200");
-                // UserDB userDb2 = db.Users.FirstOrDefault(u => u.Username == user2.Username);
+                // var  user3 = new UserDB("user2", "user2@hotmail.com", "testpassword");
+                // userService.AddUser(user2);
+                // currentUser = new User(user2,"200");
+                // // UserDB userDb2 = db.Users.FirstOrDefault(u => u.Username == user2.Username);
 
-                // 6.	Create a profile for user2
-                School sch2 = new School("Vanier");
-                Profile profile2 = new Profile("Samir", 18, sch2,"Health science", new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Art)}, user2);
+                // // 6.	Create a profile for user2
+                // School sch2 = new School("Vanier");
+                // Profile profile2 = new Profile("Samir", 18, sch2,"Health science", new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Art)}, user2);
 
-                // 7.	Perform a search to find the event created by user1
-                Search search = new Search(db);
-                EventCalendar ec = search.SearchEventsCreator(profile1)[0];
+                // // 7.	Perform a search to find the event created by user1
+                // Search search = new Search(db);
+                // EventCalendar ec = search.SearchEventsCreator(profile1)[0];
 
-                // 8.	Mark user2 as attending user1’s event
-                ec.AddParticipant(profile2);
+                // // 8.	Mark user2 as attending user1’s event
+                // ec.AddParticipant(profile2);
 
                 // 9.	Attempt to edit user1’s event as user2 (should fail)
                 

@@ -75,8 +75,12 @@ class UserServices : IDisposable
 
     public virtual void RemoveUser(UserDB user)
     {
-        _context.Users!.Remove(user);
-        _context.SaveChanges();
+        var toDeleteUser = _context.Users!.FirstOrDefault(u => u.Email == user.Email);
+        if (toDeleteUser is not null)
+        {
+            _context.Users!.Remove(toDeleteUser);
+            _context.SaveChanges();
+        }
     }
 
     public void Dispose()
