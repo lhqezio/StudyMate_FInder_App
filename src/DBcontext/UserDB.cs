@@ -10,21 +10,17 @@ public class UserDB
     public string UserId{get;set;}
 
     //Links the Profile Primary key to this foreign key
-    [ForeignKey("Profile")]
-    public string? ProfileId{get;set;}
+    public Profile? Profile{get;set;}
 
     public string Username { get; set; }
     public string Email { get; set; }
-    public string? Salt { get; set; }
-    public string? PasswordHash { get; set; }
-    public string? Password {get;set;}
-    
+    public string PasswordHash { get; set; }
     
     public UserDB(string username, string email,string password)
     {
         UserId = Guid.NewGuid().ToString();
         Username = username;
         Email = email;
-        Password = password;
+        PasswordHash = PasswordHasher.HashPassword(password);
     }
 }

@@ -8,16 +8,16 @@ namespace StudyMate;
 class UserServices : IDisposable
 {
     private StudyMateDbContext _context = null!;
-    private static UserServices? _instance;
-    public static UserServices getInstance(StudyMateDbContext context)
-    {
-        if (_instance is null)
-        {
-            _instance = new UserServices(context);
-        }
-        return _instance;
-    }
-    private UserServices(StudyMateDbContext context)
+    // private static UserServices? _instance;
+    // public static UserServices getInstance(StudyMateDbContext context)
+    // {
+    //     if (_instance is null)
+    //     {
+    //         _instance = new UserServices(context);
+    //     }
+    //     return _instance;
+    // }
+    public UserServices(StudyMateDbContext context)
     {
         _context = context;
     }
@@ -65,6 +65,15 @@ class UserServices : IDisposable
             }
         }
         return null;
+    }
+
+    public virtual void AddUser(UserDB user)
+    {
+        using (_context)
+        {
+            _context.Users!.Add(user);
+            _context.SaveChanges();
+        }
     }
 
     public void Dispose()

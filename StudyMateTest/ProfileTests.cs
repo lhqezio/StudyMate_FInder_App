@@ -8,8 +8,8 @@ public class ProfileTests
     public void ClearProfileTest_MakesAllPropertiesNull_ReturnsVoid()
     {
         //Arrange
-        User user1=new User("amirreza","PK1","1");
-        User user2=new User("Samanta","PK2","2");
+        var user1=new UserDB("amirreza","PK1","1");
+        var user2=new UserDB("Samanta","PK2","2");
         Profile profile1=new Profile("Amir",20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},user1,Genders.Male);
         Profile profile2=new Profile("Samanta",18,new School("Vanier College"),"Social Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Math)},user2,Genders.Female);
         //Act
@@ -23,8 +23,8 @@ public class ProfileTests
     public void EqualsTest_ComparesTwoProfileObjects_ReturnsTrue()
     {
         //Arrange
-        User user1=new User("amirreza","PK1","1");
-        User user2=new User("Samanta","PK2","2");
+        var user1=new UserDB("amirreza","PK1","1");
+        var user2=new UserDB("Samanta","PK2","2");
         Profile profile1=new Profile("Amir",20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},user1,Genders.Male);
         Profile profile2=new Profile("Amir",20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},user1,Genders.Male);
         //Act
@@ -37,8 +37,8 @@ public class ProfileTests
     public void EqualsTest_ComparesTwoProfileObjects_ReturnsFalse()
     {
         //Arrange
-        User user1=new User("amirreza","PK1","1");
-        User user2=new User("Samanta","PK2","2");
+        var user1=new UserDB("amirreza","PK1","1");
+        var user2=new UserDB("Samanta","PK2","2");
         Profile profile1=new Profile("Amir",20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},user1,Genders.Male);
         Profile profile2=new Profile("Samanta",18,new School("Vanier College"),"Social Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Math)},user2,Genders.Female);
         //Act
@@ -51,7 +51,7 @@ public class ProfileTests
     public void EqualsTest_ComparesProfileObjectWithSomethingElse_ReturnsFalse()
     {
         //Arrange
-        User user1=new User("amirreza","PK1","1");
+        var user1=new UserDB("amirreza","PK1","1");
         Profile profile1=new Profile("Amir",20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},user1,Genders.Male);
         String s=new String("Hi");
         //Act

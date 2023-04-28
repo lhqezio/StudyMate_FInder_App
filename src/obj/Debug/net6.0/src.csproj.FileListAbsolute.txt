@@ -163,3 +163,8 @@ C:\ProgIVProject\410project\src\obj\Debug\net6.0\refint\src.dll
 C:\ProgIVProject\410project\src\obj\Debug\net6.0\src.pdb
 C:\ProgIVProject\410project\src\obj\Debug\net6.0\src.genruntimeconfig.cache
 C:\ProgIVProject\410project\src\obj\Debug\net6.0\ref\src.dll
+C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\src\obj\Debug\net6.0\src.csproj.AssemblyReference.cache
+C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\src\obj\Debug\net6.0\src.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\src\obj\Debug\net6.0\src.AssemblyInfoInputs.cache
+C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\src\obj\Debug\net6.0\src.AssemblyInfo.cs
+C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\src\obj\Debug\net6.0\src.csproj.CoreCompileInputs.cache
