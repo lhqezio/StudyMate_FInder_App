@@ -12,11 +12,8 @@
                 // 1.	Create a new user account (user1)
                 //I just store the password here as plain text for simplicity. Otherwise the password should come as an input from the user.
                 var user1 = new UserDB("amirXoXo","example@gmail.com","Random password");
-                // userService.RemoveUser(user1);
-                userService.RemoveUser(user1);
                 userService.AddUser(user1);
                 User currentUser = new User(user1,"100");
-                // UserDB userDb1 = db.Users.FirstOrDefault(u => u.Username == user1.Username);
 
                 // 2.	Create a profile for user1 (You don’t need to fill in all details)
                 School sch = new School("Dawson College");

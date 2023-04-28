@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 
 namespace StudyMate;
-class UserServices : IDisposable
+class UserServices
 {
     private StudyMateDbContext _context = null!;
     // private static UserServices? _instance;
@@ -83,8 +83,13 @@ class UserServices : IDisposable
         }
     }
 
-    public void Dispose()
-    {
-        _context.Dispose();
+    public virtual void UpdateUserPassword(UserDB user, string password){
+        var toUpdateUser = _context.Users!.FirstOrDefault(u => u.Email == user.Email);
+        if (toUpdateUser is not null)
+        {
+            toUpdateUser.PasswordHash=PasswordHasher.HashPassword(password);
+            _context.Users!.Update(toUpdateUser);
+            _context.SaveChanges();
+        }
     }
 }
