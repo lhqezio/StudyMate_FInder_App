@@ -53,6 +53,26 @@ using Microsoft.EntityFrameworkCore;
         }
 
         [TestMethod]
+        public void Test_EventCalendarServices_CreateEvent(){
+            //Arrange
+            profileList.Add(profile2);
+            profileList.Add(profile3);
+            eventCourses.Add(ce1);
+            eventCourses.Add(ce2);
+            eventCourses.Add(ce3);
+            EventCalendar eC = new EventCalendar("Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location, sent);
+            var mockSet = new Mock<DbSet<EventCalendar>>();
+            var mockContext = new Mock<StudyMateDbContext>();
+            mockContext.Setup(p => p.Events).Returns(mockSet.Object);
+            var service = EventServices.getInstance(mockContext.Object);
+            // Act
+            service.CreateEvent(user1, "Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location);
+            //Assert
+            mockSet.Verify(p => p.Add(It.IsAny<EventCalendar>()), Times.Once());
+            mockContext.Verify(p => p.SaveChanges(), Times.Once());
+        }
+
+        [TestMethod]
         public void Test_EventCalendarServices_DeleteEvent(){
             //Arrange
             profileList.Add(profile2);
@@ -92,5 +112,6 @@ using Microsoft.EntityFrameworkCore;
             mockSet.Verify(p => p.Update(It.IsAny<EventCalendar>()), Times.Once());
             mockContext.Verify(p => p.SaveChanges(), Times.Once());
         }        
+
     }
 
