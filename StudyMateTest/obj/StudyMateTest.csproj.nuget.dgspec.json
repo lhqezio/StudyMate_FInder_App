@@ -1,32 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\ProgIVProject\\410project\\StudyMateTest\\StudyMateTest.csproj": {}
+    "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\StudyMateTest\\StudyMateTest.csproj": {}
   },
   "projects": {
-    "C:\\ProgIVProject\\410project\\src\\src.csproj": {
+    "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\src\\src.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ProgIVProject\\410project\\src\\src.csproj",
+        "projectUniqueName": "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\src\\src.csproj",
         "projectName": "src",
-        "projectPath": "C:\\ProgIVProject\\410project\\src\\src.csproj",
-        "packagesPath": "C:\\Users\\alain\\.nuget\\packages\\",
-        "outputPath": "C:\\ProgIVProject\\410project\\src\\obj\\",
+        "projectPath": "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\src\\src.csproj",
+        "packagesPath": "C:\\Users\\amirr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\src\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\alain\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\amirr\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -110,41 +103,34 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "C:\\ProgIVProject\\410project\\StudyMateTest\\StudyMateTest.csproj": {
+    "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\StudyMateTest\\StudyMateTest.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\ProgIVProject\\410project\\StudyMateTest\\StudyMateTest.csproj",
+        "projectUniqueName": "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\StudyMateTest\\StudyMateTest.csproj",
         "projectName": "StudyMateTest",
-        "projectPath": "C:\\ProgIVProject\\410project\\StudyMateTest\\StudyMateTest.csproj",
-        "packagesPath": "C:\\Users\\alain\\.nuget\\packages\\",
-        "outputPath": "C:\\ProgIVProject\\410project\\StudyMateTest\\obj\\",
+        "projectPath": "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\StudyMateTest\\StudyMateTest.csproj",
+        "packagesPath": "C:\\Users\\amirr\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\StudyMateTest\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-        ],
         "configFilePaths": [
-          "C:\\Users\\alain\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\amirr\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net6.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net6.0": {
             "targetAlias": "net6.0",
             "projectReferences": {
-              "C:\\ProgIVProject\\410project\\src\\src.csproj": {
-                "projectPath": "C:\\ProgIVProject\\410project\\src\\src.csproj"
+              "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\src\\src.csproj": {
+                "projectPath": "C:\\Users\\amirr\\OneDrive\\Desktop\\Dawson\\Programming\\C# I\\Project\\410project\\src\\src.csproj"
               }
             }
           }
@@ -196,7 +182,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.203\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.405\\RuntimeIdentifierGraph.json"
         }
       }
     }
