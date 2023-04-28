@@ -1,5 +1,5 @@
 using Microsoft.EntityFrameworkCore;
-
+// This class stores all the profiles that may be a good match for the user calling it.
 namespace StudyMate
 {
 
@@ -8,11 +8,13 @@ namespace StudyMate
         public Matching(Profile profile){
             __profile=profile;
         }
+        
         public List<Profile> BestMatches(){
             using (var dbContext = new StudyMateDbContext())
             {
+                var profileService = ProfileServices.getInstance(dbContext);
                 Dictionary<int, int> bestMatches = new Dictionary<int, int>();
-                List<Profile> profiles = dbContext.Profiles.ToList();
+                List<Profile> profiles = profileService.GetAllProfiles();
                 for (int i = 0; i < profiles.Count; i++)
                 {
                     int points=0;

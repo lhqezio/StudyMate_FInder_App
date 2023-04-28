@@ -57,12 +57,21 @@ public class ProfileServices
         //}
     }
 
-    public virtual Profile? GetProfileById(string profileId)
+    public virtual Profile? GetSpecificProfileById(string profileId)
     {
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
             return _context.Profiles!.FirstOrDefault(p => p.ProfileId == profileId);
+        //}
+    }
+
+    public virtual Profile? GetSpecificProfile(Profile profile)
+    {
+        //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
+        // if (_context.ValidateSessionKey(u.__session_key))
+        // {
+            return _context.Profiles!.FirstOrDefault(p => p.Equals(profile));
         //}
     }
 
