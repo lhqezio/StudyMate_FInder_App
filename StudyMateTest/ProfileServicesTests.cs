@@ -111,9 +111,8 @@ public class ProfileServicesTests
         Profile retrievedProfile;
         using(var service = ProfileServices.getInstance(mockContext.Object)){
             retrievedProfile = service.GetSpecificProfileById(profile1.ProfileId);
-
         }
-                // Assert
+        // Assert
         Assert.AreEqual(profile1, retrievedProfile);
     }
 
@@ -136,9 +135,11 @@ public class ProfileServicesTests
         mockSet.As<IQueryable<Profile>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(c => c.Profiles).Returns(mockSet.Object);
-        var service = new ProfileServices(mockContext.Object);
         // Act
-        var retrievedProfile = service.GetSpecificProfileById("NullProfileId");
+        Profile retrievedProfile;
+        using(var service = ProfileServices.getInstance(mockContext.Object)){
+            retrievedProfile = service.GetSpecificProfileById("NullProfileId");
+        }
         // Assert
         Assert.IsNull(retrievedProfile);
     }
@@ -159,9 +160,11 @@ public class ProfileServicesTests
         mockSet.As<IQueryable<Profile>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(c => c.Profiles).Returns(mockSet.Object);
-        var service = new ProfileServices(mockContext.Object);
         // Act
-        var retrievedProfile = service.GetSpecificProfile(profile);
+        Profile retrievedProfile;
+        using(var service = ProfileServices.getInstance(mockContext.Object)){
+            retrievedProfile = service.GetSpecificProfile(profile);
+        }
         // Assert
         Assert.AreEqual(profile, retrievedProfile);
     }
@@ -184,9 +187,11 @@ public class ProfileServicesTests
         mockSet.As<IQueryable<Profile>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(c => c.Profiles).Returns(mockSet.Object);
-        var service = new ProfileServices(mockContext.Object);
         // Act
-        var retrievedProfile = service.GetSpecificProfile(profile);
+        Profile retrievedProfile;
+        using(var service = ProfileServices.getInstance(mockContext.Object)){
+            retrievedProfile = service.GetSpecificProfile(profile);
+        }
         // Assert
         Assert.AreNotEqual(profile2, retrievedProfile);
     }

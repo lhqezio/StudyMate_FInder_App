@@ -48,7 +48,6 @@ C:\ProgIVProject\410project\StudyMateTest\bin\Debug\net6.0\Microsoft.Data.SqlCli
 C:\ProgIVProject\410project\StudyMateTest\bin\Debug\net6.0\Microsoft.Data.Sqlite.dll
 C:\ProgIVProject\410project\StudyMateTest\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.dll
 C:\ProgIVProject\410project\StudyMateTest\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Abstractions.dll
-<<<<<<< HEAD
 =======
 >>>>>>> 105573717a0e6e5c563f33dec65ef16717c7ec44
 C:\ProgIVProject\410project\StudyMateTest\bin\Debug\net6.0\Microsoft.EntityFrameworkCore.Relational.dll
@@ -490,7 +489,6 @@ c:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\Study
 c:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMateTest\obj\Debug\net6.0\StudyMateTest.pdb
 c:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMateTest\obj\Debug\net6.0\StudyMateTest.genruntimeconfig.cache
 c:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMateTest\obj\Debug\net6.0\ref\StudyMateTest.dll
-=======
 C:/ProgIVProject/410project/StudyMateTest/bin/Debug/net6.0/CoverletSourceRootsMapping
 C:/ProgIVProject/410project/StudyMateTest/bin/Debug/net6.0/testhost.dll
 C:/ProgIVProject/410project/StudyMateTest/bin/Debug/net6.0/src.deps.json
@@ -540,7 +538,6 @@ C:/ProgIVProject/410project/StudyMateTest/bin/Debug/net6.0/Microsoft.Data.SqlCli
 C:/ProgIVProject/410project/StudyMateTest/bin/Debug/net6.0/Microsoft.Data.Sqlite.dll
 C:/ProgIVProject/410project/StudyMateTest/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.dll
 C:/ProgIVProject/410project/StudyMateTest/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Abstractions.dll
-C:/ProgIVProject/410project/StudyMateTest/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.InMemory.dll
 C:/ProgIVProject/410project/StudyMateTest/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Relational.dll
 C:/ProgIVProject/410project/StudyMateTest/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.Sqlite.dll
 C:/ProgIVProject/410project/StudyMateTest/bin/Debug/net6.0/Microsoft.EntityFrameworkCore.SqlServer.dll
