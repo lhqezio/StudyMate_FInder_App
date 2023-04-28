@@ -48,7 +48,7 @@ public class EventCalendarServicesTest
         mockContext.Setup(p => p.Events).Returns(mockSet.Object);
         
         //Act
-        service.
+        
         //Assert
 
     }

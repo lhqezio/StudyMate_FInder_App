@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 
 namespace StudyMate;
-class EventServices
+class EventServices : IDisposable
 {
     private StudyMateDbContext _context = null!;
     private static EventServices? _instance;
@@ -18,14 +18,6 @@ class EventServices
     {
         _context = context;
     }
-    // public virtual void AddEvent(EventCalendar e, Profile u)
-    // {
-    //     if (_context.ValidateSessionKey(u.__session_key))
-    //     {
-    //         _context.Events!.Add(e);
-    //         _context.SaveChanges();
-    //     }
-    // }
 
     // //DeleteEvent Method => Delete event to the list of events
     // public virtual void DeleteEvent(EventCalendar e, Profile u)
@@ -129,4 +121,8 @@ class EventServices
             }
         }
 
+    void IDisposable.Dispose()
+    {
+        _context.Dispose();
+    }
 }
