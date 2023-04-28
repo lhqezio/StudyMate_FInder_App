@@ -9,7 +9,7 @@ public class ProfileServices
         _context = context;
     }
 
-    public virtual void AddProfile(Profile profile, Profile u)
+    public virtual void AddProfile(Profile profile, User u)
     {
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
@@ -22,7 +22,7 @@ public class ProfileServices
         //}
     }
 
-    public virtual void DeleteProfile(Profile profile, Profile u)
+    public virtual void DeleteProfile(Profile profile, User u)
     {
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
@@ -35,7 +35,7 @@ public class ProfileServices
         // }
     }
 
-    public virtual void UpdateProfile(Profile profile, Profile u)
+    public virtual void UpdateProfile(Profile profile, User u)
     {
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
