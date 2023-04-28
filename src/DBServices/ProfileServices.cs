@@ -48,4 +48,9 @@ public class ProfileServices
         // }
     }
 
+    public virtual List<Profile> GetAllProfiles()
+    {
+        return _context.Profiles!.ToList();
+    }
+
 }
