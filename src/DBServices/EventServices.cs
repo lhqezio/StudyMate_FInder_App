@@ -37,19 +37,19 @@ class EventServices
     //     }
     // }
 
-    // public virtual void UpdateEvent(EventCalendar eventToUpdate, EventCalendar updateEvent, Profile u)
-    // {
-    //     if (_context.ValidateSessionKey(u.__session_key))
-    //     {
-    //         updateEvent.EventId=eventToUpdate.EventId;
-    //         _context.Entry(updateEvent).State = EntityState.Modified;
-    //         _context.SaveChanges();
-    //     }
-    // }
+    public virtual void UpdateEvent(EventCalendar updateEvent, User u)
+    {
+        if (_context.ValidateSessionKey(u.__session_key))
+        {
+            // 0
+            _context.Entry(updateEvent).State = EntityState.Modified;
+            _context.SaveChanges();
+        }
+    }
 
     //EVENT FCTS
         //AddEvent Method => Add event to the list of events
-        public virtual void AddEvent(EventCalendar e, Profile u){
+        public virtual void AddEvent(EventCalendar e, User u){
             if(_context.ValidateSessionKey(u.__session_key)){
                 _context.Events!.Add(e);
                 _context.SaveChanges();
@@ -57,7 +57,7 @@ class EventServices
         }
 
         //DeleteEvent Method => Delete event to the list of events
-        public virtual void DeleteEvent(EventCalendar e, Profile u){
+        public virtual void DeleteEvent(EventCalendar e, User u){
             if(_context.ValidateSessionKey(u.__session_key)){ 
                 _context.Events!.Remove(e);
                 _context.SaveChanges();
@@ -65,13 +65,13 @@ class EventServices
         }
 
         //CreateEvent Method => Create an event
-        public virtual void CreateEvent(Profile u, string title, List<Profile> participants, DateTimeOffset date, string description, School school, List<CourseEvent> courseEvents, string location ){
-            EventCalendar newEvent = new EventCalendar(title, u, participants, date, description, school, courseEvents, location);
+        public virtual void CreateEvent(User u, string title, Profile creator, List<Profile> participants, DateTimeOffset date, string description, School school, List<CourseEvent> courseEvents, string location ){
+            EventCalendar newEvent = new EventCalendar(title, creator, participants, date, description, school, courseEvents, location);
             AddEvent(newEvent, u);
         }
 
         //EditEvent Method => Edit an event
-        public virtual void EditEvent(Profile u, EventCalendar editEvent, string? title = null, List<Profile>? participants = null, DateTimeOffset? date = null, School? school = null, List<CourseEvent>? courseEvents = null, string? location = null, bool? sent = null){
+        public virtual void EditEvent(User u, EventCalendar editEvent, string? title = null, List<Profile>? participants = null, DateTimeOffset? date = null, School? school = null, List<CourseEvent>? courseEvents = null, string? location = null, bool? sent = null){
             if(_context.ValidateSessionKey(u.__session_key)){
                 if(title != null){
                     editEvent.Title = title;
@@ -99,7 +99,7 @@ class EventServices
         }
 
         //AddParticipant => Add participant to event
-        public virtual void AddParticipant(Profile u, EventCalendar e, Profile participant){
+        public virtual void AddParticipant(User u, EventCalendar e, Profile participant){
             if(_context.ValidateSessionKey(u.__session_key)){
                 e.AddParticipant(participant);
                 _context.SaveChanges();
@@ -107,7 +107,7 @@ class EventServices
         }
 
         //RemoveParticipant => Add participant to event
-        public virtual void RemoveParticipant(Profile u, EventCalendar e, Profile participant){
+        public virtual void RemoveParticipant(User u, EventCalendar e, Profile participant){
             if(_context.ValidateSessionKey(u.__session_key)){
                 e.RemoveParticipant(participant);
                 _context.SaveChanges();
@@ -115,12 +115,12 @@ class EventServices
         }
 
         //ShowParticipant => Add participant to event
-        public virtual string ShowParticipants(Profile u, EventCalendar e){
+        public virtual string ShowParticipants(User u, EventCalendar e){
             if(_context.ValidateSessionKey(u.__session_key)){
                 List<Profile> participants = e.ShowParticipants();
                 string pString = "";
                 foreach (Profile participant in participants){
-                    pString = pString + participant.Username + "; ";
+                    pString = pString + participant.Name + "; ";
                 }
                 return pString;
             }

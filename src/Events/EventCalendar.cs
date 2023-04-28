@@ -10,6 +10,7 @@ namespace StudyMate
         [Key]
         public string EventId { get; set;}
 
+
         // EventCalendar specific properties
         public string Title
         {
@@ -21,6 +22,12 @@ namespace StudyMate
                     throw new ArgumentException("Title can't be empty, null, or whitespace.");
                 }
                 _title = value;
+
+                
+            // EventServices services = EventServices.getInstance();
+            // _title = value;
+            // services.UpdateEvent(this, currentUser);
+        
             }
         }
         

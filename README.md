@@ -17,8 +17,8 @@ A study mate matching app, based on favorite subjects and interest.
                     - password 
                 the following functions :
                     - changePassword() 
-                    - register()
-                    - login()
+                    - Register()
+                    - Login()
 
 
             - Profile class contains 
@@ -97,7 +97,7 @@ A study mate matching app, based on favorite subjects and interest.
 
 1. Amir: Profile, dtb for profile, unit test for profile, message, partially conversation, matching, link primary key foreign key for user (1 to 1 relationship) 
 
-2. Hoang: Users, dtb for users, unit test for users, conversation, Password Hashing, login, authentication 
+2. Hoang: Users, dtb for users, unit test for users, conversation, Password Hashing, Login, authentication 
 
 3. Mohamed: Reminder Email, EventCalendar (dtb/unit test), EventManager(dtb/unit test), Search (dtb/ unit test)
 
