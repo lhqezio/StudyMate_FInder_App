@@ -2,76 +2,75 @@
  {
     
      public class Application{
-        public static User currentUser = null;
+        public static Profile currentUser = null;
         public static StudyMateDbContext db = null;
         public static void Main(string[] args){
-            // db = new StudyMateDbContext();
+            db = new StudyMateDbContext();
+            var userService=UserServices.getInstance(db);
 
-            // // 1.	Create a new user account (user1)
-            // var user1 = User.Register("user1", "user1@hotmail.com", "testpassword", db);
-            // currentUser = user1;
-            // UserDB userDb1 = db.Users.FirstOrDefault(u => u.Username == user1.Username);
+            // 1.	Create a new user account (user1)
+            var user1 = userService.Register("user1", "user1@hotmail.com", "testpassword");
+            currentUser = user1;
+            UserDB userDb1 = db.Users.FirstOrDefault(u => u.Username == user1.Username);
 
-            // // 2.	Create a profile for user1 (You don’t need to fill in all details)
-            // School sch = new School("Dawson College");
-            // Profile profile1 = new Profile("alain", 18, sch, new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)}, userDb1);
+            // 2.	Create a profile for user1 (You don’t need to fill in all details)
+            School sch = new School("Dawson College");
+            Profile profile1 = new Profile("alain", 18, sch,"Computer science", new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)}, currentUser);
             
-            // // 3.	Create an event for user1
-            //  School sch1 = new School("Dawson College");
-            // School sch2 = new School("Henri-Bourassa");
-            // School sch3 = new School("Saint-Ex");
-    
-            // //Users
-            // UserDB user2 = new UserDB("Sam", "sam@hotmail.com", "password1");
-            // UserDB user3 = new UserDB("Jack", "jack@hotmail.com", "password2");
-            // //Profile
-            // Profile profile2 = new Profile("Sam", 20, sch2, new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Art)}, user2);
-            // Profile profile3 = new Profile("Jack", 18, sch3, new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Calculus)}, user3);
-            // //Profile list
-            // List<Profile> profileList = new List<Profile>();
-            // profileList.Add(profile2);
-            // profileList.Add(profile3);
-            // DateTimeOffset dTime = DateTimeOffset.Now.AddMonths(1);
-            // bool sent = false;
-            // string description = "Study with the homies";
-            // //Courses
-            // List<CourseEvent> eventCourses = new List<CourseEvent>();
-            // CourseEvent ce1 = new CourseEvent(Courses.Math);
-            // CourseEvent ce2 = new CourseEvent(Courses.Sciences);
-            // CourseEvent ce3 = new CourseEvent(Courses.Business);
-            // eventCourses.Add(ce1);
-            // eventCourses.Add(ce2);
-            // eventCourses.Add(ce3);
-            // School schoolList = sch1;
-            // string location = "Montreal";
+            // 3.	Create an event for user1
+            
+            //Users
+            Profile participant1 = new Profile("Sam", "sam@hotmail.com", "password1");
+            Profile participant2 = new Profile("Jack", "jack@hotmail.com", "password2");
+            //Profiles
+            Profile participant1_profile = new Profile("Sam", 20, new School("Henri-Bourassa"),"Education", new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Art)}, participant1);
+            Profile participant2_profile = new Profile("Jack", 18, new School("Saint-Ex"),"Sports studies", new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Calculus)}, participant2);
+            //Profile list
+            List<Profile> profileList = new List<Profile>();
+            profileList.Add(profile1);
+            profileList.Add(participant1_profile);
+            profileList.Add(participant2_profile);
+            DateTimeOffset dTime = DateTimeOffset.Now.AddMonths(1);
+            bool sent = true;
+            string description = "Study with the homies";
+            //Courses
+            List<CourseEvent> eventCourses = new List<CourseEvent>();
+            CourseEvent ce1 = new CourseEvent(Courses.Math);
+            CourseEvent ce2 = new CourseEvent(Courses.Sciences);
+            CourseEvent ce3 = new CourseEvent(Courses.Business);
+            eventCourses.Add(ce1);
+            eventCourses.Add(ce2);
+            eventCourses.Add(ce3);
+            School school = new School("Dawson College");
+            string location = "Montreal";
 
-            // //Act
-            // EventCalendar eC = new EventCalendar("Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location, sent);
-            // db.AddEvent(eC, user1);
+            //Act
+            EventCalendar eC = new EventCalendar("Study event", profile1, profileList, dTime, description, school, eventCourses, location, sent);
+            profile1.Events.Add(eC);
 
-            // // 4.	Log out from user1
-            // currentUser.Logout(db);
+            // 4.	Log out from user1
+            db.Logout(currentUser.__session_key);
 
 
-            // // 5.	Create a new user account (user4)
-            // User user4 = User.Register("Samir", "Samir@hotmail.com", "testPassword2", db);
-            // currentUser = user4;
-            // UserDB userDb4 = db.Users.FirstOrDefault(u => u.Username == user4.Username);
+            // 5.	Create a new user account (user2)
+            var user2 = userService.Register("user2", "user2@hotmail.com", "testpassword");
+            currentUser = user2;
+            UserDB userDb2 = db.Users.FirstOrDefault(u => u.Username == user2.Username);
 
-            // // 6.	Create a profile for user4
-            // School sch4 = new School("Vanier");
-            // Profile profile4 = new Profile("Samir", 18, sch4, new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Art)}, userDb4);
+            // 6.	Create a profile for user2
+            School sch2 = new School("Vanier");
+            Profile profile2 = new Profile("Samir", 18, sch2,"Health science", new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Art)}, user2);
 
-            // // 7.	Perform a search to find the event created by user1
-            // Search search = new Search(db);
-            // EventCalendar ec = search.SearchEventsCreator(profile1)[0];
+            // 7.	Perform a search to find the event created by user1
+            Search search = new Search(db);
+            EventCalendar ec = search.SearchEventsCreator(profile1)[0];
 
-            // // 8.	Mark user4 as attending user1’s event
-            // ec.AddParticipant(profile4);
+            // 8.	Mark user2 as attending user1’s event
+            ec.AddParticipant(profile2);
 
             // 9.	Attempt to edit user1’s event as user2 (should fail)
             
-
+            
             // 10.	Perform a search that finds user1’s profile
 
             // 11.	Send 3 messages from user2 to user1

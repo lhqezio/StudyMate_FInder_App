@@ -16,7 +16,7 @@ namespace StudyMate
         //One-to-one relationship
         [ForeignKey("User")]
         public string UserId { get; set; }
-        public User User{get;set;}=null!;
+        public Profile User{get;set;}=null!;
 
         //Profile specific properties
         public string Name { get; set; } = "";
@@ -44,7 +44,7 @@ namespace StudyMate
 
         //Constructor that builds a profile object with the mandatory fields. The user can set the optional fileds later using the 
         //setters.
-        public Profile(string name, int age, School school, string program, List<NeedHelpCourses> needHelpCourses, User user, Genders gender = Genders.Undisclosed)
+        public Profile(string name, int age, School school, string program, List<NeedHelpCourses> needHelpCourses, Profile user, Genders gender = Genders.Undisclosed)
         {
             ProfileId=Guid.NewGuid().ToString();
             Name = name;

@@ -15,11 +15,11 @@ public class EventCalendarTest
         School sch2 = new School("Henri-Bourassa");
         School sch3 = new School("Saint-Ex");
             //Users
-        User user1 = new User("Alain", "alain@hotmail.com", "password");
-        User user2 = new User("Sam", "sam@hotmail.com", "password1");
-        User user3 = new User("Jack", "jack@hotmail.com", "password2");
+        Profile user1 = new Profile("Alain", "alain@hotmail.com", "password");
+        Profile user2 = new Profile("Sam", "sam@hotmail.com", "password1");
+        Profile user3 = new Profile("Jack", "jack@hotmail.com", "password2");
             //userLis list
-        List<User> userList = new List<User>();
+        List<Profile> userList = new List<Profile>();
         userList.Add(user2);
         userList.Add(user3);
         DateTimeOffset dTime = DateTimeOffset.Now.AddMonths(1);
@@ -58,11 +58,11 @@ public class EventCalendarTest
         School sch2 = new School("Henri-Bourassa");
         School sch3 = new School("Saint-Ex");
             //Users
-        User user1 = new User("Alain", "alain@hotmail.com", "password");
-        User user2 = new User("Sam", "sam@hotmail.com", "password1");
-        User user3 = new User("Jack", "jack@hotmail.com", "password2");
+        Profile user1 = new Profile("Alain", "alain@hotmail.com", "password");
+        Profile user2 = new Profile("Sam", "sam@hotmail.com", "password1");
+        Profile user3 = new Profile("Jack", "jack@hotmail.com", "password2");
             //userLis list
-        List<User> userList = new List<User>();
+        List<Profile> userList = new List<Profile>();
         userList.Add(user2);
         DateTimeOffset dTime = DateTimeOffset.Now.AddMonths(1);
         bool sent = false;
@@ -96,11 +96,11 @@ public class EventCalendarTest
         School sch2 = new School("Henri-Bourassa");
         School sch3 = new School("Saint-Ex");
             //Users
-        User user1 = new User("Alain", "alain@hotmail.com", "password");
-        User user2 = new User("Sam", "sam@hotmail.com", "password1");
-        User user3 = new User("Jack", "jack@hotmail.com", "password2");
+        Profile user1 = new Profile("Alain", "alain@hotmail.com", "password");
+        Profile user2 = new Profile("Sam", "sam@hotmail.com", "password1");
+        Profile user3 = new Profile("Jack", "jack@hotmail.com", "password2");
             //userLis list
-        List<User> userList = new List<User>();
+        List<Profile> userList = new List<Profile>();
         userList.Add(user2);
         userList.Add(user3);
         DateTimeOffset dTime = DateTimeOffset.Now.AddMonths(1);
@@ -136,11 +136,11 @@ public class EventCalendarTest
         School sch2 = new School("Henri-Bourassa");
         School sch3 = new School("Saint-Ex");
             //Users
-        User user1 = new User("Alain", "alain@hotmail.com", "password");
-        User user2 = new User("Sam", "sam@hotmail.com", "password1");
-        User user3 = new User("Jack", "jack@hotmail.com", "password2");
+        Profile user1 = new Profile("Alain", "alain@hotmail.com", "password");
+        Profile user2 = new Profile("Sam", "sam@hotmail.com", "password1");
+        Profile user3 = new Profile("Jack", "jack@hotmail.com", "password2");
             //userLis list
-        List<User> userList = new List<User>();
+        List<Profile> userList = new List<Profile>();
         userList.Add(user2);
         userList.Add(user3);
         DateTimeOffset dTime = DateTimeOffset.Now.AddMonths(1);

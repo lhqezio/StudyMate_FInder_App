@@ -29,7 +29,7 @@ namespace StudyMate{
 
         //EVENT FCTS
         //AddEvent Method => Add event to the list of events
-        public virtual void AddEvent(EventCalendar e, User u){
+        public virtual void AddEvent(EventCalendar e, Profile u){
             if(ValidateSessionKey(u.__session_key)){
                 _context.Events!.Add(e);
                 _context.SaveChanges();
@@ -37,7 +37,7 @@ namespace StudyMate{
         }
 
         //DeleteEvent Method => Delete event to the list of events
-        public virtual void DeleteEvent(EventCalendar e, User u){
+        public virtual void DeleteEvent(EventCalendar e, Profile u){
             if(ValidateSessionKey(u.__session_key)){ 
                 _context.Events!.Remove(e);
                 _context.SaveChanges();
@@ -45,13 +45,13 @@ namespace StudyMate{
         }
 
         //CreateEvent Method => Create an event
-        public virtual void CreateEvent(User u, string title, List<User> participants, DateTimeOffset date, string description, School school, List<CourseEvent> courseEvents, string location ){
+        public virtual void CreateEvent(Profile u, string title, List<Profile> participants, DateTimeOffset date, string description, School school, List<CourseEvent> courseEvents, string location ){
             EventCalendar newEvent = new EventCalendar(title, u, participants, date, description, school, courseEvents, location);
             AddEvent(newEvent, u);
         }
 
         //EditEvent Method => Edit an event
-        public virtual void EditEvent(User u, EventCalendar editEvent, string? title = null, List<User>? participants = null, DateTimeOffset? date = null, School? school = null, List<CourseEvent>? courseEvents = null, string? location = null, bool? sent = null){
+        public virtual void EditEvent(Profile u, EventCalendar editEvent, string? title = null, List<Profile>? participants = null, DateTimeOffset? date = null, School? school = null, List<CourseEvent>? courseEvents = null, string? location = null, bool? sent = null){
             if(ValidateSessionKey(u.__session_key)){
                 if(title != null){
                     editEvent.Title = title;
@@ -79,7 +79,7 @@ namespace StudyMate{
         }
 
         //AddParticipant => Add participant to event
-        public virtual void AddParticipant(User u, EventCalendar e, User participant){
+        public virtual void AddParticipant(Profile u, EventCalendar e, Profile participant){
             if(ValidateSessionKey(u.__session_key)){
                 e.AddParticipant(participant);
                 _context.SaveChanges();
@@ -87,7 +87,7 @@ namespace StudyMate{
         }
 
         //RemoveParticipant => Add participant to event
-        public virtual void RemoveParticipant(User u, EventCalendar e, User participant){
+        public virtual void RemoveParticipant(Profile u, EventCalendar e, Profile participant){
             if(ValidateSessionKey(u.__session_key)){
                 e.RemoveParticipant(participant);
                 _context.SaveChanges();
@@ -95,11 +95,11 @@ namespace StudyMate{
         }
 
         //ShowParticipant => Add participant to event
-        public virtual string ShowParticipants(User u, EventCalendar e){
+        public virtual string ShowParticipants(Profile u, EventCalendar e){
             if(ValidateSessionKey(u.__session_key)){
-                List<User> participants = e.ShowParticipants();
+                List<Profile> participants = e.ShowParticipants();
                 string pString = "";
-                foreach (User participant in participants){
+                foreach (Profile participant in participants){
                     pString = pString + participant.Username + "; ";
                 }
                 return pString;
@@ -146,7 +146,7 @@ namespace StudyMate{
                 return true;
             }
             
-            public virtual User login(string username, string password)
+            public virtual Profile login(string username, string password)
             {
                 // Get the user from the database
                 UserDB user = _context.Users!.FirstOrDefault(u => u.Username == username)!;
@@ -164,10 +164,10 @@ namespace StudyMate{
                 }
                 var sessionKey = GenerateSessionKey(user.Id);
                 // If the user is valid, return a User object
-                return new User(user.Username, sessionKey, user.Id);
+                return new Profile(user.Username, sessionKey, user.Id);
             }
 
-            public virtual User getUserFromSessionKey(string session_key){
+            public virtual Profile getUserFromSessionKey(string session_key){
                 // Get the session from the database
                 SessionDB session = _context.Sessions!.FirstOrDefault(s => s.SessionKey == session_key)!;
 
@@ -193,10 +193,10 @@ namespace StudyMate{
                 }
 
                 // If the user is valid, return a User object
-                return new User(user.Username, session_key, user.Id);
+                return new Profile(user.Username, session_key, user.Id);
             }
 
-            public virtual User register(string username, string email, string password)
+            public virtual Profile register(string username, string email, string password)
             {
                 // Get the user from the database
                 UserDB user = _context.Users!.FirstOrDefault(u => u.Username == username)!;

@@ -24,12 +24,13 @@ namespace StudyMate
             optionsBuilder.UseOracle($"User Id={oracleUser}; Password={oraclePassword}; Data Source={dataSource};");
         }
 
-            
+
+        //One user can have multiple events (one-to-many)            
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<EventCalendar>()
                 .HasOne(e => e.EventCreator)
-                .WithMany(u => u.Profile.EventsCreated)
+                .WithMany(u => u.EventsCreated)
                 .HasForeignKey(e => e.UserId);
         }
 
@@ -96,7 +97,7 @@ namespace StudyMate
         }
 
 
-        public virtual User Login(string username, string password)
+        public virtual Profile Login(string username, string password)
         {
             // Get the user from the database
             UserDB user = Users.FirstOrDefault(u => u.Username == username);
@@ -114,10 +115,10 @@ namespace StudyMate
             }
             var sessionKey = GenerateSessionKey(user.Id);
             // If the user is valid, return a User object
-            return new User(user.Username, sessionKey, user.Id);
+            return new Profile(user.Username, sessionKey, user.Id);
         }
 
-        public virtual User LoginFromSessionKey(string session_key){
+        public virtual Profile LoginFromSessionKey(string session_key){
             // Get the session from the database
             SessionDB session = Sessions.FirstOrDefault(s => s.SessionKey == session_key);
 
@@ -143,10 +144,10 @@ namespace StudyMate
             }
 
             // If the user is valid, return a User object
-            return new User(user.Username, session_key, user.Id);
+            return new Profile(user.Username, session_key, user.Id);
         }
 
-        public virtual User Register(string username, string email, string password)
+        public virtual Profile Register(string username, string email, string password)
         {
             // Get the user from the database
             UserDB user = Users.FirstOrDefault(u => u.Username == username);

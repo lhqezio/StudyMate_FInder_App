@@ -17,7 +17,7 @@ class EventServices
     {
         _context = context;
     }
-    public virtual void AddEvent(EventCalendar e, User u)
+    public virtual void AddEvent(EventCalendar e, Profile u)
     {
         if (_context.ValidateSessionKey(u.__session_key))
         {
@@ -27,7 +27,7 @@ class EventServices
     }
 
     //DeleteEvent Method => Delete event to the list of events
-    public virtual void DeleteEvent(EventCalendar e, User u)
+    public virtual void DeleteEvent(EventCalendar e, Profile u)
     {
         if (_context.ValidateSessionKey(u.__session_key))
         {
@@ -36,7 +36,7 @@ class EventServices
         }
     }
 
-    public virtual void UpdateEvent(EventCalendar eventToUpdate, EventCalendar updateEvent, User u)
+    public virtual void UpdateEvent(EventCalendar eventToUpdate, EventCalendar updateEvent, Profile u)
     {
         if (_context.ValidateSessionKey(u.__session_key))
         {

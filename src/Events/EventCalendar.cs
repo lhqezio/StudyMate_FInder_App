@@ -31,17 +31,17 @@ namespace StudyMate
         public bool IsSent { get; set; }
 
         // Many-to-many relationships
-        private List<User> _participants {get; set;}
+        private List<Profile> _participants {get; set;}
         public List<CourseEvent> CourseEvents {get; set;}
         
         // One-to-many relationships
-        public string UserId{get;set;}
-        private User _eventCreator {get;set;}
+        public string ProfileId{get;set;}
+        private Profile _eventCreator {get;set;}
         public string SchoolId{get;set;}
         public School School{get; set;} //Will be a dropdown list for user input
         
         // Properties - Validation done here since it will also work when edited 
-        public User EventCreator
+        public Profile EventCreator
         {
             get { return _eventCreator; }
             set
@@ -54,7 +54,7 @@ namespace StudyMate
             }
         }
         
-        public List<User> Participants
+        public List<Profile> Participants
         {
             get { return _participants; }
             set
@@ -95,11 +95,11 @@ namespace StudyMate
 
         // Constructors
         public EventCalendar(){}
-        public EventCalendar(string title, User eventCreator, List<User> participants, DateTimeOffset date, string description,  School school, List<CourseEvent> courseEvents, string location , bool isSent=false)
+        public EventCalendar(string title, Profile eventCreator, List<Profile> participants, DateTimeOffset date, string description,  School school, List<CourseEvent> courseEvents, string location , bool isSent=false)
         {
             EventId = Guid.NewGuid().ToString();
             Title = title;
-            UserId=eventCreator.__user_id;
+            ProfileId = eventCreator.ProfileId;
             EventCreator = eventCreator;
             Participants = participants; 
             Date = date;
@@ -113,7 +113,7 @@ namespace StudyMate
 
    
         //Method to add Participants
-        public void AddParticipant(User newParticipant){
+        public void AddParticipant(Profile newParticipant){
             if(Participants.Contains(newParticipant)){
                 throw new ArgumentException("This participant is already part of the event");
             }
@@ -121,7 +121,7 @@ namespace StudyMate
         }
 
         //Method to remove Participants
-        public void RemoveParticipant(User participant){
+        public void RemoveParticipant(Profile participant){
             if(!Participants.Contains(participant)){
                 throw new ArgumentException("This participant isn't part of the event in the first place");
             }
@@ -129,13 +129,13 @@ namespace StudyMate
         }
 
         //Method to Check if participant is attending the event
-        public bool Attends(User participant)
+        public bool Attends(Profile participant)
         {
             return Participants.Contains(participant);
         }
 
         //Method to view participants
-        public List<User> ShowParticipants()
+        public List<Profile> ShowParticipants()
         {
             return Participants;
         }
@@ -147,7 +147,7 @@ namespace StudyMate
                 return false;
             return EventId == other.EventId
                 && _title == other._title
-                && UserId == other.UserId
+                && ProfileId == other.ProfileId
                 && _eventCreator == other._eventCreator 
                 && _participants.SequenceEqual(other._participants)
                 && _date == other._date
@@ -164,7 +164,7 @@ namespace StudyMate
         {
             return EventId.GetHashCode() ^
                 _title.GetHashCode() ^
-                UserId.GetHashCode() ^
+                ProfileId.GetHashCode() ^
                 _eventCreator.GetHashCode() ^
                 _participants.GetHashCode() ^
                 _date.GetHashCode() ^

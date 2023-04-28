@@ -19,21 +19,21 @@ class UserServices
         _context = context;
     }
 
-    public User Login(string username, string password)
+    public Profile Login(string username, string password)
     {
         return _context.Login(username, password);
     }
 
-    public User Register(string username, string email, string password)
+    public Profile Register(string username, string email, string password)
     {
         return _context.Register(username, email, password);
     }
 
-    public User LoginFromSessionKey(string sessionKey)
+    public Profile LoginFromSessionKey(string sessionKey)
     {
         return _context.LoginFromSessionKey(sessionKey);
     }
-    public User AutoLogin()
+    public Profile AutoLogin()
     {
         if (UserConfig.Read("encryptedSessionKey") != null)
         {
@@ -41,7 +41,7 @@ class UserServices
             byte[] encryptedSessionKeyBytes = Convert.FromBase64String(encryptedSessionKey);
             byte[] sessionKeyBytes = ProtectedData.Unprotect(encryptedSessionKeyBytes, null, DataProtectionScope.CurrentUser);
             string sessionKey = Encoding.UTF8.GetString(sessionKeyBytes);
-            User user = _context.LoginFromSessionKey(sessionKey);
+            Profile user = _context.LoginFromSessionKey(sessionKey);
             if (user != null)
             {
                 return user;
@@ -56,7 +56,7 @@ class UserServices
             byte[] passwordBytes = ProtectedData.Unprotect(encryptedPasswordBytes, null, DataProtectionScope.CurrentUser);
             string username = Encoding.UTF8.GetString(usernameBytes);
             string password = Encoding.UTF8.GetString(passwordBytes);
-            User user = Login(username, password);
+            Profile user = Login(username, password);
             if(user != null){
                 return user;
             }
