@@ -14,7 +14,7 @@ public class ProfileServicesTests
         var mockSet = new Mock<DbSet<Profile>>();
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(p => p.Profiles).Returns(mockSet.Object);
-        var service = ProfileServices.getInstance(mockContext.Object);
+        var service = new ProfileServices(mockContext.Object);
         //Act
         service.AddProfile(new Profile("Amir",20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},user1,Genders.Male),user1);
         //Assert
@@ -31,7 +31,7 @@ public class ProfileServicesTests
         var mockSet = new Mock<DbSet<Profile>>();
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(p => p.Profiles).Returns(mockSet.Object);
-        var service = ProfileServices.getInstance(mockContext.Object);
+        var service = new ProfileServices(mockContext.Object);
         // Act
         service.DeleteProfile(profileToDelete, user1);
         // Assert
@@ -47,7 +47,7 @@ public class ProfileServicesTests
         var mockSet = new Mock<DbSet<Profile>>();
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(p => p.Profiles).Returns(mockSet.Object);
-        var service = ProfileServices.getInstance(mockContext.Object);
+        var service = new ProfileServices(mockContext.Object);
         //Act
         service.UpdateProfile(profile, user1);
         //Assert
@@ -73,7 +73,7 @@ public class ProfileServicesTests
         mockSet.As<IQueryable<Profile>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(p => p.Profiles).Returns(mockSet.Object);
-        var service = ProfileServices.getInstance(mockContext.Object);
+        var service = new ProfileServices(mockContext.Object);
         //Act
         var profiles = service.GetAllProfiles();
         //Assert
@@ -99,7 +99,7 @@ public class ProfileServicesTests
         mockSet.As<IQueryable<Profile>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(c => c.Profiles).Returns(mockSet.Object);
-        var service =ProfileServices.getInstance(mockContext.Object);
+        var service = new ProfileServices(mockContext.Object);
         // Act
         var retrievedProfile = service.GetSpecificProfileById(profile1.ProfileId);
         // Assert
@@ -125,7 +125,7 @@ public class ProfileServicesTests
         mockSet.As<IQueryable<Profile>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(c => c.Profiles).Returns(mockSet.Object);
-        var service =ProfileServices.getInstance(mockContext.Object);
+        var service = new ProfileServices(mockContext.Object);
         // Act
         var retrievedProfile = service.GetSpecificProfileById("NullProfileId");
         // Assert
@@ -148,7 +148,7 @@ public class ProfileServicesTests
         mockSet.As<IQueryable<Profile>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(c => c.Profiles).Returns(mockSet.Object);
-        var service =ProfileServices.getInstance(mockContext.Object);
+        var service = new ProfileServices(mockContext.Object);
         // Act
         var retrievedProfile = service.GetSpecificProfile(profile);
         // Assert
@@ -173,7 +173,7 @@ public class ProfileServicesTests
         mockSet.As<IQueryable<Profile>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(c => c.Profiles).Returns(mockSet.Object);
-        var service =ProfileServices.getInstance(mockContext.Object);
+        var service = new ProfileServices(mockContext.Object);
         // Act
         var retrievedProfile = service.GetSpecificProfile(profile);
         // Assert
