@@ -8,25 +8,18 @@ namespace StudyMate{
 
     public class StudyMateService{
 
-        private static StudyMateService? _instance;
-        private StudyMateDbContext _context = null!;
+        private static readonly Lazy<StudyMateService> _instance = new Lazy<StudyMateService>(() => new StudyMateService());
+        public static StudyMateService Instance => _instance.Value;
 
+        private StudyMateDbContext _context;
         private StudyMateService(){
+            _context = new StudyMateDbContext();
+        }
+
+        public void Dispose(){
+            _context.Dispose();
         }
         
-        public static StudyMateService getInstance(){
-            if(_instance is null){
-                _instance = new StudyMateService();
-            }
-            return _instance;
-        }
-
-        public void setStudyMateDbContext(StudyMateDbContext context){
-            _context = context;
-        }
-
-
-
         //EVENT FCTS
         //AddEvent Method => Add event to the list of events
         public virtual void AddEvent(EventCalendar e, User u){
@@ -146,7 +139,7 @@ namespace StudyMate{
                 return true;
             }
             
-            public virtual User login(string username, string password)
+            public virtual User Login(string username, string password)
             {
                 // Get the user from the database
                 UserDB user = _context.Users!.FirstOrDefault(u => u.Username == username)!;
@@ -167,7 +160,7 @@ namespace StudyMate{
                 return new User(user.Username, sessionKey, user.Id);
             }
 
-            public virtual User getUserFromSessionKey(string session_key){
+            public virtual User GetUserFromSessionKey(string session_key){
                 // Get the session from the database
                 SessionDB session = _context.Sessions!.FirstOrDefault(s => s.SessionKey == session_key)!;
 
@@ -196,7 +189,7 @@ namespace StudyMate{
                 return new User(user.Username, session_key, user.Id);
             }
 
-            public virtual User register(string username, string email, string password)
+            public virtual User Register(string username, string email, string password)
             {
                 // Get the user from the database
                 UserDB user = _context.Users!.FirstOrDefault(u => u.Username == username)!;
@@ -213,10 +206,10 @@ namespace StudyMate{
                 // Add the user to the database
                 _context.Users!.Add(user);
                 _context.SaveChanges();
-                return login(username, password);
+                return Login(username, password);
             }
 
-            public virtual void logout(string sessionKey)
+            public virtual void Logout(string sessionKey)
             {
                 // Get the session from the database
                 SessionDB session = _context.Sessions!.FirstOrDefault(s => s.SessionKey == sessionKey)!;
