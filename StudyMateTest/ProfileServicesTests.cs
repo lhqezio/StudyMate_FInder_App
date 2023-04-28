@@ -56,7 +56,7 @@ public class ProfileServicesTests
     }
 
     [TestMethod]
-    public void CountProfileTest_QueryProfileInDB_ReturnsInt(){
+    public void GetAllProfilesTest_QueriesAllProfiles_ReturnsInt(){
         // Arrange
         var listdata = new List<Profile>();
         User user1 = new User("amirreza", "PK1", "1");
@@ -81,7 +81,7 @@ public class ProfileServicesTests
     }
 
     [TestMethod]
-    public void GetProfileById_Should_Return_Correct_Profile()
+    public void GetProfileByIdTest_RetrievesAnSpecificProfile_ReturnsProfile()
     {
         // Arrange
         var listdata = new List<Profile>();
@@ -99,13 +99,36 @@ public class ProfileServicesTests
         mockSet.As<IQueryable<Profile>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(c => c.Profiles).Returns(mockSet.Object);
-
         var service =ProfileServices.getInstance(mockContext.Object);
-
         // Act
         var retrievedProfile = service.GetProfileById(profile1.ProfileId);
-
         // Assert
         Assert.AreEqual(profile1, retrievedProfile);
+    }
+
+    [TestMethod]
+    public void GetProfileByIdTest_FailsToRetrieveAnSpecificProfile_ReturnsNull()
+    {
+        // Arrange
+        var listdata = new List<Profile>();
+        User user1 = new User("amirreza", "PK1", "1");
+        var profile1 = new Profile("Amir", 20, new School("Dawson College"), "Computer Science", new List<NeedHelpCourses>() { new NeedHelpCourses(Courses.History) }, user1, Genders.Male);
+        User user2 = new User("Leo", "PK2", "2");
+        var profile2 = new Profile("Leonard", 34, new School("MIT"), "Political science", new List<NeedHelpCourses>() { new NeedHelpCourses(Courses.Political_Science) }, user2, Genders.Male);
+        listdata.Add(profile1);
+        listdata.Add(profile2);
+        var data = listdata.AsQueryable();
+        var mockSet = new Mock<DbSet<Profile>>();
+        mockSet.As<IQueryable<Profile>>().Setup(m => m.Provider).Returns(data.AsQueryable().Provider);
+        mockSet.As<IQueryable<Profile>>().Setup(m => m.Expression).Returns(data.AsQueryable().Expression);
+        mockSet.As<IQueryable<Profile>>().Setup(m => m.ElementType).Returns(data.AsQueryable().ElementType);
+        mockSet.As<IQueryable<Profile>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
+        var mockContext = new Mock<StudyMateDbContext>();
+        mockContext.Setup(c => c.Profiles).Returns(mockSet.Object);
+        var service =ProfileServices.getInstance(mockContext.Object);
+        // Act
+        var retrievedProfile = service.GetProfileById("NullProfileId");
+        // Assert
+        Assert.IsNull(retrievedProfile);
     }
 }
