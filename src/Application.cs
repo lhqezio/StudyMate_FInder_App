@@ -13,12 +13,14 @@
                 // 1.	Create a new user account (user1)
                 //I just store the password here as plain text for simplicity. Otherwise the password should come as an input from the user.
                 var user1 = new UserDB("amirXoXo","example@gmail.com","Random password");
+                userService.RemoveUser(user1);
                 userService.AddUser(user1);
                 User currentUser = new User(user1,"100");
 
                 // 2.	Create a profile for user1 (You don’t need to fill in all details)
                 School sch = new School("Dawson College");
                 Profile profile1 = new Profile("alain", 18, sch,"Computer science", new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)}, user1);
+                profileService.DeleteProfile(profile1,currentUser);
                 profileService.AddProfile(profile1,currentUser);
                 
                 // 3.	Create an event for user1
@@ -51,6 +53,7 @@
                 //Act
                 EventCalendar eC = new EventCalendar("Study event", profile1, profileList, dTime, description, school, eventCourses, location, sent);
                 profile1.Events.Add(eC);
+                profile1.AddCreatedEvent(eC);
                 profileService.UpdateProfile(profile1,currentUser);
 
                 // 4.	Log out from user1

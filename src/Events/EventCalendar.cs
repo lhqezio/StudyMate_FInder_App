@@ -60,14 +60,14 @@ namespace StudyMate
                 {
                     throw new ArgumentException("Your location can't be empty.");
                 }
-                _description = value; 
+                _location = value; 
             }
         }
 
         public bool IsSent { get; set; }
 
         // Many-to-many relationships
-        public List<Profile> _participants {get; set;}
+        private List<Profile> _participants {get; set;}
         public List<Profile> Participants
         {
             get { return _participants; }
