@@ -80,7 +80,7 @@ using Microsoft.EntityFrameworkCore;
             eventCourses.Add(ce1);
             eventCourses.Add(ce2);
             eventCourses.Add(ce3);
-            EventCalendar eC = new EventCalendar("New Title", profile1, profileList, dTime, description, schoolList, eventCourses, location, sent);
+            EventCalendar eC = new EventCalendar("Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location, sent);
             var mockSet = new Mock<DbSet<EventCalendar>>();
             var mockContext = new Mock<StudyMateDbContext>();
             mockContext.Setup(p => p.Events).Returns(mockSet.Object);

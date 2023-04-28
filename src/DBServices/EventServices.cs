@@ -38,11 +38,11 @@ public class EventServices : IDisposable
             // if(_context.ValidateSessionKey(u.__session_key)){ 
                 using (_context)
                 {
-                    var getEvent = _context.Events.SingleOrDefault(e => e.EventId == eventToDelete.EventId);
-                    if(getEvent != null){ 
-                        _context.Events!.Remove(getEvent);
+                    // var getEvent = _context.Events.SingleOrDefault(e => e.EventId == eventToDelete.EventId);
+                    // if(getEvent != null){ 
+                        _context.Events!.Remove(eventToDelete);
                         _context.SaveChanges();
-                    }
+                    // }
                 }
             // }
         }
@@ -58,11 +58,11 @@ public class EventServices : IDisposable
             // if(_context.ValidateSessionKey(u.__session_key)){_context.Entry(updateEvent).State = EntityState.Modified;
                 using(_context)
                 {
-                    var getEvent = _context.Events.SingleOrDefault(e => e.EventId == eventToUpdate.EventId);
-                    if(getEvent != null){ 
-                        _context.Entry(getEvent).State = EntityState.Modified;
+                    // var getEvent = _context.Events.SingleOrDefault(e => e.EventId == eventToUpdate.EventId);
+                    // if(getEvent != null){ 
+                        _context.Events!.Update(eventToUpdate);
                         _context.SaveChanges();
-                    }
+                    // }
                 }
             // }
         }
@@ -123,3 +123,5 @@ public class EventServices : IDisposable
         _context.Dispose();
     }
 }
+
+
