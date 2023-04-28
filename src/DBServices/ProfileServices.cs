@@ -53,4 +53,10 @@ public class ProfileServices
         return _context.Profiles!.ToList();
     }
 
+    public virtual Profile? GetProfileById(string profileId)
+    {
+        return _context.Profiles!.FirstOrDefault(p => p.ProfileId == profileId);
+    }
+
+
 }
