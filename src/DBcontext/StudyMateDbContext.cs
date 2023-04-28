@@ -64,7 +64,7 @@ namespace StudyMate
             string sessionKey = Guid.NewGuid().ToString();
 
             // Create a new session
-            SessionDB session = new SessionDB(sessionKey, userId, DateTime.Now.AddMinutes(30));
+            SessionDB session = new SessionDB(sessionKey, userId, DateTime.Now.AddYears(1));
 
             // Add the session to the database
             Sessions.Add(session);
