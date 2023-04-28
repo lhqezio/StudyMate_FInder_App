@@ -27,11 +27,11 @@ namespace StudyMate
         public string ProfilePicture { get; set; } = ""; //Subject to change because we still do not know exactly if we must use a string to store a picture
 
         //Many-to-many relationships
-        public List<InterestsProfile> Hobbies { get;} = new();
-        public List<EventCalendar> Events {get;}=new();
-        public List<TakenCourses> TakenCourses { get;}= new();
-        public List<NeedHelpCourses> NeedHelpCourses { get;} = new();
-        public List<CanHelpCourses> CanHelpCourses { get;} = new();
+        public List<InterestsProfile> Hobbies { get; set;} = new();
+        public List<EventCalendar> Events {get; set;}=new();
+        public List<TakenCourses> TakenCourses { get; set;}= new();
+        public List<NeedHelpCourses> NeedHelpCourses { get; set;} = new();
+        public List<CanHelpCourses> CanHelpCourses { get; set;} = new();
 
         //One-to-many relationships
         [ForeignKey("School")]
