@@ -93,7 +93,7 @@ using Microsoft.EntityFrameworkCore;
         
             // Act
             using(var service = EventServices.getInstance(mockContext.Object)){
-                service.UpdateEvent(eC, user1);
+                service.EditEvent(eC, user1);
                 } 
 
             //Assert
