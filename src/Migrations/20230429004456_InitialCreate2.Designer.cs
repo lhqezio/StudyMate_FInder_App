@@ -12,8 +12,8 @@ using StudyMate;
 namespace src.Migrations
 {
     [DbContext(typeof(StudyMateDbContext))]
-    [Migration("20230428203407_SecondMig")]
-    partial class SecondMig
+    [Migration("20230429004456_InitialCreate2")]
+    partial class InitialCreate2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -244,7 +244,8 @@ namespace src.Migrations
 
                     b.HasIndex("SchoolId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("UserId")
+                        .IsUnique();
 
                     b.ToTable("Profiles");
                 });
@@ -293,32 +294,30 @@ namespace src.Migrations
                     b.ToTable("TakenCourses");
                 });
 
-            modelBuilder.Entity("StudyMate.UserDB", b =>
+            modelBuilder.Entity("StudyMate.User", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
-
-                    b.Property<string>("Password")
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("PasswordHash")
-                        .HasColumnType("NVARCHAR2(2000)");
-
-                    b.Property<string>("ProfileId")
-                        .HasColumnType("NVARCHAR2(2000)");
-
-                    b.Property<string>("Salt")
+                        .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.HasKey("UserId");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });
@@ -440,9 +439,9 @@ namespace src.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StudyMate.Profile", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
+                    b.HasOne("StudyMate.User", "User")
+                        .WithOne("Profile")
+                        .HasForeignKey("StudyMate.Profile", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -461,6 +460,11 @@ namespace src.Migrations
                     b.Navigation("Events");
 
                     b.Navigation("Profiles");
+                });
+
+            modelBuilder.Entity("StudyMate.User", b =>
+                {
+                    b.Navigation("Profile");
                 });
 #pragma warning restore 612, 618
         }

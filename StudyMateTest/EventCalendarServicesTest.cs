@@ -12,9 +12,9 @@ using Microsoft.EntityFrameworkCore;
         public static School sch2 = new School("Henri-Bourassa");
         public static School sch3 = new School("Saint-Ex");
                 //Users
-        public static UserDB user1 = new UserDB("Alain", "alain@hotmail.com", "password");
-        public static UserDB user2 = new UserDB("Sam", "sam@hotmail.com", "password1");
-        public static UserDB user3 = new UserDB("Jack", "jack@hotmail.com", "password2");
+        public static User user1 = new User("Alain", "alain@hotmail.com", "password");
+        public static User user2 = new User("Sam", "sam@hotmail.com", "password1");
+        public static User user3 = new User("Jack", "jack@hotmail.com", "password2");
                 //Profiles
         public static Profile profile1 = new Profile("Alain", 20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Computer_Science)},user1,Genders.Male);
         public static Profile profile2 = new Profile("Samantha", 18,new School("Henri-Bourassa"),"Social Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Political_Science)},user2,Genders.Female);

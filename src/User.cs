@@ -3,9 +3,9 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudyMate;
-public class UserDB
+public class User
 {
-    //Generates a random primary key for the UserDB class
+    //Generates a random primary key for the User class
     [Key]
     public string UserId{get;set;}
 
@@ -14,13 +14,12 @@ public class UserDB
     public string Username { get; set; }
     public string Email { get; set; }
     public string PasswordHash { get; set; }
-    
-    public UserDB(){}
-    public UserDB(string username, string email,string password)
+
+    public User(string userId,string username, string email,string passwordHash)
     {
-        UserId = Guid.NewGuid().ToString();
+        UserId = userId;
         Username = username;
         Email = email;
-        PasswordHash = PasswordHasher.HashPassword(password);
+        PasswordHash = passwordHash;
     }
 }

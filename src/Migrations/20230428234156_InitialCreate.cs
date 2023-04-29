@@ -101,12 +101,9 @@ namespace src.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    ProfileId = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
-                    Username = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Email = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Salt = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
-                    PasswordHash = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
-                    Password = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true)
+                    Username = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    Email = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -123,24 +120,24 @@ namespace src.Migrations
                     Gender = table.Column<int>(type: "NUMBER(10)", nullable: true),
                     Age = table.Column<int>(type: "NUMBER(10)", nullable: true),
                     Program = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    PersonalDescription = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    ProfilePicture = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
+                    PersonalDescription = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    ProfilePicture = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
                     SchoolId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Profiles", x => x.ProfileId);
                     table.ForeignKey(
-                        name: "FK_Profiles_Profiles_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Profiles",
-                        principalColumn: "ProfileId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Profiles_School_SchoolId",
                         column: x => x.SchoolId,
                         principalTable: "School",
                         principalColumn: "SchoolId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Profiles_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -361,12 +358,25 @@ namespace src.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Profiles_UserId",
                 table: "Profiles",
-                column: "UserId");
+                column: "UserId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProfileTakenCourses_TakenCoursesCourseId",
                 table: "ProfileTakenCourses",
                 column: "TakenCoursesCourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Username",
+                table: "Users",
+                column: "Username",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -394,9 +404,6 @@ namespace src.Migrations
                 name: "Sessions");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "CanHelpCourses");
 
             migrationBuilder.DropTable(
@@ -419,6 +426,9 @@ namespace src.Migrations
 
             migrationBuilder.DropTable(
                 name: "School");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }

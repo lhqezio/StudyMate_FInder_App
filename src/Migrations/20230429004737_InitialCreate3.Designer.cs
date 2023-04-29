@@ -12,8 +12,8 @@ using StudyMate;
 namespace src.Migrations
 {
     [DbContext(typeof(StudyMateDbContext))]
-    [Migration("20230428222335_fourthMig")]
-    partial class fourthMig
+    [Migration("20230429004737_InitialCreate3")]
+    partial class InitialCreate3
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -294,7 +294,7 @@ namespace src.Migrations
                     b.ToTable("TakenCourses");
                 });
 
-            modelBuilder.Entity("StudyMate.UserDB", b =>
+            modelBuilder.Entity("StudyMate.User", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("NVARCHAR2(450)");
@@ -439,7 +439,7 @@ namespace src.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StudyMate.UserDB", "User")
+                    b.HasOne("StudyMate.User", "User")
                         .WithOne("Profile")
                         .HasForeignKey("StudyMate.Profile", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -462,7 +462,7 @@ namespace src.Migrations
                     b.Navigation("Profiles");
                 });
 
-            modelBuilder.Entity("StudyMate.UserDB", b =>
+            modelBuilder.Entity("StudyMate.User", b =>
                 {
                     b.Navigation("Profile");
                 });

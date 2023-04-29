@@ -8,7 +8,7 @@ namespace StudyMate
     public class StudyMateDbContext : DbContext
     {
         public virtual  DbSet<Profile>? Profiles { get; set; }
-        public virtual  DbSet<UserDB>? Users { get; set; }
+        public virtual  DbSet<User>? Users { get; set; }
         public virtual DbSet<EventCalendar>? Events { get; set; }
         public virtual  DbSet<CanHelpCourses>? CanHelpCourses { get; set; }
         public virtual  DbSet<NeedHelpCourses>? NeedHelpCourses { get; set;}
@@ -33,149 +33,57 @@ namespace StudyMate
                 .WithMany(u => u.EventsCreated)
                 .HasForeignKey(e => e.ProfileId);
 
-            modelBuilder.Entity<UserDB>()
+            modelBuilder.Entity<User>()
                 .HasIndex(u => u.Username)
                 .IsUnique();
 
-            modelBuilder.Entity<UserDB>()
+            modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
         }
 
-        // public override int SaveChanges()
-        // {
-        //     // Hash passwords before saving to the database
-        //     var modifiedUsers = ChangeTracker.Entries<UserDB>()
-        //         .Where(e => e.State == EntityState.Added || e.State == EntityState.Modified )
-        //         .ToList();
-            
-        //     foreach (var entry in modifiedUsers)
-        //     {
-        //         var user = entry.Entity;
 
-        //         if (!string.IsNullOrEmpty(user.Password))
-        //         {
-        //             string hashedPassword = PasswordHasher.HashPassword(user.Password);
-        //             string[] parts = hashedPassword.Split('.');
-        //             user.PasswordHash=parts[1];
-        //             user.Salt=parts[0];
-        //             user.Password = null;
-        //         }
-        //     }
+        public virtual User Login(string username, string password)
+        {
+            // Get the user from the database
+            User user = Users.FirstOrDefault(u => u.Username == username);
 
-        //     return base.SaveChanges();
-        // }
+            // If the user doesn't exist, return null
+            if (user == null)
+            {
+                return null;
+            }
 
-        
-        // public virtual string GenerateSessionKey(string userId)
-        // {
-        //     // Generate a session key
-        //     string sessionKey = Guid.NewGuid().ToString();
+            // If the password is incorrect, return null
+            if (!PasswordHasher.VerifyPassword(password, user.PasswordHash))
+            {
+                return null;
+            }
+            // If the user is valid, return a User object
+            return new User(user.UserId,user.Username, user.PasswordHash, user.UserId);
+        }
+        public virtual User Register(string username, string email, string password)
+        {
+            System.Console.WriteLine(username);
+            // Get the user from the database
+            User user = Users.FirstOrDefault(u => u.Username == "alain");
 
-        //     // Create a new session
-        //     SessionDB session = new SessionDB(sessionKey, userId, DateTime.Now.AddYears(1));
+            // If the user already exists, return null
+            if (user != null)
+            {
+                return null;
+            }
 
-        //     // Add the session to the database
-        //     Sessions.Add(session);
-        //     SaveChanges();
+            // Create a new user
+            user = new User(Guid.NewGuid().ToString(),username, email, PasswordHasher.HashPassword(password));
 
-        //     return sessionKey;
-        // }
+            // Add the user to the database
+            Users.Add(user);
+            SaveChanges();
+            return Login(username, password);
+        }
 
-
-        //    public virtual bool ValidateSessionKey(string sessionKey)
-        // {
-        //     // Get the session from the database
-        //     SessionDB session = Sessions.FirstOrDefault(s => s.SessionKey == sessionKey);
-
-        //     // If the session doesn't exist, return false
-        //     if (session == null)
-        //     {
-        //         return false;
-        //     }
-
-        //     // If the session has expired, return false
-        //     if (session.Expiration < DateTime.Now)
-        //     {
-        //         return false;
-        //     }
-
-        //     // If the session is valid, return true
-        //     return true;
-        // }
-
-
-        // public virtual User Login(string username, string password)
-        // {
-        //     // Get the user from the database
-        //     UserDB user = Users.FirstOrDefault(u => u.Username == username);
-
-        //     // If the user doesn't exist, return null
-        //     if (user == null)
-        //     {
-        //         return null;
-        //     }
-
-        //     // If the password is incorrect, return null
-        //     if (!PasswordHasher.VerifyPassword(password, $"{user.Salt}.{user.PasswordHash}"))
-        //     {
-        //         return null;
-        //     }
-        //     var sessionKey = GenerateSessionKey(user.UserId);
-        //     // If the user is valid, return a User object
-        //     return new User(user.Username, sessionKey, user.UserId);
-        // }
-
-        // public virtual User LoginFromSessionKey(string session_key){
-        //     // Get the session from the database
-        //     SessionDB session = Sessions.FirstOrDefault(s => s.SessionKey == session_key);
-
-        //     // If the session doesn't exist, return null
-        //     if (session == null)
-        //     {
-        //         return null;
-        //     }
-
-        //     // If the session has expired, return null
-        //     if (session.Expiration < DateTime.Now)
-        //     {
-        //         return null;
-        //     }
-
-        //     // Get the user from the database
-        //     UserDB user = Users.FirstOrDefault(u => u.UserId == session.UserId);
-
-        //     // If the user doesn't exist, return null
-        //     if (user == null)
-        //     {
-        //         return null;
-        //     }
-
-        //     // If the user is valid, return a User object
-        //     return new User(user.Username, session_key, user.UserId);
-        // }
-
-        // public virtual User Register(string username, string email, string password)
-        // {
-        //     // Get the user from the database
-        //     UserDB user = Users.FirstOrDefault(u => u.Username == username);
-
-        //     // If the user already exists, return null
-        //     if (user != null)
-        //     {
-        //         return null;
-        //     }
-
-        //     // Create a new user
-        //     user = new UserDB(username, email, password);
-
-        //     // Add the user to the database
-        //     Users.Add(user);
-        //     SaveChanges();
-        //     return Login(username, password);
-        // }
-
-        public virtual void Logout(string sessionKey)
+        public virtual void ChangePassword(string sessionKey, string newPassword)
         {
             // Get the session from the database
             SessionDB session = Sessions.FirstOrDefault(s => s.SessionKey == sessionKey);
@@ -186,37 +94,21 @@ namespace StudyMate
                 return;
             }
 
-            // Remove the session from the database
-            Sessions.Remove(session);
+            // Get the user from the database
+            User user = Users.FirstOrDefault(u => u.UserId == session.UserId);
+
+            // If the user doesn't exist, return
+            if (user == null)
+            {
+                return;
+            }
+
+            // Change the user's password
+            user.PasswordHash = PasswordHasher.HashPassword(newPassword);
+
+            // Update the user in the database
+            Users.Update(user);
             SaveChanges();
         }
-        // public virtual void ChangePassword(string sessionKey, string newPassword)
-        // {
-        //     // Get the session from the database
-        //     SessionDB session = Sessions.FirstOrDefault(s => s.SessionKey == sessionKey);
-
-        //     // If the session doesn't exist, return
-        //     if (session == null)
-        //     {
-        //         return;
-        //     }
-
-        //     // Get the user from the database
-        //     UserDB user = Users.FirstOrDefault(u => u.UserId == session.UserId);
-
-        //     // If the user doesn't exist, return
-        //     if (user == null)
-        //     {
-        //         return;
-        //     }
-
-        //     // Change the user's password
-        //     user.Password = newPassword;
-
-        //     // Update the user in the database
-        //     Users.Update(user);
-        //     SaveChanges();
-        // }
     }
 }
-

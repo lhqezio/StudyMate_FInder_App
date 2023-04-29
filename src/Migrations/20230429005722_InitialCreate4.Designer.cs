@@ -12,8 +12,8 @@ using StudyMate;
 namespace src.Migrations
 {
     [DbContext(typeof(StudyMateDbContext))]
-    [Migration("20230428214523_thirdMig")]
-    partial class thirdMig
+    [Migration("20230429005722_InitialCreate4")]
+    partial class InitialCreate4
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -294,14 +294,14 @@ namespace src.Migrations
                     b.ToTable("TakenCourses");
                 });
 
-            modelBuilder.Entity("StudyMate.UserDB", b =>
+            modelBuilder.Entity("StudyMate.User", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
@@ -309,9 +309,15 @@ namespace src.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.HasKey("UserId");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });
@@ -433,7 +439,7 @@ namespace src.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StudyMate.UserDB", "User")
+                    b.HasOne("StudyMate.User", "User")
                         .WithOne("Profile")
                         .HasForeignKey("StudyMate.Profile", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -456,7 +462,7 @@ namespace src.Migrations
                     b.Navigation("Profiles");
                 });
 
-            modelBuilder.Entity("StudyMate.UserDB", b =>
+            modelBuilder.Entity("StudyMate.User", b =>
                 {
                     b.Navigation("Profile");
                 });
