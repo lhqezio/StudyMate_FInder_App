@@ -147,18 +147,18 @@ namespace StudyMate
                 var user1event3 = eventService.GetAllMyEvents(profileService.GetMyProfile(currentUser))[0];
                 // 20.	Delete user1’s profile
                 System.Console.WriteLine("Deleting profile");
-                profileService.DeleteProfile(currentUser);
+                // profileService.DeleteProfile(currentUser);
 
-                // 21.	Delete user1’s account
-                currentUser = null;
-                System.Console.WriteLine("Deleting user1");
-                userService.DeleteUser("alain", "200");
-                // 22.	Log in as user2
-                System.Console.WriteLine("Logging in as Samir");
-                currentUser = userService.Login("samir", "100");
-                // 23.	Delete user2’s account
-                System.Console.WriteLine("Deleting user2");
-                userService.DeleteUser("samir", "100");
+                // // 21.	Delete user1’s account
+                // currentUser = null;
+                // System.Console.WriteLine("Deleting user1");
+                // userService.DeleteUser("alain", "200");
+                // // 22.	Log in as user2
+                // System.Console.WriteLine("Logging in as Samir");
+                // currentUser = userService.Login("samir", "100");
+                // // 23.	Delete user2’s account
+                // System.Console.WriteLine("Deleting user2");
+                // userService.DeleteUser("samir", "100");
             }
         }
     }

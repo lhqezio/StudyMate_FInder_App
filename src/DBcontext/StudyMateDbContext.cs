@@ -67,7 +67,7 @@ namespace StudyMate
             modelBuilder.Entity<User>()
                 .HasOne<Profile>()
                 .WithOne()
-                .HasForeignKey<Profile>(p => p.UserId);
+                .HasForeignKey<Profile>(p => p.UsrId);
         }
     }
 }

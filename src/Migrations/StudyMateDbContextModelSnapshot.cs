@@ -156,21 +156,14 @@ namespace src.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.Property<string>("UserId")
+                    b.Property<string>("UsrId")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(450)");
-
-                    b.Property<string>("UserId1")
                         .HasColumnType("NVARCHAR2(450)");
 
                     b.HasKey("ProfileId");
 
-                    b.HasIndex("UserId")
+                    b.HasIndex("UsrId")
                         .IsUnique();
-
-                    b.HasIndex("UserId1")
-                        .IsUnique()
-                        .HasFilter("\"UserId1\" IS NOT NULL");
 
                     b.ToTable("Profiles");
                 });
@@ -188,6 +181,9 @@ namespace src.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
+                    b.Property<string>("ProfileId")
+                        .HasColumnType("NVARCHAR2(450)");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(450)");
@@ -196,6 +192,8 @@ namespace src.Migrations
 
                     b.HasIndex("Email")
                         .IsUnique();
+
+                    b.HasIndex("ProfileId");
 
                     b.HasIndex("Username")
                         .IsUnique();
@@ -237,13 +235,18 @@ namespace src.Migrations
                 {
                     b.HasOne("StudyMate.User", null)
                         .WithOne()
-                        .HasForeignKey("StudyMate.Profile", "UserId")
+                        .HasForeignKey("StudyMate.Profile", "UsrId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
 
-                    b.HasOne("StudyMate.User", null)
-                        .WithOne("Profile")
-                        .HasForeignKey("StudyMate.Profile", "UserId1");
+            modelBuilder.Entity("StudyMate.User", b =>
+                {
+                    b.HasOne("StudyMate.Profile", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId");
+
+                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("UserConversation", b =>
@@ -259,11 +262,6 @@ namespace src.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("StudyMate.User", b =>
-                {
-                    b.Navigation("Profile");
                 });
 #pragma warning restore 612, 618
         }

@@ -13,8 +13,7 @@ namespace StudyMate
         [Key]
         public string ProfileId { get; set; }
         
-        public string UserId { get; set; }
-        //Profile specific properties
+        public string UsrId { get; set; }
         public string Name { get; set; }
         public string Gender { get; set; }
         public string School {get;set;}
@@ -28,7 +27,7 @@ namespace StudyMate
         public List<Event> Events { get; set; } = new();
         //Constructor that builds a profile object with the mandatory fields. The user can set the optional fileds later using the 
         //setters.
-        public Profile(string ProfileId,string name, int age, string program,string gender,string school,string UserId,string needHelpCourses,string takenCourses,string hobbies,string PersonalDescription,string ProfilePicture)
+        public Profile(string ProfileId,string name, int age, string program,string gender,string school,string UsrId,string needHelpCourses,string takenCourses,string hobbies,string PersonalDescription,string ProfilePicture)
         {
             this.ProfileId=ProfileId;
             Name = name;
@@ -39,7 +38,7 @@ namespace StudyMate
             NeedHelpCourses = needHelpCourses;
             TakenCourses = takenCourses;
             Hobbies = hobbies;
-            this.UserId=UserId;
+            this.UsrId=UsrId;
             this.PersonalDescription=PersonalDescription;
             this.ProfilePicture=ProfilePicture;
         }
