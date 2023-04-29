@@ -19,7 +19,7 @@ public class ChatServices {
         var conversation = new Conversation(Guid.NewGuid().ToString(), name);
         foreach (var username in usernames)
         {
-            var user = _context.Users.FirstOrDefault(u => u.Username == username);
+            var user = _context.Users.SingleOrDefault(u => u.Username == username);
             if(user!=null) {
             conversation.Users.Add(user);
             }

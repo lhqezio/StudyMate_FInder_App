@@ -5,7 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 
 namespace StudyMate;
-class UserServices : IDisposable
+class UserServices
 {
     private StudyMateDbContext _context = null!;
     private static UserServices? _instance;
@@ -22,33 +22,63 @@ class UserServices : IDisposable
         _context = context;
     }
 
-    public User Login(string username, string password)
+    public virtual User Login(string username, string password)
     {
-        return _context.Login(username, password);
-    }
+        // Get the user from the database
+        User user = _context.Users.SingleOrDefault(u => u.Username == username);
 
-    public User Register(string username, string email, string password)
-    {
-        return _context.Register(username, email, password);
+        // If the user doesn't exist, return null
+        if (user == null)
+        {
+            return null;
+        }
+
+        // If the password is incorrect, return null
+        if (!PasswordHasher.VerifyPassword(password, user.PasswordHash))
+        {
+            System.Console.WriteLine("wrong");
+            return null;
+        }
+        // If the user is valid, return a User object
+        return new User(user.UserId, user.Username, user.PasswordHash, user.UserId);
     }
-    public virtual void AddUser(User user)
+    public virtual User Register(string username, string email, string password)
     {
-        _context.Users!.Add(user);
+        System.Console.WriteLine(username);
+        // Get the user from the database
+        User user = _context.Users.SingleOrDefault(u => u.Username == username);
+
+        // If the user already exists, return null
+        if (user != null)
+        {
+            return null;
+        }
+
+        // Create a new user
+        user = new User(Guid.NewGuid().ToString(), username, email, PasswordHasher.HashPassword(password));
+
+        // Add the user to the database
+        _context.Users.Add(user);
         _context.SaveChanges();
+        return Login(username, password);
     }
 
-    public virtual void RemoveUser(User user)
+    public virtual void ChangePassword(string username,string oldpasswod, string newPassword)
     {
-        _context.Users!.Remove(user);
-        _context.SaveChanges();
+        if (Login(username, oldpasswod) != null)
+        {
+            var user = _context.Users.SingleOrDefault(u => u.Username == username);
+            user.PasswordHash = PasswordHasher.HashPassword(newPassword);
+            _context.SaveChanges();
+        }
     }
-
-    public void Dispose()
+    public virtual void DeleteUser(string username,string password)
     {
-        _context.Dispose();
-    }
-    public virtual void ChangePassword(User user,string newPassword)
-    {
-        _context.ChangePassword(user, newPassword);
+        if (Login(username, password) != null)
+        {
+            _context.Users.Remove(_context.Users.SingleOrDefault(u => u.Username == username));
+            System.Console.WriteLine(_context.Users.Count());
+            _context.SaveChanges();
+        }
     }
 }

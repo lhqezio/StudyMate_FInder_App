@@ -58,52 +58,5 @@ namespace StudyMate
                     .OnDelete(DeleteBehavior.Cascade)
             );
         }
-
-
-        public virtual User Login(string username, string password)
-        {
-            // Get the user from the database
-            User user = Users.FirstOrDefault(u => u.Username == username);
-
-            // If the user doesn't exist, return null
-            if (user == null)
-            {
-                return null;
-            }
-
-            // If the password is incorrect, return null
-            if (!PasswordHasher.VerifyPassword(password, user.PasswordHash))
-            {
-                return null;
-            }
-            // If the user is valid, return a User object
-            return new User(user.UserId,user.Username, user.PasswordHash, user.UserId);
-        }
-        public virtual User Register(string username, string email, string password)
-        {
-            System.Console.WriteLine(username);
-            // Get the user from the database
-            User user = Users.FirstOrDefault(u => u.Username == username);
-
-            // If the user already exists, return null
-            if (user != null)
-            {
-                return null;
-            }
-
-            // Create a new user
-            user = new User(Guid.NewGuid().ToString(),username, email, PasswordHasher.HashPassword(password));
-
-            // Add the user to the database
-            Users.Add(user);
-            SaveChanges();
-            return Login(username, password);
-        }
-
-        public virtual void ChangePassword(User user,string newPassword)
-        {
-            user.PasswordHash=PasswordHasher.HashPassword(newPassword);
-            SaveChanges();
-        }   
     }
 }

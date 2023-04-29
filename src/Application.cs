@@ -36,7 +36,7 @@
                 System.Console.WriteLine("Attempt to set up Events");
                 School sch = new School("Dawson College");
                 Profile profile1 = new Profile("alain", 18, sch,"Computer science", new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)}, currentUser);
-                // profileService.AddProfile(profile1,currentUser);
+                profileService.AddProfile(profile1,currentUser);
                 
                 // // 3.	Create an event for user1
                 
@@ -75,7 +75,7 @@
 
                 // // 5.	Create a new user account (user2)
                 // currentUser = userService.Register("samir", "samir@hema.com", "password");
-                // // User User2 = db.Users.FirstOrDefault(u => u.Username == user2.Username);
+                // // User User2 = db.Users.SingleOrDefault(u => u.Username == user2.Username);
                 System.Console.WriteLine("Attempt to create user2");
                 currentUser = userService.Register("samir", "samir@hema.com", "100");
                 System.Console.WriteLine(currentUser);
@@ -125,7 +125,7 @@
                 // 13.	Log in as user1
                 currentUser = userService.Login("alain", "100");
                 // 14.	Change user1’s password
-                userService.ChangePassword(currentUser, "200");
+                userService.ChangePassword("alain","100", "200");
                 // 15.	Modify user1’s profile
 
                 // 16.	Access messages, viewing text of the messages sent by user2.
@@ -136,18 +136,28 @@
                     System.Console.WriteLine(m.Body);
                 }
                 // 17.	Send a message to user2 from user1.
+                System.Console.WriteLine("Sending message to Samir");
                 conversationService.SendMessage("Salut Samir", convo2.ConversationId, currentUser.UserId);
+                System.Console.WriteLine("Message sent, deleting conversation");
+                conversationService.DeleteConversation(convo2.ConversationId);
                 // 18.	Find and view the attendees of user1’s event
 
                 // 19.	Modify user1’s event.
 
                 // 20.	Delete user1’s profile
+                System.Console.WriteLine("Deleting profile");
+                profileService.DeleteProfile(currentUser);
 
                 // 21.	Delete user1’s account
-
+                currentUser = null;
+                System.Console.WriteLine("Deleting user1");
+                userService.DeleteUser("alain","200");
                 // 22.	Log in as user2
-
+                System.Console.WriteLine("Logging in as Samir");
+                currentUser = userService.Login("samir", "100");
                 // 23.	Delete user2’s account
+                System.Console.WriteLine("Deleting user2");
+                userService.DeleteUser("samir","100");
             }
         }
     }
