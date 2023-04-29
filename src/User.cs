@@ -7,7 +7,7 @@ public class User
 {
     //Generates a random primary key for the User class
     [Key]
-    public string UserId{get;set;}
+    public string Id{get;set;}
 
     //Links the Profile Primary key to this foreign key
     public Profile? Profile{get;set;}
@@ -16,9 +16,9 @@ public class User
     public string PasswordHash { get; set; }
     public List<Conversation> Conversations { get; set; } = new();
 
-    public User(string userId,string username, string email,string passwordHash)
+    public User(string Id,string username, string email,string passwordHash)
     {
-        UserId = userId;
+        this.Id = Id;
         Username = username;
         Email = email;
         PasswordHash = passwordHash;

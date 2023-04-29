@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 using StudyMate;
@@ -11,9 +12,11 @@ using StudyMate;
 namespace src.Migrations
 {
     [DbContext(typeof(StudyMateDbContext))]
-    partial class StudyMateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230429062216_InitialCreate9")]
+    partial class InitialCreate9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -21,21 +24,6 @@ namespace src.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             OracleModelBuilderExtensions.UseIdentityColumns(modelBuilder);
-
-            modelBuilder.Entity("ProfileEvent", b =>
-                {
-                    b.Property<string>("EventId")
-                        .HasColumnType("NVARCHAR2(450)");
-
-                    b.Property<string>("ProfileId")
-                        .HasColumnType("NVARCHAR2(450)");
-
-                    b.HasKey("EventId", "ProfileId");
-
-                    b.HasIndex("ProfileId");
-
-                    b.ToTable("ProfileEvent");
-                });
 
             modelBuilder.Entity("StudyMate.Conversation", b =>
                 {
@@ -120,6 +108,9 @@ namespace src.Migrations
                     b.Property<int>("Age")
                         .HasColumnType("NUMBER(10)");
 
+                    b.Property<string>("EventId")
+                        .HasColumnType("NVARCHAR2(450)");
+
                     b.Property<string>("Gender")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
@@ -160,24 +151,19 @@ namespace src.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(450)");
 
-                    b.Property<string>("UserId1")
-                        .HasColumnType("NVARCHAR2(450)");
-
                     b.HasKey("ProfileId");
+
+                    b.HasIndex("EventId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
-
-                    b.HasIndex("UserId1")
-                        .IsUnique()
-                        .HasFilter("\"UserId1\" IS NOT NULL");
 
                     b.ToTable("Profiles");
                 });
 
             modelBuilder.Entity("StudyMate.User", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("UserId")
                         .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("Email")
@@ -192,7 +178,7 @@ namespace src.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(450)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.HasIndex("Email")
                         .IsUnique();
@@ -218,32 +204,17 @@ namespace src.Migrations
                     b.ToTable("UserConversation");
                 });
 
-            modelBuilder.Entity("ProfileEvent", b =>
-                {
-                    b.HasOne("StudyMate.Event", null)
-                        .WithMany()
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StudyMate.Profile", null)
-                        .WithMany()
-                        .HasForeignKey("ProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("StudyMate.Profile", b =>
                 {
-                    b.HasOne("StudyMate.User", null)
-                        .WithOne()
-                        .HasForeignKey("StudyMate.Profile", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.HasOne("StudyMate.Event", null)
+                        .WithMany("Participant")
+                        .HasForeignKey("EventId");
 
                     b.HasOne("StudyMate.User", null)
                         .WithOne("Profile")
-                        .HasForeignKey("StudyMate.Profile", "UserId1");
+                        .HasForeignKey("StudyMate.Profile", "UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("UserConversation", b =>
@@ -259,6 +230,11 @@ namespace src.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("StudyMate.Event", b =>
+                {
+                    b.Navigation("Participant");
                 });
 
             modelBuilder.Entity("StudyMate.User", b =>

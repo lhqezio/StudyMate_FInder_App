@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 using StudyMate;
@@ -11,9 +12,11 @@ using StudyMate;
 namespace src.Migrations
 {
     [DbContext(typeof(StudyMateDbContext))]
-    partial class StudyMateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230429065559_InitialCreate10")]
+    partial class InitialCreate10
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -160,24 +163,17 @@ namespace src.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(450)");
 
-                    b.Property<string>("UserId1")
-                        .HasColumnType("NVARCHAR2(450)");
-
                     b.HasKey("ProfileId");
 
                     b.HasIndex("UserId")
                         .IsUnique();
-
-                    b.HasIndex("UserId1")
-                        .IsUnique()
-                        .HasFilter("\"UserId1\" IS NOT NULL");
 
                     b.ToTable("Profiles");
                 });
 
             modelBuilder.Entity("StudyMate.User", b =>
                 {
-                    b.Property<string>("Id")
+                    b.Property<string>("UserId")
                         .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("Email")
@@ -192,7 +188,7 @@ namespace src.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(450)");
 
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.HasIndex("Email")
                         .IsUnique();
@@ -236,14 +232,10 @@ namespace src.Migrations
             modelBuilder.Entity("StudyMate.Profile", b =>
                 {
                     b.HasOne("StudyMate.User", null)
-                        .WithOne()
+                        .WithOne("Profile")
                         .HasForeignKey("StudyMate.Profile", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.HasOne("StudyMate.User", null)
-                        .WithOne("Profile")
-                        .HasForeignKey("StudyMate.Profile", "UserId1");
                 });
 
             modelBuilder.Entity("UserConversation", b =>

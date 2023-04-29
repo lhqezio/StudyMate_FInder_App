@@ -23,10 +23,11 @@ public class ProfileServices
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
-            if(_context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId) != null){
+            if(_context.Profiles!.SingleOrDefault(p => p.UserId == u.Id) != null){
                 return;
             }
             _context.Profiles!.Add(profile);
+            u.Profile = profile;
             _context.SaveChanges();
             
         //}
@@ -38,7 +39,7 @@ public class ProfileServices
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
             
-            _context.Profiles!.Remove(_context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId));
+            _context.Profiles!.Remove(_context.Profiles!.SingleOrDefault(p => p.UserId == u.Id));
             _context.SaveChanges();
             
         // }
@@ -49,37 +50,17 @@ public class ProfileServices
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
+            if(u.Id != profile.UserId){
+                return;
+            }
             _context.Profiles!.Update(profile);
             _context.SaveChanges();
         // }
     }
-
-    public virtual List<Profile> GetAllProfiles()
-    {
-        //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
-        // if (_context.ValidateSessionKey(u.__session_key))
-        // {
-            
-            return _context.Profiles!.ToList();
-            
-        //}
+    public virtual void GetMyProfile(User u) {
+            _context.Profiles!.SingleOrDefault(p => p.UserId == u.Id);
     }
-
-    public virtual Profile? GetSpecificProfileById(string profileId)
-    {
-        //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
-        // if (_context.ValidateSessionKey(u.__session_key))
-        // {
-            return _context.Profiles!.SingleOrDefault(p => p.ProfileId == profileId);
-        //}
-    }
-
-    public virtual Profile? GetSpecificProfile(Profile profile)
-    {
-        //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
-        // if (_context.ValidateSessionKey(u.__session_key))
-        // {
-                return _context.Profiles!.SingleOrDefault(p => p.Equals(profile));
-        //}
+    public virtual List<Profile> GetProfileByName(string name) {
+        return _context.Profiles!.Where(p => p.Name == name).ToList();
     }
 }

@@ -22,24 +22,27 @@ public class ChatServices {
             var user = _context.Users.SingleOrDefault(u => u.Username == username);
             if(user!=null) {
             conversation.Users.Add(user);
+            user.Conversations.Add(conversation);
             }
         }
         _context.Conversations.Add(conversation);
         _context.SaveChanges();
         return conversation;
     }
-    public void AddUserToConversation(string conversationID, string userID)
+    public void AddUserToConversation(string conversationID, string Id)
     {
         var conversation = _context.Conversations.Find(conversationID);
-        var user = _context.Users.Find(userID);
+        var user = _context.Users.Find(Id);
         conversation.Users.Add(user);
+        user.Conversations.Add(conversation);
         _context.SaveChanges();
     }
-    public void RemoveUserFromConversation(string conversationID, string userID)
+    public void RemoveUserFromConversation(string conversationID, string Id)
     {
         var conversation = _context.Conversations.Find(conversationID);
-        var user = _context.Users.Find(userID);
+        var user = _context.Users.Find(Id);
         conversation.Users.Remove(user);
+        user.Conversations.Remove(conversation);
         _context.SaveChanges();
     }
     public void DeleteConversation(string conversationID)
@@ -64,9 +67,9 @@ public class ChatServices {
         _context.SaveChanges();
         return messages;
     }
-    public List<Conversation> GetConversations(string userID)
+    public List<Conversation> GetConversations(string Id)
     {
-        List<Conversation> conversations = _context.Conversations.Where(c => c.Users.Any(u => u.UserId == userID)).ToList();
+        List<Conversation> conversations = _context.Conversations.Where(c => c.Users.Any(u => u.Id == Id)).ToList();
         return conversations;
     }
     public void Dispose()
