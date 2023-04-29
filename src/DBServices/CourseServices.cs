@@ -34,52 +34,54 @@ public class CourseServices
                 __trackedCourse=item.Course;
                 _context.StudyCourses!.Add(__trackedCourse);
                 ProfileServices.__trackedProfile=profile;
-                AddNeedHelpBridge(ProfileServices.__trackedProfile.ProfileId,__trackedCourse.CourseId);
+                AddNeedHelpBridge(ProfileServices.__trackedProfile,__trackedCourse);
                 _context.SaveChanges();
             }
          }
     }
 
-    public virtual void AddNeedHelpBridge(string profileId, string courseId){
-        __trackedNeedHelpWithCourse = _context.CoursesNeedHelpWith?.SingleOrDefault(c => c.CourseId == courseId && c.ProfileId == profileId);
-        if (__trackedNeedHelpWithCourse)
+    public virtual void AddNeedHelpBridge(Profile profile, Course course){
+        __trackedNeedHelpWithCourse = _context.CoursesNeedHelpWith?.SingleOrDefault(c => c.CourseId == course.CourseId && c.ProfileId == profile.ProfileId);
+        if (__trackedNeedHelpWithCourse is not null)
         {
-            
-        }
-        _context.CoursesNeedHelpWith!.Add(__trackedNeedHelpWithCourse);
-        _context.SaveChanges();
-    }
-
-    public virtual void DeleteProfile(Profile profile)
-    { 
-        // Get the Profile from the database
-        __trackedProfile = _context.Profiles?.SingleOrDefault(p => p.UserId == profile.UserId);
-        // If the Profile already exists, then delete it.
-        if (__trackedProfile != null)
-        {
-            _context.Profiles!.Remove(__trackedProfile);
-            _context.SaveChanges();
+            System.Console.WriteLine("This need help with course already exist in the database.");
         }else{
-            System.Console.WriteLine("The profile you are trying to delete does not exist.");
+            __trackedNeedHelpWithCourse=new CourseNeedHelpWith(profile,course);
+            _context.CoursesNeedHelpWith!.Add(__trackedNeedHelpWithCourse);
+            _context.SaveChanges();
         }
     }
 
-    public virtual void UpdateProfile(Profile profile, User u)
-    {
-        //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
-        // if (_context.ValidateSessionKey(u.__session_key))
-        // {
-            if(u.UserId != profile.UserId){
-                return;
-            }
-            _context.Profiles!.Update(profile);
-            _context.SaveChanges();
-        // }
-    }
-    public virtual Profile GetMyProfile(User u) {
-        return _context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId);
-    }
-    public virtual List<Profile> GetProfileByName(string name) {
-        return _context.Profiles!.Where(p => p.Name == name).ToList();
-    }
+    // public virtual void DeleteProfile(Profile profile)
+    // { 
+    //     // Get the Profile from the database
+    //     __trackedProfile = _context.Profiles?.SingleOrDefault(p => p.UserId == profile.UserId);
+    //     // If the Profile already exists, then delete it.
+    //     if (__trackedProfile != null)
+    //     {
+    //         _context.Profiles!.Remove(__trackedProfile);
+    //         _context.SaveChanges();
+    //     }else{
+    //         System.Console.WriteLine("The profile you are trying to delete does not exist.");
+    //     }
+    // }
+
+    // public virtual void UpdateProfile(Profile profile, User u)
+    // {
+    //     //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
+    //     // if (_context.ValidateSessionKey(u.__session_key))
+    //     // {
+    //         if(u.UserId != profile.UserId){
+    //             return;
+    //         }
+    //         _context.Profiles!.Update(profile);
+    //         _context.SaveChanges();
+    //     // }
+    // }
+    // public virtual Profile GetMyProfile(User u) {
+    //     return _context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId);
+    // }
+    // public virtual List<Profile> GetProfileByName(string name) {
+    //     return _context.Profiles!.Where(p => p.Name == name).ToList();
+    // }
 }
