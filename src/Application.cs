@@ -50,7 +50,7 @@ namespace StudyMate
                 // 3.	Create an event for user1
                 System.Console.WriteLine("Attempt to set up Event for user1");
                 currentUser.Profile = profileService.GetMyProfile(currentUser);
-                eventService.CreateEvent(currentUser, new List<Profile>() { profile1 }, "Study for Math 101", "Math 101", DateTime.Now.AddHours(2), "Chez saza", DemoCourses);
+                eventService.CreateEvent(currentUser, "Study for Math 101", currentUser.Id, new List<Profile>() { profile1 }, DateTime.Now.AddHours(2), "Study Event for Math", "Chez Saza","Math 101", DemoCourses, "Dawson College");
                 // // 4.	Log out from user1
                 currentUser = null;
                 // // 5.	Create a new user account (user2)
@@ -82,15 +82,15 @@ namespace StudyMate
 
                 // // 7.	Perform a search to find the event created by user1
                 var user1profile = profileService.GetProfileByName("Alain")[0];
-                var user1event = eventService.GetAllMyEvents(user1profile)[0];
+                var user1event = eventService.GetAllProfileEvent(user1profile)[0];
                 System.Console.WriteLine("Event found");
                 System.Console.WriteLine(user1event.Title);
                 // // 8.	Mark user2 as attending user1’s event
-                eventService.MarkAttending(profileService.GetMyProfile(currentUser), user1event);
+                eventService.AddParticipant(user1event, profileService.GetMyProfile(currentUser));
                 System.Console.WriteLine("User2 marked as attending user1's event:");
-                foreach (Profile p in user1event.Participant)
+                foreach (String name in user1event.ShowParticipants())
                 {
-                    System.Console.WriteLine(p.Name);
+                    System.Console.WriteLine(name);
                 }
                 System.Console.WriteLine("End Attending List");
 
@@ -138,17 +138,17 @@ namespace StudyMate
                 System.Console.WriteLine("Message sent, deleting conversation");
                 conversationService.DeleteConversation(convo2.ConversationId);
                 // 18.	Find and view the attendees of user1’s event
-                var user1event2 = eventService.GetAllMyEvents(profileService.GetMyProfile(currentUser))[0];
+                var user1event2 = eventService.GetAllProfileEvent(profileService.GetMyProfile(currentUser))[0];
                 System.Console.WriteLine("Event found, Printing Attendees");
-                foreach (Profile p in user1event2.Participant)
+                foreach (string name in user1event2.ShowParticipants())
                 {
-                    System.Console.WriteLine(p.Name);
+                    System.Console.WriteLine(name);
                 }
                 System.Console.WriteLine("End Attendees List");
                 // 19.	Modify user1’s event.
                 user1event2.Title = "New Title";
-                eventService.UpdateEvent(currentUser, user1event2);
-                var user1event3 = eventService.GetAllMyEvents(profileService.GetMyProfile(currentUser))[0];
+                eventService.EditEvent(user1event2, currentUser);
+                var user1event3 = eventService.GetAllProfileEvent(profileService.GetMyProfile(currentUser))[0];
                 // 20.	Delete user1’s profile
                 System.Console.WriteLine("Deleting profile");
                 profileService.DeleteProfile(currentUser);

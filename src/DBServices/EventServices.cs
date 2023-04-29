@@ -32,8 +32,8 @@ public class EventServices
         }
 
         //CreateEvent Method => Create an event
-        public virtual void CreateEvent(User u, string title, Profile creator, List<Profile> participants, DateTimeOffset date, string description, string location, string subjects, string courses, string school){
-            EventCalendar newEvent = new EventCalendar(Guid.NewGuid().ToString(), title, creator, participants, date, description, location, subjects, courses, school);
+        public virtual void CreateEvent(User u, string title, string creatorId, List<Profile> participants, DateTimeOffset date, string description, string location, string subjects, string courses, string school){
+            EventCalendar newEvent = new EventCalendar(Guid.NewGuid().ToString(), title, creatorId, participants, date, description, location, subjects, courses, school);
             this.AddEvent(u, newEvent);
         }
 
@@ -73,11 +73,6 @@ public class EventServices
                 eventC.RemoveParticipant(participant);
                 participant.Events.Add(eventC);                   
             }
-        }
-
-        //ShowParticipant => Return All Participants
-        public virtual List<Profile> ShowParticipants(EventCalendar eventC){
-            return eventC.ShowParticipants();
         }
 
         public EventCalendar GetEventById(string id)

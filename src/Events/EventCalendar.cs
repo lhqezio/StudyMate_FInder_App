@@ -14,7 +14,6 @@ namespace StudyMate
         //Creator
         [ForeignKey("Users")]
         public string CreatorId {get; set;}
-        public Profile EventCreator {get;set;}
         
         //Participants
         private List<Profile> _participants {get; set;} = new();
@@ -141,12 +140,11 @@ namespace StudyMate
 
         // Constructors
         public EventCalendar(){}
-        public EventCalendar(string eventId, string title, Profile eventCreator, List<Profile> participants, DateTimeOffset date, string description, string location, string subjects, string courses, string school, bool isSent=false)
+        public EventCalendar(string eventId, string title, string creatorId, List<Profile> participants, DateTimeOffset date, string description, string location, string subjects, string courses, string school, bool isSent=false)
         {
             EventId = eventId;
             _title = title;
-            EventCreator = eventCreator;
-            CreatorId = EventCreator.UsrId;
+            CreatorId = creatorId;
             _participants = participants; 
             _date = date;
             _description = description;
@@ -183,9 +181,14 @@ namespace StudyMate
         }
 
         //Method to view participants => User should be able to view the list of the other users who are attending the event.
-        public List<Profile> ShowParticipants()
+        public List<String> ShowParticipants()
         {
-            return Participants;
+            List<string> stringParticipant = new List<string>();
+            foreach (var participant in _participants)
+            {
+                stringParticipant.Add(participant.Name);
+            }
+            return stringParticipant;
         }
 
         //Override of Equals method. This is used to compare two event objects.
@@ -195,7 +198,7 @@ namespace StudyMate
                 return false;
             return EventId == other.EventId
                 && _title == other._title
-                && EventCreator.Equals(other.EventCreator) 
+                && CreatorId.Equals(other.CreatorId) 
                 && _participants.SequenceEqual(other._participants)
                 && _date == other._date
                 && _description == other._description
@@ -211,7 +214,6 @@ namespace StudyMate
             return EventId.GetHashCode() ^
                 _title.GetHashCode() ^
                 CreatorId.GetHashCode() ^
-                EventCreator.GetHashCode() ^
                 _participants.GetHashCode() ^
                 _date.GetHashCode() ^
                 _description.GetHashCode() ^
