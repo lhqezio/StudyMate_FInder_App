@@ -1,45 +1,44 @@
 namespace StudyMate
 {
-
      public class Application
      {
-//         public static User currentUser = null;
-//         public static StudyMateDbContext db = null;
-//         public static readonly string DemoCourses = "Math 101,Phys 202,Art 303";
+        public static User currentUser = null;
+        public static StudyMateDbContext db = null;
+        // public static readonly string DemoCourses = "Math 101,Phys 202,Art 303";
          public static void Main(string[] args)
          {
-//             using (db = new StudyMateDbContext())
-//             {
-//                 //Set-up
-//                 System.Console.WriteLine("What's up Andrew?");
-//                 System.Console.WriteLine("Here is our PROOF");
-//                 var userService = new UserServices(db);
-//                 var profileService = new ProfileServices(db);
-//                 var conversationService = new ChatServices(db);
-//                 var eventService = new EventServices(db);
-//                 // 1.	Create a new user account (user1)
-//                 System.Console.WriteLine("Attempt to create user1");
-//                 currentUser = userService.Register("alain", "alain@heaumo.co", "100");
-//                 System.Console.WriteLine(currentUser);
-//                 if (currentUser != null)
-//                 {
-//                     Console.WriteLine("User created successfully");
-//                 }
-//                 else
-//                 {
-//                     Console.WriteLine("User creation failed try logging in");
-//                     currentUser = userService.Login("alain", "100");
-//                     if (currentUser != null)
-//                     {
-//                         Console.WriteLine("User logged in successfully");
-//                     }
-//                     else
-//                     {
-//                         Console.WriteLine("User login failed quit");
-//                         return;
-//                     }
-//                 }
-//                 // userService.RemoveUser(user1);
+            using (db = new StudyMateDbContext())
+            {
+                //Set-up
+                System.Console.WriteLine("What's up Andrew?");
+                System.Console.WriteLine("Here is our PROOF");
+                var userService = new UserServices(db);
+                var profileService = new ProfileServices(db);
+                // var conversationService = new ChatServices(db);
+                // var eventService = new EventServices(db);
+                // 1.	Create a new user account (user1)
+                System.Console.WriteLine("Attempt to create user1");
+                currentUser = userService.Register("alain", "alain@heaumo.co", "100");
+                System.Console.WriteLine(currentUser);
+                if (currentUser != null)
+                {
+                    Console.WriteLine("User created successfully");
+                }
+                else
+                {
+                    Console.WriteLine("User creation failed try logging in");
+                    currentUser = userService.Login("alain", "100");
+                    if (currentUser != null)
+                    {
+                        Console.WriteLine("User logged in successfully");
+                    }
+                    else
+                    {
+                        Console.WriteLine("User login failed quit");
+                        return;
+                    }
+                }
+                userService.DeleteUser("alain","100");
 //                 System.Console.WriteLine("Attempt to set up Profile for user1");
 //                 Profile profile1 = new Profile(Guid.NewGuid().ToString(), "Alain", 20, "Education", "Female", "Henri Bourassa", currentUser.Id, DemoCourses, DemoCourses, DemoCourses, "I'am MoMO", "None");
 //                 profileService.AddProfile(profile1, currentUser);
@@ -159,7 +158,7 @@ namespace StudyMate
 //                 // 23.	Delete user2’s account
 //                 System.Console.WriteLine("Deleting user2");
 //                 userService.DeleteUser("samir", "100");
-//             }
+            }
         }
     }
 }
