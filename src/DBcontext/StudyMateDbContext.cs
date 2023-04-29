@@ -43,10 +43,7 @@ namespace StudyMate
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
-
-            modelBuilder.Entity<School>()
-                .HasIndex(n => n.Name)
-                .IsUnique();
+                
             modelBuilder.Entity<Conversation>().HasMany(c => c.Users)
             .WithMany(u => u.Conversations)
             .UsingEntity<Dictionary<string, object>>(

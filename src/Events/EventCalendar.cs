@@ -83,6 +83,7 @@ namespace StudyMate
         public List<CourseEvent> CourseEvents {get; set;}
         
         // One-to-many relationships
+        [ForeignKey("Profile")]
         public string ProfileId{get;set;}
         public Profile EventCreator {get;set;}
         public string SchoolId{get;set;}
