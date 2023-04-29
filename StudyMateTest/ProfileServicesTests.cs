@@ -16,7 +16,7 @@ public class ProfileServicesTests
         mockContext.Setup(p => p.Profiles).Returns(mockSet.Object);
         var service = new ProfileServices(mockContext.Object);
         //Act
-        service.AddProfile(new Profile("Amir",20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},user1,Genders.Male),user1);
+        service.AddProfile(new Profile("Amir",20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},user1,Genders.Male));
         //Assert
         mockSet.Verify(p => p.Add(It.IsAny<Profile>()), Times.Once());
         mockContext.Verify(p => p.SaveChanges(), Times.Once());
@@ -40,7 +40,7 @@ public class ProfileServicesTests
         mockContext.Setup(p => p.Profiles).Returns(mockSet.Object);
         var service = new ProfileServices(mockContext.Object);
         // Act
-        service.DeleteProfile(profileToDelete, user1);
+        service.DeleteProfile(profileToDelete);
         // Assert
         mockSet.Verify(p => p.Remove(It.IsAny<Profile>()), Times.Once());
         mockContext.Verify(p => p.SaveChanges(), Times.Once());
@@ -56,7 +56,7 @@ public class ProfileServicesTests
         mockContext.Setup(p => p.Profiles).Returns(mockSet.Object);
         var service = new ProfileServices(mockContext.Object);
         //Act
-        service.UpdateProfile(profile, user1);
+        service.UpdateProfile(profile);
         //Assert
         mockSet.Verify(p => p.Update(It.IsAny<Profile>()), Times.Once());
         mockContext.Verify(p => p.SaveChanges(), Times.Once());
