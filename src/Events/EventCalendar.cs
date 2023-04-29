@@ -146,7 +146,7 @@ namespace StudyMate
             EventId = eventId;
             _title = title;
             EventCreator = eventCreator;
-            CreatorId = EventCreator.ProfileId;
+            CreatorId = EventCreator.UsrId;
             _participants = participants; 
             _date = date;
             _description = description;

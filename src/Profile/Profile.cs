@@ -24,7 +24,7 @@ namespace StudyMate
         public string Hobbies { get; set; }
         public string TakenCourses { get; set; }
         public string NeedHelpCourses { get; set; }
-        public List<Event> Events { get; set; } = new();
+        public List<EventCalendar> Events { get; set; } = new();
         //Constructor that builds a profile object with the mandatory fields. The user can set the optional fileds later using the 
         //setters.
         public Profile(string ProfileId,string name, int age, string program,string gender,string school,string UsrId,string needHelpCourses,string takenCourses,string hobbies,string PersonalDescription,string ProfilePicture)

@@ -9,7 +9,7 @@ namespace StudyMate
     {
         public virtual  DbSet<Profile>? Profiles { get; set; }
         public virtual  DbSet<User>? Users { get; set; }
-        public virtual DbSet<Event>? Events { get; set; }
+        public virtual DbSet<EventCalendar>? Events { get; set; }
         public virtual  DbSet<Conversation>? Conversations { get; set; }
         public virtual  DbSet<Message>? Messages { get; set; }
 
@@ -50,7 +50,7 @@ namespace StudyMate
                     .HasForeignKey("ConversationId")
                     .OnDelete(DeleteBehavior.Cascade)
             );
-            modelBuilder.Entity<Event>().HasMany(e => e.Participant)
+            modelBuilder.Entity<EventCalendar>().HasMany(e => e.Participants)
             .WithMany(p => p.Events)
             .UsingEntity<Dictionary<string, object>>(
                 "ProfileEvent",
@@ -60,7 +60,7 @@ namespace StudyMate
                     .HasForeignKey("ProfileId")
                     .OnDelete(DeleteBehavior.Cascade),
                 j => j
-                    .HasOne<Event>()
+                    .HasOne<EventCalendar>()
                     .WithMany()
                     .HasForeignKey("EventId")
                     .OnDelete(DeleteBehavior.Cascade)
