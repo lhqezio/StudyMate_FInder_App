@@ -45,6 +45,7 @@ namespace StudyMate
             this.Name = name;
             this.Gender = gender;
             this.SchoolId = school.SchoolId;
+            this.School=school;
             this.Age=age;
             this.Program=program;
             this.PersonalDescription = PersonalDescription;

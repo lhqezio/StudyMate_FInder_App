@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace StudyMate
 {
     public class School{
+        [Key]
         public string SchoolId{get;set;}
         public string SchoolName{get;set;}
         public List<Profile> Profiles {get;} = new List<Profile>();

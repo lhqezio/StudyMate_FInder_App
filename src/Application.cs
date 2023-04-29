@@ -1,3 +1,5 @@
+using Microsoft.EntityFrameworkCore;
+
 namespace StudyMate
 {
      public class Application
@@ -14,6 +16,7 @@ namespace StudyMate
                 System.Console.WriteLine("Here is our PROOF");
                 var userService = new UserServices(db);
                 var profileService = new ProfileServices(db);
+                var schoolService = new SchoolServices(db);
                 // var conversationService = new ChatServices(db);
                 // var eventService = new EventServices(db);
                 // 1.	Create a new user account (user1)
@@ -27,7 +30,7 @@ namespace StudyMate
                 else
                 {
                     Console.WriteLine("User creation failed try logging in");
-                    currentUser = userService.Login("alain", "100");
+                    currentUser = userService.Login("alain", "200");
                     if (currentUser != null)
                     {
                         Console.WriteLine("User logged in successfully");
@@ -38,7 +41,18 @@ namespace StudyMate
                         return;
                     }
                 }
-                userService.DeleteUser("alain","100");
+                
+                // userService.ChangePassword("alain","100","200");
+                // userService.DeleteUser("alain","200");
+                var profile1= new Profile("1",currentUser,"Alain","Male",new School("1","Dawson"),18,"Computer Science");
+                var profile2= new Profile("2",userService.Login("Amir", "200"),"Amir","Male",new School("1","Dawson"),20,"Computer Science");
+                profileService.DeleteProfile(profile1);
+                profileService.DeleteProfile(profile2);
+                schoolService.RemoveSchool(new School("1","Dawson"));
+                profileService.AddProfile(profile1);
+                profileService.AddProfile(profile2);
+                profileService.DeleteProfile(profile1);
+                profileService.DeleteProfile(profile2);
 //                 System.Console.WriteLine("Attempt to set up Profile for user1");
 //                 Profile profile1 = new Profile(Guid.NewGuid().ToString(), "Alain", 20, "Education", "Female", "Henri Bourassa", currentUser.Id, DemoCourses, DemoCourses, DemoCourses, "I'am MoMO", "None");
 //                 profileService.AddProfile(profile1, currentUser);

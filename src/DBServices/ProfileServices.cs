@@ -4,6 +4,7 @@ namespace StudyMate;
 public class ProfileServices
 {
     private StudyMateDbContext _context = null!;
+    public static Profile? __trackedProfile = new();
     private static ProfileServices? _instance;
     public static ProfileServices getInstance(StudyMateDbContext context)
     {
@@ -18,31 +19,36 @@ public class ProfileServices
         _context = context;
     }
 
-    public virtual void AddProfile(Profile profile, User u)
+    public virtual void AddProfile(Profile profile)
     {
-        //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
-        // if (_context.ValidateSessionKey(u.__session_key))
-        // {
-            if(_context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId) != null){
-                return;
-            }
-            _context.Profiles!.Add(profile);
-            u.Profile = profile;
+         // Get the Profile from the database
+        __trackedProfile = _context.Profiles?.SingleOrDefault(p => p.UserId == profile.UserId);
+
+        // If the Profile already exists, it will not be added to the database.
+        if (__trackedProfile != null)
+        {
+            System.Console.WriteLine("This profile already exist in the database.");
+        }else{
+            __trackedProfile=profile;
+            var schoolService=new SchoolServices(_context);
+            schoolService.AddSchool(__trackedProfile.School);
+            _context.Profiles!.Add(__trackedProfile);
             _context.SaveChanges();
-            
-        //}
+        }
     }
 
-    public virtual void DeleteProfile(User u)
-    {
-        //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
-        // if (_context.ValidateSessionKey(u.__session_key))
-        // {
-            
-            _context.Profiles!.Remove(_context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId));
+    public virtual void DeleteProfile(Profile profile)
+    { 
+        // Get the Profile from the database
+        __trackedProfile = _context.Profiles?.SingleOrDefault(p => p.UserId == profile.UserId);
+        // If the Profile already exists, then delete it.
+        if (__trackedProfile != null)
+        {
+            _context.Profiles!.Remove(__trackedProfile);
             _context.SaveChanges();
-            
-        // }
+        }else{
+            System.Console.WriteLine("The profile you are trying to delete does not exist.");
+        }
     }
 
     public virtual void UpdateProfile(Profile profile, User u)
