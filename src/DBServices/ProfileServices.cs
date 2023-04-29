@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
 
 namespace StudyMate;
 public class ProfileServices
@@ -14,7 +15,7 @@ public class ProfileServices
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
-            if(_context.Profiles!.SingleOrDefault(p => p.UserId == profile.UserId) != null){
+            if(_context.Profiles!.Find(profile.UserId) != null){ //Changed SingleOrDefault to Find
                 return;
             }
             _context.Profiles!.Add(profile);
