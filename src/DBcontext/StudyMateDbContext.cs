@@ -13,6 +13,8 @@ namespace StudyMate
         public virtual  DbSet<CanHelpCourses>? CanHelpCourses { get; set; }
         public virtual  DbSet<NeedHelpCourses>? NeedHelpCourses { get; set;}
         public virtual  DbSet<TakenCourses>? TakenCourses { get; set;}
+
+        public virtual  DbSet<School>? Schools { get; set;}
         public virtual  DbSet<SessionDB>? Sessions { get; set; }
 
         private StudyMateDbContext _context = null!;
@@ -39,6 +41,10 @@ namespace StudyMate
 
             modelBuilder.Entity<UserDB>()
                 .HasIndex(u => u.Email)
+                .IsUnique();
+
+            modelBuilder.Entity<School>()
+                .HasIndex(n => n.Name)
                 .IsUnique();
         }
 
