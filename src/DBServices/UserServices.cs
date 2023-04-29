@@ -47,4 +47,8 @@ class UserServices : IDisposable
     {
         _context.Dispose();
     }
+    public virtual void ChangePassword(User user,string newPassword)
+    {
+        _context.ChangePassword(user, newPassword);
+    }
 }

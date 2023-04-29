@@ -14,9 +14,16 @@ public class ChatServices {
     {
         _context = context;
     }
-    public Conversation CreateConversation(List<User> users)
+    public Conversation CreateConversation(List<string> usernames,string name)
     {
-        var conversation = new Conversation(Guid.NewGuid().ToString(), users);
+        var conversation = new Conversation(Guid.NewGuid().ToString(), name);
+        foreach (var username in usernames)
+        {
+            var user = _context.Users.FirstOrDefault(u => u.Username == username);
+            if(user!=null) {
+            conversation.Users.Add(user);
+            }
+        }
         _context.Conversations.Add(conversation);
         _context.SaveChanges();
         return conversation;
@@ -43,7 +50,7 @@ public class ChatServices {
     }
     public void SendMessage(string body, string conversationID, string senderID)
     {
-        var message = new Message(body, conversationID, senderID, DateTime.Now, false);
+        var message = new Message(Guid.NewGuid().ToString(),body, conversationID, senderID, DateTime.Now, false);
         _context.Messages.Add(message);
         _context.SaveChanges();
     }

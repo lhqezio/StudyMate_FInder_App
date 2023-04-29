@@ -6,10 +6,11 @@ public class Conversation
 {
     [Key]
     public string ConversationId { get; set; }
+    public string ConversationName { get; set; } = "";
     public List<User> Users { get; set; } = new();
-    public Conversation(string conversationId, List<User> users)
+    public Conversation(string conversationId, string conversationName)
     {
         ConversationId = conversationId;
-        Users = users;
+        ConversationName = conversationName;
     }
 }
