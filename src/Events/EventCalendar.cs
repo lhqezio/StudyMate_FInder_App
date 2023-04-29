@@ -141,7 +141,7 @@ namespace StudyMate
 
         // Constructors
         public EventCalendar(){}
-        public EventCalendar(string eventId, string title, Profile eventCreator, List<Profile> participants, DateTimeOffset date, string description, string location, string courses, string school, bool isSent=false)
+        public EventCalendar(string eventId, string title, Profile eventCreator, List<Profile> participants, DateTimeOffset date, string description, string location, string subjects, string courses, string school, bool isSent=false)
         {
             EventId = eventId;
             _title = title;
@@ -151,6 +151,7 @@ namespace StudyMate
             _date = date;
             _description = description;
             _location = location;
+            _subjects = subjects;
             _courses = courses;
             _school = school;
             IsSent = isSent;

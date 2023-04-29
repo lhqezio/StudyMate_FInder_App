@@ -22,137 +22,68 @@ public class EventServices
 
     //EVENT FCTS
         //AddEvent Method => Add event to the list of events
-        public virtual void AddEvent(EventCalendar e, User u){
-            //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
-            // if (_context.ValidateSessionKey(u.__session_key))
-            // {
-                using (_context)
-                {
-                    _context.Events!.Add(e);
-                    _context.SaveChanges();
-                }
-            // }
+        public virtual void AddEvent(User u, EventCalendar e){
+            foreach (var participant in e.Participants)
+            {
+                participant.Events.Add(e);
+            }
+            _context.Events!.Add(e);
+            _context.SaveChanges();    
+        }
+
+        //CreateEvent Method => Create an event
+        public virtual void CreateEvent(User u, string title, Profile creator, List<Profile> participants, DateTimeOffset date, string description, string location, string subjects, string courses, string school){
+            EventCalendar newEvent = new EventCalendar(Guid.NewGuid().ToString(), title, creator, participants, date, description, location, subjects, courses, school);
+            this.AddEvent(u, newEvent);
         }
 
         //DeleteEvent Method => Delete event to the list of events
         public virtual void DeleteEvent(EventCalendar eventToDelete, User u){
-            //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
-            // if(_context.ValidateSessionKey(u.__session_key)){
-            _context.Events!.Remove(_context.Events!.SingleOrDefault(e => e.EventId == eventToDelete.EventId)!);
+            if(u.Id == eventToDelete.CreatorId){ //Check to make sure it's only the creator that can delete the event
+                _context.Events!.Remove(eventToDelete);
+            }
             _context.SaveChanges();
-            // }
-        }
-
-        //CreateEvent Method => Create an event
-        public virtual void CreateEvent(User u, string title, Profile creator, List<Profile> participants, DateTimeOffset date, string description, School school, List<CourseEvent> courseEvents, string location ){
-            EventCalendar newEvent = new EventCalendar(title, creator, participants, date, description, school, courseEvents, location);
-            this.AddEvent(newEvent, u);
         }
 
         //EditEvent Method => Edit an event
         public virtual void EditEvent(EventCalendar eventToUpdate, User u){
-            // if(_context.ValidateSessionKey(u.__session_key)){_context.Entry(updateEvent).State = EntityState.Modified;
+            if(u.Id == eventToUpdate.CreatorId){ //Check to make sure it's only the creator that can delete the event
                 _context.Events!.Update(eventToUpdate);
-                _context.SaveChanges();
-            // }
+            }
+            _context.SaveChanges();
         }
         
+        //GetAllProfileEvent => Return events based on profile
+        public List<EventCalendar> GetAllProfileEvent(Profile profile){
+            return _context.Events!.Where(e => e.Participants.Any(p => p.ProfileId == profile.ProfileId))
+               .ToList();
+        }
 
         //AddParticipant => Add participant to event
-        public virtual void AddParticipant(User u, EventCalendar eventC, Profile participant){
-            // if(_context.ValidateSessionKey(u.__session_key)){
-                using(_context)
-                {
-                    // var getEvent = _context.Events.SingleOrDefault(e => e.EventId == eventC.EventId);
-                    // if(getEvent != null){ 
-                        eventC.AddParticipant(participant);
-                        _context.Events!.Update(eventC);
-                        _context.SaveChanges();
-                }
+        public virtual void AddParticipant(EventCalendar eventC, Profile participant){
+            if(eventC.Participants.Any(p => p.ProfileId != participant.ProfileId)){
+                eventC.AddParticipant(participant);
+                participant.Events.Add(eventC);    
+            }
         }
 
         //RemoveParticipant => Remove participant to event
-        public virtual void RemoveParticipant(User u, EventCalendar eventC, Profile participant){
-            // if(_context.ValidateSessionKey(u.__session_key)){
-                using(_context)
-                {
-                    // var getEvent = _context.Events.SingleOrDefault(e => e.EventId == eventC.EventId);
-                    // if(getEvent != null){ 
-                        eventC.RemoveParticipant(participant);
-                        _context.Events!.Update(eventC);
-                        _context.SaveChanges();
-                    // }
-                }
-            // }
+        public virtual void RemoveParticipant(EventCalendar eventC, Profile participant){
+            if(eventC.Participants.Any(p => p.ProfileId == participant.ProfileId)){
+                eventC.RemoveParticipant(participant);
+                participant.Events.Add(eventC);                   
+            }
         }
 
-        //ShowParticipant => Add participant to event
-        public virtual string ShowParticipants(User u, EventCalendar eventC){
-            // if(_context.ValidateSessionKey(u.__session_key)){
-                List<Profile> participants;
-                string pString = "";
-                using(_context)
-                {
-                    var getEvent = _context.Events!.SingleOrDefault(e => e.EventId == eventC.EventId)!;
-                    if(getEvent != null){ 
-                        participants = getEvent.ShowParticipants();
-                        foreach (Profile participant in participants){
-                            pString = pString + participant.Name + "; ";
-                        }                        
-                    }
-                }
-                return pString;
-            // }
-            // else{
-            //     return "User not Authorized";
-            // }
+        //ShowParticipant => Return All Participants
+        public virtual List<Profile> ShowParticipants(EventCalendar eventC){
+            return eventC.ShowParticipants();
         }
 
-    public void Dispose()
-    public void AddEvent(User u, List<Profile> participants,string title,string description,DateTime date,string location,string courses)
-    {
-        var e = new Event(Guid.NewGuid().ToString(),u.Id,title,description,date,location,courses);
-        participants.Count();
-        e.Participant = participants;
-        foreach (var p in participants)
+        public EventCalendar GetEventById(string id)
         {
-            p.Events.Add(e);
+            return _context.Events.SingleOrDefault(e => e.EventId == id);
         }
-        _context.Events.Add(e);
-    }
-    public void DeleteEvent(User u, Event e)
-    {
-        if(u.Id != e.CreatorId){
-            return;
-        }
-        _context.Events.Remove(e);
-    }
-    public void UpdateEvent(User u, Event e)
-    {
-        if(u.Id != e.CreatorId){
-            return;
-        }
-        _context.Events.Update(e);
-    }
-    public List<Event> GetAllMyEvents(Profile p)
-    {
-        var profileId = p.ProfileId;
-        return _context.Events.Where(e => e.Participant.Any(p => p.ProfileId == profileId))
-               .ToList();
-    }
-    public void MarkAttending(Profile p, Event e)
-    {
-        if(e.Participant.Any(c => c.ProfileId == p.ProfileId)){
-            return;
-        }
-        e.Participant.Add(p);
-        p.Events.Add(e);
-    }
-    
-    public Event GetEventById(string id)
-    {
-        return _context.Events.SingleOrDefault(e => e.EventId == id);
-    }
 }
 
 

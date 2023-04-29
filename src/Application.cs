@@ -18,7 +18,7 @@ namespace StudyMate
                 var profileService = new ProfileServices(db);
                 var eventService = new EventServices(db);
                 var conversationService = new ChatServices(db);
-                var eventService = new EventServices(db);
+  
                 // 1.	Create a new user account (user1)
                 System.Console.WriteLine("Attempt to create user1");
                 var user=new User("1","Amirreza","amir@gmail.com","123");
@@ -46,10 +46,11 @@ namespace StudyMate
                 System.Console.WriteLine("Attempt to set up Profile for user1");
                 Profile profile1 = new Profile(Guid.NewGuid().ToString(), "Alain", 20, "Education", "Female", "Henri Bourassa", currentUser.Id, DemoCourses, DemoCourses, DemoCourses, "I'am MoMO", "None");
                 profileService.AddProfile(profile1, currentUser);
+
                 // 3.	Create an event for user1
                 System.Console.WriteLine("Attempt to set up Event for user1");
                 currentUser.Profile = profileService.GetMyProfile(currentUser);
-                eventService.AddEvent(currentUser, new List<Profile>() { profile1 }, "Study for Math 101", "Math 101", DateTime.Now.AddHours(2), "Chez saza", DemoCourses);
+                eventService.CreateEvent(currentUser, new List<Profile>() { profile1 }, "Study for Math 101", "Math 101", DateTime.Now.AddHours(2), "Chez saza", DemoCourses);
                 // // 4.	Log out from user1
                 currentUser = null;
                 // // 5.	Create a new user account (user2)
