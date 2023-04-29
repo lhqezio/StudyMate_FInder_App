@@ -49,4 +49,8 @@ class UserServices
             _context.SaveChanges();
         }
     }
+    public virtual void ChangePassword(User user,string newPassword)
+    {
+        _context.ChangePassword(user, newPassword);
+    }
 }

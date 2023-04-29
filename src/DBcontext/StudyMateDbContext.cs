@@ -15,6 +15,8 @@ namespace StudyMate
         public virtual  DbSet<TakenCourses>? TakenCourses { get; set;}
         public virtual  DbSet<School>? Schools { get; set;}
         public virtual  DbSet<SessionDB>? Sessions { get; set; }
+        public virtual  DbSet<Conversation>? Conversations { get; set; }
+        public virtual  DbSet<Message>? Messages { get; set; }
 
         private StudyMateDbContext _context = null!;
         // The following configures EF to connect to an oracle database
@@ -45,6 +47,21 @@ namespace StudyMate
             modelBuilder.Entity<School>()
                 .HasIndex(n => n.Name)
                 .IsUnique();
+            modelBuilder.Entity<Conversation>().HasMany(c => c.Users)
+            .WithMany(u => u.Conversations)
+            .UsingEntity<Dictionary<string, object>>(
+                "UserConversation",
+                j => j
+                    .HasOne<User>()
+                    .WithMany()
+                    .HasForeignKey("UserId")
+                    .OnDelete(DeleteBehavior.Cascade),
+                j => j
+                    .HasOne<Conversation>()
+                    .WithMany()
+                    .HasForeignKey("ConversationId")
+                    .OnDelete(DeleteBehavior.Cascade)
+            );
         }
 
 
@@ -71,7 +88,7 @@ namespace StudyMate
         {
             System.Console.WriteLine(username);
             // Get the user from the database
-            User user = Users.FirstOrDefault(u => u.Username == "alain");
+            User user = Users.FirstOrDefault(u => u.Username == username);
 
             // If the user already exists, return null
             if (user != null)
@@ -88,32 +105,10 @@ namespace StudyMate
             return Login(username, password);
         }
 
-        public virtual void ChangePassword(string sessionKey, string newPassword)
+        public virtual void ChangePassword(User user,string newPassword)
         {
-            // Get the session from the database
-            SessionDB session = Sessions.FirstOrDefault(s => s.SessionKey == sessionKey);
-
-            // If the session doesn't exist, return
-            if (session == null)
-            {
-                return;
-            }
-
-            // Get the user from the database
-            User user = Users.FirstOrDefault(u => u.UserId == session.UserId);
-
-            // If the user doesn't exist, return
-            if (user == null)
-            {
-                return;
-            }
-
-            // Change the user's password
-            user.PasswordHash = PasswordHasher.HashPassword(newPassword);
-
-            // Update the user in the database
-            Users.Update(user);
+            user.PasswordHash=PasswordHasher.HashPassword(newPassword);
             SaveChanges();
-        }
+        }   
     }
 }
