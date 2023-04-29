@@ -14,7 +14,7 @@ public class ProfileServices
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
-            if(_context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId) != null){
+            if(_context.Profiles!.SingleOrDefault(p => p.UserId == profile.UserId) != null){
                 return;
             }
             _context.Profiles!.Add(profile);
@@ -29,9 +29,9 @@ public class ProfileServices
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
             
-            _context.Profiles!.Remove(_context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId));
+            _context.Profiles!.Remove(_context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId)!);
             _context.SaveChanges();
-        }
+        // }
     }
 
     public virtual void UpdateProfile(Profile profile)
@@ -50,7 +50,7 @@ public class ProfileServices
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
-            return _context.Profiles!.SingleOrDefault(p => p.ProfileId == profileId);
+            return _context.Profiles!.SingleOrDefault(p => p.ProfileId == userId);
         //}
     }
 
