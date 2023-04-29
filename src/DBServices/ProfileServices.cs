@@ -48,10 +48,4 @@ public class ProfileServices
             _context.SaveChanges();
         // }
     }
-    public virtual Profile GetMyProfile(User u) {
-        return _context.Profiles!.SingleOrDefault(p => p.UsrId == u.Id);
-    }
-    public virtual List<Profile> GetProfileByName(string name) {
-        return _context.Profiles!.Where(p => p.Name == name).ToList();
-    }
 }

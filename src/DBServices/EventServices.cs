@@ -53,11 +53,6 @@ public class EventServices
             _context.SaveChanges();
         }
         
-        //GetAllProfileEvent => Return events based on profile
-        public List<EventCalendar> GetAllProfileEvent(Profile profile){
-            return _context.Events!.Where(e => e.Participants.Any(p => p.ProfileId == profile.ProfileId))
-               .ToList();
-        }
 
         //AddParticipant => Add participant to event
         public virtual void AddParticipant(EventCalendar eventC, Profile participant){
@@ -73,11 +68,6 @@ public class EventServices
                 eventC.RemoveParticipant(participant);
                 participant.Events.Add(eventC);                   
             }
-        }
-
-        public EventCalendar GetEventById(string id)
-        {
-            return _context.Events.SingleOrDefault(e => e.EventId == id);
         }
 }
 

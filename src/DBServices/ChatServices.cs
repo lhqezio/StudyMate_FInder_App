@@ -73,7 +73,7 @@ public class ChatServices {
     }
     public List<Conversation> GetConversations(string Id)
     {
-        List<Conversation> conversations = _context.Conversations.Where(c => c.Users.Any(u => u.Id == Id)).ToList();
+        List<Conversation> conversations = _context.Conversations!.Where(c => c.Users.Any(u => u.Id == Id)).ToList();
         return conversations;
     }
     public void Dispose()

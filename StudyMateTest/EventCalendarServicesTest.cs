@@ -8,9 +8,6 @@ using Microsoft.EntityFrameworkCore;
     public class EventCalendarServicesTest
     {
         //Since this information will be reused,  I added it as global 
-        public static School sch1 = new School("Dawson College");
-        public static School sch2 = new School("Henri-Bourassa");
-        public static School sch3 = new School("Saint-Ex");
                 //Users
         public static User user1 = new User("1","Alain", "alain@hotmail.com", "password");
         public static User user2 = new User("2","Sam", "sam@hotmail.com", "password1");
