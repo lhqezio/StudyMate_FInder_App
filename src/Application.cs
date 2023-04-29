@@ -15,7 +15,8 @@
                 // 1.	Create a new user account (user1)
                 //I just store the password here as plain text for simplicity. Otherwise the password should come as an input from the user.
                 System.Console.WriteLine("Attempt to create user1");
-                currentUser = userService.Register("alain", "alain@heaumo.co", "100");
+                var user=new User("1","Amirreza","amir@gmail.com","123");
+                currentUser = userService.Register("Amirreza","amir@gmail.com","123");
                 System.Console.WriteLine(currentUser);
                 if (currentUser != null)
                 {

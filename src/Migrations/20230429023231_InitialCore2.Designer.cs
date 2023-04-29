@@ -12,8 +12,8 @@ using StudyMate;
 namespace src.Migrations
 {
     [DbContext(typeof(StudyMateDbContext))]
-    [Migration("20230429012433_InitialCore")]
-    partial class InitialCore
+    [Migration("20230429023231_InitialCore2")]
+    partial class InitialCore2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

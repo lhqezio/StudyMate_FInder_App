@@ -8,15 +8,6 @@ namespace StudyMate;
 class UserServices
 {
     private StudyMateDbContext _context = null!;
-    private static UserServices? _instance;
-    public static UserServices getInstance(StudyMateDbContext context)
-    {
-        if (_instance is null)
-        {
-            _instance = new UserServices(context);
-        }
-        return _instance;
-    }
     public UserServices(StudyMateDbContext context)
     {
         _context = context;
@@ -31,10 +22,12 @@ class UserServices
     {
         return _context.Register(username, email, password);
     }
-    public virtual void AddUser(User user)
+    public virtual User AddUser(User user)
     {
+        user.PasswordHash=PasswordHasher.HashPassword(user.PasswordHash);
         _context.Users!.Add(user);
         _context.SaveChanges();
+        return _context.Login(user.Username, user.PasswordHash);
     }
 
     public virtual void RemoveUser(User user)
