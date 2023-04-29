@@ -20,7 +20,10 @@ namespace StudyMate
         [ForeignKey("SchoolId")]
         public string SchoolId {get;set;}
         public School School {get;set;} = null!;
-        public CourseTaken courseTaken{get;} = new();
+        // one-to-many relationship with the bridging tables
+        public List<CourseTaken> CourseTaken{get;} = new();
+        public List<CourseCanHelpWith> CourseCanHelpWith{get;} = new();
+        public List<CourseNeedHelpWith> CourseNeedHelpWith{get;} = new();
         // Many-to-many relationship
         public List<Hobby> Hobbies { get;} = new();
         //public List<EventCalendar> Events { get; set; } = new();
@@ -33,6 +36,8 @@ namespace StudyMate
         
         //Constructor that builds a profile object with the mandatory fields. The user can set the optional fileds later using the 
         //setters.
+
+        public Profile(){}
         public Profile(string ProfileId,User user,string name,string gender, School school,int age, string program,string PersonalDescription="Hi I am using this app")
         {
             this.ProfileId=ProfileId;

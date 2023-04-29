@@ -15,6 +15,7 @@ public class User
     public string PasswordHash { get; set; }
     public List<Conversation> Conversations { get; set; } = new();
 
+    public User(){}
     public User(string Id,string username, string email,string passwordHash)
     {
         this.UserId = Id;

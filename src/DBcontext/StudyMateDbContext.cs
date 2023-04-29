@@ -10,8 +10,10 @@ namespace StudyMate
         public virtual  DbSet<Profile>? Profiles { get; set; }
         public virtual  DbSet<User>? Users { get; set; }
         public virtual  DbSet<School>? Schools { get; set; }
-        public virtual  DbSet<Course>? Courses { get; set; }
+        public virtual  DbSet<Course>? StudyCourses { get; set; }
         public virtual DbSet<CourseTaken>? CoursesTaken {get; set;}
+        public virtual DbSet<CourseCanHelpWith>? CoursesCanHelpWith {get; set;}
+        public virtual DbSet<CourseNeedHelpWith>? CoursesNeedHelpWith {get; set;}
         // public virtual DbSet<EventCalendar>? Events { get; set; }
         public virtual  DbSet<Conversation>? Conversations { get; set; }
         public virtual  DbSet<Message>? Messages { get; set; }
@@ -40,6 +42,12 @@ namespace StudyMate
                 .IsUnique();
             
             modelBuilder.Entity<CourseTaken>()
+                .HasKey(ctp => new { ctp.CourseId, ctp.ProfileId });
+
+            modelBuilder.Entity<CourseCanHelpWith>()
+                .HasKey(ctp => new { ctp.CourseId, ctp.ProfileId });
+                
+            modelBuilder.Entity<CourseNeedHelpWith>()
                 .HasKey(ctp => new { ctp.CourseId, ctp.ProfileId });
 
             // modelBuilder.Entity<CourseTaken>()

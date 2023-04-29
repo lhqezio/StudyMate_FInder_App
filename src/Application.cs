@@ -1,13 +1,13 @@
-// namespace StudyMate
-// {
+namespace StudyMate
+{
 
-//     public class Application
-//     {
+     public class Application
+     {
 //         public static User currentUser = null;
 //         public static StudyMateDbContext db = null;
 //         public static readonly string DemoCourses = "Math 101,Phys 202,Art 303";
-//         public static void Main(string[] args)
-//         {
+         public static void Main(string[] args)
+         {
 //             using (db = new StudyMateDbContext())
 //             {
 //                 //Set-up
@@ -160,6 +160,6 @@
 //                 System.Console.WriteLine("Deleting user2");
 //                 userService.DeleteUser("samir", "100");
 //             }
-//         }
-//     }
-// }
+        }
+    }
+}
