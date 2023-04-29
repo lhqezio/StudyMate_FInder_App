@@ -13,51 +13,51 @@
 //         public void LoginTest()
 //         {
 //             //Arrange
-//             var mockUserDB = new Mock<StudyMateDbContext>();
-//             mockUserDB.Object.Register(username, email, password);
+//             var mockUser = new Mock<StudyMateDbContext>();
+//             mockUser.Object.Register(username, email, password);
 //             //Act
-//             var result = mockUserDB.Object.Login(username, password);
-//             UserDB userDB = mockUserDB.Object.Users.FirstOrDefault(u => u.Username == username);
+//             var result = mockUser.Object.Login(username, password);
+//             User User = mockUser.Object.Users.FirstOrDefault(u => u.Username == username);
 //             //Assert
 //             Assert.AreEqual(result.Username, username);
-//             Assert.AreEqual(userDB.Username, username);
-//             Assert.IsTrue(PasswordHasher.VerifyPassword(password, $"{userDB.Salt}.{userDB.PasswordHash}"));
+//             Assert.AreEqual(User.Username, username);
+//             Assert.IsTrue(PasswordHasher.VerifyPassword(password, $"{User.Salt}.{User.PasswordHash}"));
 //         }
 //         [TestMethod]
 //         public void RegisterTest()
 //         {
 //             //Arrange
-//             var mockUserDB = new Mock<StudyMateDbContext>();
+//             var mockUser = new Mock<StudyMateDbContext>();
 //             //Act
-//             mockUserDB.Object.Register(username, email, password);
-//             UserDB userDB = mockUserDB.Object.Users.FirstOrDefault(u => u.Username == username);
+//             mockUser.Object.Register(username, email, password);
+//             User User = mockUser.Object.Users.FirstOrDefault(u => u.Username == username);
 //             //Assert
-//             Assert.AreEqual(userDB.Username, username);
-//             Assert.IsTrue(PasswordHasher.VerifyPassword(password, $"{userDB.Salt}.{userDB.PasswordHash}"));
+//             Assert.AreEqual(User.Username, username);
+//             Assert.IsTrue(PasswordHasher.VerifyPassword(password, $"{User.Salt}.{User.PasswordHash}"));
 //         }
 //         [TestMethod]
 //         public void LoginFromSessionKeyTest()
 //         {
 //             //Arrange
-//             var mockUserDB = new Mock<StudyMateDbContext>();
-//             var result = mockUserDB.Object.Register(username, email, password);
+//             var mockUser = new Mock<StudyMateDbContext>();
+//             var result = mockUser.Object.Register(username, email, password);
 //             //Act
-//             var user = mockUserDB.Object.LoginFromSessionKey(result.__session_key);
-//             UserDB userDB = mockUserDB.Object.Users.FirstOrDefault(u => u.Username == username);
+//             var user = mockUser.Object.LoginFromSessionKey(result.__session_key);
+//             User User = mockUser.Object.Users.FirstOrDefault(u => u.Username == username);
 //             //Assert
 //             Assert.AreEqual(user.Username, username);
-//             Assert.AreEqual(userDB.Username, username);
-//             Assert.IsTrue(PasswordHasher.VerifyPassword(password, $"{userDB.Salt}.{userDB.PasswordHash}"));
+//             Assert.AreEqual(User.Username, username);
+//             Assert.IsTrue(PasswordHasher.VerifyPassword(password, $"{User.Salt}.{User.PasswordHash}"));
 //         }
 //         [TestMethod]
 //         public void LogoutTest()
 //         {
 //             //Arrange
-//             var mockUserDB = new Mock<StudyMateDbContext>();
-//             var result = mockUserDB.Object.Register(username, email, password);
+//             var mockUser = new Mock<StudyMateDbContext>();
+//             var result = mockUser.Object.Register(username, email, password);
 //             //Act
-//             var user = mockUserDB.Object.LoginFromSessionKey(result.__session_key);
-//             mockUserDB.Object.Logout(result.__session_key);
+//             var user = mockUser.Object.LoginFromSessionKey(result.__session_key);
+//             mockUser.Object.Logout(result.__session_key);
 //             //Assert
 //             Assert.IsNull(user);
 //         }
@@ -65,14 +65,14 @@
 //         public void ChangePasswordTest()
 //         {
 //             //Arrange
-//             var mockUserDB = new Mock<StudyMateDbContext>();
-//             var result = mockUserDB.Object.Register(username, email, password);
+//             var mockUser = new Mock<StudyMateDbContext>();
+//             var result = mockUser.Object.Register(username, email, password);
 //             //Act
-//             var user = mockUserDB.Object.LoginFromSessionKey(result.__session_key);
-//             mockUserDB.Object.ChangePassword(result.__session_key, "test1234");
-//             UserDB userDB = mockUserDB.Object.Users.FirstOrDefault(u => u.Username == username);
+//             var user = mockUser.Object.LoginFromSessionKey(result.__session_key);
+//             mockUser.Object.ChangePassword(result.__session_key, "test1234");
+//             User User = mockUser.Object.Users.FirstOrDefault(u => u.Username == username);
 //             //Assert
-//             Assert.IsTrue(PasswordHasher.VerifyPassword("test1234", $"{userDB.Salt}.{userDB.PasswordHash}"));
+//             Assert.IsTrue(PasswordHasher.VerifyPassword("test1234", $"{User.Salt}.{User.PasswordHash}"));
 //         }
 //     }
 // }

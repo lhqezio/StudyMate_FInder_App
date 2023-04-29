@@ -24,6 +24,8 @@ public static class PasswordHasher
 
     public static bool VerifyPassword(string password, string hashedPassword)
     {
+        System.Console.WriteLine($"Password: {password}");
+        System.Console.WriteLine($"Hashed Password: {hashedPassword}");
         // Extract the salt and hash from the hashed password string
         string[] parts = hashedPassword.Split('.');
         if (parts.Length != 2)
@@ -35,6 +37,8 @@ public static class PasswordHasher
 
         // Compute the hash of the supplied password using the same salt and iterations
         byte[] computedHash = PBKDF2(password, salt, Iterations, HashSize);
+        System.Console.WriteLine($"Computed Hash: {Convert.ToBase64String(computedHash)}");
+        System.Console.WriteLine($"Stored Hash: {Convert.ToBase64String(hash)}");
 
         // Compare the computed hash with the stored hash
         return SlowEquals(hash, computedHash);

@@ -12,7 +12,7 @@ using StudyMate;
 namespace src.Migrations
 {
     [DbContext(typeof(StudyMateDbContext))]
-    [Migration("20230429002324_InitialCore")]
+    [Migration("20230429012433_InitialCore")]
     partial class InitialCore
     {
         /// <inheritdoc />
@@ -260,11 +260,14 @@ namespace src.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.HasKey("SchoolId");
 
-                    b.ToTable("School");
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Schools");
                 });
 
             modelBuilder.Entity("StudyMate.SessionDB", b =>
@@ -298,7 +301,7 @@ namespace src.Migrations
                     b.ToTable("TakenCourses");
                 });
 
-            modelBuilder.Entity("StudyMate.UserDB", b =>
+            modelBuilder.Entity("StudyMate.User", b =>
                 {
                     b.Property<string>("UserId")
                         .HasColumnType("NVARCHAR2(450)");
@@ -443,7 +446,7 @@ namespace src.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("StudyMate.UserDB", "User")
+                    b.HasOne("StudyMate.User", "User")
                         .WithOne("Profile")
                         .HasForeignKey("StudyMate.Profile", "UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -466,7 +469,7 @@ namespace src.Migrations
                     b.Navigation("Profiles");
                 });
 
-            modelBuilder.Entity("StudyMate.UserDB", b =>
+            modelBuilder.Entity("StudyMate.User", b =>
                 {
                     b.Navigation("Profile");
                 });

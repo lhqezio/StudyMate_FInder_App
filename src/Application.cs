@@ -2,32 +2,47 @@
  {
     
      public class Application{
-        public static UserDB currentUser = null;
+        public static User currentUser = null;
         public static StudyMateDbContext db = null;
         public static void Main(string[] args){
             using (db = new StudyMateDbContext())
             {
-                var userService=new UserServices(db);
+                System.Console.WriteLine("What's up Andrew?");
+                System.Console.WriteLine("Here is our PROOF");
+                var userService = new UserServices(db);
                 var profileService = new ProfileServices(db);
                 var eventService = new EventServices(db);
                 // 1.	Create a new user account (user1)
                 //I just store the password here as plain text for simplicity. Otherwise the password should come as an input from the user.
-                var user1 = new UserDB("amirXoXo","example@gmail.com","Random password");
-                userService.RemoveUser(user1);
-                userService.AddUser(user1);
-                User currentUser = new User(user1,"100");
-
-                // 2.	Create a profile for user1 (You don’t need to fill in all details)
+                System.Console.WriteLine("Attempt to create user1");
+                currentUser = userService.Register("alain", "alain@heaumo.co", "100");
+                System.Console.WriteLine(currentUser);
+                if (currentUser != null)
+                {
+                    Console.WriteLine("User created successfully");
+                }
+                else
+                {
+                    Console.WriteLine("User creation failed try logging in");
+                    currentUser = userService.Login("alain", "100");
+                    if(currentUser != null){
+                        Console.WriteLine("User logged in successfully");
+                    }
+                    else {
+                        Console.WriteLine("User login failed quit");
+                        return;                    }
+                }
+                // userService.RemoveUser(user1);
+                System.Console.WriteLine("Attempt to set up Events");
                 School sch = new School("Dawson College");
-                Profile profile1 = new Profile("alain", 18, sch,"Computer science", new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)}, user1);
-                profileService.DeleteProfile(profile1,currentUser);
+                Profile profile1 = new Profile("alain", 18, sch,"Computer science", new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)}, currentUser);
                 profileService.AddProfile(profile1,currentUser);
                 
                 // 3.	Create an event for user1
                 
                 //Users
-                UserDB participant1 = new UserDB("Sam", "sam@hotmail.com", "password1");
-                UserDB participant2 = new UserDB("Jack", "jack@hotmail.com", "password2");
+                User participant1 = new User(Guid.Empty.ToString(),"Sam", "sam@hotmail.com", "password1");
+                User participant2 = new User(Guid.Empty.ToString(),"Jack", "jack@hotmail.com", "password2");
                 //Profiles
                 Profile participant1_profile = new Profile("Sam", 20, new School("Henri-Bourassa"),"Education", new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Art)}, participant1);
                 Profile participant2_profile = new Profile("Jack", 18, new School("Saint-Ex"),"Sports studies", new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Calculus)}, participant2);
@@ -58,18 +73,16 @@
                 profileService.UpdateProfile(profile1,currentUser);
 
                 // 4.	Log out from user1
-                db.Logout(currentUser.__session_key);
+                currentUser = null;
 
 
                 // 5.	Create a new user account (user2)
-                // var  user3 = new UserDB("user2", "user2@hotmail.com", "testpassword");
-                // userService.AddUser(user2);
-                // currentUser = new User(user2,"200");
-                // // UserDB userDb2 = db.Users.FirstOrDefault(u => u.Username == user2.Username);
+                currentUser = userService.Register("samir", "samir@hema.com", "password");
+                // User User2 = db.Users.FirstOrDefault(u => u.Username == user2.Username);
 
-                // // 6.	Create a profile for user2
-                // School sch2 = new School("Vanier");
-                // Profile profile2 = new Profile("Samir", 18, sch2,"Health science", new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Art)}, user2);
+                // 6.	Create a profile for user2
+                School sch2 = new School("Vanier");
+                Profile profile2 = new Profile("Samir", 18, sch2,"Health science", new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Art)}, currentUser);
 
                 // // 7.	Perform a search to find the event created by user1
                 // Search search = new Search(db);

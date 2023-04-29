@@ -60,15 +60,15 @@ namespace src.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "School",
+                name: "Schools",
                 columns: table => new
                 {
                     SchoolId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
+                    Name = table.Column<string>(type: "NVARCHAR2(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_School", x => x.SchoolId);
+                    table.PrimaryKey("PK_Schools", x => x.SchoolId);
                 });
 
             migrationBuilder.CreateTable(
@@ -128,9 +128,9 @@ namespace src.Migrations
                 {
                     table.PrimaryKey("PK_Profiles", x => x.ProfileId);
                     table.ForeignKey(
-                        name: "FK_Profiles_School_SchoolId",
+                        name: "FK_Profiles_Schools_SchoolId",
                         column: x => x.SchoolId,
-                        principalTable: "School",
+                        principalTable: "Schools",
                         principalColumn: "SchoolId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -188,9 +188,9 @@ namespace src.Migrations
                         principalColumn: "ProfileId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Events_School_SchoolId",
+                        name: "FK_Events_Schools_SchoolId",
                         column: x => x.SchoolId,
-                        principalTable: "School",
+                        principalTable: "Schools",
                         principalColumn: "SchoolId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -367,6 +367,12 @@ namespace src.Migrations
                 column: "TakenCoursesCourseId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Schools_Name",
+                table: "Schools",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_Email",
                 table: "Users",
                 column: "Email",
@@ -425,7 +431,7 @@ namespace src.Migrations
                 name: "Profiles");
 
             migrationBuilder.DropTable(
-                name: "School");
+                name: "Schools");
 
             migrationBuilder.DropTable(
                 name: "Users");
