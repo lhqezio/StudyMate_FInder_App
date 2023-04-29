@@ -9,12 +9,7 @@ namespace StudyMate
     {
         public virtual  DbSet<Profile>? Profiles { get; set; }
         public virtual  DbSet<User>? Users { get; set; }
-        public virtual DbSet<EventCalendar>? Events { get; set; }
-        public virtual  DbSet<CanHelpCourses>? CanHelpCourses { get; set; }
-        public virtual  DbSet<NeedHelpCourses>? NeedHelpCourses { get; set;}
-        public virtual  DbSet<TakenCourses>? TakenCourses { get; set;}
-        public virtual  DbSet<School>? Schools { get; set;}
-        public virtual  DbSet<SessionDB>? Sessions { get; set; }
+        public virtual DbSet<Event>? Events { get; set; }
         public virtual  DbSet<Conversation>? Conversations { get; set; }
         public virtual  DbSet<Message>? Messages { get; set; }
 
@@ -31,10 +26,6 @@ namespace StudyMate
         //One user can have multiple events (one-to-many)            
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<EventCalendar>()
-                .HasOne(e => e.EventCreator)
-                .WithMany(u => u.EventsCreated)
-                .HasForeignKey(e => e.ProfileId);
 
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Username)
@@ -59,6 +50,25 @@ namespace StudyMate
                     .HasForeignKey("ConversationId")
                     .OnDelete(DeleteBehavior.Cascade)
             );
+            modelBuilder.Entity<Event>().HasMany(e => e.Participant)
+            .WithMany(p => p.Events)
+            .UsingEntity<Dictionary<string, object>>(
+                "ProfileEvent",
+                j => j
+                    .HasOne<Profile>()
+                    .WithMany()
+                    .HasForeignKey("ProfileId")
+                    .OnDelete(DeleteBehavior.Cascade),
+                j => j
+                    .HasOne<Event>()
+                    .WithMany()
+                    .HasForeignKey("EventId")
+                    .OnDelete(DeleteBehavior.Cascade)
+            );
+            modelBuilder.Entity<User>()
+                .HasOne<Profile>()
+                .WithOne()
+                .HasForeignKey<Profile>(p => p.UsrId);
         }
     }
 }

@@ -15,10 +15,11 @@ public class ProfileServices
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
-            if(_context.Profiles!.Find(profile.UserId) != null){ //Changed SingleOrDefault to Find
+            if(_context.Profiles!.SingleOrDefault(p => p.UsrId == u.Id) != null){
                 return;
             }
             _context.Profiles!.Add(profile);
+            u.Profile = profile;
             _context.SaveChanges();
             
         //}
@@ -30,37 +31,27 @@ public class ProfileServices
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
             
-            _context.Profiles!.Remove(_context.Profiles!.SingleOrDefault(p => p.ProfileId == p.ProfileId)!);
+            _context.Profiles!.Remove(_context.Profiles!.SingleOrDefault(p => p.UsrId == u.Id));
             _context.SaveChanges();
         // }
     }
 
     public virtual void UpdateProfile(Profile profile)
     {
-        _context.Profiles!.Update(profile);
-        _context.SaveChanges();
-    }
-
-    public virtual List<Profile> GetAllProfiles()
-    {
-        return _context.Profiles!.ToList();
-    }
-
-    public virtual Profile? GetSpecificProfileById(string userId)
-    {
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
-            return _context.Profiles!.SingleOrDefault(p => p.ProfileId == userId);
-        //}
+            if(u.Id != profile.UsrId){
+                return;
+            }
+            _context.Profiles!.Update(profile);
+            _context.SaveChanges();
+        // }
     }
-
-    public virtual Profile? GetSpecificProfile(Profile profile)
-    {
-        //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
-        // if (_context.ValidateSessionKey(u.__session_key))
-        // {
-                return _context.Profiles!.SingleOrDefault(p => p.Equals(profile));
-        //}
+    public virtual Profile GetMyProfile(User u) {
+        return _context.Profiles!.SingleOrDefault(p => p.UsrId == u.Id);
+    }
+    public virtual List<Profile> GetProfileByName(string name) {
+        return _context.Profiles!.Where(p => p.Name == name).ToList();
     }
 }

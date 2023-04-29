@@ -1,78 +1,78 @@
-using System.Linq;
-using System.Reflection.Emit;
+// using System.Linq;
+// using System.Reflection.Emit;
 
-//This class takes of searching. It uses REGEX to find the profile that user wants to see.
-//Its constructor takes as input a DatabaseReader object and 
-namespace StudyMate
-{   
-    public class Search{
+// //This class takes of searching. It uses REGEX to find the profile that user wants to see.
+// //Its constructor takes as input a DatabaseReader object and 
+// namespace StudyMate
+// {   
+//     public class Search{
 
-        private StudyMateDbContext _context = null!;
+//         private StudyMateDbContext _context = null!;
         
-        private Search(){}
+//         private Search(){}
 
-        //Constructor
-        public Search(StudyMateDbContext context){
-               _context = context;
-        }
+//         //Constructor
+//         public Search(StudyMateDbContext context){
+//                _context = context;
+//         }
 
-        //SearchEventsCourseSchool
-        public List<EventCalendar> SearchEventsCourseSchool(CourseEvent? course = null, School? school = null)
-        {
-            var events = _context.Events!
-                        .Where(e => e.CourseEvents.Contains(course!) || e.School.Equals(school!))
-                        .ToList();
+//         //SearchEventsCourseSchool
+//         public List<EventCalendar> SearchEventsCourseSchool(CourseEvent? course = null, School? school = null)
+//         {
+//             var events = _context.Events!
+//                         .Where(e => e.CourseEvents.Contains(course!) || e.School.Equals(school!))
+//                         .ToList();
 
-           return events;
-        }
+//            return events;
+//         }
 
-        //SearchEventsCourseSchool
-        public List<EventCalendar> SearchEventsCreator(Profile? creator = null)
-        {
-            var events = _context.Events!
-                        .Where(e => e.EventCreator.Equals(creator) )
-                        .ToList();
+//         //SearchEventsCourseSchool
+//         public List<EventCalendar> SearchEventsCreator(Profile? creator = null)
+//         {
+//             var events = _context.Events!
+//                         .Where(e => e.EventCreator.Equals(creator) )
+//                         .ToList();
 
-           return events;
-        }
+//            return events;
+//         }
 
-        //SearchProfileCourseSchool
-        public List<Profile> SearchProfileCourseSchool(TakenCourses? tcourse = null, NeedHelpCourses? nhcourse = null, CanHelpCourses? chcourse = null, School? school = null)
-        {
-            var events = _context.Profiles!
-                        .Where(p => p.TakenCourses.Contains(tcourse!) || p.NeedHelpCourses.Contains(nhcourse!) || p.CanHelpCourses.Contains(chcourse!) || p.School.Equals(school))
-                        .ToList();
+//         //SearchProfileCourseSchool
+//         public List<Profile> SearchProfileCourseSchool(TakenCourses? tcourse = null, NeedHelpCourses? nhcourse = null, CanHelpCourses? chcourse = null, School? school = null)
+//         {
+//             var events = _context.Profiles!
+//                         .Where(p => p.TakenCourses.Contains(tcourse!) || p.NeedHelpCourses.Contains(nhcourse!) || p.CanHelpCourses.Contains(chcourse!) || p.School.Equals(school))
+//                         .ToList();
 
-           return events;
-        }
+//            return events;
+//         }
 
-        //SearchEventTitleDescription
-        public List<EventCalendar> SearchEventTitleDescription(string keyword)
-        {
-               var events = _context.Events!
-               .Where(e => e.Title.Contains(keyword) || e.Description.Contains(keyword))
-                 .ToList();
+//         //SearchEventTitleDescription
+//         public List<EventCalendar> SearchEventTitleDescription(string keyword)
+//         {
+//                var events = _context.Events!
+//                .Where(e => e.Title.Contains(keyword) || e.Description.Contains(keyword))
+//                  .ToList();
 
-             return events;
-        }
+//              return events;
+//         }
 
-        //SearchProfileBlurbInterest
-        public List<Profile> SearchProfileBlurbInterest(string? keyword = null, InterestsProfile? interestProfile = null)
-        {
-             var profiles = _context.Profiles!
-                 .Where(p => p.PersonalDescription.Contains(keyword!) || p.Hobbies.Contains(interestProfile!))
-                 .ToList();
+//         //SearchProfileBlurbInterest
+//         public List<Profile> SearchProfileBlurbInterest(string? keyword = null, InterestsProfile? interestProfile = null)
+//         {
+//              var profiles = _context.Profiles!
+//                  .Where(p => p.PersonalDescription.Contains(keyword!) || p.Hobbies.Contains(interestProfile!))
+//                  .ToList();
 
-             return profiles;
-        }
+//              return profiles;
+//         }
 
-        //SearchProfileByUser
-        public List<Profile> SearchProfileByUser(User u)
-        {
-             var profiles =  _context.Profiles!
-                            .Where(p => p.UserId.Equals(u.UserId))
-                            .ToList();
-            return profiles;
-        }
-     }
- }
+//         //SearchProfileByUser
+//         public List<Profile> SearchProfileByUser(User u)
+//         {
+//              var profiles =  _context.Profiles!
+//                             .Where(p => p.UserId.Equals(u.UserId))
+//                             .ToList();
+//             return profiles;
+//         }
+//      }
+//  }

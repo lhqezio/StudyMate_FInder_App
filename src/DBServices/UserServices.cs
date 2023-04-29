@@ -31,11 +31,10 @@ class UserServices
             return null!;
         }
         // If the user is valid, return a User object
-        return new User(user.UserId, user.Username, user.PasswordHash, user.UserId);
+        return new User(user.Id, user.Username, user.PasswordHash, user.Id);
     }
     public virtual User Register(string username, string email, string password)
     {
-        System.Console.WriteLine(username);
         // Get the user from the database
         User user = _context.Users!.SingleOrDefault(u => u.Username == username)!;
 

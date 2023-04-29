@@ -4,19 +4,18 @@ namespace StudyMate
 {
 
     public class SchoolManager{
-        public List<School> schools {get; set;}
+        public List<string> schools {get; set;}
 
         public SchoolManager(){
-            schools = new List<School>();
+            schools = new List<string>();
         }
 
-        public List<School> LoadSchoolFile(string file){
+        public List<string> LoadSchoolFile(string file){
             var lines = File.ReadAllLines(file).Skip(1);
             foreach (var line in lines)
             {
                 string[] fields = line.Split(',');
-                School school = new School(fields[0]);
-                schools.Add(school);
+                schools.Add(fields[0]);
             }
             return schools;
         }

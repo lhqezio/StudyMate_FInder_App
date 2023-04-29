@@ -13,112 +13,34 @@ namespace StudyMate
         [Key]
         public string ProfileId { get; set; }
         
-        //One-to-one relationship
-        [ForeignKey("Users")]
-        public string UserId { get; set; }
-        public User User{get;set;}=null!;
-
-        //Profile specific properties
-        public string Name { get; set; } = "";
-        public String? Gender { get; set; }
-        public int? Age { get; set; }
-        public string Program { get; set; } = "";
-        public string? PersonalDescription { get; set; } = "";
-        public string? ProfilePicture { get; set; } = ""; //Subject to change because we still do not know exactly if we must use a string to store a picture
-
-        //Many-to-many relationships
-        public List<InterestsProfile> Hobbies { get; set;} = new();
-        public List<EventCalendar> Events {get; set;}=new();
-        public List<TakenCourses> TakenCourses { get; set;}= new();
-        public List<NeedHelpCourses> NeedHelpCourses { get; set;} = new();
-        public List<CanHelpCourses> CanHelpCourses { get; set;} = new();
-
-        //One-to-many relationships
-        [ForeignKey("School")]
-        public string SchoolId{get;set;}
-        public School? School{get;set;}=null!;
-        public List<EventCalendar> EventsCreated {get;set;}=new();
-        
-        
-        public Profile(){}
-
+        public string UsrId { get; set; }
+        public string Name { get; set; }
+        public string Gender { get; set; }
+        public string School {get;set;}
+        public int Age { get; set; }
+        public string Program { get; set; }
+        public string PersonalDescription { get; set; }
+        public string ProfilePicture { get; set; } //Subject to change because we still do not know exactly if we must use a string to store a picture
+        public string Hobbies { get; set; }
+        public string TakenCourses { get; set; }
+        public string NeedHelpCourses { get; set; }
+        public List<Event> Events { get; set; } = new();
         //Constructor that builds a profile object with the mandatory fields. The user can set the optional fileds later using the 
         //setters.
-        public Profile(string name, int age, School school, string program, List<NeedHelpCourses> needHelpCourses, User user, Genders gender = Genders.Undisclosed)
+        public Profile(string ProfileId,string name, int age, string program,string gender,string school,string UsrId,string needHelpCourses,string takenCourses,string hobbies,string PersonalDescription,string ProfilePicture)
         {
-            ProfileId=Guid.NewGuid().ToString();
+            this.ProfileId=ProfileId;
             Name = name;
             Age = age;
             Program = program;
-            Gender = gender.ToString();
-            SchoolId=school.SchoolId;
+            Gender = gender;
             School = school;
             NeedHelpCourses = needHelpCourses;
-            UserId=user.UserId;
-        }
-
-        //This mehtod allows to clear all the fields of the profile class in one shot.
-        public void ClearProfile()
-        {
-            Name = "";
-            Gender = null;
-            Age = null;
-            School=new();
-            SchoolId="";
-            Program = "";
-            TakenCourses.Clear();
-            NeedHelpCourses.Clear();
-            CanHelpCourses.Clear();
-            Events.Clear();
-            EventsCreated.Clear();
-            PersonalDescription = "";
-            ProfilePicture = "";
-            Hobbies.Clear();
-
-        }
-
-        public void AddCreatedEvent(EventCalendar e){
-            this.EventsCreated.Add(e);
-        }
-
-        //Override of Equals method. This is used to compare two profile objects.
-        //It is very useful for testing the ClearProfile method.
-        public override bool Equals(object? obj)
-        {
-            if (obj is not Profile other)
-                return false;
-            return Name == other.Name
-                && Gender == other.Gender
-                && Age == other.Age
-                && School.Equals(other.School)
-                && Program == other.Program
-                && TakenCourses.SequenceEqual(other.TakenCourses)
-                && NeedHelpCourses.SequenceEqual(other.NeedHelpCourses)
-                && CanHelpCourses.SequenceEqual(other.CanHelpCourses)
-                && Events.SequenceEqual(other.Events)
-                && EventsCreated.SequenceEqual(other.EventsCreated)
-                && PersonalDescription == other.PersonalDescription
-                && ProfilePicture == other.ProfilePicture
-                && Hobbies.SequenceEqual(other.Hobbies);
-        }
-
-        //Since we are overriding the Equals method, we must also override the GetHashCode method.
-        public override int GetHashCode()
-        {
-            return Name.GetHashCode() ^
-                User.GetHashCode() ^
-                Gender.GetHashCode() ^
-                Age.GetHashCode() ^
-                School.GetHashCode() ^
-                Program.GetHashCode() ^
-                TakenCourses.GetHashCode() ^
-                NeedHelpCourses.GetHashCode() ^
-                CanHelpCourses.GetHashCode() ^
-                Events.GetHashCode() ^
-                EventsCreated.GetHashCode() ^
-                PersonalDescription.GetHashCode() ^
-                ProfilePicture.GetHashCode() ^
-                Hobbies.GetHashCode();
+            TakenCourses = takenCourses;
+            Hobbies = hobbies;
+            this.UsrId=UsrId;
+            this.PersonalDescription=PersonalDescription;
+            this.ProfilePicture=ProfilePicture;
         }
     }
 }
