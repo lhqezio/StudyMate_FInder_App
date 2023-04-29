@@ -113,5 +113,76 @@ using Microsoft.EntityFrameworkCore;
             mockContext.Verify(p => p.SaveChanges(), Times.Once());
         }        
 
+        [TestMethod]
+        public void Test_EventCalendarServices_AddParticipants(){
+            // Arrange
+            profileList.Add(profile2);
+            eventCourses.Add(ce1);
+            eventCourses.Add(ce2);
+            eventCourses.Add(ce3);
+            EventCalendar eC = new EventCalendar("Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location, sent);
+            var mockSet = new Mock<DbSet<EventCalendar>>();
+            var mockContext = new Mock<StudyMateDbContext>();
+            mockContext.Setup(p => p.Events).Returns(mockSet.Object);
+            // Act
+            using(var service = EventServices.getInstance(mockContext.Object)){
+                service.AddParticipant(user1, eC, profile3);
+                } 
+            // Assert
+            mockSet.Verify(p => p.Update(It.IsAny<EventCalendar>()), Times.Once()); //Checks for the update
+            mockContext.Verify(p => p.SaveChanges(), Times.Once()); // Check for the save changes
+            Assert.IsTrue(eC.Participants.Contains(profile3)); // Check if profile3 is part of the participants now
+        }        
+
+        [TestMethod]
+        public void Test_EventCalendarServices_RemoveParticipants(){
+            // Arrange
+            profileList.Add(profile2);
+            profileList.Add(profile3);
+            eventCourses.Add(ce1);
+            eventCourses.Add(ce2);
+            eventCourses.Add(ce3);
+            EventCalendar eC = new EventCalendar("Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location, sent);
+            var mockSet = new Mock<DbSet<EventCalendar>>();
+            var mockContext = new Mock<StudyMateDbContext>();
+            mockContext.Setup(p => p.Events).Returns(mockSet.Object);
+            // Act
+            using(var service = EventServices.getInstance(mockContext.Object)){
+                service.RemoveParticipant(user1, eC, profile3);
+                } 
+            // Assert
+            mockSet.Verify(p => p.Update(It.IsAny<EventCalendar>()), Times.Once()); //Checks for the update
+            mockContext.Verify(p => p.SaveChanges(), Times.Once()); // Check for the save changes
+            Assert.IsFalse(eC.Participants.Contains(profile3)); // Check if profile3 is not part of the participants now
+        }
+
+        [TestMethod]
+        public void Test_EventCalendarServices_ShowParticipants(){
+            // Arrange
+            profileList.Add(profile2);
+            profileList.Add(profile3);
+            eventCourses.Add(ce1);
+            eventCourses.Add(ce2);
+            eventCourses.Add(ce3);
+            EventCalendar eC = new EventCalendar("Title1", profile1, profileList, dTime, description, schoolList, eventCourses, location, sent);
+            var mockSet = new Mock<DbSet<EventCalendar>>();
+            var mockContext = new Mock<StudyMateDbContext>();
+            mockContext.Setup(p => p.Events).Returns(mockSet.Object);
+            string participants;
+            string expectedParticipantsString = "";
+            var expectedParticipants = eC.ShowParticipants();
+            foreach (Profile participant in expectedParticipants){
+                        expectedParticipantsString = expectedParticipantsString + participant.Name + "; ";
+                    }                 
+            // Act
+            using(var service = EventServices.getInstance(mockContext.Object)){
+                service.AddEvent(eC, user1);
+                participants = service.ShowParticipants(user1, eC);
+                
+                } 
+
+            // Assert
+            Assert.AreEqual(expectedParticipantsString, participants);
+        }
     }
 

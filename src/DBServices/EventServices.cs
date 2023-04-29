@@ -1,4 +1,6 @@
 using Microsoft.EntityFrameworkCore;
+using System.Linq;
+using System.Reflection.Emit;
 
 namespace StudyMate;
 public class EventServices : IDisposable
@@ -73,25 +75,27 @@ public class EventServices : IDisposable
             // if(_context.ValidateSessionKey(u.__session_key)){
                 using(_context)
                 {
-                    var getEvent = _context.Events.SingleOrDefault(e => e.EventId == eventC.EventId);
-                    if(getEvent != null){ 
-                        getEvent.AddParticipant(participant);
+                    // var getEvent = _context.Events.SingleOrDefault(e => e.EventId == eventC.EventId);
+                    // if(getEvent != null){ 
+                        eventC.AddParticipant(participant);
+                        _context.Events!.Update(eventC);
                         _context.SaveChanges();
-                    }
+                    // }
                 }
             // }
         }
 
-        //RemoveParticipant => Add participant to event
+        //RemoveParticipant => Remove participant to event
         public virtual void RemoveParticipant(User u, EventCalendar eventC, Profile participant){
             // if(_context.ValidateSessionKey(u.__session_key)){
                 using(_context)
                 {
-                    var getEvent = _context.Events.SingleOrDefault(e => e.EventId == eventC.EventId);
-                    if(getEvent != null){ 
-                        getEvent.RemoveParticipant(participant);
+                    // var getEvent = _context.Events.SingleOrDefault(e => e.EventId == eventC.EventId);
+                    // if(getEvent != null){ 
+                        eventC.RemoveParticipant(participant);
+                        _context.Events!.Update(eventC);
                         _context.SaveChanges();
-                    }
+                    // }
                 }
             // }
         }
@@ -103,12 +107,12 @@ public class EventServices : IDisposable
                 string pString = "";
                 using(_context)
                 {
-                    var getEvent = _context.Events.SingleOrDefault(e => e.EventId == eventC.EventId);
+                    var getEvent = _context.Events!.Find(eventC.EventId);
                     if(getEvent != null){ 
                         participants = getEvent.ShowParticipants();
-                    foreach (Profile participant in participants){
-                        pString = pString + participant.Name + "; ";
-                    }                        
+                        foreach (Profile participant in participants){
+                            pString = pString + participant.Name + "; ";
+                        }                        
                     }
                 }
                 return pString;
