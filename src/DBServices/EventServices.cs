@@ -19,7 +19,6 @@ public class EventServices
     {
         var e = new Event(Guid.NewGuid().ToString(),u.Id,title,description,date,location,courses);
         participants.Count();
-        participants.Add(u.Profile);
         e.Participant = participants;
         foreach (var p in participants)
         {
@@ -49,11 +48,15 @@ public class EventServices
     }
     public void MarkAttending(Profile p, Event e)
     {
-        if(e.Participant.Any(p => p.ProfileId == p.ProfileId)){
+        if(e.Participant.Any(c => c.ProfileId == p.ProfileId)){
             return;
         }
         e.Participant.Add(p);
         p.Events.Add(e);
     }
-        
+    
+    public Event GetEventById(string id)
+    {
+        return _context.Events.SingleOrDefault(e => e.EventId == id);
+    }
 }

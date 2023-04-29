@@ -44,7 +44,6 @@ class UserServices
     }
     public virtual User Register(string username, string email, string password)
     {
-        System.Console.WriteLine(username);
         // Get the user from the database
         User user = _context.Users.SingleOrDefault(u => u.Username == username);
 
