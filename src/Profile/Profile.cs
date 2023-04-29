@@ -9,38 +9,46 @@ namespace StudyMate
 {
     public class Profile
     {
-        //Generates a random primary key for the Profile class
+        // Primary Key
         [Key]
         public string ProfileId { get; set; }
-        
-        public string UsrId { get; set; }
+        // One-to-one relationship
+        [ForeignKey("User")]
+        public string UserId { get; set; }
+        public User User{get;set;} = null!;
+        // one-to-many relationship
+        [ForeignKey("SchoolId")]
+        public string SchoolId {get;set;}
+        public School School {get;set;} = null!;
+        // one-to-many relationship with the bridging tables
+        public List<CourseTaken> CourseTaken{get;set;} = new();
+        public List<CourseCanHelpWith> CourseCanHelpWith{get;set;} = new();
+        public List<CourseNeedHelpWith> CourseNeedHelpWith{get;set;} = new();
+        // Many-to-many relationship
+        public List<Hobby> Hobbies { get;} = new();
+        //public List<EventCalendar> Events { get; set; } = new();
+        //other properties
         public string Name { get; set; }
         public string Gender { get; set; }
-        public string School {get;set;}
         public int Age { get; set; }
         public string Program { get; set; }
         public string PersonalDescription { get; set; }
-        public string ProfilePicture { get; set; } //Subject to change because we still do not know exactly if we must use a string to store a picture
-        public string Hobbies { get; set; }
-        public string TakenCourses { get; set; }
-        public string NeedHelpCourses { get; set; }
-        public List<EventCalendar> Events { get; set; } = new();
+        
         //Constructor that builds a profile object with the mandatory fields. The user can set the optional fileds later using the 
         //setters.
-        public Profile(string ProfileId,string name, int age, string program,string gender,string school,string UsrId,string needHelpCourses,string takenCourses,string hobbies,string PersonalDescription,string ProfilePicture)
+
+        public Profile(){}
+        public Profile(string ProfileId,User user,string name,string gender, School school,int age, string program,string PersonalDescription="Hi I am using this app")
         {
             this.ProfileId=ProfileId;
-            Name = name;
-            Age = age;
-            Program = program;
-            Gender = gender;
-            School = school;
-            NeedHelpCourses = needHelpCourses;
-            TakenCourses = takenCourses;
-            Hobbies = hobbies;
-            this.UsrId=UsrId;
-            this.PersonalDescription=PersonalDescription;
-            this.ProfilePicture=ProfilePicture;
+            this.UserId=user.UserId;
+            this.Name = name;
+            this.Gender = gender;
+            this.SchoolId = school.SchoolId;
+            this.School=school;
+            this.Age=age;
+            this.Program=program;
+            this.PersonalDescription = PersonalDescription;
         }
     }
 }

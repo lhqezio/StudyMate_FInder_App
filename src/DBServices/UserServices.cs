@@ -1,5 +1,5 @@
-// using System.Security.Cryptography;
-// using System.Text;
+using System.Security.Cryptography;
+using System.Text;
 
 using System.Security.Cryptography;
 using System.Text;
@@ -31,7 +31,7 @@ class UserServices
             return null!;
         }
         // If the user is valid, return a User object
-        return new User(user.Id, user.Username, user.PasswordHash, user.Id);
+        return new User(user.UserId, user.Username, user.PasswordHash, user.UserId);
     }
     public virtual User Register(string username, string email, string password)
     {
