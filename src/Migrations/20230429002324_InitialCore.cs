@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace src.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialCore : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,7 +16,7 @@ namespace src.Migrations
                 columns: table => new
                 {
                     CourseId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    Course = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                    Course = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,7 +28,7 @@ namespace src.Migrations
                 columns: table => new
                 {
                     CourseId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    Course = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                    Course = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,7 +52,7 @@ namespace src.Migrations
                 columns: table => new
                 {
                     CourseId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    Course = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                    Course = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -89,7 +89,7 @@ namespace src.Migrations
                 columns: table => new
                 {
                     CourseId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    Course = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                    Course = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -101,12 +101,9 @@ namespace src.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    ProfileId = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
-                    Username = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Email = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Salt = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
-                    PasswordHash = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
-                    Password = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true)
+                    Username = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    Email = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -120,27 +117,27 @@ namespace src.Migrations
                     ProfileId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     UserId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Gender = table.Column<int>(type: "NUMBER(10)", nullable: true),
+                    Gender = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
                     Age = table.Column<int>(type: "NUMBER(10)", nullable: true),
                     Program = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    PersonalDescription = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    ProfilePicture = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
+                    PersonalDescription = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
+                    ProfilePicture = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
                     SchoolId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Profiles", x => x.ProfileId);
                     table.ForeignKey(
-                        name: "FK_Profiles_Profiles_UserId",
-                        column: x => x.UserId,
-                        principalTable: "Profiles",
-                        principalColumn: "ProfileId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
                         name: "FK_Profiles_School_SchoolId",
                         column: x => x.SchoolId,
                         principalTable: "School",
                         principalColumn: "SchoolId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Profiles_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -174,12 +171,12 @@ namespace src.Migrations
                 {
                     EventId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     Title = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
+                    Date = table.Column<DateTimeOffset>(type: "TIMESTAMP(7) WITH TIME ZONE", nullable: false),
+                    Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     Location = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     IsSent = table.Column<bool>(type: "NUMBER(1)", nullable: false),
                     ProfileId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    SchoolId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    Date = table.Column<DateTimeOffset>(type: "TIMESTAMP(7) WITH TIME ZONE", nullable: false),
-                    Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
+                    SchoolId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -361,12 +358,25 @@ namespace src.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Profiles_UserId",
                 table: "Profiles",
-                column: "UserId");
+                column: "UserId",
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ProfileTakenCourses_TakenCoursesCourseId",
                 table: "ProfileTakenCourses",
                 column: "TakenCoursesCourseId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Email",
+                table: "Users",
+                column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Users_Username",
+                table: "Users",
+                column: "Username",
+                unique: true);
         }
 
         /// <inheritdoc />
@@ -394,9 +404,6 @@ namespace src.Migrations
                 name: "Sessions");
 
             migrationBuilder.DropTable(
-                name: "Users");
-
-            migrationBuilder.DropTable(
                 name: "CanHelpCourses");
 
             migrationBuilder.DropTable(
@@ -419,6 +426,9 @@ namespace src.Migrations
 
             migrationBuilder.DropTable(
                 name: "School");
+
+            migrationBuilder.DropTable(
+                name: "Users");
         }
     }
 }
