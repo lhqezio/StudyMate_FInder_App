@@ -15,9 +15,9 @@ public class EventCalendarTest
         School sch2 = new School("Henri-Bourassa");
         School sch3 = new School("Saint-Ex");
             //Users
-        var user1 = new User("Alain", "alain@hotmail.com", "password");
-        var user2 = new User("Sam", "sam@hotmail.com", "password1");
-        var user3 = new User("Jack", "jack@hotmail.com", "password2");
+        var user1 = new User("1","Alain", "alain@hotmail.com", "password");
+        var user2 = new User("2","Sam", "sam@hotmail.com", "password1");
+        var user3 = new User("3","Jack", "jack@hotmail.com", "password2");
             //Profiles
         Profile profile1 = new Profile("Alain", 20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Computer_Science)},user1,Genders.Male);
         Profile profile2 = new Profile("Samantha", 18,new School("Henri-Bourassa"),"Social Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Political_Science)},user2,Genders.Female);
@@ -62,9 +62,9 @@ public class EventCalendarTest
         School sch2 = new School("Henri-Bourassa");
         School sch3 = new School("Saint-Ex");
             //Users
-        var user1 = new User("Alain", "alain@hotmail.com", "password");
-        var user2 = new User("Sam", "sam@hotmail.com", "password1");
-        var user3 = new User("Jack", "jack@hotmail.com", "password2");
+        var user1 = new User("1","Alain", "alain@hotmail.com", "password");
+        var user2 = new User("2","Sam", "sam@hotmail.com", "password1");
+        var user3 = new User("3","Jack", "jack@hotmail.com", "password2");
             //Profiles
         Profile profile1 = new Profile("Alain", 20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Computer_Science)},user1,Genders.Male);
         Profile profile2 = new Profile("Samantha", 18,new School("Henri-Bourassa"),"Social Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Political_Science)},user2,Genders.Female);
@@ -104,9 +104,9 @@ public class EventCalendarTest
         School sch2 = new School("Henri-Bourassa");
         School sch3 = new School("Saint-Ex");
             //Users
-        var user1 = new User("Alain", "alain@hotmail.com", "password");
-        var user2 = new User("Sam", "sam@hotmail.com", "password1");
-        var user3 = new User("Jack", "jack@hotmail.com", "password2");
+        var user1 = new User("1","Alain", "alain@hotmail.com", "password");
+        var user2 = new User("2","Sam", "sam@hotmail.com", "password1");
+        var user3 = new User("3","Jack", "jack@hotmail.com", "password2");
             //Profiles
         Profile profile1 = new Profile("Alain", 20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Computer_Science)},user1,Genders.Male);
         Profile profile2 = new Profile("Samantha", 18,new School("Henri-Bourassa"),"Social Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Political_Science)},user2,Genders.Female);
@@ -147,9 +147,9 @@ public class EventCalendarTest
         School sch2 = new School("Henri-Bourassa");
         School sch3 = new School("Saint-Ex");
             //Users
-        var user1 = new User("Alain", "alain@hotmail.com", "password");
-        var user2 = new User("Sam", "sam@hotmail.com", "password1");
-        var user3 = new User("Jack", "jack@hotmail.com", "password2");
+        var user1 = new User("1","Alain", "alain@hotmail.com", "password");
+        var user2 = new User("2","Sam", "sam@hotmail.com", "password1");
+        var user3 = new User("3","Jack", "jack@hotmail.com", "password2");
             //Profiles
         Profile profile1 = new Profile("Alain", 20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Computer_Science)},user1,Genders.Male);
         Profile profile2 = new Profile("Samantha", 18,new School("Henri-Bourassa"),"Social Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Political_Science)},user2,Genders.Female);
