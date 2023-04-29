@@ -16,19 +16,19 @@ class UserServices
     public virtual User Login(string username, string password)
     {
         // Get the user from the database
-        User user = _context.Users.SingleOrDefault(u => u.Username == username);
+        User user = _context.Users!.SingleOrDefault(u => u.Username == username)!;
 
         // If the user doesn't exist, return null
         if (user == null)
         {
-            return null;
+            return null!;
         }
 
         // If the password is incorrect, return null
         if (!PasswordHasher.VerifyPassword(password, user.PasswordHash))
         {
             System.Console.WriteLine("wrong");
-            return null;
+            return null!;
         }
         // If the user is valid, return a User object
         return new User(user.UserId, user.Username, user.PasswordHash, user.UserId);
@@ -37,19 +37,19 @@ class UserServices
     {
         System.Console.WriteLine(username);
         // Get the user from the database
-        User user = _context.Users.SingleOrDefault(u => u.Username == username);
+        User user = _context.Users!.SingleOrDefault(u => u.Username == username)!;
 
         // If the user already exists, return null
         if (user != null)
         {
-            return null;
+            return null!;
         }
 
         // Create a new user
         user = new User(Guid.NewGuid().ToString(), username, email, PasswordHasher.HashPassword(password));
 
         // Add the user to the database
-        _context.Users.Add(user);
+        _context.Users!.Add(user);
         _context.SaveChanges();
         return Login(username, password);
     }
@@ -58,16 +58,18 @@ class UserServices
     {
         if (Login(username, oldpasswod) != null)
         {
-            var user = _context.Users.SingleOrDefault(u => u.Username == username);
-            user.PasswordHash = PasswordHasher.HashPassword(newPassword);
-            _context.SaveChanges();
+            var user = _context.Users!.SingleOrDefault(u => u.Username == username);
+            if(user != null){
+                user.PasswordHash = PasswordHasher.HashPassword(newPassword);
+                _context.SaveChanges();
+            }
         }
     }
     public virtual void DeleteUser(string username,string password)
     {
         if (Login(username, password) != null)
         {
-            _context.Users.Remove(_context.Users.SingleOrDefault(u => u.Username == username));
+            _context.Users!.Remove(_context.Users.SingleOrDefault(u => u.Username == username)!);
             System.Console.WriteLine(_context.Users.Count());
             _context.SaveChanges();
         }
