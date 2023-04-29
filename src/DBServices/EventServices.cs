@@ -18,6 +18,7 @@ public class EventServices
     public void AddEvent(User u, List<Profile> participants,string title,string description,DateTime date,string location,string courses)
     {
         var e = new Event(Guid.NewGuid().ToString(),u.Id,title,description,date,location,courses);
+        participants.Count();
         participants.Add(u.Profile);
         e.Participant = participants;
         foreach (var p in participants)

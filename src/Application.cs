@@ -45,6 +45,7 @@ namespace StudyMate
                 profileService.AddProfile(profile1, currentUser);
                 // 3.	Create an event for user1
                 System.Console.WriteLine("Attempt to set up Event for user1");
+                currentUser.Profile = profileService.GetMyProfile(currentUser);
                 eventService.AddEvent(currentUser, new List<Profile>() { profile1 }, "Study for Math 101", "Math 101", DateTime.Now.AddHours(2), "Chez saza", DemoCourses);
                 // // 4.	Log out from user1
                 currentUser = null;
@@ -81,13 +82,27 @@ namespace StudyMate
                 System.Console.WriteLine("Event found");
                 System.Console.WriteLine(user1event.Title);
                 // // 8.	Mark user2 as attending user1’s event
-                // ec.AddParticipant(profile2);
+                eventService.MarkAttending(profileService.GetMyProfile(currentUser), user1event);
+                System.Console.WriteLine("User2 marked as attending user1's event:");
+                foreach (Profile p in user1event.Participant)
+                {
+                    System.Console.WriteLine(p.Name);
+                }
+                System.Console.WriteLine("End Attending List");
 
                 // 9.	Attempt to edit user1’s event as user2 (should fail)
-
+                try 
+                {
+                    user1event.Title = "New Title";
+                    eventService.UpdateEvent(currentUser, user1event);
+                }
+                catch (Exception e)
+                {
+                    System.Console.WriteLine("Faild to edit user1's event as user2");
+                }
 
                 // 10.	Perform a search that finds user1’s profile
-
+                var user1 = profileService.GetProfileByName("Alain")[0];
                 // 11.	Send 3 messages from user2 to user1 
                 List<string> usernames = new List<string>();
                 usernames.Add(currentUser.Username);
@@ -105,7 +120,11 @@ namespace StudyMate
                 // 14.	Change user1’s password
                 userService.ChangePassword("alain", "100", "200");
                 // 15.	Modify user1’s profile
-
+                var my_profile = profileService.GetMyProfile(currentUser);
+                my_profile.Name = "Joseph";
+                profileService.UpdateProfile(my_profile, currentUser);
+                my_profile = profileService.GetMyProfile(currentUser);
+                System.Console.WriteLine("Updated Profile"+my_profile.Name);
                 // 16.	Access messages, viewing text of the messages sent by user2.
                 List<Conversation> convos2 = conversationService.GetConversations(currentUser.Id);
                 Conversation convo2 = convos2[0];
@@ -120,9 +139,17 @@ namespace StudyMate
                 System.Console.WriteLine("Message sent, deleting conversation");
                 conversationService.DeleteConversation(convo2.ConversationId);
                 // 18.	Find and view the attendees of user1’s event
-
+                var user1event2 = user1profile.Events[0];
+                System.Console.WriteLine("Event found, Printing Attendees");
+                foreach (Profile p in user1event2.Participant)
+                {
+                    System.Console.WriteLine(p.Name);
+                }
+                System.Console.WriteLine("End Attendees List");
                 // 19.	Modify user1’s event.
-
+                user1event2.Title = "New Title";
+                eventService.UpdateEvent(currentUser, user1event2);
+                var user1event3 = eventService.GetAllMyEvents(profileService.GetMyProfile(currentUser))[0];
                 // 20.	Delete user1’s profile
                 System.Console.WriteLine("Deleting profile");
                 profileService.DeleteProfile(currentUser);
