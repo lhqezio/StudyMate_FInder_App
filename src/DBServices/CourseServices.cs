@@ -20,10 +20,8 @@ public class CourseServices
         _context = context;
     }
 
-    public virtual void AddCoursesNeedHelpWith(Profile profile,List<CourseNeedHelpWith> courseNeedHelpWith)
-    {
-         // Get the Course from the database
-         foreach (var item in courseNeedHelpWith)
+    public virtual void AddCourses(List<Course> courses){
+        foreach (var item in courses)
          {
             __trackedCourse = _context.StudyCourses?.SingleOrDefault(c => c.CourseId == item.CourseId);
             // If the Course already exists, it will not be added to the database.
@@ -31,26 +29,46 @@ public class CourseServices
             {
                 System.Console.WriteLine("This course already exist in the database.");
             }else{
-                __trackedCourse=item.Course;
+                __trackedCourse=item;
                 _context.StudyCourses!.Add(__trackedCourse);
                 _context.SaveChanges();
-                ProfileServices.__trackedProfile=profile;
-                AddNeedHelpBridge(ProfileServices.__trackedProfile,__trackedCourse);
             }
          }
     }
 
-    public virtual void AddNeedHelpBridge(Profile profile, Course course){
-        __trackedNeedHelpWithCourse = _context.CoursesNeedHelpWith?.SingleOrDefault(c => c.CourseId == course.CourseId && c.ProfileId == profile.ProfileId);
-        if (__trackedNeedHelpWithCourse is not null)
+    public virtual void AddCourse( Course course){
+        __trackedCourse = _context.StudyCourses?.SingleOrDefault(c => c.CourseId == course.CourseId);
+        // If the Course already exists, it will not be added to the database.
+        if (__trackedCourse != null)
         {
-            // ProfileServices.__trackedProfile.CourseNeedHelpWith=__trackedNeedHelpWithCourse;
-            System.Console.WriteLine("This need help with course already exist in the database.");
+            System.Console.WriteLine("This course already exist in the database.");
         }else{
-            __trackedNeedHelpWithCourse=new CourseNeedHelpWith(profile,course);
-            _context.CoursesNeedHelpWith!.Add(__trackedNeedHelpWithCourse);
+            __trackedCourse=course;
+            _context.StudyCourses!.Add(__trackedCourse);
             _context.SaveChanges();
         }
+    }
+    public virtual void AddCoursesNeedHelpWith(List<CourseNeedHelpWith> courseNeedHelpWith)
+    {
+         // Get the Course that the user needs help with from the database
+         foreach (var item in courseNeedHelpWith)
+         {
+            __trackedCourse = _context.StudyCourses?.SingleOrDefault(c => c.CourseId == item.CourseId);
+            __trackedNeedHelpWithCourse = _context.CoursesNeedHelpWith?.SingleOrDefault(c => c.CourseId == item.CourseId && c.ProfileId == item.ProfileId);
+            // If the Course already exists in the bridging table, it will not be added to the database.
+            if (__trackedCourse != null)
+            {
+                System.Console.WriteLine("This course already exist in the database's bridging table.");
+            }else{
+                __trackedNeedHelpWithCourse=item;
+                if (__trackedCourse is null)
+                {
+                    AddCourse(__trackedNeedHelpWithCourse.Course);
+                }
+                _context.CoursesNeedHelpWith!.Add(__trackedNeedHelpWithCourse);
+                _context.SaveChanges();
+            }
+         }
     }
 
     // public virtual void DeleteProfile(Profile profile)

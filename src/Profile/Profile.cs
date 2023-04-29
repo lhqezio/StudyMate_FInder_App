@@ -21,9 +21,9 @@ namespace StudyMate
         public string SchoolId {get;set;}
         public School School {get;set;} = null!;
         // one-to-many relationship with the bridging tables
-        public List<CourseTaken> CourseTaken{get;} = new();
-        public List<CourseCanHelpWith> CourseCanHelpWith{get;} = new();
-        public List<CourseNeedHelpWith> CourseNeedHelpWith{get;} = new();
+        public List<CourseTaken> CourseTaken{get;set;} = new();
+        public List<CourseCanHelpWith> CourseCanHelpWith{get;set;} = new();
+        public List<CourseNeedHelpWith> CourseNeedHelpWith{get;set;} = new();
         // Many-to-many relationship
         public List<Hobby> Hobbies { get;} = new();
         //public List<EventCalendar> Events { get; set; } = new();

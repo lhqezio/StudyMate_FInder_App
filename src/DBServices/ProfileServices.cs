@@ -32,6 +32,8 @@ public class ProfileServices
             __trackedProfile=profile;
             var schoolService=new SchoolServices(_context);
             schoolService.AddSchool(__trackedProfile.School);
+            var courseService=new CourseServices(_context);
+            courseService.AddCoursesNeedHelpWith(__trackedProfile.CourseNeedHelpWith);
             _context.Profiles!.Add(__trackedProfile);
             _context.SaveChanges();
         }
@@ -51,22 +53,22 @@ public class ProfileServices
         }
     }
 
-    public virtual void UpdateProfile(Profile profile, User u)
-    {
-        //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
-        // if (_context.ValidateSessionKey(u.__session_key))
-        // {
-            if(u.UserId != profile.UserId){
-                return;
-            }
-            _context.Profiles!.Update(profile);
-            _context.SaveChanges();
-        // }
-    }
-    public virtual Profile GetMyProfile(User u) {
-        return _context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId);
-    }
-    public virtual List<Profile> GetProfileByName(string name) {
-        return _context.Profiles!.Where(p => p.Name == name).ToList();
-    }
+    // public virtual void UpdateProfile(Profile profile, User u)
+    // {
+    //     //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
+    //     // if (_context.ValidateSessionKey(u.__session_key))
+    //     // {
+    //         if(u.UserId != profile.UserId){
+    //             return;
+    //         }
+    //         _context.Profiles!.Update(profile);
+    //         _context.SaveChanges();
+    //     // }
+    // }
+    // public virtual Profile GetMyProfile(User u) {
+    //     return _context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId);
+    // }
+    // public virtual List<Profile> GetProfileByName(string name) {
+    //     return _context.Profiles!.Where(p => p.Name == name).ToList();
+    // }
 }
