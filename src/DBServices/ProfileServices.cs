@@ -23,13 +23,13 @@ public class ProfileServices
         //}
     }
 
-    public virtual void DeleteProfile(User u)
+    public virtual void DeleteProfile(Profile u)
     {
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
         // {
             
-            _context.Profiles!.Remove(_context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId)!);
+            _context.Profiles!.Remove(_context.Profiles!.SingleOrDefault(p => p.ProfileId == p.ProfileId)!);
             _context.SaveChanges();
         // }
     }

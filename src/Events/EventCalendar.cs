@@ -94,15 +94,15 @@ namespace StudyMate
         public EventCalendar(string title, Profile eventCreator, List<Profile> participants, DateTimeOffset date, string description,  School school, List<CourseEvent> courseEvents, string location , bool isSent=false)
         {
             EventId = Guid.NewGuid().ToString();
-            Title = title;
+            _title = title;
             ProfileId = eventCreator.ProfileId;
             EventCreator = eventCreator;
-            Participants = participants; 
+            _participants = participants; 
             Date = date;
-            Description = description;
+            _description = description;
             SchoolId=school.SchoolId;
             School = school;
-            Location = location;
+            _location = location;
             CourseEvents=courseEvents;
             IsSent=isSent;
         }
