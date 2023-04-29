@@ -5,6 +5,7 @@ public class CourseServices
 {
     private StudyMateDbContext _context = null!;
     private static Course? __trackedCourse = new();
+    private static CourseNeedHelpWith? __trackedNeedHelpWithCourse = new();
     private static CourseServices? _instance;
     public static CourseServices getInstance(StudyMateDbContext context)
     {
@@ -25,10 +26,10 @@ public class CourseServices
          foreach (var item in courseNeedHelpWith)
          {
             __trackedCourse = _context.StudyCourses?.SingleOrDefault(c => c.CourseId == item.CourseId);
-            // If the Profile already exists, it will not be added to the database.
+            // If the Course already exists, it will not be added to the database.
             if (__trackedCourse != null)
             {
-                System.Console.WriteLine("This profile already exist in the database.");
+                System.Console.WriteLine("This course already exist in the database.");
             }else{
                 __trackedCourse=item.Course;
                 _context.StudyCourses!.Add(__trackedCourse);
@@ -40,7 +41,13 @@ public class CourseServices
     }
 
     public virtual void AddNeedHelpBridge(string profileId, string courseId){
-
+        __trackedNeedHelpWithCourse = _context.CoursesNeedHelpWith?.SingleOrDefault(c => c.CourseId == courseId && c.ProfileId == profileId);
+        if (__trackedNeedHelpWithCourse)
+        {
+            
+        }
+        _context.CoursesNeedHelpWith!.Add(__trackedNeedHelpWithCourse);
+        _context.SaveChanges();
     }
 
     public virtual void DeleteProfile(Profile profile)
