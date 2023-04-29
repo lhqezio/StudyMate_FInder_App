@@ -5,70 +5,71 @@ using System.Security.Cryptography;
 using System.Text;
 
 namespace StudyMate;
-class UserServices : IDisposable
+class UserServices
 {
     private StudyMateDbContext _context = null!;
-    private static UserServices? _instance;
-    public static UserServices getInstance(StudyMateDbContext context)
-    {
-        if (_instance is null)
-        {
-            _instance = new UserServices(context);
-        }
-        return _instance;
-    }
-    private UserServices(StudyMateDbContext context)
+    public UserServices(StudyMateDbContext context)
     {
         _context = context;
     }
 
-    public User Login(string username, string password)
+    public virtual User Login(string username, string password)
     {
-        return _context.Login(username, password);
-    }
+        // Get the user from the database
+        User user = _context.Users.SingleOrDefault(u => u.Username == username);
 
-    public User Register(string username, string email, string password)
-    {
-        return _context.Register(username, email, password);
-    }
-
-    public User LoginFromSessionKey(string sessionKey)
-    {
-        return _context.LoginFromSessionKey(sessionKey);
-    }
-    public User AutoLogin()
-    {
-        if (UserConfig.Read("encryptedSessionKey") != null)
+        // If the user doesn't exist, return null
+        if (user == null)
         {
-            string encryptedSessionKey = UserConfig.Read("encryptedSessionKey");
-            byte[] encryptedSessionKeyBytes = Convert.FromBase64String(encryptedSessionKey);
-            byte[] sessionKeyBytes = ProtectedData.Unprotect(encryptedSessionKeyBytes, null, DataProtectionScope.CurrentUser);
-            string sessionKey = Encoding.UTF8.GetString(sessionKeyBytes);
-            User user = _context.LoginFromSessionKey(sessionKey);
-            if (user != null)
-            {
-                return user;
-            }
+            return null;
         }
-        else if(UserConfig.Read("encryptedPassword") != null && UserConfig.Read("encryptedUsername") != null){
-            string encryptedUsername = UserConfig.Read("encryptedUsername");
-            string encryptedPassword = UserConfig.Read("encryptedPassword");
-            byte[] encryptedUsernameBytes = Convert.FromBase64String(encryptedUsername);
-            byte[] encryptedPasswordBytes = Convert.FromBase64String(encryptedPassword);
-            byte[] usernameBytes = ProtectedData.Unprotect(encryptedUsernameBytes, null, DataProtectionScope.CurrentUser);
-            byte[] passwordBytes = ProtectedData.Unprotect(encryptedPasswordBytes, null, DataProtectionScope.CurrentUser);
-            string username = Encoding.UTF8.GetString(usernameBytes);
-            string password = Encoding.UTF8.GetString(passwordBytes);
-            User user = Login(username, password);
-            if(user != null){
-                return user;
-            }
+
+        // If the password is incorrect, return null
+        if (!PasswordHasher.VerifyPassword(password, user.PasswordHash))
+        {
+            System.Console.WriteLine("wrong");
+            return null;
         }
-        return null;
+        // If the user is valid, return a User object
+        return new User(user.UserId, user.Username, user.PasswordHash, user.UserId);
+    }
+    public virtual User Register(string username, string email, string password)
+    {
+        System.Console.WriteLine(username);
+        // Get the user from the database
+        User user = _context.Users.SingleOrDefault(u => u.Username == username);
+
+        // If the user already exists, return null
+        if (user != null)
+        {
+            return null;
+        }
+
+        // Create a new user
+        user = new User(Guid.NewGuid().ToString(), username, email, PasswordHasher.HashPassword(password));
+
+        // Add the user to the database
+        _context.Users.Add(user);
+        _context.SaveChanges();
+        return Login(username, password);
     }
 
-    public void Dispose()
+    public virtual void ChangePassword(string username,string oldpasswod, string newPassword)
     {
-        _context.Dispose();
+        if (Login(username, oldpasswod) != null)
+        {
+            var user = _context.Users.SingleOrDefault(u => u.Username == username);
+            user.PasswordHash = PasswordHasher.HashPassword(newPassword);
+            _context.SaveChanges();
+        }
+    }
+    public virtual void DeleteUser(string username,string password)
+    {
+        if (Login(username, password) != null)
+        {
+            _context.Users.Remove(_context.Users.SingleOrDefault(u => u.Username == username));
+            System.Console.WriteLine(_context.Users.Count());
+            _context.SaveChanges();
+        }
     }
 }

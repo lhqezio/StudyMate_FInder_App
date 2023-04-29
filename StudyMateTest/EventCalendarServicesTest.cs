@@ -12,9 +12,9 @@ using Microsoft.EntityFrameworkCore;
         public static School sch2 = new School("Henri-Bourassa");
         public static School sch3 = new School("Saint-Ex");
                 //Users
-        public static User user1 = new User("Alain", "alain@hotmail.com", "password");
-        public static User user2 = new User("Sam", "sam@hotmail.com", "password1");
-        public static User user3 = new User("Jack", "jack@hotmail.com", "password2");
+        public static User user1 = new User("1","Alain", "alain@hotmail.com", "password");
+        public static User user2 = new User("2","Sam", "sam@hotmail.com", "password1");
+        public static User user3 = new User("3","Jack", "jack@hotmail.com", "password2");
                 //Profiles
         public static Profile profile1 = new Profile("Alain", 20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Computer_Science)},user1,Genders.Male);
         public static Profile profile2 = new Profile("Samantha", 18,new School("Henri-Bourassa"),"Social Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Political_Science)},user2,Genders.Female);
@@ -44,7 +44,7 @@ using Microsoft.EntityFrameworkCore;
             var mockSet = new Mock<DbSet<EventCalendar>>();
             var mockContext = new Mock<StudyMateDbContext>();
             mockContext.Setup(p => p.Events).Returns(mockSet.Object);
-            var service = EventServices.getInstance(mockContext.Object);
+            var service = new EventServices(mockContext.Object);
             // Act
             service.AddEvent(eC, user1);
             //Assert
@@ -84,7 +84,7 @@ using Microsoft.EntityFrameworkCore;
             var mockSet = new Mock<DbSet<EventCalendar>>();
             var mockContext = new Mock<StudyMateDbContext>();
             mockContext.Setup(p => p.Events).Returns(mockSet.Object);
-            var service = EventServices.getInstance(mockContext.Object);
+            var service = new EventServices(mockContext.Object);
             // Act
             service.DeleteEvent(eC, user1);
             //Assert
@@ -104,10 +104,9 @@ using Microsoft.EntityFrameworkCore;
             var mockSet = new Mock<DbSet<EventCalendar>>();
             var mockContext = new Mock<StudyMateDbContext>();
             mockContext.Setup(p => p.Events).Returns(mockSet.Object);
+            var service = new EventServices(mockContext.Object);
             // Act
-            using(var service = EventServices.getInstance(mockContext.Object)){
-                service.EditEvent(eC, user1);
-                } 
+            service.EditEvent(eC, user1);    
             //Assert
             mockSet.Verify(p => p.Update(It.IsAny<EventCalendar>()), Times.Once());
             mockContext.Verify(p => p.SaveChanges(), Times.Once());

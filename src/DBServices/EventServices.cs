@@ -6,16 +6,6 @@ namespace StudyMate;
 public class EventServices : IDisposable
 {
     private StudyMateDbContext _context = null!;
-    private static EventServices? _instance;
-    public static EventServices getInstance(StudyMateDbContext context)
-    {
-        if (_instance is null)
-        {
-            _instance = new EventServices(context);
-        }
-        return _instance;
-    }
-    
     public EventServices(StudyMateDbContext context)
     {
         _context = context;
@@ -37,15 +27,13 @@ public class EventServices : IDisposable
 
         //DeleteEvent Method => Delete event to the list of events
         public virtual void DeleteEvent(EventCalendar eventToDelete, User u){
-            // if(_context.ValidateSessionKey(u.__session_key)){ 
-                using (_context)
+            // if(_context.ValidateSessionKey(u.__session_key)){
+                var toDeleteEvent = _context.Events!.FirstOrDefault(e => e.Equals(eventToDelete));
+                if (toDeleteEvent is not null)
                 {
-                    // var getEvent = _context.Events.SingleOrDefault(e => e.EventId == eventToDelete.EventId);
-                    // if(getEvent != null){ 
-                        _context.Events!.Remove(eventToDelete);
-                        _context.SaveChanges();
-                    // }
-                }
+                    _context.Events!.Remove(toDeleteEvent);
+                    _context.SaveChanges();
+                } 
             // }
         }
 
@@ -56,16 +44,10 @@ public class EventServices : IDisposable
         }
 
         //EditEvent Method => Edit an event
-        public virtual void EditEvent(EventCalendar eventToUpdate, User u){
+        public virtual void UpdateEvent(EventCalendar eventToUpdate, User u){
             // if(_context.ValidateSessionKey(u.__session_key)){_context.Entry(updateEvent).State = EntityState.Modified;
-                using(_context)
-                {
-                    // var getEvent = _context.Events.SingleOrDefault(e => e.EventId == eventToUpdate.EventId);
-                    // if(getEvent != null){ 
-                        _context.Events!.Update(eventToUpdate);
-                        _context.SaveChanges();
-                    // }
-                }
+                _context.Events!.Update(eventToUpdate);
+                _context.SaveChanges();
             // }
         }
         
@@ -80,9 +62,7 @@ public class EventServices : IDisposable
                         eventC.AddParticipant(participant);
                         _context.Events!.Update(eventC);
                         _context.SaveChanges();
-                    // }
                 }
-            // }
         }
 
         //RemoveParticipant => Remove participant to event

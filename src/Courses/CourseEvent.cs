@@ -6,14 +6,14 @@ namespace StudyMate
     {
         [Key]
         public string CourseId{get;set;}
-        public Courses Course{get;set;}       
+        public String Course{get;set;}       
         public List<EventCalendar> Events{get;}=new();
 
         public CourseEvent(){}
         public CourseEvent(Courses course)
         {
             CourseId=Guid.NewGuid().ToString();
-            Course = course;
+            Course = course.ToString();
         }
 
         //Override of Equals method. This is used to compare two course objects.

@@ -14,17 +14,17 @@ namespace StudyMate
         public string ProfileId { get; set; }
         
         //One-to-one relationship
-        [ForeignKey("User")]
+        [ForeignKey("Users")]
         public string UserId { get; set; }
-        public Profile User{get;set;}=null!;
+        public User User{get;set;}=null!;
 
         //Profile specific properties
         public string Name { get; set; } = "";
-        public Genders? Gender { get; set; }
+        public String? Gender { get; set; }
         public int? Age { get; set; }
         public string Program { get; set; } = "";
-        public string PersonalDescription { get; set; } = "";
-        public string ProfilePicture { get; set; } = ""; //Subject to change because we still do not know exactly if we must use a string to store a picture
+        public string? PersonalDescription { get; set; } = "";
+        public string? ProfilePicture { get; set; } = ""; //Subject to change because we still do not know exactly if we must use a string to store a picture
 
         //Many-to-many relationships
         public List<InterestsProfile> Hobbies { get; set;} = new();
@@ -37,7 +37,7 @@ namespace StudyMate
         [ForeignKey("School")]
         public string SchoolId{get;set;}
         public School? School{get;set;}=null!;
-        public List<EventCalendar> EventsCreated {get;}=new();
+        public List<EventCalendar> EventsCreated {get;set;}=new();
         
         
         public Profile(){}
@@ -50,11 +50,11 @@ namespace StudyMate
             Name = name;
             Age = age;
             Program = program;
-            Gender = gender;
+            Gender = gender.ToString();
             SchoolId=school.SchoolId;
             School = school;
             NeedHelpCourses = needHelpCourses;
-            UserId=user.__user_id;
+            UserId=user.UserId;
         }
 
         //This mehtod allows to clear all the fields of the profile class in one shot.
@@ -75,6 +75,10 @@ namespace StudyMate
             ProfilePicture = "";
             Hobbies.Clear();
 
+        }
+
+        public void AddCreatedEvent(EventCalendar e){
+            this.EventsCreated.Add(e);
         }
 
         //Override of Equals method. This is used to compare two profile objects.
