@@ -44,15 +44,16 @@ namespace StudyMate
                 
                 // userService.ChangePassword("alain","100","200");
                 // userService.DeleteUser("alain","200");
+                
                 var profile1= new Profile("1",currentUser,"Alain","Male",new School("1","Dawson"),18,"Computer Science");
                 var profile2= new Profile("2",userService.Login("Amir", "200"),"Amir","Male",new School("1","Dawson"),20,"Computer Science");
+                List<CourseNeedHelpWith> coursesNeedHelpWith1=new List<CourseNeedHelpWith>(){new CourseNeedHelpWith(profile1,new Course("1","Math")),new CourseNeedHelpWith(profile1,new Course("3","Cinema"))};
+                List<CourseNeedHelpWith> coursesNeedHelpWith2=new List<CourseNeedHelpWith>(){new CourseNeedHelpWith(profile2,new Course("2","Science"))};
                 profileService.DeleteProfile(profile1);
                 profileService.DeleteProfile(profile2);
                 schoolService.RemoveSchool(new School("1","Dawson"));
                 profileService.AddProfile(profile1);
                 profileService.AddProfile(profile2);
-                profileService.DeleteProfile(profile1);
-                profileService.DeleteProfile(profile2);
 //                 System.Console.WriteLine("Attempt to set up Profile for user1");
 //                 Profile profile1 = new Profile(Guid.NewGuid().ToString(), "Alain", 20, "Education", "Female", "Henri Bourassa", currentUser.Id, DemoCourses, DemoCourses, DemoCourses, "I'am MoMO", "None");
 //                 profileService.AddProfile(profile1, currentUser);

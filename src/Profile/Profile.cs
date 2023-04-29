@@ -38,7 +38,7 @@ namespace StudyMate
         //setters.
 
         public Profile(){}
-        public Profile(string ProfileId,User user,string name,string gender, School school,List<CourseNeedHelpWith> courseNeedHelpWith,int age, string program,string PersonalDescription="Hi I am using this app")
+        public Profile(string ProfileId,User user,string name,string gender, School school,int age, string program,string PersonalDescription="Hi I am using this app")
         {
             this.ProfileId=ProfileId;
             this.UserId=user.UserId;
@@ -46,7 +46,6 @@ namespace StudyMate
             this.Gender = gender;
             this.SchoolId = school.SchoolId;
             this.School=school;
-            this.CourseNeedHelpWith=courseNeedHelpWith;
             this.Age=age;
             this.Program=program;
             this.PersonalDescription = PersonalDescription;

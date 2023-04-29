@@ -5,7 +5,7 @@ public class CourseServices
 {
     private StudyMateDbContext _context = null!;
     private static Course? __trackedCourse = new();
-    private static CourseNeedHelpWith? __trackedNeedHelpWithCourse = new();
+    public static CourseNeedHelpWith? __trackedNeedHelpWithCourse = new();
     private static CourseServices? _instance;
     public static CourseServices getInstance(StudyMateDbContext context)
     {
@@ -36,7 +36,7 @@ public class CourseServices
          }
     }
 
-    public virtual void AddCourse( Course course){
+    public virtual void AddCourse(Course course){
         __trackedCourse = _context.StudyCourses?.SingleOrDefault(c => c.CourseId == course.CourseId);
         // If the Course already exists, it will not be added to the database.
         if (__trackedCourse != null)
@@ -48,7 +48,7 @@ public class CourseServices
             _context.SaveChanges();
         }
     }
-    public virtual void AddCoursesNeedHelpWith(List<CourseNeedHelpWith> courseNeedHelpWith)
+    public virtual void AddCoursesNeedHelpWith(Profile profile,List<CourseNeedHelpWith> courseNeedHelpWith)
     {
          // Get the Course that the user needs help with from the database
          foreach (var item in courseNeedHelpWith)
@@ -56,7 +56,7 @@ public class CourseServices
             __trackedCourse = _context.StudyCourses?.SingleOrDefault(c => c.CourseId == item.CourseId);
             __trackedNeedHelpWithCourse = _context.CoursesNeedHelpWith?.SingleOrDefault(c => c.CourseId == item.CourseId && c.ProfileId == item.ProfileId);
             // If the Course already exists in the bridging table, it will not be added to the database.
-            if (__trackedCourse != null)
+            if (__trackedNeedHelpWithCourse != null)
             {
                 System.Console.WriteLine("This course already exist in the database's bridging table.");
             }else{
@@ -64,7 +64,11 @@ public class CourseServices
                 if (__trackedCourse is null)
                 {
                     AddCourse(__trackedNeedHelpWithCourse.Course);
+                }else{
+                    __trackedNeedHelpWithCourse.Course=__trackedCourse;
                 }
+                ProfileServices.__trackedProfile=profile;
+                __trackedNeedHelpWithCourse.Profile=ProfileServices.__trackedProfile;
                 _context.CoursesNeedHelpWith!.Add(__trackedNeedHelpWithCourse);
                 _context.SaveChanges();
             }
