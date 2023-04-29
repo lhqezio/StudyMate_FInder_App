@@ -14,7 +14,9 @@ namespace StudyMate
         public CourseNeedHelpWith(){}
         public CourseNeedHelpWith(Profile profile, Course course){
             this.CourseId=course.CourseId;
+            this.Course=course;
             this.ProfileId=profile.ProfileId;
+            this.Profile=profile;
         }
     }
 }

@@ -33,9 +33,9 @@ public class CourseServices
             }else{
                 __trackedCourse=item.Course;
                 _context.StudyCourses!.Add(__trackedCourse);
+                _context.SaveChanges();
                 ProfileServices.__trackedProfile=profile;
                 AddNeedHelpBridge(ProfileServices.__trackedProfile,__trackedCourse);
-                _context.SaveChanges();
             }
          }
     }
@@ -44,6 +44,7 @@ public class CourseServices
         __trackedNeedHelpWithCourse = _context.CoursesNeedHelpWith?.SingleOrDefault(c => c.CourseId == course.CourseId && c.ProfileId == profile.ProfileId);
         if (__trackedNeedHelpWithCourse is not null)
         {
+            // ProfileServices.__trackedProfile.CourseNeedHelpWith=__trackedNeedHelpWithCourse;
             System.Console.WriteLine("This need help with course already exist in the database.");
         }else{
             __trackedNeedHelpWithCourse=new CourseNeedHelpWith(profile,course);
