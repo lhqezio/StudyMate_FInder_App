@@ -74,7 +74,7 @@ public class SearchServices
     }
         
     //SearchProfileByUser Method => Search Profile by Associated User
-    public virtual  List<Profile> SearchProfileByUser(string userId){
+    public virtual Profile SearchProfileByUser(string userId){
         Search sc = new Search(_context);
         return sc.SearchProfileByUser(userId);
     }

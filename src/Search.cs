@@ -69,11 +69,9 @@ namespace StudyMate
         }
 
         //SearchProfileByUser
-        public List<Profile> SearchProfileByUser(string userId)
+        public Profile SearchProfileByUser(string userId)
         {
-             var profiles =  _context.Profiles!
-                            .Where(p => p.UsrId.Equals(userId))
-                            .ToList();
+             var profiles =  _context.Profiles!.SingleOrDefault(p => p.UsrId == userId);
             return profiles;
         }
      }
