@@ -9,7 +9,7 @@
             {
                 var userService=new UserServices(db);
                 var profileService = new ProfileServices(db);
-
+                var eventService = new EventServices(db);
                 // 1.	Create a new user account (user1)
                 //I just store the password here as plain text for simplicity. Otherwise the password should come as an input from the user.
                 var user1 = new UserDB("amirXoXo","example@gmail.com","Random password");
@@ -54,6 +54,7 @@
                 EventCalendar eC = new EventCalendar("Study event", profile1, profileList, dTime, description, school, eventCourses, location, sent);
                 profile1.Events.Add(eC);
                 profile1.AddCreatedEvent(eC);
+                eventService.AddEvent(eC,currentUser);
                 profileService.UpdateProfile(profile1,currentUser);
 
                 // 4.	Log out from user1
