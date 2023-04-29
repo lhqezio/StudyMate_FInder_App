@@ -4,17 +4,7 @@ namespace StudyMate;
 public class EventServices : IDisposable
 {
     private StudyMateDbContext _context = null!;
-    private static EventServices? _instance;
-    public static EventServices getInstance(StudyMateDbContext context)
-    {
-        if (_instance is null)
-        {
-            _instance = new EventServices(context);
-        }
-        return _instance;
-    }
-    
-    private EventServices(StudyMateDbContext context)
+    public EventServices(StudyMateDbContext context)
     {
         _context = context;
     }
@@ -23,21 +13,20 @@ public class EventServices : IDisposable
         //AddEvent Method => Add event to the list of events
         public virtual void AddEvent(EventCalendar e, User u){
             // if(_context.ValidateSessionKey(u.__session_key)){
-                using (_context)
-                {
-                    _context.Events!.Add(e);
-                    _context.SaveChanges();
-                }
+                _context.Events!.Add(e);
+                _context.SaveChanges();
             // }
         }
 
         //DeleteEvent Method => Delete event to the list of events
         public virtual void DeleteEvent(EventCalendar eventToDelete, User u){
-            // if(_context.ValidateSessionKey(u.__session_key)){ 
-                using(_context){
-                    _context.Events!.Remove(eventToDelete);
+            // if(_context.ValidateSessionKey(u.__session_key)){
+                var toDeleteEvent = _context.Events!.FirstOrDefault(e => e.Equals(eventToDelete));
+                if (toDeleteEvent is not null)
+                {
+                    _context.Events!.Remove(toDeleteEvent);
                     _context.SaveChanges();
-                }
+                } 
             // }
         }
 
@@ -50,34 +39,25 @@ public class EventServices : IDisposable
         //EditEvent Method => Edit an event
         public virtual void UpdateEvent(EventCalendar eventToUpdate, User u){
             // if(_context.ValidateSessionKey(u.__session_key)){_context.Entry(updateEvent).State = EntityState.Modified;
-                using (_context)
-                {
-                    _context.Events!.Update(eventToUpdate);
-                    _context.SaveChanges();
-                }
+                _context.Events!.Update(eventToUpdate);
+                _context.SaveChanges();
             // }
         }
         
 
         //AddParticipant => Add participant to event
         public virtual void AddParticipant(User u, EventCalendar e, Profile participant){
-            // if(_context.ValidateSessionKey(u.__session_key)){
-                using (_context)
-                {
-                   e.AddParticipant(participant);
-                    _context.SaveChanges(); 
-                }
+            // if(_context.ValidateSessionKey(u.__session_key)){             
+                e.AddParticipant(participant);
+                _context.SaveChanges(); 
             // }
         }
 
         //RemoveParticipant => Add participant to event
         public virtual void RemoveParticipant(User u, EventCalendar e, Profile participant){
             // if(_context.ValidateSessionKey(u.__session_key)){
-                using (_context)
-                {
-                    e.RemoveParticipant(participant);
-                    _context.SaveChanges();
-                }
+                e.RemoveParticipant(participant);
+                _context.SaveChanges();
             // }
         }
 

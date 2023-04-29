@@ -12,8 +12,8 @@ using StudyMate;
 namespace src.Migrations
 {
     [DbContext(typeof(StudyMateDbContext))]
-    [Migration("20230429004737_InitialCreate3")]
-    partial class InitialCreate3
+    [Migration("20230429023231_InitialCore2")]
+    partial class InitialCore2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -120,8 +120,9 @@ namespace src.Migrations
                     b.Property<string>("CourseId")
                         .HasColumnType("NVARCHAR2(450)");
 
-                    b.Property<int>("Course")
-                        .HasColumnType("NUMBER(10)");
+                    b.Property<string>("Course")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("CourseId");
 
@@ -133,8 +134,9 @@ namespace src.Migrations
                     b.Property<string>("CourseId")
                         .HasColumnType("NVARCHAR2(450)");
 
-                    b.Property<int>("Course")
-                        .HasColumnType("NUMBER(10)");
+                    b.Property<string>("Course")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("CourseId");
 
@@ -199,8 +201,9 @@ namespace src.Migrations
                     b.Property<string>("CourseId")
                         .HasColumnType("NVARCHAR2(450)");
 
-                    b.Property<int>("Course")
-                        .HasColumnType("NUMBER(10)");
+                    b.Property<string>("Course")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("CourseId");
 
@@ -215,8 +218,8 @@ namespace src.Migrations
                     b.Property<int?>("Age")
                         .HasColumnType("NUMBER(10)");
 
-                    b.Property<int?>("Gender")
-                        .HasColumnType("NUMBER(10)");
+                    b.Property<string>("Gender")
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("Name")
                         .IsRequired()
@@ -257,11 +260,14 @@ namespace src.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.HasKey("SchoolId");
 
-                    b.ToTable("School");
+                    b.HasIndex("Name")
+                        .IsUnique();
+
+                    b.ToTable("Schools");
                 });
 
             modelBuilder.Entity("StudyMate.SessionDB", b =>
@@ -286,8 +292,9 @@ namespace src.Migrations
                     b.Property<string>("CourseId")
                         .HasColumnType("NVARCHAR2(450)");
 
-                    b.Property<int>("Course")
-                        .HasColumnType("NUMBER(10)");
+                    b.Property<string>("Course")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("CourseId");
 

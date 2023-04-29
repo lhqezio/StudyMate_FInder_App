@@ -4,21 +4,12 @@ namespace StudyMate;
 public class ProfileServices
 {
     private StudyMateDbContext _context = null!;
-    private static ProfileServices? _instance;
-    public static ProfileServices getInstance(StudyMateDbContext context)
-    {
-        if (_instance is null)
-        {
-            _instance = new ProfileServices(context);
-        }
-        return _instance;
-    }
     public ProfileServices(StudyMateDbContext context)
     {
         _context = context;
     }
 
-    public virtual void AddProfile(Profile profile, User u)
+    public virtual void AddProfile(Profile profile)
     {
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))
@@ -40,32 +31,21 @@ public class ProfileServices
             
             _context.Profiles!.Remove(_context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId));
             _context.SaveChanges();
-            
-        // }
+        }
     }
 
-    public virtual void UpdateProfile(Profile profile, User u)
+    public virtual void UpdateProfile(Profile profile)
     {
-        //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
-        // if (_context.ValidateSessionKey(u.__session_key))
-        // {
-            _context.Profiles!.Update(profile);
-            _context.SaveChanges();
-        // }
+        _context.Profiles!.Update(profile);
+        _context.SaveChanges();
     }
 
     public virtual List<Profile> GetAllProfiles()
     {
-        //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
-        // if (_context.ValidateSessionKey(u.__session_key))
-        // {
-            
-            return _context.Profiles!.ToList();
-            
-        //}
+        return _context.Profiles!.ToList();
     }
 
-    public virtual Profile? GetSpecificProfileById(string profileId)
+    public virtual Profile? GetSpecificProfileById(string userId)
     {
         //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
         // if (_context.ValidateSessionKey(u.__session_key))

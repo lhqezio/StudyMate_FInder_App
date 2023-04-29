@@ -8,15 +8,6 @@ namespace StudyMate;
 class UserServices
 {
     private StudyMateDbContext _context = null!;
-    private static UserServices? _instance;
-    public static UserServices getInstance(StudyMateDbContext context)
-    {
-        if (_instance is null)
-        {
-            _instance = new UserServices(context);
-        }
-        return _instance;
-    }
     public UserServices(StudyMateDbContext context)
     {
         _context = context;

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace src.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialCreate : Migration
+    public partial class InitialCore : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -16,7 +16,7 @@ namespace src.Migrations
                 columns: table => new
                 {
                     CourseId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    Course = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                    Course = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -28,7 +28,7 @@ namespace src.Migrations
                 columns: table => new
                 {
                     CourseId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    Course = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                    Course = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -52,7 +52,7 @@ namespace src.Migrations
                 columns: table => new
                 {
                     CourseId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    Course = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                    Course = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -60,15 +60,15 @@ namespace src.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "School",
+                name: "Schools",
                 columns: table => new
                 {
                     SchoolId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
+                    Name = table.Column<string>(type: "NVARCHAR2(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_School", x => x.SchoolId);
+                    table.PrimaryKey("PK_Schools", x => x.SchoolId);
                 });
 
             migrationBuilder.CreateTable(
@@ -89,7 +89,7 @@ namespace src.Migrations
                 columns: table => new
                 {
                     CourseId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    Course = table.Column<int>(type: "NUMBER(10)", nullable: false)
+                    Course = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -117,7 +117,7 @@ namespace src.Migrations
                     ProfileId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     UserId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Gender = table.Column<int>(type: "NUMBER(10)", nullable: true),
+                    Gender = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
                     Age = table.Column<int>(type: "NUMBER(10)", nullable: true),
                     Program = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     PersonalDescription = table.Column<string>(type: "NVARCHAR2(2000)", nullable: true),
@@ -128,9 +128,9 @@ namespace src.Migrations
                 {
                     table.PrimaryKey("PK_Profiles", x => x.ProfileId);
                     table.ForeignKey(
-                        name: "FK_Profiles_School_SchoolId",
+                        name: "FK_Profiles_Schools_SchoolId",
                         column: x => x.SchoolId,
-                        principalTable: "School",
+                        principalTable: "Schools",
                         principalColumn: "SchoolId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
@@ -171,12 +171,12 @@ namespace src.Migrations
                 {
                     EventId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     Title = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
+                    Date = table.Column<DateTimeOffset>(type: "TIMESTAMP(7) WITH TIME ZONE", nullable: false),
+                    Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     Location = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     IsSent = table.Column<bool>(type: "NUMBER(1)", nullable: false),
                     ProfileId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    SchoolId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    Date = table.Column<DateTimeOffset>(type: "TIMESTAMP(7) WITH TIME ZONE", nullable: false),
-                    Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
+                    SchoolId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -188,9 +188,9 @@ namespace src.Migrations
                         principalColumn: "ProfileId",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Events_School_SchoolId",
+                        name: "FK_Events_Schools_SchoolId",
                         column: x => x.SchoolId,
-                        principalTable: "School",
+                        principalTable: "Schools",
                         principalColumn: "SchoolId",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -367,6 +367,12 @@ namespace src.Migrations
                 column: "TakenCoursesCourseId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Schools_Name",
+                table: "Schools",
+                column: "Name",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Users_Email",
                 table: "Users",
                 column: "Email",
@@ -425,7 +431,7 @@ namespace src.Migrations
                 name: "Profiles");
 
             migrationBuilder.DropTable(
-                name: "School");
+                name: "Schools");
 
             migrationBuilder.DropTable(
                 name: "Users");

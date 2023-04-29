@@ -10,13 +10,13 @@ public class ProfileServicesTests
     [TestMethod]
     public void AddProfileTest_AddsAProfileToDB_ReturnsVoid(){
         //Arrange
-        var user1=new User("amirreza","PK1","1");
+        var user1=new User("amirreza","PK1","1","password");
         var mockSet = new Mock<DbSet<Profile>>();
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(p => p.Profiles).Returns(mockSet.Object);
         var service = new ProfileServices(mockContext.Object);
         //Act
-        service.AddProfile(new Profile("Amir",20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},user1,Genders.Male),new User(user1,"100"));
+        service.AddProfile(new Profile("Amir",20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.History)},user1,Genders.Male));
         //Assert
         mockSet.Verify(p => p.Add(It.IsAny<Profile>()), Times.Once());
         mockContext.Verify(p => p.SaveChanges(), Times.Once());
@@ -26,14 +26,21 @@ public class ProfileServicesTests
     public void DeleteProfileTest_DeletesAProfileFromDB_ReturnsVoid()
     {
         // Arrange
-        var user1 = new User("amirreza", "PK1", "1");
+        var listdata = new List<Profile>();
+        var user1=new User("amirreza","PK1","1","password");
         var profileToDelete = new Profile("Amir", 20, new School("Dawson College"), "Computer Science", new List<NeedHelpCourses>() { new NeedHelpCourses(Courses.History) }, user1, Genders.Male);
+        listdata.Add(profileToDelete);
+        var data = listdata.AsQueryable();
         var mockSet = new Mock<DbSet<Profile>>();
+        mockSet.As<IQueryable<Profile>>().Setup(m => m.Provider).Returns(data.Provider);
+        mockSet.As<IQueryable<Profile>>().Setup(m => m.Expression).Returns(data.Expression);
+        mockSet.As<IQueryable<Profile>>().Setup(m => m.ElementType).Returns(data.ElementType);
+        mockSet.As<IQueryable<Profile>>().Setup(m => m.GetEnumerator()).Returns(data.GetEnumerator());
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(p => p.Profiles).Returns(mockSet.Object);
         var service = new ProfileServices(mockContext.Object);
         // Act
-        service.DeleteProfile(profileToDelete, new User(user1,"100"));
+        service.DeleteProfile(profileToDelete);
         // Assert
         mockSet.Verify(p => p.Remove(It.IsAny<Profile>()), Times.Once());
         mockContext.Verify(p => p.SaveChanges(), Times.Once());
@@ -42,14 +49,14 @@ public class ProfileServicesTests
     [TestMethod]
     public void UpdateProfileTest_UpdatesProfileInDB_ReturnsVoid(){
         // Arrange
-        var user1 = new User("amirreza", "PK1", "1");
+        var user1=new User("amirreza","PK1","1","password");
         var profile = new Profile("Amir", 20, new School("Dawson College"), "Computer Science", new List<NeedHelpCourses>() { new NeedHelpCourses(Courses.History) }, user1, Genders.Male);
         var mockSet = new Mock<DbSet<Profile>>();
         var mockContext = new Mock<StudyMateDbContext>();
         mockContext.Setup(p => p.Profiles).Returns(mockSet.Object);
         var service = new ProfileServices(mockContext.Object);
         //Act
-        service.UpdateProfile(profile, new User(user1,"100"));
+        service.UpdateProfile(profile);
         //Assert
         mockSet.Verify(p => p.Update(It.IsAny<Profile>()), Times.Once());
         mockContext.Verify(p => p.SaveChanges(), Times.Once());
@@ -59,9 +66,9 @@ public class ProfileServicesTests
     public void GetAllProfilesTest_QueriesAllProfiles_ReturnsInt(){
         // Arrange
         var listdata = new List<Profile>();
-        var user1 = new User("amirreza", "PK1", "1");
+        var user1=new User("amirreza","PK1","1","password");
         var profile1 = new Profile("Amir", 20, new School("Dawson College"), "Computer Science", new List<NeedHelpCourses>() { new NeedHelpCourses(Courses.History) }, user1, Genders.Male);
-        var user2 = new User("Leo", "PK2", "2");
+        var user2 = new User("Leo", "PK2", "2","password");
         var profile2 = new Profile("Leonard", 34, new School("MIT"), "Political science", new List<NeedHelpCourses>() { new NeedHelpCourses(Courses.Political_Science) }, user2, Genders.Male);
         listdata.Add(profile1);
         listdata.Add(profile2);
@@ -85,9 +92,9 @@ public class ProfileServicesTests
     {
         // Arrange
         var listdata = new List<Profile>();
-        var user1 = new User("amirreza", "PK1", "1");
+        var user1=new User("amirreza","PK1","1","password");
         var profile1 = new Profile("Amir", 20, new School("Dawson College"), "Computer Science", new List<NeedHelpCourses>() { new NeedHelpCourses(Courses.History) }, user1, Genders.Male);
-        var user2 = new User("Leo", "PK2", "2");
+        var user2 = new User("Leo", "PK2", "2","password");
         var profile2 = new Profile("Leonard", 34, new School("MIT"), "Political science", new List<NeedHelpCourses>() { new NeedHelpCourses(Courses.Political_Science) }, user2, Genders.Male);
         listdata.Add(profile1);
         listdata.Add(profile2);
@@ -111,9 +118,9 @@ public class ProfileServicesTests
     {
         // Arrange
         var listdata = new List<Profile>();
-        var user1 = new User("amirreza", "PK1", "1");
+        var user1=new User("amirreza","PK1","1","password");
         var profile1 = new Profile("Amir", 20, new School("Dawson College"), "Computer Science", new List<NeedHelpCourses>() { new NeedHelpCourses(Courses.History) }, user1, Genders.Male);
-        var user2 = new User("Leo", "PK2", "2");
+        var user2 = new User("Leo", "PK2", "2","password");
         var profile2 = new Profile("Leonard", 34, new School("MIT"), "Political science", new List<NeedHelpCourses>() { new NeedHelpCourses(Courses.Political_Science) }, user2, Genders.Male);
         listdata.Add(profile1);
         listdata.Add(profile2);
@@ -137,8 +144,8 @@ public class ProfileServicesTests
     {
         // Arrange
         var listdata = new List<Profile>();
-        var user = new User("amirreza", "PK1", "1");
-        var profile = new Profile("Amir", 20, new School("Dawson College"), "Computer Science", new List<NeedHelpCourses>() { new NeedHelpCourses(Courses.History) }, user, Genders.Male);
+        var user1=new User("amirreza","PK1","1","password");
+        var profile = new Profile("Amir", 20, new School("Dawson College"), "Computer Science", new List<NeedHelpCourses>() { new NeedHelpCourses(Courses.History) }, user1, Genders.Male);
         listdata.Add(profile);
         var data = listdata.AsQueryable();
         var mockSet = new Mock<DbSet<Profile>>();
@@ -160,9 +167,9 @@ public class ProfileServicesTests
     {
         // Arrange
         var listdata = new List<Profile>();
-        var user = new User("amirreza", "PK1", "1");
-        var profile = new Profile("Amir", 20, new School("Dawson College"), "Computer Science", new List<NeedHelpCourses>() { new NeedHelpCourses(Courses.History) }, user, Genders.Male);
-        var user2 = new User("Leo", "PK2", "2");
+        var user1=new User("amirreza","PK1","1","password");
+        var profile = new Profile("Amir", 20, new School("Dawson College"), "Computer Science", new List<NeedHelpCourses>() { new NeedHelpCourses(Courses.History) }, user1, Genders.Male);
+        var user2 = new User("Leo", "PK2", "2","password");
         var profile2 = new Profile("Leonard", 34, new School("MIT"), "Political science", new List<NeedHelpCourses>() { new NeedHelpCourses(Courses.Political_Science) }, user2, Genders.Male);
         listdata.Add(profile);
         var data = listdata.AsQueryable();

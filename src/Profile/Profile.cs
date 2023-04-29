@@ -20,7 +20,7 @@ namespace StudyMate
 
         //Profile specific properties
         public string Name { get; set; } = "";
-        public Genders? Gender { get; set; }
+        public String? Gender { get; set; }
         public int? Age { get; set; }
         public string Program { get; set; } = "";
         public string? PersonalDescription { get; set; } = "";
@@ -37,7 +37,7 @@ namespace StudyMate
         [ForeignKey("School")]
         public string SchoolId{get;set;}
         public School? School{get;set;}=null!;
-        public List<EventCalendar> EventsCreated {get;}=new();
+        public List<EventCalendar> EventsCreated {get;set;}=new();
         
         
         public Profile(){}
@@ -50,7 +50,7 @@ namespace StudyMate
             Name = name;
             Age = age;
             Program = program;
-            Gender = gender;
+            Gender = gender.ToString();
             SchoolId=school.SchoolId;
             School = school;
             NeedHelpCourses = needHelpCourses;
@@ -75,6 +75,10 @@ namespace StudyMate
             ProfilePicture = "";
             Hobbies.Clear();
 
+        }
+
+        public void AddCreatedEvent(EventCalendar e){
+            this.EventsCreated.Add(e);
         }
 
         //Override of Equals method. This is used to compare two profile objects.
