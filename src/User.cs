@@ -14,6 +14,7 @@ public class User
     public string Username { get; set; }
     public string Email { get; set; }
     public string PasswordHash { get; set; }
+    public List<Conversation> Conversations { get; set; } = new();
 
     public User(string userId,string username, string email,string passwordHash)
     {
