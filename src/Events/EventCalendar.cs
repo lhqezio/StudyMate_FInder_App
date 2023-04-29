@@ -1,3 +1,4 @@
+using System.ComponentModel;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
@@ -10,7 +11,27 @@ namespace StudyMate
         [Key]
         public string EventId { get; set;}
 
-        // EventCalendar specific properties
+        //Creator
+        [ForeignKey("Users")]
+        public string CreatorId {get; set;}
+        public Profile EventCreator {get;set;}
+        
+        //Participants
+        private List<Profile> _participants {get; set;} = new();
+        public List<Profile> Participants
+        {
+            get { return _participants; }
+            set
+            {
+                if (value == null || value.Count == 0)
+                {
+                    throw new ArgumentException("There should be at least one participant.");
+                }
+                _participants = value;
+            }
+        }
+        
+        //Title
         private string _title;
         public string Title
         {
@@ -24,6 +45,8 @@ namespace StudyMate
                 _title = value;
             }
         }
+        
+        //Date
         private DateTimeOffset _date;
         public DateTimeOffset Date
         {
@@ -37,6 +60,8 @@ namespace StudyMate
                 _date = value;
             }
         }
+        
+        //Description
         private string _description;
         public string Description
         {
@@ -50,6 +75,8 @@ namespace StudyMate
                 _description = value; 
             }
         }
+        
+        //Location
         private string _location;
         public string Location
         {
@@ -63,51 +90,76 @@ namespace StudyMate
                 _location = value; 
             }
         }
-
-        public bool IsSent { get; set; }
-
-        // Many-to-many relationships
-        private List<Profile> _participants {get; set;}
-        public List<Profile> Participants
+        
+        //Subjects
+        public string _subjects {get; set;}
+        public string Subjects
         {
-            get { return _participants; }
+            get { return _subjects; }
             set
             {
-                if (value == null || value.Count == 0)
+                if (string.IsNullOrWhiteSpace(value))
                 {
-                    throw new ArgumentException("There should be at least one participant.");
+                    throw new ArgumentException("Subjects can't be empty, null, or whitespace.");
                 }
-                _participants = value;
+                _subjects = value;
             }
         }
-        public List<CourseEvent> CourseEvents {get; set;}
-        
-        // One-to-many relationships
-        [ForeignKey("Profile")]
-        public string ProfileId{get;set;}
-        public Profile EventCreator {get;set;}
-        public string SchoolId{get;set;}
-        public School School{get; set;} //Will be a dropdown list for user input
-        
-        // Constructors
-        public EventCalendar(){}
-        public EventCalendar(string title, Profile eventCreator, List<Profile> participants, DateTimeOffset date, string description,  School school, List<CourseEvent> courseEvents, string location , bool isSent=false)
+
+        //Courses
+        public string _courses {get; set;}
+        public string Courses
         {
-            EventId = Guid.NewGuid().ToString();
-            _title = title;
-            ProfileId = eventCreator.ProfileId;
-            EventCreator = eventCreator;
-            _participants = participants; 
-            Date = date;
-            _description = description;
-            SchoolId=school.SchoolId;
-            School = school;
-            _location = location;
-            CourseEvents=courseEvents;
-            IsSent=isSent;
+            get { return _courses; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Courses can't be empty, null, or whitespace.");
+                }
+                _courses = value;
+            }
+        }
+        
+        //School
+        public string _school{get; set;}         
+        public string School
+        {
+            get { return _school; }
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    throw new ArgumentException("Courses can't be empty, null, or whitespace.");
+                }
+                _school = value;
+            }
         }
 
-        //Method to add Participants
+        //Sent or not
+        public bool IsSent { get; set; }
+
+        // Constructors
+        public EventCalendar(){}
+        public EventCalendar(string eventId, string title, Profile eventCreator, List<Profile> participants, DateTimeOffset date, string description, string location, string courses, string school, bool isSent=false)
+        {
+            EventId = eventId;
+            _title = title;
+            EventCreator = eventCreator;
+            CreatorId = EventCreator.ProfileId;
+            _participants = participants; 
+            _date = date;
+            _description = description;
+            _location = location;
+            _courses = courses;
+            _school = school;
+            IsSent = isSent;
+        }
+
+        //	Creating a new event and Editing an existing event (restricted to the user who created it) will be dealt with in EventServices (which represents EventManager)
+
+
+        //Method to add Participants =>	Users should be able to mark themselves as attending an event
         public void AddParticipant(Profile newParticipant){
             if(Participants.Contains(newParticipant)){
                 throw new ArgumentException("This participant is already part of the event");
@@ -115,7 +167,7 @@ namespace StudyMate
             Participants.Add(newParticipant);
         }
 
-        //Method to remove Participants
+        //Method to remove Participants =>	Users should be able to remove themselves from an event
         public void RemoveParticipant(Profile participant){
             if(!Participants.Contains(participant)){
                 throw new ArgumentException("This participant isn't part of the event in the first place");
@@ -123,13 +175,13 @@ namespace StudyMate
             Participants.Remove(participant);
         }
 
-        //Method to Check if participant is attending the event
+        //Method to Check if participant is attending the event 
         public bool Attends(Profile participant)
         {
             return Participants.Contains(participant);
         }
 
-        //Method to view participants
+        //Method to view participants => User should be able to view the list of the other users who are attending the event.
         public List<Profile> ShowParticipants()
         {
             return Participants;
@@ -140,14 +192,15 @@ namespace StudyMate
         {
             if (obj is not EventCalendar other)
                 return false;
-            return _title == other._title
+            return EventId == other.EventId
+                && _title == other._title
                 && EventCreator.Equals(other.EventCreator) 
                 && _participants.SequenceEqual(other._participants)
                 && _date == other._date
                 && _description == other._description
                 && School.Equals(other.School)
                 && Location == other.Location
-                && CourseEvents.SequenceEqual(other.CourseEvents)
+                && Courses.SequenceEqual(other.Courses)
                 && IsSent == other.IsSent;
         }
 
@@ -156,15 +209,14 @@ namespace StudyMate
         {
             return EventId.GetHashCode() ^
                 _title.GetHashCode() ^
-                ProfileId.GetHashCode() ^
+                CreatorId.GetHashCode() ^
                 EventCreator.GetHashCode() ^
                 _participants.GetHashCode() ^
                 _date.GetHashCode() ^
                 _description.GetHashCode() ^
-                SchoolId.GetHashCode() ^
-                School.GetHashCode() ^
-                Location.GetHashCode() ^
-                CourseEvents.GetHashCode() ^
+                _school.GetHashCode() ^
+                _location.GetHashCode() ^
+                _courses.GetHashCode() ^
                 IsSent.GetHashCode();
         }
     }
