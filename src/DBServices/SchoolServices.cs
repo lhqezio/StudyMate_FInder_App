@@ -58,22 +58,28 @@ public class SchoolServices
         }
     }
 
-    // public virtual void UpdateProfile(Profile profile, User u)
-    // {
-    //     //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
-    //     // if (_context.ValidateSessionKey(u.__session_key))
-    //     // {
-    //         if(u.UserId != profile.UserId){
-    //             return;
-    //         }
-    //         _context.Profiles!.Update(profile);
-    //         _context.SaveChanges();
-    //     // }
-    // }
-    // public virtual Profile GetMyProfile(User u) {
-    //     return _context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId);
-    // }
-    // public virtual List<Profile> GetProfileByName(string name) {
-    //     return _context.Profiles!.Where(p => p.Name == name).ToList();
-    // }
+    public virtual void UpdateSchool(School school)
+    {
+        // Get the School from the database
+        __trackedSchool = _context.Schools?.SingleOrDefault(s => s.SchoolName == school.SchoolName);
+
+        // If the School already exists, then update it.
+        if (__trackedSchool != null)
+        {
+            _context.Schools!.Update(__trackedSchool);
+            _context.SaveChanges();
+            if (ProfileServices.__trackedProfile is not null)
+            {
+                ProfileServices.__trackedProfile.School=__trackedSchool;
+            }
+        }else{
+            __trackedSchool=school;
+            _context.Schools!.Add(__trackedSchool);
+            _context.SaveChanges();
+            if (ProfileServices.__trackedProfile is not null)
+            {
+                ProfileServices.__trackedProfile.School=__trackedSchool;
+            }
+        }
+    }
 }

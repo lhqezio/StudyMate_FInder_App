@@ -134,10 +134,17 @@ namespace StudyMate
 
                 // 15.	Modify user1’s profile
                 var my_profile = profileService.GetMyProfile(currentUser);
-                my_profile.Name = "Joseph";
-                profileService.UpdateProfile(my_profile);
+                if (my_profile is not null)
+                {
+                    my_profile.Name = "Joseph";
+                    my_profile.School= new School("2","Vanier");
+                    profileService.UpdateProfile(my_profile);
+                }
                 my_profile = profileService.GetMyProfile(currentUser);
-                System.Console.WriteLine("Updated Profile" + my_profile.Name);
+                if (my_profile is not null)
+                {
+                    System.Console.WriteLine("Updated Profile" + my_profile.Name);
+                }
 
 //                 // 16.	Access messages, viewing text of the messages sent by user2.
 //                 List<Conversation> convos2 = conversationService.GetConversations(currentUser.Id);

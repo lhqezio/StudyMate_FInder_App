@@ -63,15 +63,15 @@ public class ProfileServices
         if (__trackedProfile != null)
         {
             __trackedProfile=profile;
-            // var schoolService=new SchoolServices(_context);
-            // schoolService.AddSchool(__trackedProfile.School);
+            var schoolService=new SchoolServices(_context);
+            schoolService.UpdateSchool(__trackedProfile.School);
             _context.Profiles!.Update(__trackedProfile);
             _context.SaveChanges();
         }else{
            System.Console.WriteLine("The profile you are trying to update does not exist.");
         }
     }
-    public virtual Profile GetMyProfile(User u) {
+    public virtual Profile? GetMyProfile(User u) {
         return _context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId);
     }
 
