@@ -67,6 +67,20 @@ public class CourseServices
          }
     }
 
+    public virtual void CheckCoursesEvent(List<EventCourse> eventCourse)
+    {
+         for (int i=0;i<eventCourse.Count;i++)
+         {
+            __trackedCourse = _context.StudyCourses?.SingleOrDefault(c => c.CourseId == eventCourse[i].CourseId);
+            if (EventServices.__trackedEvent is not null && __trackedCourse is null)
+            {
+                __trackedCourse = new Course(eventCourse[i].CourseId,eventCourse[i].CourseName);
+                AddCourse(__trackedCourse);
+                _context.SaveChanges();
+            }
+         }
+    }
+
     public virtual Course? GetCourseByName(string courseName) {
         __trackedCourse = _context.StudyCourses!.SingleOrDefault(c => c.CourseName == courseName);
         return __trackedCourse;

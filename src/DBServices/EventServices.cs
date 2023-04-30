@@ -26,7 +26,7 @@ public class EventServices
         public virtual void CreateEvent(EventCalendar e){
             // Get the event from the database
             __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == e.EventId);
-            // If the Course already exists, it will not be added to the database.
+            // If the event already exists, it will not be added to the database.
             if (__trackedEvent != null)
             {
                 System.Console.WriteLine("This event already exist in the database.");
@@ -34,6 +34,8 @@ public class EventServices
                 __trackedEvent=e;
                 var schoolService=new SchoolServices(_context);
                 schoolService.AddSchool(__trackedEvent.School);
+                var courseService=new CourseServices(_context);
+                courseService.CheckCoursesEvent(__trackedEvent.EventCourse);
                 if (ProfileServices.__trackedProfile is not null)
                 {
                     __trackedEvent.Creator=ProfileServices.__trackedProfile;
