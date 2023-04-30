@@ -53,6 +53,7 @@ namespace StudyMate
         //Courses 
         public List<Course> Courses {get;} = new();
         
+        //other properties
         //Title
         private string _title;
         public string Title
@@ -137,7 +138,6 @@ namespace StudyMate
         {
             EventId = eventId;
             _title = title;
-            Creator = creator;
             CreatorId = Creator.ProfileId;
             _participants = participants; 
             _date = date;
@@ -146,6 +146,7 @@ namespace StudyMate
             _subjects = subjects;
             Courses = courses;
             _school = school;
+            SchooId= school.SchoolId;
             IsSent = isSent;
         }
 

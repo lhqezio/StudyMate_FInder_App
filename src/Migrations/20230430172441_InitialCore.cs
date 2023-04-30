@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace src.Migrations
 {
     /// <inheritdoc />
-    public partial class ProfileEventRelationship10 : Migration
+    public partial class InitialCore : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -148,7 +148,8 @@ namespace src.Migrations
                 columns: table => new
                 {
                     CourseId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    ProfileId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false)
+                    ProfileId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    CourseName = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -172,7 +173,8 @@ namespace src.Migrations
                 columns: table => new
                 {
                     CourseId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    ProfileId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false)
+                    ProfileId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    CourseName = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -196,7 +198,8 @@ namespace src.Migrations
                 columns: table => new
                 {
                     CourseId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    ProfileId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false)
+                    ProfileId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    CourseName = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -220,13 +223,13 @@ namespace src.Migrations
                 columns: table => new
                 {
                     EventId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    SchooId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     CreatorId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     Title = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     Date = table.Column<DateTimeOffset>(type: "TIMESTAMP(7) WITH TIME ZONE", nullable: false),
                     Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     Location = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     Subjects = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    SchooId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     IsSent = table.Column<bool>(type: "NUMBER(1)", nullable: false)
                 },
                 constraints: table =>
@@ -274,15 +277,15 @@ namespace src.Migrations
                 name: "CourseEventCalendar",
                 columns: table => new
                 {
-                    Course = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    CoursesCourseId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false)
+                    CoursesCourseId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    EventsEventId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_CourseEventCalendar", x => new { x.Course, x.CoursesCourseId });
+                    table.PrimaryKey("PK_CourseEventCalendar", x => new { x.CoursesCourseId, x.EventsEventId });
                     table.ForeignKey(
-                        name: "FK_CourseEventCalendar_Events_Course",
-                        column: x => x.Course,
+                        name: "FK_CourseEventCalendar_Events_EventsEventId",
+                        column: x => x.EventsEventId,
                         principalTable: "Events",
                         principalColumn: "EventId",
                         onDelete: ReferentialAction.Cascade);
@@ -319,9 +322,9 @@ namespace src.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_CourseEventCalendar_CoursesCourseId",
+                name: "IX_CourseEventCalendar_EventsEventId",
                 table: "CourseEventCalendar",
-                column: "CoursesCourseId");
+                column: "EventsEventId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_CoursesCanHelpWith_ProfileId",

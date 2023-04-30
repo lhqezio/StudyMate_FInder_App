@@ -81,4 +81,5 @@ public class ProfileServices
     public virtual List<Profile> GetProfileByName(string name) {
         return _context.Profiles!.Where(p => p.Name == name).ToList();
     }
+
 }

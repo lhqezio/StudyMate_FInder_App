@@ -24,15 +24,15 @@ namespace src.Migrations
 
             modelBuilder.Entity("CourseEventCalendar", b =>
                 {
-                    b.Property<string>("Course")
-                        .HasColumnType("NVARCHAR2(450)");
-
                     b.Property<string>("CoursesCourseId")
                         .HasColumnType("NVARCHAR2(450)");
 
-                    b.HasKey("Course", "CoursesCourseId");
+                    b.Property<string>("EventsEventId")
+                        .HasColumnType("NVARCHAR2(450)");
 
-                    b.HasIndex("CoursesCourseId");
+                    b.HasKey("CoursesCourseId", "EventsEventId");
+
+                    b.HasIndex("EventsEventId");
 
                     b.ToTable("CourseEventCalendar");
                 });
@@ -103,6 +103,10 @@ namespace src.Migrations
                     b.Property<string>("ProfileId")
                         .HasColumnType("NVARCHAR2(450)");
 
+                    b.Property<string>("CourseName")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
                     b.HasKey("CourseId", "ProfileId");
 
                     b.HasIndex("ProfileId");
@@ -136,6 +140,10 @@ namespace src.Migrations
 
                     b.Property<string>("ProfileId")
                         .HasColumnType("NVARCHAR2(450)");
+
+                    b.Property<string>("CourseName")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.HasKey("CourseId", "ProfileId");
 
@@ -332,15 +340,15 @@ namespace src.Migrations
 
             modelBuilder.Entity("CourseEventCalendar", b =>
                 {
-                    b.HasOne("StudyMate.EventCalendar", null)
-                        .WithMany()
-                        .HasForeignKey("Course")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("StudyMate.Course", null)
                         .WithMany()
                         .HasForeignKey("CoursesCourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudyMate.EventCalendar", null)
+                        .WithMany()
+                        .HasForeignKey("EventsEventId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -507,8 +515,7 @@ namespace src.Migrations
 
             modelBuilder.Entity("StudyMate.School", b =>
                 {
-                    b.Navigation("Event")
-                        .IsRequired();
+                    b.Navigation("Event");
 
                     b.Navigation("Profiles");
                 });

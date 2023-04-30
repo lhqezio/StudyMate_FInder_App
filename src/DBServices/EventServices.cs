@@ -44,10 +44,10 @@ public class EventServices
         } 
         
         //CreateEvent Method => Create an event
-        public virtual EventCalendar CreateEvent(string title, Profile creator, List<Profile> participants, DateTimeOffset date, string description, string location, string subjects, List<Course> courses, School school){
-            EventCalendar newEvent = new EventCalendar(Guid.NewGuid().ToString(), title, creator, participants, date, description, location, subjects, courses, school);
-            this.AddEvent(newEvent);
-            return newEvent;
+        public virtual void CreateEvent(EventCalendar e){
+            __trackedEvent=e;
+            _context.Events!.Add(__trackedEvent);
+            _context.SaveChanges(); 
         }
 
         //DeleteEvent Method => Delete event to the list of events
