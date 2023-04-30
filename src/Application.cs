@@ -85,7 +85,7 @@ namespace StudyMate
                 // 6.	Create a profile for user2
                 System.Console.WriteLine("Attempt to set up Profile for user1");
                 var profile2= new Profile("2",currentUser,"samir","Male",new School("1","Dawson"),20,"Computer Science");
-                List<CourseNeedHelpWith> coursesNeedHelpWith2=new List<CourseNeedHelpWith>(){new CourseNeedHelpWith(profile2,new Course("2","Cinema"))};
+                List<CourseNeedHelpWith> coursesNeedHelpWith2=new List<CourseNeedHelpWith>(){new CourseNeedHelpWith(profile2,new Course("2","Cinema")),new CourseNeedHelpWith(profile2,new Course("3","Geography"))};
                 profile2.CourseNeedHelpWith=coursesNeedHelpWith2;
                 profileService.AddProfile(profile2);
 

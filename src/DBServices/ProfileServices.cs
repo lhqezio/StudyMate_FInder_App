@@ -33,11 +33,9 @@ public class ProfileServices
             var schoolService=new SchoolServices(_context);
             var courseService=new CourseServices(_context);
             schoolService.AddSchool(__trackedProfile.School);
-            // courseService.CheckCoursesNeedHelpWith(__trackedProfile.CourseNeedHelpWith);
+            courseService.CheckCourses(__trackedProfile.CourseNeedHelpWith);
             _context.Profiles!.Add(__trackedProfile);
             _context.SaveChanges();
-            // var courseService=new CourseServices(_context);
-            // courseService.AddCoursesNeedHelpWith(__trackedProfile,__trackedProfile.CourseNeedHelpWith);
         }
     }
 
@@ -48,8 +46,6 @@ public class ProfileServices
         // If the Profile already exists, then delete it.
         if (__trackedProfile != null)
         {
-            //  var courseService=new CourseServices(_context);
-            //  courseService.RemoveDependency(__trackedProfile.CourseNeedHelpWith);
             _context.Profiles!.Remove(__trackedProfile);
             _context.SaveChanges();
         }else{
