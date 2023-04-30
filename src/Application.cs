@@ -55,12 +55,16 @@ namespace StudyMate
                 System.Console.WriteLine("Attempt to set up Event for user1");
                 var user1_profile = profileService.GetMyProfile(currentUser);
                 courseService.AddCourse(new Course("1","Math"));
-                var event1_course=courseService.GetCourse();
-                var event_user1=new EventCalendar("1","Study for Math 101", currentUser.Profile, new List<Profile>() { profile1 }, DateTime.Now.AddHours(2), "Math 101", "Chez Saza", "Intro to Math", new List<Course>(){event1_course}, new School("3","Concordia")) 
-                System.Console.WriteLine("Attempt to delete Event for user1");
-                event1Use1.Title = "New Title";
-                eventService.EditEvent(event1Use1, currentUser.Profile);
-                eventService.DeleteEvent(event1Use1, currentUser.Profile);
+                var event1_course=courseService.GetCourseByName("Math");
+                if (user1_profile is not null && event1_course is not null)
+                {
+                    var event_user1=new EventCalendar("1","Study for Math 101", user1_profile, new List<Profile>() { profile1 }, DateTime.Now.AddHours(2), "Math 101", "Chez Saza", "Intro to Math", new List<Course>(){event1_course}, new School("3","Concordia"));
+                    eventService.CreateEvent(event_user1);
+                }
+                // System.Console.WriteLine("Attempt to delete Event for user1");
+                // event1Use1.Title = "New Title";
+                // eventService.EditEvent(event1Use1, currentUser.Profile);
+                // eventService.DeleteEvent(event1Use1, currentUser.Profile);
                 
                                 
                 // 4.	Log out from user1

@@ -31,6 +31,10 @@ public class SchoolServices
             {
                 ProfileServices.__trackedProfile.School=__trackedSchool;
             }
+            if (EventServices.__trackedEvent is not null)
+            {
+                EventServices.__trackedEvent.School=__trackedSchool;
+            }
             System.Console.WriteLine("This school already exist in the database.");
         }else{
             __trackedSchool=school;
@@ -39,6 +43,10 @@ public class SchoolServices
             if (ProfileServices.__trackedProfile is not null)
             {
                 ProfileServices.__trackedProfile.School=__trackedSchool;
+            }
+            if (EventServices.__trackedEvent is not null)
+            {
+                EventServices.__trackedEvent.School=__trackedSchool;
             }
         }
     }

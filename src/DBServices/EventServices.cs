@@ -45,9 +45,19 @@ public class EventServices
         
         //CreateEvent Method => Create an event
         public virtual void CreateEvent(EventCalendar e){
-            __trackedEvent=e;
-            _context.Events!.Add(__trackedEvent);
-            _context.SaveChanges(); 
+            // Get the event from the database
+            __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == e.EventId);
+            // If the Course already exists, it will not be added to the database.
+            if (__trackedEvent != null)
+            {
+                System.Console.WriteLine("This event already exist in the database.");
+            }else{
+                __trackedEvent=e;
+                var schoolService=new SchoolServices(_context);
+                schoolService.AddSchool(__trackedEvent.School);
+                _context.Events!.Add(__trackedEvent);
+                _context.SaveChanges(); 
+            }
         }
 
         //DeleteEvent Method => Delete event to the list of events
