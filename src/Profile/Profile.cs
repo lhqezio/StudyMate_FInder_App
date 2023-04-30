@@ -26,7 +26,10 @@ namespace StudyMate
         public List<CourseNeedHelpWith> CourseNeedHelpWith{get;set;} = new();
         // Many-to-many relationship
         public List<Hobby> Hobbies { get;} = new();
-        //public List<EventCalendar> Events { get; set; } = new();
+
+        [InverseProperty("Participants")]
+        public List<EventCalendar> ParticipatingEvents { get; set;} = new();
+
         //other properties
         public string Name { get; set; }
         public string Gender { get; set; }

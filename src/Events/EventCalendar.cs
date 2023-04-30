@@ -11,9 +11,10 @@ namespace StudyMate
         [Key]
         public string EventId { get; set;}
 
-        //Creator
-        [ForeignKey("Users")]
-        public string CreatorId {get; set;}
+        //Creator - One to many relationship
+        [ForeignKey("Profile")]
+        public string CreatorId {get; set;} //Profile Id         
+        public Profile Creator {get; set;}
         
         //Participants
         private List<Profile> _participants {get; set;} = new();
