@@ -48,32 +48,32 @@ public class CourseServices
             _context.SaveChanges();
         }
     }
-    // public virtual void AddCoursesNeedHelpWith(Profile profile,List<CourseNeedHelpWith> courseNeedHelpWith)
-    // {
-    //      // Get the Course that the user needs help with from the database
-    //      foreach (var item in courseNeedHelpWith)
-    //      {
-    //         __trackedNeedHelpWithCourse = _context.CoursesNeedHelpWith?.SingleOrDefault(c => c.CourseId == item.CourseId && c.ProfileId == item.ProfileId);
-    //         // If the Course already exists in the bridging table, it will be deleted.
-    //         if (__trackedNeedHelpWithCourse != null)
-    //         {
-    //             _context.CoursesNeedHelpWith!.Remove(__trackedNeedHelpWithCourse);
-    //             _context.SaveChanges();
-    //         }else{
-    //             __trackedNeedHelpWithCourse=item;
-    //             if (__trackedCourse is null)
-    //             {
-    //                 AddCourse(__trackedNeedHelpWithCourse.Course);
-    //             }else{
-    //                 __trackedNeedHelpWithCourse.Course=__trackedCourse;
-    //             }
-    //             ProfileServices.__trackedProfile=profile;
-    //             __trackedNeedHelpWithCourse.Profile=ProfileServices.__trackedProfile;
-    //             _context.CoursesNeedHelpWith!.Add(__trackedNeedHelpWithCourse);
-    //             _context.SaveChanges();
-    //         }
-    //      }
-    // }
+    public virtual void AddCoursesNeedHelpWith(List<CourseNeedHelpWith> courseNeedHelpWith)
+    {
+         // Get the Course that the user needs help with from the database
+         for (int i=0;i<=courseNeedHelpWith.Count;i++)
+         {
+            //Fix the issue here Amir
+            __trackedCourse = _context.StudyCourses?.SingleOrDefault(c => c.CourseId == courseNeedHelpWith[0].CourseId);
+            if (ProfileServices.__trackedProfile is not null && __trackedCourse is not null)
+            {
+                __trackedNeedHelpWithCourse = new CourseNeedHelpWith(ProfileServices.__trackedProfile,__trackedCourse);
+            }
+            // If the Course already exists in the bridging table, it will be deleted.
+            if (__trackedCourse != null && ProfileServices.__trackedProfile is not null && __trackedNeedHelpWithCourse is not null)
+            {
+                ProfileServices.__trackedProfile.CourseNeedHelpWith.Remove(__trackedNeedHelpWithCourse);
+            }
+            else if (__trackedCourse is null){
+                __trackedNeedHelpWithCourse=courseNeedHelpWith[i];
+                AddCourse(__trackedNeedHelpWithCourse.Course);
+                __trackedNeedHelpWithCourse.Course=__trackedCourse;
+                __trackedNeedHelpWithCourse.Profile=ProfileServices.__trackedProfile;
+                _context.CoursesNeedHelpWith!.Add(__trackedNeedHelpWithCourse);
+                _context.SaveChanges();
+            }
+         }
+    }
 
     // public virtual void RemoveDependency(List<CourseNeedHelpWith> courseNeedHelpWith)
     // { 

@@ -139,6 +139,7 @@ namespace StudyMate
                     if (my_profile is not null)
                     {
                         my_profile.Name = "Amirreza";
+                        schoolService.AddSchool(new School("2","Tehran University"));
                         my_profile.SchoolId="2";
                         profileService.UpdateProfile(my_profile);
                     }

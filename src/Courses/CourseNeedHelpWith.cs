@@ -18,5 +18,19 @@ namespace StudyMate
             this.ProfileId=profile.ProfileId;
             this.Profile=profile;
         }
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is CourseNeedHelpWith))
+            {
+                return false;
+            }
+            CourseNeedHelpWith other = (CourseNeedHelpWith) obj;
+            return this.Course.Equals(other.Course);
+        }
+
+        public override int GetHashCode()
+        {
+            return Course.GetHashCode();
+        }
     }
 }
