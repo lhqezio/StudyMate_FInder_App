@@ -73,13 +73,4 @@ public class ProfileServices
            System.Console.WriteLine("The profile you are trying to update does not exist.");
         }
     }
-    public virtual Profile? GetMyProfile(User u) {
-        __trackedProfile = _context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId);
-        return __trackedProfile;
-    }
-
-    public virtual List<Profile> GetProfileByName(string name) {
-        return _context.Profiles!.Where(p => p.Name == name).ToList();
-    }
-
 }

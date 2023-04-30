@@ -12,13 +12,8 @@ using StudyMate;
 namespace src.Migrations
 {
     [DbContext(typeof(StudyMateDbContext))]
-<<<<<<<< HEAD:src/Migrations/20230430174355_Tests.Designer.cs
-    [Migration("20230430174355_Tests")]
-    partial class Tests
-========
-    [Migration("20230430172441_InitialCore")]
-    partial class InitialCore
->>>>>>>> 2360e5d3713a567ed22a4e083cf4a87423e57a69:src/Migrations/20230430172441_InitialCore.Designer.cs
+    [Migration("20230430192919_Tests1")]
+    partial class Tests1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -96,9 +91,12 @@ namespace src.Migrations
 
                     b.Property<string>("CourseName")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.HasKey("CourseId");
+
+                    b.HasIndex("CourseName")
+                        .IsUnique();
 
                     b.ToTable("StudyCourses");
                 });

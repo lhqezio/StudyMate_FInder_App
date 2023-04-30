@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 
+
 namespace StudyMate;
 public class SchoolServices
 {
@@ -37,8 +38,8 @@ public class SchoolServices
             }
             System.Console.WriteLine("This school already exist in the database.");
         }else{
-            __trackedSchool=school;
-            _context.Schools!.Add(__trackedSchool);
+            __trackedSchool = school;
+        _context.Schools!.Add(__trackedSchool);    
             _context.SaveChanges();
             if (ProfileServices.__trackedProfile is not null)
             {

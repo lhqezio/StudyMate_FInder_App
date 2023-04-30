@@ -6,11 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace src.Migrations
 {
     /// <inheritdoc />
-<<<<<<<< HEAD:src/Migrations/20230430174355_Tests.cs
-    public partial class Tests : Migration
-========
-    public partial class InitialCore : Migration
->>>>>>>> 2360e5d3713a567ed22a4e083cf4a87423e57a69:src/Migrations/20230430172441_InitialCore.cs
+    public partial class Tests1 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -72,7 +68,7 @@ namespace src.Migrations
                 columns: table => new
                 {
                     CourseId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    CourseName = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
+                    CourseName = table.Column<string>(type: "NVARCHAR2(450)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -375,6 +371,12 @@ namespace src.Migrations
                 name: "IX_Profiles_UserId",
                 table: "Profiles",
                 column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudyCourses_CourseName",
+                table: "StudyCourses",
+                column: "CourseName",
                 unique: true);
 
             migrationBuilder.CreateIndex(

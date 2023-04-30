@@ -88,9 +88,12 @@ namespace src.Migrations
 
                     b.Property<string>("CourseName")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.HasKey("CourseId");
+
+                    b.HasIndex("CourseName")
+                        .IsUnique();
 
                     b.ToTable("StudyCourses");
                 });
