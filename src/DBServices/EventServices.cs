@@ -7,7 +7,6 @@ public class EventServices
 {
     private StudyMateDbContext _context = null!;
     public static EventCalendar? __trackedEvent = new();
-    public static Profile? __trackedProfile = new();
     private static EventServices? _instance;
     public static EventServices getInstance(StudyMateDbContext context)
     {
@@ -26,8 +25,11 @@ public class EventServices
         //AddEvent Method => Add event to the list of events
         public virtual void AddEvent(EventCalendar e){
             __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == e.EventId);
-            __trackedProfile = _context.Profiles?.SingleOrDefault(p => p.UserId == e.CreatorId);
-
+            var __trackedCreator = _context.Set<Profile>().Local.FirstOrDefault(p => p.ProfileId == e.CreatorId);
+            if (__trackedCreator != null)
+            {
+                e.Creator = __trackedCreator;
+            }
             if(__trackedEvent == null){ //Make sure the event doesn't already exist
                 foreach (var participant in e.Participants)
                 {
@@ -39,8 +41,8 @@ public class EventServices
             else{
                 throw new ArgumentException("Event already exists. Either edit it, delete it or create a new one");
             }
-        }
-
+        } 
+        
         //CreateEvent Method => Create an event
         public virtual EventCalendar CreateEvent(string title, Profile creator, List<Profile> participants, DateTimeOffset date, string description, string location, string subjects, List<Course> courses, School school){
             EventCalendar newEvent = new EventCalendar(Guid.NewGuid().ToString(), title, creator, participants, date, description, location, subjects, courses, school);
