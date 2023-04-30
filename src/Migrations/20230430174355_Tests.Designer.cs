@@ -12,8 +12,8 @@ using StudyMate;
 namespace src.Migrations
 {
     [DbContext(typeof(StudyMateDbContext))]
-    [Migration("20230430164122_InitialCore5")]
-    partial class InitialCore5
+    [Migration("20230430174355_Tests")]
+    partial class Tests
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -24,6 +24,36 @@ namespace src.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             OracleModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+
+            modelBuilder.Entity("CourseEventCalendar", b =>
+                {
+                    b.Property<string>("Course")
+                        .HasColumnType("NVARCHAR2(450)");
+
+                    b.Property<string>("CoursesCourseId")
+                        .HasColumnType("NVARCHAR2(450)");
+
+                    b.HasKey("Course", "CoursesCourseId");
+
+                    b.HasIndex("CoursesCourseId");
+
+                    b.ToTable("CourseEventCalendar");
+                });
+
+            modelBuilder.Entity("EventProfile", b =>
+                {
+                    b.Property<string>("EventsId")
+                        .HasColumnType("NVARCHAR2(450)");
+
+                    b.Property<string>("ProfilesId")
+                        .HasColumnType("NVARCHAR2(450)");
+
+                    b.HasKey("EventsId", "ProfilesId");
+
+                    b.HasIndex("ProfilesId");
+
+                    b.ToTable("EventProfile");
+                });
 
             modelBuilder.Entity("HobbyProfile", b =>
                 {
@@ -117,6 +147,51 @@ namespace src.Migrations
                     b.ToTable("CoursesTaken");
                 });
 
+            modelBuilder.Entity("StudyMate.EventCalendar", b =>
+                {
+                    b.Property<string>("EventId")
+                        .HasColumnType("NVARCHAR2(450)");
+
+                    b.Property<string>("CreatorId")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(450)");
+
+                    b.Property<DateTimeOffset>("Date")
+                        .HasColumnType("TIMESTAMP(7) WITH TIME ZONE");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<bool>("IsSent")
+                        .HasColumnType("NUMBER(1)");
+
+                    b.Property<string>("Location")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<string>("SchooId")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(450)");
+
+                    b.Property<string>("Subjects")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.Property<string>("Title")
+                        .IsRequired()
+                        .HasColumnType("NVARCHAR2(2000)");
+
+                    b.HasKey("EventId");
+
+                    b.HasIndex("CreatorId");
+
+                    b.HasIndex("SchooId")
+                        .IsUnique();
+
+                    b.ToTable("Events");
+                });
+
             modelBuilder.Entity("StudyMate.Hobby", b =>
                 {
                     b.Property<string>("HobbyId")
@@ -164,7 +239,7 @@ namespace src.Migrations
                     b.Property<string>("ProfileId")
                         .HasColumnType("NVARCHAR2(450)");
 
-                    b.Property<int>("Age")
+                    b.Property<int?>("Age")
                         .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("Gender")
@@ -258,6 +333,36 @@ namespace src.Migrations
                     b.ToTable("UserConversation");
                 });
 
+            modelBuilder.Entity("CourseEventCalendar", b =>
+                {
+                    b.HasOne("StudyMate.EventCalendar", null)
+                        .WithMany()
+                        .HasForeignKey("Course")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudyMate.Course", null)
+                        .WithMany()
+                        .HasForeignKey("CoursesCourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("EventProfile", b =>
+                {
+                    b.HasOne("StudyMate.EventCalendar", null)
+                        .WithMany()
+                        .HasForeignKey("EventsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudyMate.Profile", null)
+                        .WithMany()
+                        .HasForeignKey("ProfilesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("HobbyProfile", b =>
                 {
                     b.HasOne("StudyMate.Hobby", null)
@@ -330,6 +435,25 @@ namespace src.Migrations
                     b.Navigation("Profile");
                 });
 
+            modelBuilder.Entity("StudyMate.EventCalendar", b =>
+                {
+                    b.HasOne("StudyMate.Profile", "Creator")
+                        .WithMany("CreatorEvents")
+                        .HasForeignKey("CreatorId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudyMate.School", "School")
+                        .WithOne("Event")
+                        .HasForeignKey("StudyMate.EventCalendar", "SchooId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Creator");
+
+                    b.Navigation("School");
+                });
+
             modelBuilder.Entity("StudyMate.Profile", b =>
                 {
                     b.HasOne("StudyMate.School", "School")
@@ -380,10 +504,15 @@ namespace src.Migrations
                     b.Navigation("CourseNeedHelpWith");
 
                     b.Navigation("CourseTaken");
+
+                    b.Navigation("CreatorEvents");
                 });
 
             modelBuilder.Entity("StudyMate.School", b =>
                 {
+                    b.Navigation("Event")
+                        .IsRequired();
+
                     b.Navigation("Profiles");
                 });
 

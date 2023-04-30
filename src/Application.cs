@@ -51,7 +51,7 @@ namespace StudyMate
 //                 profile1.CourseNeedHelpWith=coursesNeedHelpWith1;
 //                 profileService.AddProfile(profile1);
 
-//                 // 3.	Create an event for user1
+//                 // 3.	Create an event for user1 
 //                 System.Console.WriteLine("Attempt to set up Event for user1");
 //                 currentUser.Profile = profileService.GetMyProfile(currentUser);
 //                 Course course = new Course("4", "Math");

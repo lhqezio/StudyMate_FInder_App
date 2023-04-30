@@ -236,7 +236,7 @@ namespace src.Migrations
                     b.Property<string>("ProfileId")
                         .HasColumnType("NVARCHAR2(450)");
 
-                    b.Property<int>("Age")
+                    b.Property<int?>("Age")
                         .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("Gender")

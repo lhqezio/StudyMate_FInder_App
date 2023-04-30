@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace src.Migrations
 {
     /// <inheritdoc />
-    public partial class ProfileEventRelationship10 : Migration
+    public partial class Tests : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -98,7 +98,7 @@ namespace src.Migrations
                     SchoolId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     Gender = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
-                    Age = table.Column<int>(type: "NUMBER(10)", nullable: false),
+                    Age = table.Column<int>(type: "NUMBER(10)", nullable: true),
                     Program = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     PersonalDescription = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
                 },
@@ -172,7 +172,8 @@ namespace src.Migrations
                 columns: table => new
                 {
                     CourseId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    ProfileId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false)
+                    ProfileId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    CourseName = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
                 },
                 constraints: table =>
                 {
