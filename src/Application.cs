@@ -32,7 +32,7 @@ namespace StudyMate
                 else
                 {
                     Console.WriteLine("User creation failed try logging in");
-                    currentUser = userService.Login("alain", "100");
+                    currentUser = userService.Login("alain", "200");
                     if (currentUser != null)
                     {
                         Console.WriteLine("User logged in successfully");
