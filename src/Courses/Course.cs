@@ -21,20 +21,5 @@ namespace StudyMate
             CourseId=courseId;
             CourseName=courseName;
         }
-        public override bool Equals(object obj)
-        {
-            if (obj == null || !(obj is Course))
-            {
-                return false;
-            }
-            Course other = (Course) obj;
-            return this.CourseName == other.CourseName;
-        }
-
-        public override int GetHashCode()
-        {
-            return CourseName.GetHashCode();
-        }
-
     }
 }

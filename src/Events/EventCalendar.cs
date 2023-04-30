@@ -11,11 +11,31 @@ namespace StudyMate
         [Key]
         public string EventId { get; set;}
 
+        // One-to-one relationship
+        //School
+        [ForeignKey("School")]
+        public string SchooId { get; set; }
+        private School _school;    
+        public School School
+        {
+            get { return _school; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("School can't be empty or null.");
+                }
+                _school = value;
+            }
+        }
+
         //Creator - One to many relationship
         [ForeignKey("Profile")]
         public string CreatorId {get; set;} //Profile Id   //Child    
         public Profile Creator {get; set;} = null!; 
         
+        
+        // Many-to-Many relationship
         //Participants
         private List<Profile> _participants {get; set;} = new();
         public List<Profile> Participants
@@ -30,6 +50,8 @@ namespace StudyMate
                 _participants = value;
             }
         }
+        //Courses 
+        public List<Course> Courses {get;} = new();
         
         //Title
         private string _title;
@@ -103,30 +125,6 @@ namespace StudyMate
                     throw new ArgumentException("Subjects can't be empty, null, or whitespace.");
                 }
                 _subjects = value;
-            }
-        }
-
-        //Courses 
-        // Many-to-Many relationship
-        [ForeignKey("Course")]
-        public List<Course> Courses {get;} = new();
-        
-        
-        //School
-        // One-to-one relationship
-        [ForeignKey("School")]
-        public string SchooId { get; set; }
-        private School _school;    
-        public School School
-        {
-            get { return _school; }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentException("School can't be empty or null.");
-                }
-                _school = value;
             }
         }
 
