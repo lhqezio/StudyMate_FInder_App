@@ -107,22 +107,10 @@ namespace StudyMate
         }
 
         //Courses 
-        // One-to-Many relationship
+        // Many-to-Many relationship
         [ForeignKey("Course")]
-        public string CourseId { get; set; }
-        private List<Course> _courses {get; set;}
-        public List<Course> Courses
-        {
-            get { return _courses; }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentException("Courses can't be empty or null.");
-                }
-                _courses = value;
-            }
-        }
+        public List<Course> Courses {get;} = new();
+        
         
         //School
         // One-to-one relationship
@@ -158,7 +146,7 @@ namespace StudyMate
             _description = description;
             _location = location;
             _subjects = subjects;
-            _courses = courses;
+            Courses = courses;
             _school = school;
             IsSent = isSent;
         }
@@ -227,7 +215,7 @@ namespace StudyMate
                 _description.GetHashCode() ^
                 _school.GetHashCode() ^
                 _location.GetHashCode() ^
-                _courses.GetHashCode() ^
+                Courses.GetHashCode() ^
                 IsSent.GetHashCode();
         }
     }

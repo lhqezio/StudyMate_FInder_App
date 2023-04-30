@@ -23,31 +23,37 @@ public class EventServices
     //EVENT FCTS
         //AddEvent Method => Add event to the list of events
         public virtual void AddEvent(EventCalendar e){
-            foreach (var participant in e.Participants)
-            {
-                participant.ParticipatingEvents.Add(e);
+            if(_context.Events!.Contains(e) == null){ //Make sure the event doesn't already exist
+                foreach (var participant in e.Participants)
+                {
+                    participant.ParticipatingEvents.Add(e);
+                }
+                _context.Events!.Add(e);
+                _context.SaveChanges();    
             }
-            _context.Events!.Add(e);
-            _context.SaveChanges();    
+            else{
+                throw new ArgumentException("Event already exists. Either edit it, delete it or create a new one");
+            }
         }
 
         //CreateEvent Method => Create an event
-        public virtual void CreateEvent(string title, Profile creator, List<Profile> participants, DateTimeOffset date, string description, string location, string subjects, List<Course> courses, School school){
+        public virtual EventCalendar CreateEvent(string title, Profile creator, List<Profile> participants, DateTimeOffset date, string description, string location, string subjects, List<Course> courses, School school){
             EventCalendar newEvent = new EventCalendar(Guid.NewGuid().ToString(), title, creator, participants, date, description, location, subjects, courses, school);
             this.AddEvent(newEvent);
+            return newEvent;
         }
 
         //DeleteEvent Method => Delete event to the list of events
-        public virtual void DeleteEvent(EventCalendar eventToDelete, User u){
-            if(u.Profile!.ProfileId == eventToDelete.CreatorId){ //Check to make sure it's only the creator that can delete the event
+        public virtual void DeleteEvent(EventCalendar eventToDelete, Profile u){
+            if(u.ProfileId == eventToDelete.CreatorId){ //Check to make sure it's only the creator that can delete the event
                 _context.Events!.Remove(eventToDelete);
             }
             _context.SaveChanges();
         }
 
         //EditEvent Method => Edit an event
-        public virtual void EditEvent(EventCalendar eventToUpdate, User u){
-            if(u.Profile!.ProfileId == eventToUpdate.CreatorId){ //Check to make sure it's only the creator that can delete the event
+        public virtual void EditEvent(EventCalendar eventToUpdate, Profile u){
+            if(u.ProfileId == eventToUpdate.CreatorId){ //Check to make sure it's only the creator that can delete the event
                 _context.Events!.Update(eventToUpdate);
             }
             _context.SaveChanges();

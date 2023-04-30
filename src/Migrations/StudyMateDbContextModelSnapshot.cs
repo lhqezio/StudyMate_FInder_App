@@ -22,6 +22,21 @@ namespace src.Migrations
 
             OracleModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
+            modelBuilder.Entity("CourseEventCalendar", b =>
+                {
+                    b.Property<string>("Course")
+                        .HasColumnType("NVARCHAR2(450)");
+
+                    b.Property<string>("CoursesCourseId")
+                        .HasColumnType("NVARCHAR2(450)");
+
+                    b.HasKey("Course", "CoursesCourseId");
+
+                    b.HasIndex("CoursesCourseId");
+
+                    b.ToTable("CourseEventCalendar");
+                });
+
             modelBuilder.Entity("EventProfile", b =>
                 {
                     b.Property<string>("EventsId")
@@ -75,13 +90,7 @@ namespace src.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.Property<string>("EventId")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(450)");
-
                     b.HasKey("CourseId");
-
-                    b.HasIndex("EventId");
 
                     b.ToTable("StudyCourses");
                 });
@@ -135,10 +144,6 @@ namespace src.Migrations
                 {
                     b.Property<string>("EventId")
                         .HasColumnType("NVARCHAR2(450)");
-
-                    b.Property<string>("CourseId")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
 
                     b.Property<string>("CreatorId")
                         .IsRequired()
@@ -321,6 +326,21 @@ namespace src.Migrations
                     b.ToTable("UserConversation");
                 });
 
+            modelBuilder.Entity("CourseEventCalendar", b =>
+                {
+                    b.HasOne("StudyMate.EventCalendar", null)
+                        .WithMany()
+                        .HasForeignKey("Course")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudyMate.Course", null)
+                        .WithMany()
+                        .HasForeignKey("CoursesCourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("EventProfile", b =>
                 {
                     b.HasOne("StudyMate.EventCalendar", null)
@@ -349,17 +369,6 @@ namespace src.Migrations
                         .HasForeignKey("ProfilesProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("StudyMate.Course", b =>
-                {
-                    b.HasOne("StudyMate.EventCalendar", "Event")
-                        .WithMany("Courses")
-                        .HasForeignKey("EventId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Event");
                 });
 
             modelBuilder.Entity("StudyMate.CourseCanHelpWith", b =>
@@ -479,11 +488,6 @@ namespace src.Migrations
                     b.Navigation("CourseNeedHelpWith");
 
                     b.Navigation("courseTaken");
-                });
-
-            modelBuilder.Entity("StudyMate.EventCalendar", b =>
-                {
-                    b.Navigation("Courses");
                 });
 
             modelBuilder.Entity("StudyMate.Profile", b =>

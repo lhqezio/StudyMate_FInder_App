@@ -34,7 +34,7 @@ namespace StudyMate
                 else
                 {
                     Console.WriteLine("User creation failed try logging in");
-                    currentUser = userService.Login("alain", "200");
+                    currentUser = userService.Login("Amirreza", "123");
                     if (currentUser != null)
                     {
                         Console.WriteLine("User logged in successfully");
@@ -58,8 +58,10 @@ namespace StudyMate
                 currentUser.Profile = profileService.GetMyProfile(currentUser);
                 Course course = new Course("4", "Math");
                 School school = new School("3", "Dawson College"); 
-                eventService.CreateEvent("Study for Math 101", currentUser.Profile, new List<Profile>() { profile1 }, DateTime.Now.AddHours(2), "Math 101", "Chez Saza", "Intro to Math", new List<Course>(){course}, school);
-                
+                var event1Use1 = eventService.CreateEvent("Study for Math 101", currentUser.Profile, new List<Profile>() { profile1 }, DateTime.Now.AddHours(2), "Math 101", "Chez Saza", "Intro to Math", new List<Course>(){course}, school);
+                System.Console.WriteLine("Attempt to delete Event for user1");
+                eventService.DeleteEvent(event1Use1, currentUser.Profile);
+
 //                 // 4.	Log out from user1
 //                 currentUser = null;
 

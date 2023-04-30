@@ -13,10 +13,8 @@ namespace StudyMate
         public List<CourseCanHelpWith> CourseCanHelpWith{get;} = new();
         public List<CourseNeedHelpWith> CourseNeedHelpWith{get;} = new();
 
-        //One(Event)-to-Many relationship with Event
-        [ForeignKey("Event")]
-        public string EventId {get; set;}
-        public EventCalendar Event {get; set;} = null!;
+        //Many-to-Many relationship with Event
+        public List<EventCalendar> Events {get;} = new();
 
         public Course(){}
         public Course(string courseId, string courseName){
