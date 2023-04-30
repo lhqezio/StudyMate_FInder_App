@@ -32,7 +32,7 @@ namespace StudyMate
         //other properties
         public string Name { get; set; }
         public string Gender { get; set; }
-        public int Age { get; set; }
+        public int? Age { get; set; }
         public string Program { get; set; }
         public string PersonalDescription { get; set; }
         
@@ -51,6 +51,45 @@ namespace StudyMate
             this.Age=age;
             this.Program=program;
             this.PersonalDescription = PersonalDescription;
+        }
+
+        //This mehtod allows to clear all the fields of the profile class in one shot.
+        public void ClearProfile()
+        {
+            Name = "";
+            Gender = null;
+            Age = null;
+            School=null;
+            Program = "";
+            PersonalDescription = "";
+            Hobbies.Clear();
+        }
+
+        //Override of Equals method. This is used to compare two profile objects.
+        //It is very useful for testing the ClearProfile method.
+        public override bool Equals(object? obj)
+        {
+            if (obj is not Profile other)
+                return false;
+            return Name == other.Name
+                && Gender == other.Gender
+                && Age == other.Age
+                && School == other.School
+                && Program == other.Program
+                && PersonalDescription == other.PersonalDescription
+                && Hobbies.SequenceEqual(other.Hobbies);
+        }
+
+        //Since we are overriding the Equals method, we must also override the GetHashCode method.
+        public override int GetHashCode()
+        {
+            return Name.GetHashCode() ^
+                Gender.GetHashCode() ^
+                Age.GetHashCode() ^
+                School.GetHashCode() ^
+                Program.GetHashCode() ^
+                PersonalDescription.GetHashCode() ^
+                Hobbies.GetHashCode();
         }
     }
 }

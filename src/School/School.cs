@@ -16,5 +16,17 @@ namespace StudyMate
             this.SchoolId=schoolId;
             this.SchoolName=schoolName;
         }
+
+        public override bool Equals(object? obj)
+        {
+            if (obj is not School other)
+                return false;
+            return SchoolName == other.SchoolName;
+        }
+
+        public override int GetHashCode()
+        {
+            return SchoolName.GetHashCode();
+        }
     }
 }

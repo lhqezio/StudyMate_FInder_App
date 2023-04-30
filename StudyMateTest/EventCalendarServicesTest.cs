@@ -13,7 +13,7 @@
 //         public static User user2 = new User("2","Sam", "sam@hotmail.com", "password1");
 //         public static User user3 = new User("3","Jack", "jack@hotmail.com", "password2");
 //                 //Profiles
-//         public static Profile profile1 = new Profile("Alain", 20,new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Computer_Science)},user1,Genders.Male);
+//         public static Profile profile1 = new Profile(user1, "Alain", "Male", new School("Dawson College"),"Computer Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Computer_Science)},user1,Genders.Male);
 //         public static Profile profile2 = new Profile("Samantha", 18,new School("Henri-Bourassa"),"Social Science",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Political_Science)},user2,Genders.Female);
 //         public static Profile profile3 = new Profile("Jackie", 19,new School("Vanier COllege"),"Business",new List<NeedHelpCourses>(){new NeedHelpCourses(Courses.Business)},user3,Genders.Undisclosed);
 //                 //profileList list
