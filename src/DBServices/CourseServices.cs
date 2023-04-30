@@ -62,6 +62,7 @@ public class CourseServices
             {
                 __trackedCourse = new Course(courseNeedHelpWith[i].CourseId,courseNeedHelpWith[i].CourseName);
                 AddCourse(__trackedCourse);
+                _context.SaveChanges();
             }
          }
     }

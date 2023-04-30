@@ -138,13 +138,11 @@ namespace StudyMate
         {
             EventId = eventId;
             _title = title;
-            CreatorId = Creator.ProfileId;
-            _participants = participants; 
+            CreatorId = creator.ProfileId; 
             _date = date;
             _description = description;
             _location = location;
             _subjects = subjects;
-            Courses = courses;
             _school = school;
             SchooId= school.SchoolId;
             IsSent = isSent;

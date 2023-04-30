@@ -55,6 +55,10 @@ public class EventServices
                 __trackedEvent=e;
                 var schoolService=new SchoolServices(_context);
                 schoolService.AddSchool(__trackedEvent.School);
+                if (ProfileServices.__trackedProfile is not null)
+                {
+                    __trackedEvent.Creator=ProfileServices.__trackedProfile;
+                }
                 _context.Events!.Add(__trackedEvent);
                 _context.SaveChanges(); 
             }
