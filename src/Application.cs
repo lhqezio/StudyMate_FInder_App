@@ -56,19 +56,16 @@ namespace StudyMate
                 var user1_profile = profileService.GetMyProfile(currentUser);
                 courseService.AddCourse(new Course("1","Math"));
                 var event1_course=courseService.GetCourseByName("Math");
+                var event_user1=new EventCalendar();
                 if (user1_profile is not null && event1_course is not null)
                 {
-                    var event_user1=new EventCalendar("1","Study for Math 102", user1_profile, DateTime.Now.AddHours(2), "Math 102", "Beaudry", "Intro to calculus", new School("2","McGill"));
+                    event_user1=new EventCalendar("3","Study for Math 103", user1_profile, DateTime.Now.AddHours(2), "Math 102", "Beaudry", "Intro to calculus", new School("2","McGill"));
                     event_user1.EventCourse=new List<EventCourse>(){new EventCourse(event_user1,new Course("5","Calculus"))};
+                    event_user1.EventProfile=new List<EventProfile>(){new EventProfile(event_user1,user1_profile)};
                     eventService.CreateEvent(event_user1);
                 }
-
-                // System.Console.WriteLine("Attempt to delete Event for user1");
-                // event1Use1.Title = "New Title";
-                // eventService.EditEvent(event1Use1, currentUser.Profile);
-                // eventService.DeleteEvent(event1Use1, currentUser.Profile);
                 
-                                
+                                                
                 // 4.	Log out from user1
                 currentUser = userService.Logout(currentUser.Username);
 
@@ -115,6 +112,10 @@ namespace StudyMate
 //                     System.Console.WriteLine(p.Name);
 //                 }
 //                 System.Console.WriteLine("End Attending List");
+
+                // 8.	Mark user2 as attending user1’s event
+                event_user1.EventProfile.Add(new EventProfile(event_user1,profile2));
+                eventService.AddParticipant(event_user1,profile2);
 
                 // 9.	Attempt to edit user1’s event as user2 (should fail)
 //                 System.Console.WriteLine("Attempt to edit user1's event as user2 new title is New Title");

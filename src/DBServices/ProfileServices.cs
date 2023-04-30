@@ -82,4 +82,17 @@ public class ProfileServices
         return _context.Profiles!.Where(p => p.Name == name).ToList();
     }
 
+    public virtual void CheckParticipants(List<EventProfile> participants)
+    {
+         for (int i=0;i<participants.Count;i++)
+         {
+            __trackedProfile = _context.Profiles?.SingleOrDefault(p => p.ProfileId == participants[i].ProfileId);
+            if (EventServices.__trackedEvent is not null && __trackedProfile is null)
+            {
+                System.Console.WriteLine("The participant you are trying to add does not exist");
+                EventServices.__trackedEvent.EventProfile.Remove(participants[i]);
+                i--;
+            }
+         }
+    }
 }

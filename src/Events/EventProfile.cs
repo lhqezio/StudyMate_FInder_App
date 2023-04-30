@@ -18,5 +18,15 @@ namespace StudyMate
             this.EventId=ev.EventId;
             this.EventTitle=ev.Title;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is EventProfile))
+            {
+                return false;
+            }
+            EventProfile p = (EventProfile) obj;
+            return (this.ProfileId == p.ProfileId);
+        }
     }
 }

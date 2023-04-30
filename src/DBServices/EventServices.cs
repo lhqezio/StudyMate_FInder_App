@@ -36,6 +36,8 @@ public class EventServices
                 schoolService.AddSchool(__trackedEvent.School);
                 var courseService=new CourseServices(_context);
                 courseService.CheckCoursesEvent(__trackedEvent.EventCourse);
+                var profileService=new ProfileServices(_context);
+                profileService.CheckParticipants(__trackedEvent.EventProfile);
                 if (ProfileServices.__trackedProfile is not null)
                 {
                     __trackedEvent.Creator=ProfileServices.__trackedProfile;
@@ -46,36 +48,56 @@ public class EventServices
         }
 
         //DeleteEvent Method => Delete event to the list of events
-        public virtual void DeleteEvent(EventCalendar eventToDelete, Profile u){
-            __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == eventToDelete.EventId);
-
-            if(__trackedEvent != null){
-                if(u.ProfileId == __trackedEvent.CreatorId){ //Check to make sure it's only the creator that can delete the event
-                    _context.Events!.Remove(__trackedEvent);
-                    _context.SaveChanges();
-                }
+        public virtual void DeleteEvent(string eventId){
+            // Get the event from the database
+            __trackedEvent = _context.Events?.SingleOrDefault(e => e.EventId == eventId);
+            // If the event already exists, then delete it.
+            if (__trackedEvent != null)
+            {
+                _context.Events!.Remove(__trackedEvent);
+                _context.SaveChanges();
+            }else{
+                System.Console.WriteLine("The profile you are trying to delete does not exist.");
             }
-            else{
-                throw new ArgumentException("Event doesn't exist. Create it");
+        }
+
+        public virtual void AddParticipant(EventCalendar ev, Profile profile){
+            // Get the event from the database
+            __trackedEvent = _context.Events?.SingleOrDefault(e => e.EventId == ev.EventId);
+            ProfileServices.__trackedProfile = _context.Profiles?.SingleOrDefault(p => p.ProfileId == profile.ProfileId);
+            // If the event already exists, then delete it.
+            if (__trackedEvent != null && ProfileServices.__trackedProfile != null)
+            {
+                _context.EventProfiles!.Add(new EventProfile( __trackedEvent,ProfileServices.__trackedProfile));
+                _context.SaveChanges();
+            }else{
+                System.Console.WriteLine("The profile you are trying to delete does not exist.");
             }
         }
 
         //EditEvent Method => Edit an event
-        public virtual void EditEvent(EventCalendar eventToUpdate, Profile u){
-            __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == eventToUpdate.EventId);
-            
-            if(__trackedEvent != null){ //Make sure the event exists
-                if(u.ProfileId == __trackedEvent.CreatorId){ //Check to make sure it's only the creator that can delete the event
-                    _context.Events!.Update(__trackedEvent);
-                    _context.SaveChanges();
+         public virtual void UpdateEvent(EventCalendar eventToUpdata)
+        {
+            // Get the event from the database
+            __trackedEvent = _context.Events?.SingleOrDefault(e => e.EventId == eventToUpdata.EventId);
+            // If the Event already exists, it will be updated.
+            if (__trackedEvent != null)
+            {
+                __trackedEvent=eventToUpdata;
+                var schoolService=new SchoolServices(_context);
+                var courseService=new CourseServices(_context);
+                foreach (var item in __trackedEvent.EventCourse)
+                {
+                    courseService.AddCourse(new Course(item.CourseId,item.CourseName));
                 }
-            }
-            else{
-                throw new ArgumentException("Event doesn't exist. Create it");
+                // schoolService.UpdateSchool(__trackedEvent.School);
+                // _context.Events!.Update(__trackedEvent);
+                _context.SaveChanges();
+            }else{
+                System.Console.WriteLine("The event you are trying to update does not exist.");
             }
         }
         
-
         // //AddParticipant => Add participant to event
         // public virtual void AddParticipant(EventCalendar eventC, Profile participant){
         //     __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == eventC.EventId);
