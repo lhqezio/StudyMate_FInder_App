@@ -7,6 +7,7 @@ public class EventServices
 {
     private StudyMateDbContext _context = null!;
     public static EventCalendar? __trackedEvent = new();
+    public static EventProfile? __trackedEventProfile = new();
     private static EventServices? _instance;
     public static EventServices getInstance(StudyMateDbContext context)
     {
@@ -62,13 +63,24 @@ public class EventServices
         }
 
         public virtual void AddParticipant(EventCalendar ev, Profile profile){
+            //For some reason, the EventProfile entity of the participant gets tracked and causes an exception
+            //I detach the instance of EventProfile that is causing the problem and re-track it later
+            //in this function using the Add method so that only one instance of EventProfile which is the one
+            //of participant is tracked.
+            var eventProfileTrackedEntities=_context.ChangeTracker.Entries<EventProfile>();
+            var entity = eventProfileTrackedEntities.FirstOrDefault(ep => ep.Entity.EventId == ev.EventId && ep.Entity.ProfileId == profile.ProfileId);
+            if (entity != null)
+            {
+                _context.Entry(entity.Entity).State = EntityState.Detached;
+            }
             // Get the event from the database
             __trackedEvent = _context.Events?.SingleOrDefault(e => e.EventId == ev.EventId);
             ProfileServices.__trackedProfile = _context.Profiles?.SingleOrDefault(p => p.ProfileId == profile.ProfileId);
             // If the event already exists, then delete it.
             if (__trackedEvent != null && ProfileServices.__trackedProfile != null)
             {
-                _context.EventProfiles!.Add(new EventProfile( __trackedEvent,ProfileServices.__trackedProfile));
+                __trackedEventProfile=new EventProfile( __trackedEvent,ProfileServices.__trackedProfile);
+                _context.EventProfiles!.Add(__trackedEventProfile);
                 _context.SaveChanges();
             }else{
                 System.Console.WriteLine("The profile you are trying to delete does not exist.");
