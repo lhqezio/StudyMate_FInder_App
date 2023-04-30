@@ -50,16 +50,6 @@ namespace StudyMate
             modelBuilder.Entity<CourseNeedHelpWith>()
                 .HasKey(ctp => new { ctp.CourseId, ctp.ProfileId });
 
-            // modelBuilder.Entity<CourseTaken>()
-            //     .HasOne(ctp => ctp.Course)
-            //     .WithMany(c => c.courseTaken)
-            //     .HasForeignKey(ctp => ctp.CourseId);
-
-            // modelBuilder.Entity<CourseTaken>()
-            //     .HasOne(ctp => ctp.Profile)
-            //     .WithMany(p => p.CourseTaken)
-            //     .HasForeignKey(ctp => ctp.ProfileId);
-
             modelBuilder.Entity<Conversation>().HasMany(c => c.Users)
             .WithMany(u => u.Conversations)
             .UsingEntity<Dictionary<string, object>>(
@@ -91,11 +81,6 @@ namespace StudyMate
                     r => r.HasOne(typeof(Profile)).WithMany().HasForeignKey("ProfilesId").HasPrincipalKey(nameof(Profile.ProfileId)),
                     j => j.HasKey("EventsId", "ProfilesId")
                 );
-
-            // modelBuilder.Entity<User>()
-            //     .HasOne<Profile>()
-            //     .WithOne()
-            //     .HasForeignKey<Profile>(p => p.UserId);
         }
     }
 }
