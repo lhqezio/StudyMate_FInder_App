@@ -12,8 +12,8 @@ using StudyMate;
 namespace src.Migrations
 {
     [DbContext(typeof(StudyMateDbContext))]
-    [Migration("20230430042406_ProfileEventRelationship9")]
-    partial class ProfileEventRelationship9
+    [Migration("20230430053601_ProfileEventRelationship10")]
+    partial class ProfileEventRelationship10
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

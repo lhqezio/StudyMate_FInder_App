@@ -58,8 +58,11 @@ namespace StudyMate
                 School school = new School("3", "Dawson College"); 
                 var event1Use1 = eventService.CreateEvent("Study for Math 101", currentUser.Profile, new List<Profile>() { profile1 }, DateTime.Now.AddHours(2), "Math 101", "Chez Saza", "Intro to Math", new List<Course>(){course}, school);
                 System.Console.WriteLine("Attempt to delete Event for user1");
+                event1Use1.Title = "New Title";
+                eventService.EditEvent(event1Use1, currentUser.Profile);
                 eventService.DeleteEvent(event1Use1, currentUser.Profile);
                 
+                                
                 // 4.	Log out from user1
                 // currentUser = userService.Logout(currentUser.Username);
 
