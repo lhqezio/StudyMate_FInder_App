@@ -20,12 +20,14 @@ namespace StudyMate
         [ForeignKey("SchoolId")]
         public string SchoolId {get;set;}
         public School School {get;set;} = null!;
+        public List<EventCalendar> CreatorEvents { get; set;} = new List<EventCalendar>(); //Parents
+
         // one-to-many relationship with the bridging tables
         public List<CourseTaken> CourseTaken{get;set;} = new();
         public List<CourseCanHelpWith> CourseCanHelpWith{get;set;} = new();
         public List<CourseNeedHelpWith> CourseNeedHelpWith{get;set;} = new();
-        public List<EventCalendar> CreatorEvents { get; set;} = new List<EventCalendar>(); //Parents
-        
+        public List<EventProfile> EventProfile{get;set;} = new();
+
         // Many-to-many relationship
         public List<Hobby> Hobbies { get; set;} = new();
         public List<EventCalendar> ParticipatingEvents { get; set;} = new List<EventCalendar>(); //Parents
