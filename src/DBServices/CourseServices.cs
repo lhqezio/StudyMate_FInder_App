@@ -66,7 +66,7 @@ public class CourseServices
          }
     }
 
-    public virtual Course GetProfileByName(string courseName) {
+    public virtual Course? GetProfileByName(string courseName) {
         __trackedCourse = _context.StudyCourses!.SingleOrDefault(c => c.CourseName == courseName);
         return __trackedCourse;
     }
