@@ -30,7 +30,6 @@ namespace StudyMate
 
         // Many-to-many relationship
         public List<Hobby> Hobbies { get; set;} = new();
-        public List<EventCalendar> ParticipatingEvents { get; set;} = new List<EventCalendar>(); //Parents
     
         //other properties
         public string Name { get; set; }

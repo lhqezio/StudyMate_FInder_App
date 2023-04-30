@@ -54,6 +54,12 @@ namespace StudyMate
             modelBuilder.Entity<CourseNeedHelpWith>()
                 .HasKey(ctp => new { ctp.CourseId, ctp.ProfileId });
 
+            modelBuilder.Entity<EventCourse>()
+                .HasKey(ev => new { ev.EventId, ev.CourseId });
+
+            modelBuilder.Entity<EventProfile>()
+                .HasKey(ep => new { ep.EventId, ep.ProfileId });
+
             modelBuilder.Entity<Conversation>().HasMany(c => c.Users)
             .WithMany(u => u.Conversations)
             .UsingEntity<Dictionary<string, object>>(
@@ -76,15 +82,6 @@ namespace StudyMate
                 .HasForeignKey("CreatorId")
                 .IsRequired();
 
-            modelBuilder.Entity<Profile>() //Link multiple Profile to multiple Events 
-                .HasMany(p => p.ParticipatingEvents)
-                .WithMany(e => e.Participants)
-                .UsingEntity(
-                    "EventProfile",
-                    l => l.HasOne(typeof(EventCalendar)).WithMany().HasForeignKey("EventsId").HasPrincipalKey(nameof(EventCalendar.EventId)),
-                    r => r.HasOne(typeof(Profile)).WithMany().HasForeignKey("ProfilesId").HasPrincipalKey(nameof(Profile.ProfileId)),
-                    j => j.HasKey("EventsId", "ProfilesId")
-                );
         }
     }
 }
