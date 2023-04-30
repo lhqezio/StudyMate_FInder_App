@@ -32,10 +32,10 @@ public class ProfileServices
             __trackedProfile=profile;
             var schoolService=new SchoolServices(_context);
             schoolService.AddSchool(__trackedProfile.School);
-            var courseService=new CourseServices(_context);
-            courseService.AddCoursesNeedHelpWith(__trackedProfile,__trackedProfile.CourseNeedHelpWith);
             _context.Profiles!.Add(__trackedProfile);
             _context.SaveChanges();
+            var courseService=new CourseServices(_context);
+            courseService.AddCoursesNeedHelpWith(__trackedProfile,__trackedProfile.CourseNeedHelpWith);
         }
     }
 

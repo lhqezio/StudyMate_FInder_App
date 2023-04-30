@@ -30,7 +30,7 @@ namespace StudyMate
                 else
                 {
                     Console.WriteLine("User creation failed try logging in");
-                    currentUser = userService.Login("alain", "200");
+                    currentUser = userService.Login("alain", "100");
                     if (currentUser != null)
                     {
                         Console.WriteLine("User logged in successfully");
@@ -46,9 +46,11 @@ namespace StudyMate
                 // userService.DeleteUser("alain","200");
                 
                 var profile1= new Profile("1",currentUser,"Alain","Male",new School("1","Dawson"),18,"Computer Science");
-                var profile2= new Profile("2",userService.Login("Amir", "200"),"Amir","Male",new School("1","Dawson"),20,"Computer Science");
+                var profile2= new Profile("2",userService.Login("Amir","200"),"Amir","Male",new School("1","Dawson"),20,"Computer Science");
                 List<CourseNeedHelpWith> coursesNeedHelpWith1=new List<CourseNeedHelpWith>(){new CourseNeedHelpWith(profile1,new Course("1","Math")),new CourseNeedHelpWith(profile1,new Course("3","Cinema"))};
                 List<CourseNeedHelpWith> coursesNeedHelpWith2=new List<CourseNeedHelpWith>(){new CourseNeedHelpWith(profile2,new Course("2","Science"))};
+                profile1.CourseNeedHelpWith=coursesNeedHelpWith1;
+                profile2.CourseNeedHelpWith=coursesNeedHelpWith2;
                 profileService.DeleteProfile(profile1);
                 profileService.DeleteProfile(profile2);
                 schoolService.RemoveSchool(new School("1","Dawson"));
