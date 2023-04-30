@@ -17,6 +17,7 @@ namespace StudyMate
                 var userService = new UserServices(db);
                 var profileService = new ProfileServices(db);
                 var schoolService = new SchoolServices(db);
+                var courseService = new CourseServices(db);
                 // var conversationService = new ChatServices(db);
                 // var eventService = new EventServices(db);
                 // 1.	Create a new user account (user1)
@@ -51,11 +52,10 @@ namespace StudyMate
                 List<CourseNeedHelpWith> coursesNeedHelpWith2=new List<CourseNeedHelpWith>(){new CourseNeedHelpWith(profile2,new Course("2","Science"))};
                 profile1.CourseNeedHelpWith=coursesNeedHelpWith1;
                 profile2.CourseNeedHelpWith=coursesNeedHelpWith2;
-                profileService.DeleteProfile(profile1);
-                profileService.DeleteProfile(profile2);
-                schoolService.RemoveSchool(new School("1","Dawson"));
                 profileService.AddProfile(profile1);
                 profileService.AddProfile(profile2);
+                profileService.DeleteProfile(profile1);
+                profileService.DeleteProfile(profile2);
 //                 System.Console.WriteLine("Attempt to set up Profile for user1");
 //                 Profile profile1 = new Profile(Guid.NewGuid().ToString(), "Alain", 20, "Education", "Female", "Henri Bourassa", currentUser.Id, DemoCourses, DemoCourses, DemoCourses, "I'am MoMO", "None");
 //                 profileService.AddProfile(profile1, currentUser);
