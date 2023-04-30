@@ -47,7 +47,7 @@ namespace StudyMate
                 // 2.	Create a profile for user1 (You don’t need to fill in all details)
                 System.Console.WriteLine("Attempt to set up Profile for user1");
                 var profile1= new Profile("1",currentUser,"Alain","Male",new School("1","Dawson"),18,"Computer Science");
-                List<CourseNeedHelpWith> coursesNeedHelpWith1=new List<CourseNeedHelpWith>(){new CourseNeedHelpWith(profile1,new Course("1","Math")),new CourseNeedHelpWith(profile1,new Course("3","Cinema"))};
+                List<CourseNeedHelpWith> coursesNeedHelpWith1=new List<CourseNeedHelpWith>(){new CourseNeedHelpWith(profile1,new Course("1","Math")),new CourseNeedHelpWith(profile1,new Course("2","Cinema"))};
                 profile1.CourseNeedHelpWith=coursesNeedHelpWith1;
                 profileService.AddProfile(profile1);
 
@@ -89,12 +89,12 @@ namespace StudyMate
                 //     }
                 // }
 
-                // // 6.	Create a profile for user2
-                // System.Console.WriteLine("Attempt to set up Profile for user1");
-                // var profile2= new Profile("2",currentUser,"samir","Male",new School("1","Dawson"),20,"Computer Science");
-                // List<CourseNeedHelpWith> coursesNeedHelpWith2=new List<CourseNeedHelpWith>(){new CourseNeedHelpWith(profile2,new Course("2","Science"))};
-                // profile2.CourseNeedHelpWith=coursesNeedHelpWith2;
-                // profileService.AddProfile(profile2);
+                // 6.	Create a profile for user2
+                System.Console.WriteLine("Attempt to set up Profile for user1");
+                var profile2= new Profile("2",currentUser,"samir","Male",new School("1","Dawson"),20,"Computer Science");
+                List<CourseNeedHelpWith> coursesNeedHelpWith2=new List<CourseNeedHelpWith>(){new CourseNeedHelpWith(profile2,new Course("2","Science"))};
+                profile2.CourseNeedHelpWith=coursesNeedHelpWith2;
+                profileService.AddProfile(profile2);
 
                 // 7.	Perform a search to find the event created by user1
 //                 var user1profile = profileService.GetProfileByName("Alain")[0];
@@ -139,40 +139,40 @@ namespace StudyMate
                 // // 14.	Change user1’s password
                 // userService.ChangePassword("alain", "100", "200");
 
-                // // 15.	Modify user1’s profile
-                // if (currentUser is not null)
-                // {
-                //     var my_profile = profileService.GetMyProfile(currentUser);
-                //     if (my_profile is not null)
-                //     {
-                //         my_profile.Name = "Amirreza";
-                //         my_profile.SchoolId="2";
-                //         profileService.UpdateProfile(my_profile);
-                //     }
-                //     my_profile = profileService.GetMyProfile(currentUser);
-                //     if (my_profile is not null)
-                //     {
-                //         var school=schoolService.GetSchool(my_profile.SchoolId);
-                //         System.Console.WriteLine("Updated Profile (Name)" + my_profile.Name);
-                //         if (school is not null)
-                //         {
-                //             System.Console.WriteLine("Updated Profile (School)" + school.SchoolName);
-                //         }
-                //     }
-                //     // 16.	Access messages, viewing text of the messages sent by user2.
-                //     List<Conversation> convos2 = conversationService.GetConversations(currentUser.UserId);
-                //     Conversation convo2 = convos2[0];
-                //     List<Message> messages = conversationService.GetMessages(convo2.ConversationId);
-                //     foreach (Message m in messages)
-                //     {
-                //         System.Console.WriteLine(m.Body);
-                //     }
-                //     // 17.	Send a message to user2 from user1.
-                //     System.Console.WriteLine("Sending message to Samir");
-                //     conversationService.SendMessage("Salut Samir", convo2.ConversationId, currentUser.UserId);
-                //     System.Console.WriteLine("Message sent, deleting conversation");
-                //     conversationService.DeleteConversation(convo2.ConversationId);
-                // }
+                // 15.	Modify user1’s profile
+                if (currentUser is not null)
+                {
+                    var my_profile = profileService.GetMyProfile(currentUser);
+                    if (my_profile is not null)
+                    {
+                        my_profile.Name = "Amirreza";
+                        my_profile.SchoolId="2";
+                        profileService.UpdateProfile(my_profile);
+                    }
+                    my_profile = profileService.GetMyProfile(currentUser);
+                    if (my_profile is not null)
+                    {
+                        var school=schoolService.GetSchool(my_profile.SchoolId);
+                        System.Console.WriteLine("Updated Profile (Name)" + my_profile.Name);
+                        if (school is not null)
+                        {
+                            System.Console.WriteLine("Updated Profile (School)" + school.SchoolName);
+                        }
+                    }
+                    // 16.	Access messages, viewing text of the messages sent by user2.
+                    List<Conversation> convos2 = conversationService.GetConversations(currentUser.UserId);
+                    Conversation convo2 = convos2[0];
+                    List<Message> messages = conversationService.GetMessages(convo2.ConversationId);
+                    foreach (Message m in messages)
+                    {
+                        System.Console.WriteLine(m.Body);
+                    }
+                    // 17.	Send a message to user2 from user1.
+                    System.Console.WriteLine("Sending message to Samir");
+                    conversationService.SendMessage("Salut Samir", convo2.ConversationId, currentUser.UserId);
+                    System.Console.WriteLine("Message sent, deleting conversation");
+                    conversationService.DeleteConversation(convo2.ConversationId);
+                }
                 
                 // // // 18.	Find and view the attendees of user1’s event
                 // // var user1event2 = eventService.GetAllMyEvents(profileService.GetMyProfile(currentUser))[0];
