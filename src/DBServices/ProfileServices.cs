@@ -55,22 +55,27 @@ public class ProfileServices
         }
     }
 
-    // public virtual void UpdateProfile(Profile profile, User u)
-    // {
-    //     //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
-    //     // if (_context.ValidateSessionKey(u.__session_key))
-    //     // {
-    //         if(u.UserId != profile.UserId){
-    //             return;
-    //         }
-    //         _context.Profiles!.Update(profile);
-    //         _context.SaveChanges();
-    //     // }
-    // }
-    // public virtual Profile GetMyProfile(User u) {
-    //     return _context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId);
-    // }
-    // public virtual List<Profile> GetProfileByName(string name) {
-    //     return _context.Profiles!.Where(p => p.Name == name).ToList();
-    // }
+    public virtual void UpdateProfile(Profile profile)
+    {
+        // Get the Profile from the database
+        __trackedProfile = _context.Profiles?.SingleOrDefault(p => p.UserId == profile.UserId);
+        // If the Profile already exists, it will be updated.
+        if (__trackedProfile != null)
+        {
+            __trackedProfile=profile;
+            // var schoolService=new SchoolServices(_context);
+            // schoolService.AddSchool(__trackedProfile.School);
+            _context.Profiles!.Update(__trackedProfile);
+            _context.SaveChanges();
+        }else{
+           System.Console.WriteLine("The profile you are trying to update does not exist.");
+        }
+    }
+    public virtual Profile GetMyProfile(User u) {
+        return _context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId);
+    }
+
+    public virtual List<Profile> GetProfileByName(string name) {
+        return _context.Profiles!.Where(p => p.Name == name).ToList();
+    }
 }

@@ -48,66 +48,47 @@ public class CourseServices
             _context.SaveChanges();
         }
     }
-    public virtual void AddCoursesNeedHelpWith(Profile profile,List<CourseNeedHelpWith> courseNeedHelpWith)
-    {
-         // Get the Course that the user needs help with from the database
-         foreach (var item in courseNeedHelpWith)
-         {
-            __trackedNeedHelpWithCourse = _context.CoursesNeedHelpWith?.SingleOrDefault(c => c.CourseId == item.CourseId && c.ProfileId == item.ProfileId);
-            // If the Course already exists in the bridging table, it will be deleted.
-            if (__trackedNeedHelpWithCourse != null)
-            {
-                _context.CoursesNeedHelpWith!.Remove(__trackedNeedHelpWithCourse);
-                _context.SaveChanges();
-            }else{
-                __trackedNeedHelpWithCourse=item;
-                if (__trackedCourse is null)
-                {
-                    AddCourse(__trackedNeedHelpWithCourse.Course);
-                }else{
-                    __trackedNeedHelpWithCourse.Course=__trackedCourse;
-                }
-                ProfileServices.__trackedProfile=profile;
-                __trackedNeedHelpWithCourse.Profile=ProfileServices.__trackedProfile;
-                _context.CoursesNeedHelpWith!.Add(__trackedNeedHelpWithCourse);
-                _context.SaveChanges();
-            }
-         }
-    }
-
-    public virtual void RemoveDependency(List<CourseNeedHelpWith> courseNeedHelpWith)
-    { 
-        // Get the Course that the user needs help with from the database
-         foreach (var item in courseNeedHelpWith)
-         {
-            __trackedNeedHelpWithCourse = _context.CoursesNeedHelpWith?.SingleOrDefault(c => c.CourseId == item.CourseId && c.ProfileId == item.ProfileId);
-            // If the Course already exists, then delete it.
-            if (__trackedNeedHelpWithCourse != null)
-            {
-                _context.CoursesNeedHelpWith!.Remove(__trackedNeedHelpWithCourse);
-                _context.SaveChanges();
-            }else{
-                System.Console.WriteLine("The dependency you are trying to remove does not exist");
-            }
-        }
-    }
-
-    // public virtual void UpdateProfile(Profile profile, User u)
+    // public virtual void AddCoursesNeedHelpWith(Profile profile,List<CourseNeedHelpWith> courseNeedHelpWith)
     // {
-    //     //I commented this if statement for now because in the moq test, it returns false and causes the test to fail.
-    //     // if (_context.ValidateSessionKey(u.__session_key))
-    //     // {
-    //         if(u.UserId != profile.UserId){
-    //             return;
+    //      // Get the Course that the user needs help with from the database
+    //      foreach (var item in courseNeedHelpWith)
+    //      {
+    //         __trackedNeedHelpWithCourse = _context.CoursesNeedHelpWith?.SingleOrDefault(c => c.CourseId == item.CourseId && c.ProfileId == item.ProfileId);
+    //         // If the Course already exists in the bridging table, it will be deleted.
+    //         if (__trackedNeedHelpWithCourse != null)
+    //         {
+    //             _context.CoursesNeedHelpWith!.Remove(__trackedNeedHelpWithCourse);
+    //             _context.SaveChanges();
+    //         }else{
+    //             __trackedNeedHelpWithCourse=item;
+    //             if (__trackedCourse is null)
+    //             {
+    //                 AddCourse(__trackedNeedHelpWithCourse.Course);
+    //             }else{
+    //                 __trackedNeedHelpWithCourse.Course=__trackedCourse;
+    //             }
+    //             ProfileServices.__trackedProfile=profile;
+    //             __trackedNeedHelpWithCourse.Profile=ProfileServices.__trackedProfile;
+    //             _context.CoursesNeedHelpWith!.Add(__trackedNeedHelpWithCourse);
+    //             _context.SaveChanges();
     //         }
-    //         _context.Profiles!.Update(profile);
-    //         _context.SaveChanges();
-    //     // }
+    //      }
     // }
-    // public virtual Profile GetMyProfile(User u) {
-    //     return _context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId);
-    // }
-    // public virtual List<Profile> GetProfileByName(string name) {
-    //     return _context.Profiles!.Where(p => p.Name == name).ToList();
+
+    // public virtual void RemoveDependency(List<CourseNeedHelpWith> courseNeedHelpWith)
+    // { 
+    //     // Get the Course that the user needs help with from the database
+    //      foreach (var item in courseNeedHelpWith)
+    //      {
+    //         __trackedNeedHelpWithCourse = _context.CoursesNeedHelpWith?.SingleOrDefault(c => c.CourseId == item.CourseId && c.ProfileId == item.ProfileId);
+    //         // If the Course already exists, then delete it.
+    //         if (__trackedNeedHelpWithCourse != null)
+    //         {
+    //             _context.CoursesNeedHelpWith!.Remove(__trackedNeedHelpWithCourse);
+    //             _context.SaveChanges();
+    //         }else{
+    //             System.Console.WriteLine("The dependency you are trying to remove does not exist");
+    //         }
+    //     }
     // }
 }
