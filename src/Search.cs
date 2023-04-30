@@ -16,31 +16,22 @@
 //                _context = context;
 //         }
 
+//         //EVENT
 //         //SearchEventsCourseSchool
-//         public List<EventCalendar> SearchEventsCourseSchool(CourseEvent? course = null, School? school = null)
+//         public List<EventCalendar> SearchEventsCourseSchool(string courseSchool)
 //         {
 //             var events = _context.Events!
-//                         .Where(e => e.CourseEvents.Contains(course!) || e.School.Equals(school!))
+//                         .Where(e => e.Courses.Contains(courseSchool) || e.School.Equals(courseSchool))
 //                         .ToList();
 
 //            return events;
 //         }
 
-//         //SearchEventsCourseSchool
-//         public List<EventCalendar> SearchEventsCreator(Profile? creator = null)
+//         //SearchEventsCreator
+//         public List<EventCalendar> SearchEventsCreator(string creatorId)
 //         {
 //             var events = _context.Events!
-//                         .Where(e => e.EventCreator.Equals(creator) )
-//                         .ToList();
-
-//            return events;
-//         }
-
-//         //SearchProfileCourseSchool
-//         public List<Profile> SearchProfileCourseSchool(TakenCourses? tcourse = null, NeedHelpCourses? nhcourse = null, CanHelpCourses? chcourse = null, School? school = null)
-//         {
-//             var events = _context.Profiles!
-//                         .Where(p => p.TakenCourses.Contains(tcourse!) || p.NeedHelpCourses.Contains(nhcourse!) || p.CanHelpCourses.Contains(chcourse!) || p.School.Equals(school))
+//                         .Where(e => e.CreatorId.Equals(creatorId))
 //                         .ToList();
 
 //            return events;
@@ -56,22 +47,31 @@
 //              return events;
 //         }
 
+//         //PROFILE
+//         //SearchProfileCourseSchool
+//         public List<Profile> SearchProfileCourseSchool(string courseSchool)
+//         {
+//             var events = _context.Profiles!
+//                         .Where(p => p.TakenCourses.Contains(courseSchool!) || p.NeedHelpCourses.Contains(courseSchool!) || p.School.Equals(courseSchool))
+//                         .ToList();
+
+//            return events;
+//         }
+
 //         //SearchProfileBlurbInterest
-//         public List<Profile> SearchProfileBlurbInterest(string? keyword = null, InterestsProfile? interestProfile = null)
+//         public List<Profile> SearchProfileBlurbInterest(string keyword)
 //         {
 //              var profiles = _context.Profiles!
-//                  .Where(p => p.PersonalDescription.Contains(keyword!) || p.Hobbies.Contains(interestProfile!))
+//                  .Where(p => p.PersonalDescription.Contains(keyword) || p.Hobbies.Contains(keyword))
 //                  .ToList();
 
 //              return profiles;
 //         }
 
 //         //SearchProfileByUser
-//         public List<Profile> SearchProfileByUser(User u)
+//         public Profile SearchProfileByUser(string userId)
 //         {
-//              var profiles =  _context.Profiles!
-//                             .Where(p => p.UserId.Equals(u.UserId))
-//                             .ToList();
+//              var profiles =  _context.Profiles!.SingleOrDefault(p => p.UsrId == userId);
 //             return profiles;
 //         }
 //      }

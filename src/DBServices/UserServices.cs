@@ -5,15 +5,6 @@ namespace StudyMate;
 class UserServices
 {
     private StudyMateDbContext _context = null!;
-    private static UserServices? _instance;
-    public static UserServices getInstance(StudyMateDbContext context)
-    {
-        if (_instance is null)
-        {
-            _instance = new UserServices(context);
-        }
-        return _instance;
-    }
     public UserServices(StudyMateDbContext context)
     {
         _context = context;
@@ -27,14 +18,14 @@ class UserServices
         // If the user doesn't exist, return null
         if (user == null)
         {
-            return null;
+            return null!;
         }
 
         // If the password is incorrect, return null
         if (!PasswordHasher.VerifyPassword(password, user.PasswordHash))
         {
             System.Console.WriteLine("wrong");
-            return null;
+            return null!;
         }
         // If the user is valid, return a User object
         return new User(user.UserId, user.Username, user.PasswordHash, user.UserId);
@@ -56,7 +47,7 @@ class UserServices
         // If the user already exists, return null
         if (user != null)
         {
-            return null;
+            return null!;
         }
 
         // Create a new user

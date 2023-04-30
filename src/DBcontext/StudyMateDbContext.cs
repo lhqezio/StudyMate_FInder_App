@@ -14,7 +14,7 @@ namespace StudyMate
         public virtual DbSet<CourseTaken>? CoursesTaken {get; set;}
         public virtual DbSet<CourseCanHelpWith>? CoursesCanHelpWith {get; set;}
         public virtual DbSet<CourseNeedHelpWith>? CoursesNeedHelpWith {get; set;}
-        // public virtual DbSet<EventCalendar>? Events { get; set; }
+        public virtual DbSet<EventCalendar>? Events { get; set; }
         public virtual  DbSet<Conversation>? Conversations { get; set; }
         public virtual  DbSet<Message>? Messages { get; set; }
        
@@ -40,7 +40,7 @@ namespace StudyMate
             modelBuilder.Entity<User>()
                 .HasIndex(u => u.Email)
                 .IsUnique();
-            
+
             modelBuilder.Entity<CourseTaken>()
                 .HasKey(ctp => new { ctp.CourseId, ctp.ProfileId });
 
@@ -65,25 +65,22 @@ namespace StudyMate
                     .HasForeignKey("ConversationId")
                     .OnDelete(DeleteBehavior.Cascade)
             );
-            // modelBuilder.Entity<EventCalendar>().HasMany(e => e.Participant)
-            // .WithMany(p => p.Events)
-            // .UsingEntity<Dictionary<string, object>>(
-            //     "ProfileEvent",
-            //     j => j
-            //         .HasOne<Profile>()
-            //         .WithMany()
-            //         .HasForeignKey("ProfileId")
-            //         .OnDelete(DeleteBehavior.Cascade),
-            //     j => j
-            //         .HasOne<Event>()
-            //         .WithMany()
-            //         .HasForeignKey("EventId")
-            //         .OnDelete(DeleteBehavior.Cascade)
-            // );
-            // modelBuilder.Entity<User>()
-            //     .HasOne<Profile>()
-            //     .WithOne()
-            //     .HasForeignKey<Profile>(p => p.UserId);
+            
+            modelBuilder.Entity<Profile>() //Link one Profile to its events (Creator) 
+                .HasMany(p => p.CreatorEvents)
+                .WithOne(e => e.Creator)
+                .HasForeignKey("CreatorId")
+                .IsRequired();
+
+            modelBuilder.Entity<Profile>() //Link multiple Profile to multiple Events 
+                .HasMany(p => p.ParticipatingEvents)
+                .WithMany(e => e.Participants)
+                .UsingEntity(
+                    "EventProfile",
+                    l => l.HasOne(typeof(EventCalendar)).WithMany().HasForeignKey("EventsId").HasPrincipalKey(nameof(EventCalendar.EventId)),
+                    r => r.HasOne(typeof(Profile)).WithMany().HasForeignKey("ProfilesId").HasPrincipalKey(nameof(Profile.ProfileId)),
+                    j => j.HasKey("EventsId", "ProfilesId")
+                );
         }
     }
 }
