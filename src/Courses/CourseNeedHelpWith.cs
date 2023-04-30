@@ -14,9 +14,7 @@ namespace StudyMate
         public CourseNeedHelpWith(){}
         public CourseNeedHelpWith(Profile profile, Course course){
             this.CourseId=course.CourseId;
-            this.Course=course;
             this.ProfileId=profile.ProfileId;
-            this.Profile=profile;
         }
         public override bool Equals(object obj)
         {
@@ -25,7 +23,7 @@ namespace StudyMate
                 return false;
             }
             CourseNeedHelpWith other = (CourseNeedHelpWith) obj;
-            return this.Course.Equals(other.Course);
+            return this.ProfileId==other.ProfileId && this.CourseId==other.CourseId;
         }
 
         public override int GetHashCode()

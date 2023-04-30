@@ -12,9 +12,9 @@ namespace StudyMate
         public string ProfileId { get; set; }
         public Profile Profile { get; set; } = null!;
         public CourseCanHelpWith(){}
-        public CourseCanHelpWith(Profile profile, Course course){
-            this.CourseId=course.CourseId;
-            this.ProfileId=profile.ProfileId;
+        public CourseCanHelpWith(string courseId, string profileId){
+            this.CourseId=courseId;
+            this.ProfileId=profileId;
         }
     }
 }
