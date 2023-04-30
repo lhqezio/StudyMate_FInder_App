@@ -40,10 +40,10 @@ public class ProfileServices
         }
     }
 
-    public virtual void DeleteProfile(Profile profile)
+    public virtual void DeleteProfile(User u)
     { 
         // Get the Profile from the database
-        __trackedProfile = _context.Profiles?.SingleOrDefault(p => p.UserId == profile.UserId);
+        __trackedProfile = _context.Profiles?.SingleOrDefault(p => p.UserId == u.UserId);
         // If the Profile already exists, then delete it.
         if (__trackedProfile != null)
         {
@@ -64,8 +64,11 @@ public class ProfileServices
         if (__trackedProfile != null)
         {
             __trackedProfile=profile;
-            var schoolService=new SchoolServices(_context);
-            schoolService.UpdateSchool(__trackedProfile.School);
+            if (profile.School is not null)
+            {
+                var schoolService=new SchoolServices(_context);
+                schoolService.UpdateSchool(__trackedProfile.School);
+            }
             _context.Profiles!.Update(__trackedProfile);
             _context.SaveChanges();
         }else{
@@ -73,7 +76,8 @@ public class ProfileServices
         }
     }
     public virtual Profile? GetMyProfile(User u) {
-        return _context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId);
+        __trackedProfile = _context.Profiles!.SingleOrDefault(p => p.UserId == u.UserId);
+        return __trackedProfile;
     }
 
     public virtual List<Profile> GetProfileByName(string name) {

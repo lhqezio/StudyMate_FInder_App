@@ -61,16 +61,18 @@ public class SchoolServices
     public virtual void UpdateSchool(School school)
     {
         // Get the School from the database
-        __trackedSchool = _context.Schools?.SingleOrDefault(s => s.SchoolName == school.SchoolName);
+        __trackedSchool = _context.Schools?.SingleOrDefault(s => s.SchoolId == school.SchoolId);
 
         // If the School already exists, then update it.
         if (__trackedSchool != null)
         {
-            _context.Schools!.Update(__trackedSchool);
-            _context.SaveChanges();
             if (ProfileServices.__trackedProfile is not null)
             {
                 ProfileServices.__trackedProfile.School=__trackedSchool;
+            }else{
+                 __trackedSchool=school;
+                _context.Schools!.Update(__trackedSchool);
+                _context.SaveChanges();
             }
         }else{
             __trackedSchool=school;
@@ -81,5 +83,10 @@ public class SchoolServices
                 ProfileServices.__trackedProfile.School=__trackedSchool;
             }
         }
+    }
+
+    public virtual School? GetSchool(string schoolId){
+        __trackedSchool = _context.Schools!.SingleOrDefault(s => s.SchoolId == schoolId);
+        return __trackedSchool;
     }
 }

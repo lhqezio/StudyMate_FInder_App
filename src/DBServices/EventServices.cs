@@ -6,6 +6,7 @@ namespace StudyMate;
 public class EventServices
 {
     private StudyMateDbContext _context = null!;
+    public static EventCalendar? __trackedEvent = new();
     private static EventServices? _instance;
     public static EventServices getInstance(StudyMateDbContext context)
     {
@@ -23,7 +24,8 @@ public class EventServices
     //EVENT FCTS
         //AddEvent Method => Add event to the list of events
         public virtual void AddEvent(EventCalendar e){
-            if(_context.Events!.Contains(e) == null){ //Make sure the event doesn't already exist
+            __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == e.EventId);
+            if(__trackedEvent == null){ //Make sure the event doesn't already exist
                 foreach (var participant in e.Participants)
                 {
                     participant.ParticipatingEvents.Add(e);
@@ -45,34 +47,61 @@ public class EventServices
 
         //DeleteEvent Method => Delete event to the list of events
         public virtual void DeleteEvent(EventCalendar eventToDelete, Profile u){
-            if(u.ProfileId == eventToDelete.CreatorId){ //Check to make sure it's only the creator that can delete the event
-                _context.Events!.Remove(eventToDelete);
+            __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == eventToDelete.EventId);
+
+            if(__trackedEvent != null){
+                if(u.ProfileId == __trackedEvent.CreatorId){ //Check to make sure it's only the creator that can delete the event
+                    _context.Events!.Remove(__trackedEvent);
+                    _context.SaveChanges();
+                }
             }
-            _context.SaveChanges();
+            else{
+                throw new ArgumentException("Event doesn't exist. Create it");
+            }
         }
 
         //EditEvent Method => Edit an event
         public virtual void EditEvent(EventCalendar eventToUpdate, Profile u){
-            if(u.ProfileId == eventToUpdate.CreatorId){ //Check to make sure it's only the creator that can delete the event
-                _context.Events!.Update(eventToUpdate);
+            __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == eventToUpdate.EventId);
+            
+            if(__trackedEvent != null){ //Make sure the event exists
+                if(u.ProfileId == __trackedEvent.CreatorId){ //Check to make sure it's only the creator that can delete the event
+                    _context.Events!.Update(__trackedEvent);
+                    _context.SaveChanges();
+                }
             }
-            _context.SaveChanges();
+            else{
+                throw new ArgumentException("Event doesn't exist. Create it");
+            }
         }
         
 
         //AddParticipant => Add participant to event
         public virtual void AddParticipant(EventCalendar eventC, Profile participant){
-            if(eventC.Participants.Any(p => p.ProfileId != participant.ProfileId)){
-                eventC.AddParticipant(participant);
-                participant.ParticipatingEvents.Add(eventC);    
+            __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == eventC.EventId);
+            if(__trackedEvent != null){
+                if(__trackedEvent.Participants.Any(p => p.ProfileId != participant.ProfileId)){
+                    __trackedEvent.AddParticipant(participant);
+                    participant.ParticipatingEvents.Add(__trackedEvent);    
+                }
+            }
+            else{
+                throw new ArgumentException("Event doesn't exist. Create it");
             }
         }
 
         //RemoveParticipant => Remove participant to event
         public virtual void RemoveParticipant(EventCalendar eventC, Profile participant){
-            if(eventC.Participants.Any(p => p.ProfileId == participant.ProfileId)){
-                eventC.RemoveParticipant(participant);
-                participant.ParticipatingEvents.Add(eventC);                   
+            
+            __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == eventC.EventId);
+            if(__trackedEvent != null){
+                if(__trackedEvent.Participants.Any(p => p.ProfileId == participant.ProfileId)){
+                    __trackedEvent.RemoveParticipant(participant);
+                    participant.ParticipatingEvents.Add(__trackedEvent);                   
+                }
+            }
+            else{
+                throw new ArgumentException("Event doesn't exist. Create it");
             }
         }
 }
