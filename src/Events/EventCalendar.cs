@@ -13,8 +13,8 @@ namespace StudyMate
 
         //Creator - One to many relationship
         [ForeignKey("Profile")]
-        public string CreatorId {get; set;} //Profile Id         
-        public Profile Creator {get; set;}
+        public string CreatorId {get; set;} //Profile Id   //Child    
+        public Profile Creator {get; set;} = null!; 
         
         //Participants
         private List<Profile> _participants {get; set;} = new();
@@ -92,7 +92,7 @@ namespace StudyMate
         }
         
         //Subjects
-        public string _subjects {get; set;}
+        private string _subjects {get; set;}
         public string Subjects
         {
             get { return _subjects; }
@@ -106,31 +106,37 @@ namespace StudyMate
             }
         }
 
-        //Courses
-        public string _courses {get; set;}
-        public string Courses
+        //Courses 
+        // One-to-Many relationship
+        [ForeignKey("Course")]
+        public string CourseId { get; set; }
+        private List<Course> _courses {get; set;}
+        public List<Course> Courses
         {
             get { return _courses; }
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
+                if (value == null)
                 {
-                    throw new ArgumentException("Courses can't be empty, null, or whitespace.");
+                    throw new ArgumentException("Courses can't be empty or null.");
                 }
                 _courses = value;
             }
         }
         
         //School
-        public string _school{get; set;}         
-        public string School
+        // One-to-one relationship
+        [ForeignKey("School")]
+        public string SchooId { get; set; }
+        private School _school;    
+        public School School
         {
             get { return _school; }
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
+                if (value == null)
                 {
-                    throw new ArgumentException("Courses can't be empty, null, or whitespace.");
+                    throw new ArgumentException("School can't be empty or null.");
                 }
                 _school = value;
             }
@@ -141,7 +147,7 @@ namespace StudyMate
 
         // Constructors
         public EventCalendar(){}
-        public EventCalendar(string eventId, string title, string creatorId, List<Profile> participants, DateTimeOffset date, string description, string location, string subjects, string courses, string school, bool isSent=false)
+        public EventCalendar(string eventId, string title, string creatorId, List<Profile> participants, DateTimeOffset date, string description, string location, string subjects, List<Course> courses, School school, bool isSent=false)
         {
             EventId = eventId;
             _title = title;

@@ -25,21 +25,21 @@ public class EventServices
         public virtual void AddEvent(User u, EventCalendar e){
             foreach (var participant in e.Participants)
             {
-                participant.Events.Add(e);
+                participant.ParticipatingEvents.Add(e);
             }
             _context.Events!.Add(e);
             _context.SaveChanges();    
         }
 
         //CreateEvent Method => Create an event
-        public virtual void CreateEvent(User u, string title, string creatorId, List<Profile> participants, DateTimeOffset date, string description, string location, string subjects, string courses, string school){
+        public virtual void CreateEvent(User u, string title, string creatorId, List<Profile> participants, DateTimeOffset date, string description, string location, string subjects, List<Course> courses, School school){
             EventCalendar newEvent = new EventCalendar(Guid.NewGuid().ToString(), title, creatorId, participants, date, description, location, subjects, courses, school);
             this.AddEvent(u, newEvent);
         }
 
         //DeleteEvent Method => Delete event to the list of events
         public virtual void DeleteEvent(EventCalendar eventToDelete, User u){
-            if(u.Id == eventToDelete.CreatorId){ //Check to make sure it's only the creator that can delete the event
+            if(u.UserId == eventToDelete.CreatorId){ //Check to make sure it's only the creator that can delete the event
                 _context.Events!.Remove(eventToDelete);
             }
             _context.SaveChanges();
@@ -47,7 +47,7 @@ public class EventServices
 
         //EditEvent Method => Edit an event
         public virtual void EditEvent(EventCalendar eventToUpdate, User u){
-            if(u.Id == eventToUpdate.CreatorId){ //Check to make sure it's only the creator that can delete the event
+            if(u.UserId == eventToUpdate.CreatorId){ //Check to make sure it's only the creator that can delete the event
                 _context.Events!.Update(eventToUpdate);
             }
             _context.SaveChanges();
@@ -58,7 +58,7 @@ public class EventServices
         public virtual void AddParticipant(EventCalendar eventC, Profile participant){
             if(eventC.Participants.Any(p => p.ProfileId != participant.ProfileId)){
                 eventC.AddParticipant(participant);
-                participant.Events.Add(eventC);    
+                participant.ParticipatingEvents.Add(eventC);    
             }
         }
 
@@ -66,7 +66,7 @@ public class EventServices
         public virtual void RemoveParticipant(EventCalendar eventC, Profile participant){
             if(eventC.Participants.Any(p => p.ProfileId == participant.ProfileId)){
                 eventC.RemoveParticipant(participant);
-                participant.Events.Add(eventC);                   
+                participant.ParticipatingEvents.Add(eventC);                   
             }
         }
 }
