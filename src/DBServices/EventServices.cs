@@ -44,10 +44,24 @@ public class EventServices
         } 
         
         //CreateEvent Method => Create an event
-        public virtual EventCalendar CreateEvent(string title, Profile creator, List<Profile> participants, DateTimeOffset date, string description, string location, string subjects, List<Course> courses, School school){
-            EventCalendar newEvent = new EventCalendar(Guid.NewGuid().ToString(), title, creator, participants, date, description, location, subjects, courses, school);
-            this.AddEvent(newEvent);
-            return newEvent;
+        public virtual void CreateEvent(EventCalendar e){
+            // Get the event from the database
+            __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == e.EventId);
+            // If the Course already exists, it will not be added to the database.
+            if (__trackedEvent != null)
+            {
+                System.Console.WriteLine("This event already exist in the database.");
+            }else{
+                __trackedEvent=e;
+                var schoolService=new SchoolServices(_context);
+                schoolService.AddSchool(__trackedEvent.School);
+                if (ProfileServices.__trackedProfile is not null)
+                {
+                    __trackedEvent.Creator=ProfileServices.__trackedProfile;
+                }
+                _context.Events!.Add(__trackedEvent);
+                _context.SaveChanges(); 
+            }
         }
 
         //DeleteEvent Method => Delete event to the list of events

@@ -7,6 +7,7 @@ namespace StudyMate
     public class CourseTaken{ //Bridging Tbl
         [ForeignKey("Course")]
         public string CourseId { get; set; }
+        public string CourseName { get; set; }
         public Course Course { get; set; } = null!;
         [ForeignKey("Profile")]
         public string ProfileId { get; set; }
@@ -15,6 +16,7 @@ namespace StudyMate
         public CourseTaken(Profile profile, Course course){
             this.CourseId=course.CourseId;
             this.ProfileId=profile.ProfileId;
+            this.CourseName=course.CourseName;
         }
     }
 }

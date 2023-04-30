@@ -41,6 +41,10 @@ namespace StudyMate
                 .HasIndex(u => u.Email)
                 .IsUnique();
 
+            modelBuilder.Entity<Course>()
+                .HasIndex(c => c.CourseName)
+                .IsUnique();
+
             modelBuilder.Entity<CourseTaken>()
                 .HasKey(ctp => new { ctp.CourseId, ctp.ProfileId });
 

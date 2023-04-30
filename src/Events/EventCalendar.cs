@@ -11,11 +11,31 @@ namespace StudyMate
         [Key]
         public string EventId { get; set;}
 
+        // One-to-one relationship
+        //School
+        [ForeignKey("School")]
+        public string SchooId { get; set; }
+        private School _school;    
+        public School School
+        {
+            get { return _school; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("School can't be empty or null.");
+                }
+                _school = value;
+            }
+        }
+
         //Creator - One to many relationship
         [ForeignKey("Profile")]
         public string CreatorId {get; set;} //Profile Id   //Child    
         public Profile Creator {get; set;} = null!; 
         
+        
+        // Many-to-Many relationship
         //Participants
         private List<Profile> _participants {get; set;} = new();
         public List<Profile> Participants
@@ -30,7 +50,10 @@ namespace StudyMate
                 _participants = value;
             }
         }
+        //Courses 
+        public List<Course> Courses {get;} = new();
         
+        //other properties
         //Title
         private string _title;
         public string Title
@@ -106,30 +129,6 @@ namespace StudyMate
             }
         }
 
-        //Courses 
-        // Many-to-Many relationship
-        [ForeignKey("Course")]
-        public List<Course> Courses {get;} = new();
-        
-        
-        //School
-        // One-to-one relationship
-        [ForeignKey("School")]
-        public string SchooId { get; set; }
-        private School _school;    
-        public School School
-        {
-            get { return _school; }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentException("School can't be empty or null.");
-                }
-                _school = value;
-            }
-        }
-
         //Sent or not
         public bool IsSent { get; set; }
 
@@ -139,15 +138,13 @@ namespace StudyMate
         {
             EventId = eventId;
             _title = title;
-            Creator = creator;
-            CreatorId = Creator.ProfileId;
-            _participants = participants; 
+            CreatorId = creator.ProfileId; 
             _date = date;
             _description = description;
             _location = location;
             _subjects = subjects;
-            Courses = courses;
             _school = school;
+            SchooId= school.SchoolId;
             IsSent = isSent;
         }
 

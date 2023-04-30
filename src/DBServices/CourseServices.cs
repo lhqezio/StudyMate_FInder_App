@@ -62,7 +62,13 @@ public class CourseServices
             {
                 __trackedCourse = new Course(courseNeedHelpWith[i].CourseId,courseNeedHelpWith[i].CourseName);
                 AddCourse(__trackedCourse);
+                _context.SaveChanges();
             }
          }
+    }
+
+    public virtual Course? GetCourseByName(string courseName) {
+        __trackedCourse = _context.StudyCourses!.SingleOrDefault(c => c.CourseName == courseName);
+        return __trackedCourse;
     }
 }
