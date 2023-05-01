@@ -44,9 +44,9 @@ public class SearchServices
 
     //SEARCH FCTS
     //SearchEventsCourseSchool Method => Search Events based on Course and School
-    public virtual List<EventCalendar> SearchEventsCourseSchool(string courseSchool){
+    public virtual List<EventCalendar> SearchEventsCourseSchool(string keyword){
         Search sc = new Search(_context);
-        return sc.SearchEventsCourseSchool(courseSchool);
+        return sc.SearchEventsCourseSchool(keyword);
     }
 
     //SearchEventsCreator Method => Search Events based on the creator (profile)
@@ -62,9 +62,9 @@ public class SearchServices
     }
 
     //SearchProfileCourseSchool Method => Search profile by Course or School
-    public virtual List<Profile> SearchProfileCourseSchool(string courseSchool){
+    public virtual List<Profile> SearchProfileCourseSchool(string keyword){
         Search sc = new Search(_context);
-        return sc.SearchProfileCourseSchool(courseSchool);
+        return sc.SearchProfileCourseSchool(keyword);
     }
 
     //SearchProfileBlurbInterest Method => Search Profile by Blurb and Interest
@@ -79,6 +79,19 @@ public class SearchServices
         return sc.SearchProfileByUser(userId);
     }
 
+    //SearchAllProfile Method => Search All Profile 
+    public virtual List<Profile> SearchAllProfile(){
+        return _context.Profiles!.ToList();
+    }
+
+    //SearchAllProfile Method => Search All Profile 
+    public virtual Profile SearchProfileByProfileId(string profileId){
+        List<Profile> profiles =  _context.Profiles!.Where(p => p.ProfileId == profileId).ToList();
+        if (profiles.Count != 0){
+            return profiles[0];
+        }
+        return null;
+    }
 }
 
 

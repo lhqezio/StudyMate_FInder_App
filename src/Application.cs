@@ -6,9 +6,9 @@ namespace StudyMate
      {
         public static User? currentUser;
         public static StudyMateDbContext? db;
-        // public static readonly string DemoCourses = "Math 101,Phys 202,Art 303";
-         public static void Main(string[] args)
-         {
+        public static readonly string DemoCourses = "Math 101,Phys 202,Art 303";
+        public static void Main(string[] args)
+        {
             using (db = new StudyMateDbContext())
             {
                 //Set-up
@@ -20,7 +20,7 @@ namespace StudyMate
                 var courseService = new CourseServices(db);
                 var conversationService = new ChatServices(db);
                 var eventService = new EventServices(db);
-                var searchService= new SearchS
+                var searchService = new SearchServices(db);
                 
                 // 1.	Create a new user account (user1)
                 System.Console.WriteLine("Attempt to create user1");
@@ -55,10 +55,10 @@ namespace StudyMate
                 // 3.	Create an event for user1
                 //Creation of the event changes the schooldId of profile 1
                 System.Console.WriteLine("Attempt to set up Event for user1");
-                var user1_profile = profileService.GetMyProfile(currentUser);
+                var user1_profile = searchService.SearchProfileByUser(currentUser.UserId);
                 courseService.AddCourse(new Course("3","Linear Algebra"));
                 var event1_course=courseService.GetCourseByName("Linear Algebra");
-                var event_user1=new EventCalendar();
+                var event_user1=new EventCalendar();  
                 if (user1_profile is not null && event1_course is not null)
                 {
                     event_user1=new EventCalendar("1","Study for Math 101", user1_profile, DateTime.Now.AddHours(2), "Math 101", "Beaudry", "Intro to Linear Algebra", new School("2","McGill"));
@@ -116,7 +116,6 @@ namespace StudyMate
                 // user1event.Title = "New Title";
                 // System.Console.WriteLine("Event title is still: " + user1event.Title);
 
-
                 // 10.	Perform a search that finds user1’s profile
                 var user1 = searchService.GetProfileByName("Alain")[0];;
 
@@ -143,14 +142,14 @@ namespace StudyMate
                 // 15.	Modify user1’s profile
                 if (currentUser is not null)
                 {
-                    var my_profile = profileService.GetMyProfile(currentUser);
+                    var my_profile = searchService.SearchProfileByUser(currentUser.UserId);
                     if (my_profile is not null)
                     {
                         my_profile.Name = "Amirreza";
                         my_profile.SchoolId="2";
                         profileService.UpdateProfile(my_profile);
                     }
-                    my_profile = profileService.GetMyProfile(currentUser);
+                    my_profile = searchService.SearchProfileByUser(currentUser.UserId);
                     if (my_profile is not null)
                     {
                         var sch=schoolService.GetSchool(my_profile.SchoolId);
