@@ -49,29 +49,34 @@ namespace StudyMate
 
         //PROFILE
         //SearchProfileCourseSchool
-        public List<Profile> SearchProfileCourseSchool(School sch = null, Course course = null)
+        public List<Profile> SearchProfileCourseSchool(string keyword)
         {
             var events = _context.Profiles!
-                        .Where(p => p.CourseCanHelpWith.Contains(course!) || p.CourseNeedHelpWith.Contains(course!) || p.CourseTaken.Contains(course!) || p.School.Equals(sch))
+                        .Where(p => p.CourseCanHelpWith.Any(c => c.CourseName.Contains(keyword)) ||
+                                    p.CourseNeedHelpWith.Any(c => c.CourseName.Contains(keyword)) ||
+                                    p.CourseTaken.Any(c => c.CourseName.Contains(keyword)) ||
+                                    p.School.SchoolName.Equals(keyword))
                         .ToList();
-
            return events;
         }
 
         //SearchProfileBlurbInterest
-        public List<Profile> SearchProfileBlurbInterest(string keyword = null, Hobby hobby = null)
+        public List<Profile> SearchProfileBlurbInterest(string keyword)
         {
-             var profiles = _context.Profiles!
-                 .Where(p => p.PersonalDescription.Contains(keyword) || p.Hobbies.Contains(hobby))
-                 .ToList();
+            var profiles = _context.Profiles!.Where(p => p.PersonalDescription.Contains(keyword) || 
+                                                    ( p.Hobbies.Any(h => h.HobbyName.Contains(keyword))))
+                                            .ToList();
              return profiles;
         }
 
         //SearchProfileByUser
         public Profile SearchProfileByUser(string userId)
         {
-             var profiles =  _context.Profiles!.SingleOrDefault(p => p.UserId == userId);
-            return profiles;
+            List<Profile> profiles =  _context.Profiles!.Where(p => p.UserId == userId).ToList();
+            if (profiles.Count != 0){
+                return profiles[0];
+            }   
+            return null;
         }
      }
  }

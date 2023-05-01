@@ -62,9 +62,9 @@ public class SearchServices
     }
 
     //SearchProfileCourseSchool Method => Search profile by Course or School
-    public virtual List<Profile> SearchProfileCourseSchool(School sch = null, Course course = null){
+    public virtual List<Profile> SearchProfileCourseSchool(string keyword){
         Search sc = new Search(_context);
-        return sc.SearchProfileCourseSchool(sch, course);
+        return sc.SearchProfileCourseSchool(keyword);
     }
 
     //SearchProfileBlurbInterest Method => Search Profile by Blurb and Interest
