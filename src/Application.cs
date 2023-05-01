@@ -20,6 +20,7 @@ namespace StudyMate
                 var courseService = new CourseServices(db);
                 var conversationService = new ChatServices(db);
                 var eventService = new EventServices(db);
+                var searchService= new SearchS
                 
                 // 1.	Create a new user account (user1)
                 System.Console.WriteLine("Attempt to create user1");
@@ -117,7 +118,7 @@ namespace StudyMate
 
 
                 // 10.	Perform a search that finds user1’s profile
-                //var user1 = profileService.GetProfileByName("Alain")[0];
+                var user1 = searchService.GetProfileByName("Alain")[0];;
 
                 // 11.	Send 3 messages from user2 to user1 
                 List<string> usernames = new List<string>();
