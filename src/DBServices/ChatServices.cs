@@ -19,19 +19,19 @@ public class ChatServices {
         var conversation = new Conversation(Guid.NewGuid().ToString(), name);
         foreach (var username in usernames)
         {
-            var user = _context.Users.SingleOrDefault(u => u.Username == username);
+            var user = _context.Users?.SingleOrDefault(u => u.Username == username);
             if(user!=null) {
             conversation.Users.Add(user);
             user.Conversations.Add(conversation);
             }
         }
-        _context.Conversations.Add(conversation);
+        _context.Conversations?.Add(conversation);
         _context.SaveChanges();
         return conversation;
     }
     public void AddUserToConversation(string conversationID, string Id)
     {
-        var conversation = _context.Conversations.Find(conversationID);
+        var conversation = _context.Conversations?.Find(conversationID);
         var user = _context.Users.Find(Id);
         conversation.Users.Add(user);
         user.Conversations.Add(conversation);

@@ -129,35 +129,6 @@ public class EventServices
                 System.Console.WriteLine("The event you are trying to update does not exist.");
             }
         }
-        
-        // //AddParticipant => Add participant to event
-        // public virtual void AddParticipant(EventCalendar eventC, Profile participant){
-        //     __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == eventC.EventId);
-        //     if(__trackedEvent != null){
-        //         if(__trackedEvent.Participants.Any(p => p.ProfileId != participant.ProfileId)){
-        //             __trackedEvent.AddParticipant(participant);
-        //             participant.ParticipatingEvents.Add(__trackedEvent);    
-        //         }
-        //     }
-        //     else{
-        //         throw new ArgumentException("Event doesn't exist. Create it");
-        //     }
-        // }
-
-        // //RemoveParticipant => Remove participant to event
-        // public virtual void RemoveParticipant(EventCalendar eventC, Profile participant){
-            
-        //     __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == eventC.EventId);
-        //     if(__trackedEvent != null){
-        //         if(__trackedEvent.Participants.Any(p => p.ProfileId == participant.ProfileId)){
-        //             __trackedEvent.RemoveParticipant(participant);
-        //             participant.ParticipatingEvents.Add(__trackedEvent);                   
-        //         }
-        //     }
-        //     else{
-        //         throw new ArgumentException("Event doesn't exist. Create it");
-        //     }
-        // }
 }
 
 
