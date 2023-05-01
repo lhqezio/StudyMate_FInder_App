@@ -39,10 +39,8 @@ public class EventServices
                 courseService.CheckCoursesEvent(__trackedEvent.EventCourse);
                 var profileService=new ProfileServices(_context);
                 profileService.CheckParticipants(__trackedEvent.EventProfile);
+                ProfileServices.__trackedProfile=_context.Profiles?.SingleOrDefault(p => p.ProfileId == __trackedEvent.CreatorId);
                 _context.Events!.Add(__trackedEvent);
-                // I detach the Creator from the __trackedEvent so that the changes made
-                // to the event does not affect Profiles table. 
-                _context.Entry(__trackedEvent.Creator).State = EntityState.Detached;
                 _context.SaveChanges(); 
             }
         }
@@ -75,7 +73,6 @@ public class EventServices
             // Get the event from the database
             __trackedEvent = _context.Events?.SingleOrDefault(e => e.EventId == ev.EventId);
             ProfileServices.__trackedProfile = _context.Profiles?.SingleOrDefault(p => p.ProfileId == profile.ProfileId);
-            // If the event already exists, then delete it.
             if (__trackedEvent != null && ProfileServices.__trackedProfile != null)
             {
                 __trackedEventProfile=new EventProfile( __trackedEvent,ProfileServices.__trackedProfile);
@@ -107,23 +104,23 @@ public class EventServices
             return profiles;
         }
 
-        //EditEvent Method => Edit an event
-         public virtual void UpdateEvent(EventCalendar eventToUpdata,Profile p)
+        //UpdateEvent Method => Edit an event
+         public virtual void UpdateEvent(EventCalendar eventToUpdate)
         {
             // Get the event from the database
-            __trackedEvent = _context.Events?.SingleOrDefault(e => e.EventId == eventToUpdata.EventId);
+            __trackedEvent = _context.Events?.SingleOrDefault(e => e.EventId == eventToUpdate.EventId);
             // If the Event already exists, it will be updated.
             if (__trackedEvent != null)
             {
-                __trackedEvent=eventToUpdata;
+                __trackedEvent=eventToUpdate;
                 var schoolService=new SchoolServices(_context);
                 var courseService=new CourseServices(_context);
                 foreach (var item in __trackedEvent.EventCourse)
                 {
                     courseService.AddCourse(new Course(item.CourseId,item.CourseName));
                 }
-                // schoolService.UpdateSchool(__trackedEvent.School);
-                // _context.Events!.Update(__trackedEvent);
+                schoolService.UpdateSchool(__trackedEvent.School);
+                _context.Events!.Update(__trackedEvent);
                 _context.SaveChanges();
             }else{
                 System.Console.WriteLine("The event you are trying to update does not exist.");

@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace StudyMate
 {
-    public class CourseTaken : Course{ //Bridging Tbl
+    public class CourseTaken{ //Bridging Tbl
         [ForeignKey("Course")]
         public string CourseId { get; set; }
         public string CourseName { get; set; }
