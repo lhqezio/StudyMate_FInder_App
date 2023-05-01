@@ -39,11 +39,10 @@ public class EventServices
                 courseService.CheckCoursesEvent(__trackedEvent.EventCourse);
                 var profileService=new ProfileServices(_context);
                 profileService.CheckParticipants(__trackedEvent.EventProfile);
-                if (ProfileServices.__trackedProfile is not null)
-                {
-                    __trackedEvent.Creator=ProfileServices.__trackedProfile;
-                }
                 _context.Events!.Add(__trackedEvent);
+                // I detach the Creator from the __trackedEvent so that the changes made
+                // to the event does not affect Profiles table. 
+                _context.Entry(__trackedEvent.Creator).State = EntityState.Detached;
                 _context.SaveChanges(); 
             }
         }
@@ -87,8 +86,21 @@ public class EventServices
             }
         }
 
+        public virtual List<Profile> GetParticipants(String eventId){
+            List<Profile>? profiles=new List<Profile>();
+            __trackedEvent = _context.Events?.SingleOrDefault(e => e.EventId == eventId);
+            if(__trackedEvent is not null){
+                List<EventProfile>? eP = _context.EventProfiles?.Where(ep => ep.EventId == __trackedEvent.EventId).ToList();
+                foreach (var item in eP)
+                {
+                    profiles.Add(_context.Profiles?.SingleOrDefault(p => p.ProfileId == item.ProfileId));
+                }
+            }
+            return profiles;
+        }
+
         //EditEvent Method => Edit an event
-         public virtual void UpdateEvent(EventCalendar eventToUpdata)
+         public virtual void UpdateEvent(EventCalendar eventToUpdata,Profile p)
         {
             // Get the event from the database
             __trackedEvent = _context.Events?.SingleOrDefault(e => e.EventId == eventToUpdata.EventId);

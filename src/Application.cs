@@ -52,15 +52,16 @@ namespace StudyMate
                 profileService.AddProfile(profile1);
 
                 // 3.	Create an event for user1
+                //Creation of the event changes the schooldId of profile 1
                 System.Console.WriteLine("Attempt to set up Event for user1");
                 var user1_profile = profileService.GetMyProfile(currentUser);
-                courseService.AddCourse(new Course("1","Math"));
-                var event1_course=courseService.GetCourseByName("Math");
+                courseService.AddCourse(new Course("3","Linear Algebra"));
+                var event1_course=courseService.GetCourseByName("Linear Algebra");
                 var event_user1=new EventCalendar();
                 if (user1_profile is not null && event1_course is not null)
                 {
-                    event_user1=new EventCalendar("3","Study for Math 103", user1_profile, DateTime.Now.AddHours(2), "Math 102", "Beaudry", "Intro to calculus", new School("2","McGill"));
-                    event_user1.EventCourse=new List<EventCourse>(){new EventCourse(event_user1,new Course("5","Calculus"))};
+                    event_user1=new EventCalendar("1","Study for Math 101", user1_profile, DateTime.Now.AddHours(2), "Math 101", "Beaudry", "Intro to Linear Algebra", new School("2","McGill"));
+                    event_user1.EventCourse=new List<EventCourse>(){new EventCourse(event_user1,new Course("4","Calculus")),new EventCourse(event_user1,event1_course),new EventCourse(event_user1,new Course("5","Introduction to Computer Science"))};
                     event_user1.EventProfile=new List<EventProfile>(){new EventProfile(event_user1,user1_profile)};
                     eventService.CreateEvent(event_user1);
                 }
@@ -95,7 +96,7 @@ namespace StudyMate
                 // 6.	Create a profile for user2
                 System.Console.WriteLine("Attempt to set up Profile for user1");
                 var profile2= new Profile("2",currentUser,"samir","Male",new School("1","Dawson"),20,"Computer Science");
-                List<CourseNeedHelpWith> coursesNeedHelpWith2=new List<CourseNeedHelpWith>(){new CourseNeedHelpWith(profile2,new Course("2","Science"))};
+                List<CourseNeedHelpWith> coursesNeedHelpWith2=new List<CourseNeedHelpWith>(){new CourseNeedHelpWith(profile2,new Course("1","Math")),new CourseNeedHelpWith(profile2,new Course("3","Linear Algebra")),new CourseNeedHelpWith(profile2,new Course("4","Calculus")),new CourseNeedHelpWith(profile2,new Course("6","Chemistry"))};
                 profile2.CourseNeedHelpWith=coursesNeedHelpWith2;
                 profileService.AddProfile(profile2);
 
@@ -104,27 +105,19 @@ namespace StudyMate
 //                 var user1event = eventService.GetAllMyEvents(user1profile)[0];
 //                 System.Console.WriteLine("Event found");
 //                 System.Console.WriteLine(user1event.Title);
-//                 // // 8.	Mark user2 as attending user1’s event
-//                 eventService.MarkAttending(profileService.GetMyProfile(currentUser), user1event);
-//                 System.Console.WriteLine("User2 marked as attending user1's event:");
-//                 foreach (Profile p in user1event.Participant)
-//                 {
-//                     System.Console.WriteLine(p.Name);
-//                 }
-//                 System.Console.WriteLine("End Attending List");
 
                 // 8.	Mark user2 as attending user1’s event
                 event_user1.EventProfile.Add(new EventProfile(event_user1,profile2));
                 eventService.AddParticipant(event_user1,profile2);
 
-                // 9.	Attempt to edit user1’s event as user2 (should fail)
-//                 System.Console.WriteLine("Attempt to edit user1's event as user2 new title is New Title");
-//                 user1event.Title = "New Title";
-//                 System.Console.WriteLine("Event title is still: " + user1event.Title);
+                // // 9.	Attempt to edit user1’s event as user2 (should fail)
+                // System.Console.WriteLine("Attempt to edit user1's event as user2 new title is New Title");
+                // user1event.Title = "New Title";
+                // System.Console.WriteLine("Event title is still: " + user1event.Title);
 
 
                 // 10.	Perform a search that finds user1’s profile
-//                 var user1 = profileService.GetProfileByName("Alain")[0];
+                //var user1 = profileService.GetProfileByName("Alain")[0];
 
                 // 11.	Send 3 messages from user2 to user1 
                 List<string> usernames = new List<string>();
@@ -181,19 +174,16 @@ namespace StudyMate
                     conversationService.DeleteConversation(convo2.ConversationId);
                 }
                 
-                // // // 18.	Find and view the attendees of user1’s event
-                // // var user1event2 = eventService.GetAllMyEvents(profileService.GetMyProfile(currentUser))[0];
-                // // System.Console.WriteLine("Event found, Printing Attendees");
-                // // foreach (Profile p in user1event2.Participant)
-                // // {
-                // //     System.Console.WriteLine(p.Name);
-                // // }
-                // // System.Console.WriteLine("End Attendees List");
-
-                // // // 19.	Modify user1’s event.
-                // // user1event2.Title = "New Title";
-                // // eventService.UpdateEvent(currentUser, user1event2);
-                // // var user1event3 = eventService.GetAllMyEvents(profileService.GetMyProfile(currentUser))[0];
+                // 18.	Find and view the attendees of user1’s event
+                System.Console.WriteLine("View user1's event's participants");
+                foreach(Profile profile in eventService.GetParticipants("1")){
+                    System.Console.WriteLine("Attendee: "+profile.Name);
+                }
+                
+                // 19.	Modify user1’s event.
+                // user1event2.Title = "New Title";
+                // eventService.UpdateEvent(currentUser, user1event2);
+                // var user1event3 = eventService.GetAllMyEvents(profileService.GetMyProfile(currentUser))[0];
 
                 // 20.	Delete user1’s profile
                 System.Console.WriteLine("Deleting profile");
