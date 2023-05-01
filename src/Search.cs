@@ -18,10 +18,11 @@ namespace StudyMate
 
         //EVENT
         //SearchEventsCourseSchool
-        public List<EventCalendar> SearchEventsCourseSchool(School sch = null, Course course = null)
+        public List<EventCalendar> SearchEventsCourseSchool(string keyword)
         {
             var events = _context.Events!
-                        .Where(e => e.EventCourse.Contains(course) || e.School.Equals(sch))
+                        .Where(e => e.EventCourse.Any(c => c.CourseName.Contains(keyword)) ||
+                                    e.School.SchoolName.Equals(keyword))
                         .ToList();
 
            return events;

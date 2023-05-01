@@ -44,9 +44,9 @@ public class SearchServices
 
     //SEARCH FCTS
     //SearchEventsCourseSchool Method => Search Events based on Course and School
-    public virtual List<EventCalendar> SearchEventsCourseSchool(School sch = null, Course course = null){
+    public virtual List<EventCalendar> SearchEventsCourseSchool(string keyword){
         Search sc = new Search(_context);
-        return sc.SearchEventsCourseSchool(sch, course);
+        return sc.SearchEventsCourseSchool(keyword);
     }
 
     //SearchEventsCreator Method => Search Events based on the creator (profile)

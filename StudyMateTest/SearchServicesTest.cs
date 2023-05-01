@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
         [TestMethod]
         public void Test_SearchServices_GetAllProfileEvent(){
-            //Need to be able to add event
+            
         }
 
         [TestMethod]
