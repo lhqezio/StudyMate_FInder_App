@@ -11,7 +11,7 @@ namespace StudyMate
         public Course Course { get; set; } = null!;
         [ForeignKey("EventCalendar")]
         public string EventId { get; set; }
-        public EventCalendar e { get; set; } = null!;
+        public EventCalendar EventCalendar { get; set; } = null!;
         public EventCourse(){}
         public EventCourse(EventCalendar ev, Course course){
             this.CourseId=course.CourseId;

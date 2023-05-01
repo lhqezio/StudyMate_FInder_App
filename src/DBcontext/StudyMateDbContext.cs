@@ -15,6 +15,8 @@ namespace StudyMate
         public virtual DbSet<CourseCanHelpWith>? CoursesCanHelpWith {get; set;}
         public virtual DbSet<CourseNeedHelpWith>? CoursesNeedHelpWith {get; set;}
         public virtual DbSet<EventCalendar>? Events { get; set; }
+        public virtual DbSet<EventProfile>? EventProfiles {get; set;}
+        public virtual DbSet<EventCourse>? EventCourses {get; set;}
         public virtual  DbSet<Conversation>? Conversations { get; set; }
         public virtual  DbSet<Message>? Messages { get; set; }
        

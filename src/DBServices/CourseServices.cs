@@ -50,6 +50,21 @@ public class CourseServices
         }
     }
 
+     public virtual void UpdateCourse(Course course)
+    {
+        // Get the Course from the database
+        __trackedCourse = _context.StudyCourses?.SingleOrDefault(s => s.CourseId == course.CourseId);
+        // If the Course already exists, it will be updated.
+        if (__trackedCourse != null)
+        {
+            __trackedCourse=course;
+            _context.StudyCourses!.Update(__trackedCourse);
+            _context.SaveChanges();
+        }else{
+           System.Console.WriteLine("The Course you are trying to update does not exist.");
+        }
+    }
+
     //When a profile is created,it is possible the the course they need help with does not already exist in the Courses table.
     //This method will check if the course is already existing. If not, it adds it to the Courses table to prevent
     //missing parent key for CourseID exception.

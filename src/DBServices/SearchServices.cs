@@ -38,8 +38,15 @@ public class SearchServices
     //SEARCH FOR PROFILE
 
     //GetProfileByName => Return profile based on name
-    public virtual List<Profile> GetProfileByName(string name) {
+    public virtual List<Profile> GetProfilesByName(string name) {
         return _context.Profiles!.Where(p => p.Name == name).ToList();
+    }
+
+    public virtual Profile? GetProfileById(string profileId) {
+        return _context.Profiles!.SingleOrDefault(p => p.ProfileId == profileId);
+    }
+    public virtual List<EventCalendar> GetProfileEvents(Profile profile){
+        return _context.Events!.Where(e => e.CreatorId == profile.ProfileId).ToList();
     }
 
     //SEARCH FCTS

@@ -11,12 +11,22 @@ namespace StudyMate
         [ForeignKey("EventCalendar")]
         public string EventId { get; set; }
         public string EventTitle{get;set;}
-        public EventCalendar e { get; set; } = null!;
+        public EventCalendar EventCalendar { get; set; } = null!;
         public EventProfile(){}
         public EventProfile(EventCalendar ev, Profile profile){
             this.ProfileId=profile.ProfileId;
             this.EventId=ev.EventId;
             this.EventTitle=ev.Title;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj == null || !(obj is EventProfile))
+            {
+                return false;
+            }
+            EventProfile p = (EventProfile) obj;
+            return (this.ProfileId == p.ProfileId);
         }
     }
 }
