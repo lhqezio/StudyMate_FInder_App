@@ -8,9 +8,13 @@ namespace StudyMate
         [Key]
         public string SchoolId{get;set;}
         public string SchoolName{get;set;}
-        
-        public Event? Event {get; set;}
-        
+
+        [InverseProperty("School")]
+        public List<Event>? EventsForSchool {get; set;}
+
+        [InverseProperty("School")]
+        public List<Profile>? ProfilsForSchool {get; set;}
+
         public School(){}
         public School(string schoolId,string schoolName){
             this.SchoolId=schoolId;

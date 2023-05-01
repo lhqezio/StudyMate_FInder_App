@@ -12,11 +12,12 @@ namespace StudyMate
         public string EventId { get; set;}
 
         // Creator
-        public string CreatorId {get; set;} //Profile Id   //Child    
+        [ForeignKey("ProfileId")]
         public Profile Creator {get; set;} = null!;
 
         //Participants
         private List<Profile> _participants {get; set;} = new();
+        [InverseProperty("ParticipantEvents")]
         public List<Profile> Participants
         {
             get { return _participants; }
@@ -106,7 +107,8 @@ namespace StudyMate
         }
 
         //Courses
-        public List<Course> _courses {get; set;}
+        private List<Course> _courses {get; set;}
+        [InverseProperty("Events")]
         public List<Course> Courses
         {
             get { return _courses; }
@@ -118,12 +120,10 @@ namespace StudyMate
             }
         }        
             //Many-To-Many 
-        [ForeignKey("CourseId")]
-        public int _coursesId;
-
 
         //School
-        private School _school;    
+        private School _school; 
+        [ForeignKey("SchoolId")]   
         public School School
         {
             get { return _school; }
@@ -145,7 +145,6 @@ namespace StudyMate
         public Event(string title, Profile creator, DateTimeOffset date, string description, string location, string subjects, School school, bool isSent=false)
         {
             _title = title;
-            CreatorId = creator.ProfileId; 
             _date = date;
             _description = description;
             _location = location;

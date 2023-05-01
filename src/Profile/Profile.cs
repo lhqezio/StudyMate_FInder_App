@@ -13,23 +13,29 @@ namespace StudyMate
         [Key]
         public string ProfileId { get; set; }
         // One-to-one relationship
-        [ForeignKey("User")]
-        public string UserId { get; set; }
+        [ForeignKey("UserId")]
         public User User{get;set;} = null!;
-        // one-to-many relationship
+        
+        [InverseProperty("Creator")]
+        public List<Event> CreatorEvents { get; set;} = new List<Event>(); //Parents
+        [InverseProperty("Participants")]
+        public List<Event> ParticipantEvents { get; set;} = new List<Event>(); //Parents
+
+        // one-to-many relationship with the bridging tables
+        [InverseProperty("StudentsTakingCourse")]
+        public List<Course>? CourseTaken{get;set;} = new();
+        
+        [InverseProperty("StudentsTutoringCourse")]
+        public List<Course>? CourseCanHelpWith{get;set;} = new();
+
+        [InverseProperty("StudentsNeedHelpCourse")]
+        public List<Course>? CourseNeedHelpWith{get;set;} = new();
+
         [ForeignKey("SchoolId")]
-        public string SchoolId {get;set;}
-        public School School {get;set;} = null!;
-        // public List<Event> CreatorEvents { get; set;} = new List<Event>(); //Parents
+        public School School { get; set; }
 
-        // // one-to-many relationship with the bridging tables
-        // public List<CourseTaken> CourseTaken{get;set;} = new();
-        // public List<CourseCanHelpWith> CourseCanHelpWith{get;set;} = new();
-        // public List<CourseNeedHelpWith> CourseNeedHelpWith{get;set;} = new();
-        // public List<EventProfile> EventProfile{get;set;} = new();
-
-        // // Many-to-many relationship
-        // public List<Hobby> Hobbies { get; set;} = new();
+        [InverseProperty("Profiles")]
+        public List<Hobby> Hobbies { get; set;} = new();
     
         //other properties
         public string Name { get; set; }
@@ -42,13 +48,12 @@ namespace StudyMate
         //setters.
 
         public Profile(){}
-        public Profile(string ProfileId,User user,string name,string gender, School school,int age, string program,string PersonalDescription="Hi I am using this app")
+        public Profile(User user, string name, List<Event> creatorEvents, List<Event> participantEvents, string gender, School school, List<, int age, string program,string PersonalDescription)
         {
-            this.ProfileId=ProfileId;
-            this.UserId=user.UserId;
+            this.User = user;
+            
             this.Name = name;
             this.Gender = gender;
-            this.SchoolId = school.SchoolId;
             this.School=school;
             this.Age=age;
             this.Program=program;

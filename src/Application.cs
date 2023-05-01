@@ -10,8 +10,11 @@ namespace StudyMate
         public static void Main(string[] args)
         {
     
-            // using (db = new StudyMateDbContext())
-            // {
+            using (db = new StudyMateDbContext())
+            {
+                User user1 = new User("1", "Alain", "Alain@gmail.com", "120");
+                Profile profile1 = new Profile("1", user1, "Alain", "Male", new School("1", "Dawson College"), 20, "Computer Science", "Hi");
+                Event event1 = new Event("Event 1", profile1,);
             //     //Set-up
             //     System.Console.WriteLine("What's up Andrew?");
             //     System.Console.WriteLine("Here is our PROOF");
@@ -223,7 +226,7 @@ namespace StudyMate
 
             //     // Change the password back to its inital state.
             //     userService.ChangePassword("alain", "200", "100");
-
+            }
         }
     }
 }

@@ -14,7 +14,11 @@ public class User
     public string Email { get; set; }
     public string PasswordHash { get; set; }
     public List<Conversation> Conversations { get; set; } = new();
+    
+    
 
+    
+    
     public User(){}
     public User(string Id,string username, string email,string passwordHash)
     {
