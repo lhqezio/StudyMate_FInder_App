@@ -20,16 +20,16 @@ namespace StudyMate
         [ForeignKey("SchoolId")]
         public string SchoolId {get;set;}
         public School School {get;set;} = null!;
-        public List<EventCalendar> CreatorEvents { get; set;} = new List<EventCalendar>(); //Parents
+        // public List<Event> CreatorEvents { get; set;} = new List<Event>(); //Parents
 
-        // one-to-many relationship with the bridging tables
-        public List<CourseTaken> CourseTaken{get;set;} = new();
-        public List<CourseCanHelpWith> CourseCanHelpWith{get;set;} = new();
-        public List<CourseNeedHelpWith> CourseNeedHelpWith{get;set;} = new();
-        public List<EventProfile> EventProfile{get;set;} = new();
+        // // one-to-many relationship with the bridging tables
+        // public List<CourseTaken> CourseTaken{get;set;} = new();
+        // public List<CourseCanHelpWith> CourseCanHelpWith{get;set;} = new();
+        // public List<CourseNeedHelpWith> CourseNeedHelpWith{get;set;} = new();
+        // public List<EventProfile> EventProfile{get;set;} = new();
 
-        // Many-to-many relationship
-        public List<Hobby> Hobbies { get; set;} = new();
+        // // Many-to-many relationship
+        // public List<Hobby> Hobbies { get; set;} = new();
     
         //other properties
         public string Name { get; set; }
@@ -64,7 +64,7 @@ namespace StudyMate
             School=null;
             Program = "";
             PersonalDescription = "";
-            Hobbies.Clear();
+            // Hobbies.Clear();
         }
 
         //Override of Equals method. This is used to compare two profile objects.
@@ -78,8 +78,8 @@ namespace StudyMate
                 && Age == other.Age
                 && School == other.School
                 && Program == other.Program
-                && PersonalDescription == other.PersonalDescription
-                && Hobbies.SequenceEqual(other.Hobbies);
+                && PersonalDescription == other.PersonalDescription;
+                // && Hobbies.SequenceEqual(other.Hobbies);
         }
 
         //Since we are overriding the Equals method, we must also override the GetHashCode method.
@@ -90,8 +90,8 @@ namespace StudyMate
                 Age.GetHashCode() ^
                 School.GetHashCode() ^
                 Program.GetHashCode() ^
-                PersonalDescription.GetHashCode() ^
-                Hobbies.GetHashCode();
+                PersonalDescription.GetHashCode();
+                // Hobbies.GetHashCode();
         }
     }
 }

@@ -5,40 +5,16 @@ using System.ComponentModel.DataAnnotations;
 
 namespace StudyMate
 {
-    public class EventCalendar
+    public class Event
     {
-        // Generates a random primary key for the EventCalendar class 
+        // Generates a random primary key for the Event class 
         [Key]
         public string EventId { get; set;}
 
-        // One-to-one relationship
-        //School
-        [ForeignKey("School")]
-        public string SchooId { get; set; }
-        private School _school;    
-        public School School
-        {
-            get { return _school; }
-            set
-            {
-                if (value == null)
-                {
-                    throw new ArgumentException("School can't be empty or null.");
-                }
-                _school = value;
-            }
-        }
-
-        //Creator - One to many relationship
-        [ForeignKey("Profile")]
+        // Creator
         public string CreatorId {get; set;} //Profile Id   //Child    
         public Profile Creator {get; set;} = null!;
 
-        // one-to-many relationship with the bridging tables
-        public List<EventProfile> EventProfile{get;set;} = new(); 
-        public List<EventCourse> EventCourse{get;set;} = new();
-        
-        // Many-to-Many relationship
         //Participants
         private List<Profile> _participants {get; set;} = new();
         public List<Profile> Participants
@@ -54,7 +30,6 @@ namespace StudyMate
             }
         } 
         
-        //other properties
         //Title
         private string _title;
         public string Title
@@ -130,14 +105,45 @@ namespace StudyMate
             }
         }
 
+        //Courses
+        public List<Course> _courses {get; set;}
+        public List<Course> Courses
+        {
+            get { return _courses; }
+            set{
+                if (value == null){
+                    throw new ArgumentException("Courses can't be empty, null.");
+                }
+                _courses = value;
+            }
+        }        
+            //Many-To-Many 
+        [ForeignKey("CourseId")]
+        public int _coursesId;
+
+
+        //School
+        private School _school;    
+        public School School
+        {
+            get { return _school; }
+            set
+            {
+                if (value == null)
+                {
+                    throw new ArgumentException("School can't be empty or null.");
+                }
+                _school = value;
+            }
+        }
+
         //Sent or not
         public bool IsSent { get; set; }
 
         // Constructors
-        public EventCalendar(){}
-        public EventCalendar(string eventId, string title, Profile creator, DateTimeOffset date, string description, string location, string subjects, School school, bool isSent=false)
+        public Event(){}
+        public Event(string title, Profile creator, DateTimeOffset date, string description, string location, string subjects, School school, bool isSent=false)
         {
-            EventId = eventId;
             _title = title;
             CreatorId = creator.ProfileId; 
             _date = date;
@@ -145,7 +151,7 @@ namespace StudyMate
             _location = location;
             _subjects = subjects;
             _school = school;
-            SchooId= school.SchoolId;
+            _participants = new List<Profile>();
             IsSent = isSent;
         }
 
@@ -187,4 +193,5 @@ namespace StudyMate
     }
 }
         
+       
        
