@@ -59,7 +59,8 @@ namespace StudyMate
                 var event1_course=courseService.GetCourseByName("Math");
                 if (user1_profile is not null && event1_course is not null)
                 {
-                    var event_user1=new EventCalendar("2","Study for Math 101", user1_profile, new List<Profile>() { profile1 }, DateTime.Now.AddHours(2), "Math 101", "Chez Saza", "Intro to Math", new List<Course>(){event1_course}, new School("4","UBC"));
+                    var event_user1=new EventCalendar("1","Study for Math 102", user1_profile, DateTime.Now.AddHours(2), "Math 102", "Beaudry", "Intro to calculus", new School("2","McGill"));
+                    event_user1.EventCourse=new List<EventCourse>(){new EventCourse(event_user1,new Course("5","Calculus"))};
                     eventService.CreateEvent(event_user1);
                 }
 

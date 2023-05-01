@@ -32,8 +32,11 @@ namespace StudyMate
         //Creator - One to many relationship
         [ForeignKey("Profile")]
         public string CreatorId {get; set;} //Profile Id   //Child    
-        public Profile Creator {get; set;} = null!; 
-        
+        public Profile Creator {get; set;} = null!;
+
+        // one-to-many relationship with the bridging tables
+        public List<EventProfile> EventProfile{get;set;} = new(); 
+        public List<EventCourse> EventCourse{get;set;} = new();
         
         // Many-to-Many relationship
         //Participants
@@ -49,9 +52,7 @@ namespace StudyMate
                 }
                 _participants = value;
             }
-        }
-        //Courses 
-        public List<Course> Courses {get;} = new();
+        } 
         
         //other properties
         //Title
@@ -134,7 +135,7 @@ namespace StudyMate
 
         // Constructors
         public EventCalendar(){}
-        public EventCalendar(string eventId, string title, Profile creator, List<Profile> participants, DateTimeOffset date, string description, string location, string subjects, List<Course> courses, School school, bool isSent=false)
+        public EventCalendar(string eventId, string title, Profile creator, DateTimeOffset date, string description, string location, string subjects, School school, bool isSent=false)
         {
             EventId = eventId;
             _title = title;
@@ -182,38 +183,6 @@ namespace StudyMate
                 stringParticipant.Add(participant.Name);
             }
             return stringParticipant;
-        }
-
-        //Override of Equals method. This is used to compare two event objects.
-        public override bool Equals(object? obj)
-        {
-            if (obj is not EventCalendar other)
-                return false;
-            return EventId == other.EventId
-                && _title == other._title
-                && CreatorId.Equals(other.CreatorId) 
-                && _participants.SequenceEqual(other._participants)
-                && _date == other._date
-                && _description == other._description
-                && School.Equals(other.School)
-                && Location == other.Location
-                && Courses.SequenceEqual(other.Courses)
-                && IsSent == other.IsSent;
-        }
-
-        //Since we are overriding the Equals method, we must also override the GetHashCode method.
-        public override int GetHashCode()
-        {
-            return EventId.GetHashCode() ^
-                _title.GetHashCode() ^
-                CreatorId.GetHashCode() ^
-                _participants.GetHashCode() ^
-                _date.GetHashCode() ^
-                _description.GetHashCode() ^
-                _school.GetHashCode() ^
-                _location.GetHashCode() ^
-                Courses.GetHashCode() ^
-                IsSent.GetHashCode();
         }
     }
 }

@@ -12,9 +12,7 @@ namespace StudyMate
         public List<CourseTaken> courseTaken{get;} = new();
         public List<CourseCanHelpWith> CourseCanHelpWith{get;} = new();
         public List<CourseNeedHelpWith> CourseNeedHelpWith{get;} = new();
-
-        //Many-to-Many relationship with Event
-        public List<EventCalendar> Events {get;} = new();
+        public List<EventCourse> EventCourse{get;set;} = new();
 
         public Course(){}
         public Course(string courseId, string courseName){

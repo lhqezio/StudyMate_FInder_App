@@ -22,32 +22,11 @@ public class EventServices
     }
 
     //EVENT FCTS
-        //AddEvent Method => Add event to the list of events
-        public virtual void AddEvent(EventCalendar e){
-            __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == e.EventId);
-            var __trackedCreator = _context.Set<Profile>().Local.FirstOrDefault(p => p.ProfileId == e.CreatorId);
-            if (__trackedCreator != null)
-            {
-                e.Creator = __trackedCreator;
-            }
-            if(__trackedEvent == null){ //Make sure the event doesn't already exist
-                foreach (var participant in e.Participants)
-                {
-                    participant.ParticipatingEvents.Add(e);
-                }
-                _context.Events!.Add(e);
-                _context.SaveChanges();    
-            }
-            else{
-                throw new ArgumentException("Event already exists. Either edit it, delete it or create a new one");
-            }
-        } 
-        
         //CreateEvent Method => Create an event
         public virtual void CreateEvent(EventCalendar e){
             // Get the event from the database
             __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == e.EventId);
-            // If the Course already exists, it will not be added to the database.
+            // If the event already exists, it will not be added to the database.
             if (__trackedEvent != null)
             {
                 System.Console.WriteLine("This event already exist in the database.");
@@ -55,6 +34,8 @@ public class EventServices
                 __trackedEvent=e;
                 var schoolService=new SchoolServices(_context);
                 schoolService.AddSchool(__trackedEvent.School);
+                var courseService=new CourseServices(_context);
+                courseService.CheckCoursesEvent(__trackedEvent.EventCourse);
                 if (ProfileServices.__trackedProfile is not null)
                 {
                     __trackedEvent.Creator=ProfileServices.__trackedProfile;
@@ -95,34 +76,34 @@ public class EventServices
         }
         
 
-        //AddParticipant => Add participant to event
-        public virtual void AddParticipant(EventCalendar eventC, Profile participant){
-            __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == eventC.EventId);
-            if(__trackedEvent != null){
-                if(__trackedEvent.Participants.Any(p => p.ProfileId != participant.ProfileId)){
-                    __trackedEvent.AddParticipant(participant);
-                    participant.ParticipatingEvents.Add(__trackedEvent);    
-                }
-            }
-            else{
-                throw new ArgumentException("Event doesn't exist. Create it");
-            }
-        }
+        // //AddParticipant => Add participant to event
+        // public virtual void AddParticipant(EventCalendar eventC, Profile participant){
+        //     __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == eventC.EventId);
+        //     if(__trackedEvent != null){
+        //         if(__trackedEvent.Participants.Any(p => p.ProfileId != participant.ProfileId)){
+        //             __trackedEvent.AddParticipant(participant);
+        //             participant.ParticipatingEvents.Add(__trackedEvent);    
+        //         }
+        //     }
+        //     else{
+        //         throw new ArgumentException("Event doesn't exist. Create it");
+        //     }
+        // }
 
-        //RemoveParticipant => Remove participant to event
-        public virtual void RemoveParticipant(EventCalendar eventC, Profile participant){
+        // //RemoveParticipant => Remove participant to event
+        // public virtual void RemoveParticipant(EventCalendar eventC, Profile participant){
             
-            __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == eventC.EventId);
-            if(__trackedEvent != null){
-                if(__trackedEvent.Participants.Any(p => p.ProfileId == participant.ProfileId)){
-                    __trackedEvent.RemoveParticipant(participant);
-                    participant.ParticipatingEvents.Add(__trackedEvent);                   
-                }
-            }
-            else{
-                throw new ArgumentException("Event doesn't exist. Create it");
-            }
-        }
+        //     __trackedEvent = _context.Events?.SingleOrDefault(ev => ev.EventId == eventC.EventId);
+        //     if(__trackedEvent != null){
+        //         if(__trackedEvent.Participants.Any(p => p.ProfileId == participant.ProfileId)){
+        //             __trackedEvent.RemoveParticipant(participant);
+        //             participant.ParticipatingEvents.Add(__trackedEvent);                   
+        //         }
+        //     }
+        //     else{
+        //         throw new ArgumentException("Event doesn't exist. Create it");
+        //     }
+        // }
 }
 
 
