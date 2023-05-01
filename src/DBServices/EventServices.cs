@@ -91,9 +91,17 @@ public class EventServices
             __trackedEvent = _context.Events?.SingleOrDefault(e => e.EventId == eventId);
             if(__trackedEvent is not null){
                 List<EventProfile>? eP = _context.EventProfiles?.Where(ep => ep.EventId == __trackedEvent.EventId).ToList();
-                foreach (var item in eP)
+                if (eP is not null)
                 {
-                    profiles.Add(_context.Profiles?.SingleOrDefault(p => p.ProfileId == item.ProfileId));
+                    foreach (var item in eP)
+                    {
+                        Profile? profile = _context.Profiles?.SingleOrDefault(p => p.ProfileId == item.ProfileId);
+                        if (profile is not null)
+                        {
+                            profiles.Add(profile);
+                        }
+                        
+                    }
                 }
             }
             return profiles;
