@@ -245,12 +245,12 @@
 /Users/lhqezio/410project/StudyMateTest/obj/Debug/net6.0/StudyMateTest.genruntimeconfig.cache
 /Users/lhqezio/410project/StudyMateTest/obj/Debug/net6.0/ref/StudyMateTest.dll
 >>>>>>> 4ee7f1c1e48d20f2f2c3e5f49448f7f389027670
-c:\ProgIVProject\410project\StudyMateTest\bin\Debug\net6.0\CoverletSourceRootsMapping
-c:\ProgIVProject\410project\StudyMateTest\obj\Debug\net6.0\StudyMateTest.csproj.AssemblyReference.cache
-c:\ProgIVProject\410project\StudyMateTest\obj\Debug\net6.0\StudyMateTest.GeneratedMSBuildEditorConfig.editorconfig
-c:\ProgIVProject\410project\StudyMateTest\obj\Debug\net6.0\StudyMateTest.AssemblyInfoInputs.cache
-c:\ProgIVProject\410project\StudyMateTest\obj\Debug\net6.0\StudyMateTest.AssemblyInfo.cs
-c:\ProgIVProject\410project\StudyMateTest\obj\Debug\net6.0\StudyMateTest.csproj.CoreCompileInputs.cache
+C:\ProgIVProject\410project\StudyMateTest\bin\Debug\net6.0\CoverletSourceRootsMapping
+C:\ProgIVProject\410project\StudyMateTest\obj\Debug\net6.0\StudyMateTest.csproj.AssemblyReference.cache
+C:\ProgIVProject\410project\StudyMateTest\obj\Debug\net6.0\StudyMateTest.GeneratedMSBuildEditorConfig.editorconfig
+C:\ProgIVProject\410project\StudyMateTest\obj\Debug\net6.0\StudyMateTest.AssemblyInfoInputs.cache
+C:\ProgIVProject\410project\StudyMateTest\obj\Debug\net6.0\StudyMateTest.AssemblyInfo.cs
+C:\ProgIVProject\410project\StudyMateTest\obj\Debug\net6.0\StudyMateTest.csproj.CoreCompileInputs.cache
 c:\ProgIVProject\410project\StudyMateTest\bin\Debug\net6.0\testhost.dll
 c:\ProgIVProject\410project\StudyMateTest\bin\Debug\net6.0\src.deps.json
 c:\ProgIVProject\410project\StudyMateTest\bin\Debug\net6.0\src.runtimeconfig.json

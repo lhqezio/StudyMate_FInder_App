@@ -12,8 +12,8 @@ using StudyMate;
 namespace src.Migrations
 {
     [DbContext(typeof(StudyMateDbContext))]
-    [Migration("20230501222840_VersionNoBridgingTbls4")]
-    partial class VersionNoBridgingTbls4
+    [Migration("20230503203745_VersionNoBridgingTbls14")]
+    partial class VersionNoBridgingTbls14
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,28 +25,13 @@ namespace src.Migrations
 
             OracleModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ConversationUser", b =>
-                {
-                    b.Property<string>("ConversationsConversationId")
-                        .HasColumnType("NVARCHAR2(450)");
-
-                    b.Property<string>("UsersUserId")
-                        .HasColumnType("NVARCHAR2(450)");
-
-                    b.HasKey("ConversationsConversationId", "UsersUserId");
-
-                    b.HasIndex("UsersUserId");
-
-                    b.ToTable("ConversationUser");
-                });
-
             modelBuilder.Entity("CourseEvent", b =>
                 {
-                    b.Property<string>("CoursesCourseId")
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int>("CoursesCourseId")
+                        .HasColumnType("NUMBER(10)");
 
-                    b.Property<string>("EventsEventId")
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int>("EventsEventId")
+                        .HasColumnType("NUMBER(10)");
 
                     b.HasKey("CoursesCourseId", "EventsEventId");
 
@@ -57,56 +42,56 @@ namespace src.Migrations
 
             modelBuilder.Entity("CourseProfile", b =>
                 {
-                    b.Property<string>("CourseCanHelpWithCourseId")
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int>("CourseNeedHelpWithCourseId")
+                        .HasColumnType("NUMBER(10)");
 
-                    b.Property<string>("StudentsTutoringCourseProfileId")
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int>("StudentsNeedHelpCourseProfileId")
+                        .HasColumnType("NUMBER(10)");
 
-                    b.HasKey("CourseCanHelpWithCourseId", "StudentsTutoringCourseProfileId");
+                    b.HasKey("CourseNeedHelpWithCourseId", "StudentsNeedHelpCourseProfileId");
 
-                    b.HasIndex("StudentsTutoringCourseProfileId");
+                    b.HasIndex("StudentsNeedHelpCourseProfileId");
 
                     b.ToTable("CourseProfile");
                 });
 
             modelBuilder.Entity("CourseProfile1", b =>
                 {
-                    b.Property<string>("CourseNeedHelpWithCourseId")
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int>("CourseTakenCourseId")
+                        .HasColumnType("NUMBER(10)");
 
-                    b.Property<string>("StudentsNeedHelpCourseProfileId")
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int>("StudentsTakingCourseProfileId")
+                        .HasColumnType("NUMBER(10)");
 
-                    b.HasKey("CourseNeedHelpWithCourseId", "StudentsNeedHelpCourseProfileId");
+                    b.HasKey("CourseTakenCourseId", "StudentsTakingCourseProfileId");
 
-                    b.HasIndex("StudentsNeedHelpCourseProfileId");
+                    b.HasIndex("StudentsTakingCourseProfileId");
 
                     b.ToTable("CourseProfile1");
                 });
 
             modelBuilder.Entity("CourseProfile2", b =>
                 {
-                    b.Property<string>("CourseTakenCourseId")
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int>("CourseCanHelpWithCourseId")
+                        .HasColumnType("NUMBER(10)");
 
-                    b.Property<string>("StudentsTakingCourseProfileId")
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int>("StudentsTutoringCourseProfileId")
+                        .HasColumnType("NUMBER(10)");
 
-                    b.HasKey("CourseTakenCourseId", "StudentsTakingCourseProfileId");
+                    b.HasKey("CourseCanHelpWithCourseId", "StudentsTutoringCourseProfileId");
 
-                    b.HasIndex("StudentsTakingCourseProfileId");
+                    b.HasIndex("StudentsTutoringCourseProfileId");
 
                     b.ToTable("CourseProfile2");
                 });
 
             modelBuilder.Entity("EventProfile", b =>
                 {
-                    b.Property<string>("ParticipantEventsEventId")
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int>("ParticipantEventsEventId")
+                        .HasColumnType("NUMBER(10)");
 
-                    b.Property<string>("ParticipantsProfileId")
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int>("ParticipantsProfileId")
+                        .HasColumnType("NUMBER(10)");
 
                     b.HasKey("ParticipantEventsEventId", "ParticipantsProfileId");
 
@@ -117,11 +102,11 @@ namespace src.Migrations
 
             modelBuilder.Entity("HobbyProfile", b =>
                 {
-                    b.Property<string>("HobbiesHobbyId")
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int>("HobbiesHobbyId")
+                        .HasColumnType("NUMBER(10)");
 
-                    b.Property<string>("ProfilesProfileId")
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int>("ProfilesProfileId")
+                        .HasColumnType("NUMBER(10)");
 
                     b.HasKey("HobbiesHobbyId", "ProfilesProfileId");
 
@@ -141,13 +126,16 @@ namespace src.Migrations
 
                     b.HasKey("ConversationId");
 
-                    b.ToTable("Conversations");
+                    b.ToTable("StudyMate_Conversations");
                 });
 
             modelBuilder.Entity("StudyMate.Course", b =>
                 {
-                    b.Property<string>("CourseId")
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int>("CourseId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CourseId"));
 
                     b.Property<string>("CourseName")
                         .IsRequired()
@@ -155,15 +143,18 @@ namespace src.Migrations
 
                     b.HasKey("CourseId");
 
-                    b.ToTable("StudyCourses");
+                    b.ToTable("StudyMate_Courses");
                 });
 
             modelBuilder.Entity("StudyMate.Event", b =>
                 {
-                    b.Property<string>("EventId")
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int>("EventId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)");
 
-                    b.Property<DateTimeOffset>("Date")
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("EventId"));
+
+                    b.Property<DateTimeOffset?>("Date")
                         .HasColumnType("TIMESTAMP(7) WITH TIME ZONE");
 
                     b.Property<string>("Description")
@@ -177,12 +168,11 @@ namespace src.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.Property<string>("ProfileId")
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int?>("ProfileId")
+                        .HasColumnType("NUMBER(10)");
 
-                    b.Property<string>("SchoolId")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int?>("SchoolId")
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("Subjects")
                         .IsRequired()
@@ -198,13 +188,16 @@ namespace src.Migrations
 
                     b.HasIndex("SchoolId");
 
-                    b.ToTable("Events");
+                    b.ToTable("StudyMate_Events");
                 });
 
             modelBuilder.Entity("StudyMate.Hobby", b =>
                 {
-                    b.Property<string>("HobbyId")
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int>("HobbyId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HobbyId"));
 
                     b.Property<string>("HobbyName")
                         .IsRequired()
@@ -240,13 +233,16 @@ namespace src.Migrations
 
                     b.HasKey("MessageID");
 
-                    b.ToTable("Messages");
+                    b.ToTable("StudyMate_Messages");
                 });
 
             modelBuilder.Entity("StudyMate.Profile", b =>
                 {
-                    b.Property<string>("ProfileId")
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int>("ProfileId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ProfileId"));
 
                     b.Property<int?>("Age")
                         .HasColumnType("NUMBER(10)");
@@ -267,9 +263,8 @@ namespace src.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.Property<string>("SchoolId")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int?>("SchoolId")
+                        .HasColumnType("NUMBER(10)");
 
                     b.Property<string>("UserId")
                         .IsRequired()
@@ -282,13 +277,16 @@ namespace src.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Profiles");
+                    b.ToTable("StudyMate_Profiles");
                 });
 
             modelBuilder.Entity("StudyMate.School", b =>
                 {
-                    b.Property<string>("SchoolId")
-                        .HasColumnType("NVARCHAR2(450)");
+                    b.Property<int>("SchoolId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("NUMBER(10)");
+
+                    OraclePropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("SchoolId"));
 
                     b.Property<string>("SchoolName")
                         .IsRequired()
@@ -296,7 +294,7 @@ namespace src.Migrations
 
                     b.HasKey("SchoolId");
 
-                    b.ToTable("Schools");
+                    b.ToTable("StudyMate_Schools");
                 });
 
             modelBuilder.Entity("StudyMate.User", b =>
@@ -306,7 +304,7 @@ namespace src.Migrations
 
                     b.Property<string>("Email")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
@@ -314,26 +312,32 @@ namespace src.Migrations
 
                     b.Property<string>("Username")
                         .IsRequired()
-                        .HasColumnType("NVARCHAR2(2000)");
+                        .HasColumnType("NVARCHAR2(450)");
 
                     b.HasKey("UserId");
 
-                    b.ToTable("Users");
+                    b.HasIndex("Email")
+                        .IsUnique();
+
+                    b.HasIndex("Username")
+                        .IsUnique();
+
+                    b.ToTable("StudyMate_Users");
                 });
 
-            modelBuilder.Entity("ConversationUser", b =>
+            modelBuilder.Entity("UserConversation", b =>
                 {
-                    b.HasOne("StudyMate.Conversation", null)
-                        .WithMany()
-                        .HasForeignKey("ConversationsConversationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<string>("ConversationId")
+                        .HasColumnType("NVARCHAR2(450)");
 
-                    b.HasOne("StudyMate.User", null)
-                        .WithMany()
-                        .HasForeignKey("UsersUserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                    b.Property<string>("UserId")
+                        .HasColumnType("NVARCHAR2(450)");
+
+                    b.HasKey("ConversationId", "UserId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("UserConversation");
                 });
 
             modelBuilder.Entity("CourseEvent", b =>
@@ -355,21 +359,6 @@ namespace src.Migrations
                 {
                     b.HasOne("StudyMate.Course", null)
                         .WithMany()
-                        .HasForeignKey("CourseCanHelpWithCourseId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("StudyMate.Profile", null)
-                        .WithMany()
-                        .HasForeignKey("StudentsTutoringCourseProfileId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("CourseProfile1", b =>
-                {
-                    b.HasOne("StudyMate.Course", null)
-                        .WithMany()
                         .HasForeignKey("CourseNeedHelpWithCourseId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -381,7 +370,7 @@ namespace src.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CourseProfile2", b =>
+            modelBuilder.Entity("CourseProfile1", b =>
                 {
                     b.HasOne("StudyMate.Course", null)
                         .WithMany()
@@ -392,6 +381,21 @@ namespace src.Migrations
                     b.HasOne("StudyMate.Profile", null)
                         .WithMany()
                         .HasForeignKey("StudentsTakingCourseProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CourseProfile2", b =>
+                {
+                    b.HasOne("StudyMate.Course", null)
+                        .WithMany()
+                        .HasForeignKey("CourseCanHelpWithCourseId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudyMate.Profile", null)
+                        .WithMany()
+                        .HasForeignKey("StudentsTutoringCourseProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -428,17 +432,13 @@ namespace src.Migrations
 
             modelBuilder.Entity("StudyMate.Event", b =>
                 {
-                    b.HasOne("StudyMate.Profile", "Creator")
+                    b.HasOne("StudyMate.Profile", null)
                         .WithMany("CreatorEvents")
                         .HasForeignKey("ProfileId");
 
                     b.HasOne("StudyMate.School", "School")
                         .WithMany("EventsForSchool")
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Creator");
+                        .HasForeignKey("SchoolId");
 
                     b.Navigation("School");
                 });
@@ -447,9 +447,7 @@ namespace src.Migrations
                 {
                     b.HasOne("StudyMate.School", "School")
                         .WithMany("ProfilsForSchool")
-                        .HasForeignKey("SchoolId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
+                        .HasForeignKey("SchoolId");
 
                     b.HasOne("StudyMate.User", "User")
                         .WithOne("Profile")
@@ -460,6 +458,21 @@ namespace src.Migrations
                     b.Navigation("School");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("UserConversation", b =>
+                {
+                    b.HasOne("StudyMate.Conversation", null)
+                        .WithMany()
+                        .HasForeignKey("ConversationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("StudyMate.User", null)
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("StudyMate.Profile", b =>

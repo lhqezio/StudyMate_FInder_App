@@ -13,8 +13,20 @@ namespace StudyMate
             using (db = new StudyMateDbContext())
             {
                 User user1 = new User("1", "Alain", "Alain@gmail.com", "120");
-                Profile profile1 = new Profile("1", user1, "Alain", "Male", new School("1", "Dawson College"), 20, "Computer Science", "Hi");
-                Event event1 = new Event("Event 1", profile1,);
+                User user2 = new User("2", "Marc", "Marc@gmail.com", "120");
+                List<Course> TakenCourse = new List<Course>(){new Course("Algebra")};
+                List<Course> NeedHelpCourse = new List<Course>(){new Course("Humanities")};
+                List<Course> CanHelpCourse = new List<Course>(){new Course("Communication")};
+                List<Hobby> hobbies = new List<Hobby>(){new Hobby("Anime")};
+                List<Course> eventCourses = new List<Course>(){ new Course("Humanities")}; 
+
+                Profile profile1 = new Profile(user1, "Alain", "Male", new School("Dawson College"), TakenCourse, CanHelpCourse, NeedHelpCourse, hobbies,  20, "Computer Science", "Hi I'm new here.");
+                Profile profile2 = new Profile(user2, "Marc", "Male", new School("Dawson College"), TakenCourse, CanHelpCourse, NeedHelpCourse, hobbies,  19, "Social Science", "Hope to meet new people");
+                Event event1 = new Event(profile1, "Studying Humanities", DateTime.Now.AddHours(2), "We will study for the next Humanities exam", "Chez Saza", "Humanities 101", eventCourses, new School("Dawson College"));
+                var eventService = new EventServices(db);
+                eventService.CreateEvent(event1);
+                // eventService.DeleteEvent(event1);
+                eventService.AddParticipant(event1, profile2);
             //     //Set-up
             //     System.Console.WriteLine("What's up Andrew?");
             //     System.Console.WriteLine("Here is our PROOF");

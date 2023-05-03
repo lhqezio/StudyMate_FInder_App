@@ -9,24 +9,24 @@ namespace StudyMate
     {
         // Generates a random primary key for the Event class 
         [Key]
-        public string EventId { get; set;}
+        public int EventId { get; set;}
 
         // Creator
-        [ForeignKey("ProfileId")]
+        [NotMapped]
         public Profile Creator {get; set;} = null!;
 
         //Participants
-        private List<Profile> _participants {get; set;} = new();
+        private List<Profile>? _participants {get; set;} = new();
         [InverseProperty("ParticipantEvents")]
-        public List<Profile> Participants
+        public List<Profile>? Participants
         {
             get { return _participants; }
             set
             {
-                if (value == null || value.Count == 0)
-                {
-                    throw new ArgumentException("There should be at least one participant.");
-                }
+                // if (value == null || value.Count == 0)
+                // {
+                //     throw new ArgumentException("There should be at least one participant.");
+                // }
                 _participants = value;
             }
         } 
@@ -47,8 +47,8 @@ namespace StudyMate
         }
         
         //Date
-        private DateTimeOffset _date;
-        public DateTimeOffset Date
+        private DateTimeOffset? _date;
+        public DateTimeOffset? Date
         {
             get { return _date; }
             set
@@ -107,9 +107,9 @@ namespace StudyMate
         }
 
         //Courses
-        private List<Course> _courses {get; set;}
+        private List<Course>? _courses {get; set;}
         [InverseProperty("Events")]
-        public List<Course> Courses
+        public List<Course>? Courses
         {
             get { return _courses; }
             set{
@@ -122,9 +122,9 @@ namespace StudyMate
             //Many-To-Many 
 
         //School
-        private School _school; 
+        private School? _school; 
         [ForeignKey("SchoolId")]   
-        public School School
+        public School? School
         {
             get { return _school; }
             set
@@ -142,16 +142,18 @@ namespace StudyMate
 
         // Constructors
         public Event(){}
-        public Event(string title, Profile creator, DateTimeOffset date, string description, string location, string subjects, School school, bool isSent=false)
-        {
-            _title = title;
-            _date = date;
-            _description = description;
-            _location = location;
-            _subjects = subjects;
-            _school = school;
-            _participants = new List<Profile>();
-            IsSent = isSent;
+        public Event(Profile creator, string title, DateTimeOffset date, string description, string location, string subjects, List<Course>? courses, School school, bool isSent=false)
+        {   
+            this.Creator = creator;
+            this.Title = title;
+            this.Date = date;
+            this.Description = description;
+            this.Location = location;
+            this.Subjects = subjects;
+            this.Courses = courses;
+            this.School = school;
+            this.Participants = new List<Profile>();
+            this.IsSent = isSent;
         }
 
         //	Creating a new event and Editing an existing event (restricted to the user who created it) will be dealt with in EventServices (which represents EventManager)
@@ -159,10 +161,10 @@ namespace StudyMate
 
         //Method to add Participants =>	Users should be able to mark themselves as attending an event
         public void AddParticipant(Profile newParticipant){
-            if(Participants.Contains(newParticipant)){
+            if(this.Participants.Contains(newParticipant)){
                 throw new ArgumentException("This participant is already part of the event");
             }
-            Participants.Add(newParticipant);
+            this.Participants.Add(newParticipant);
         }
 
         //Method to remove Participants =>	Users should be able to remove themselves from an event

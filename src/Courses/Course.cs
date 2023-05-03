@@ -6,11 +6,11 @@ namespace StudyMate
 {
     public class Course{
         [Key]
-        public string CourseId{get;set;}
+        public int CourseId{get;set;}
 
         public string CourseName{get;set;}
 
-        //Many-to-Many (Events - Courses)
+        //Many-to-Many (Events/Profile - Courses)
         [InverseProperty("Courses")]
         public List<Event> Events {get; set;}
 
@@ -21,11 +21,8 @@ namespace StudyMate
         [InverseProperty("CourseCanHelpWith")]
         public List<Profile>? StudentsTutoringCourse {get; set;}
 
-
-
         public Course(){}
-        public Course(string courseId, string courseName){
-            CourseId=courseId;
+        public Course(string courseName){
             CourseName=courseName;
         }
     }

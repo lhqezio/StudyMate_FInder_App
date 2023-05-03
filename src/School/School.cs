@@ -6,7 +6,7 @@ namespace StudyMate
 {
     public class School{
         [Key]
-        public string SchoolId{get;set;}
+        public int SchoolId{get;set;}
         public string SchoolName{get;set;}
 
         [InverseProperty("School")]
@@ -16,8 +16,7 @@ namespace StudyMate
         public List<Profile>? ProfilsForSchool {get; set;}
 
         public School(){}
-        public School(string schoolId,string schoolName){
-            this.SchoolId=schoolId;
+        public School(string schoolName){
             this.SchoolName=schoolName;
         }
 
