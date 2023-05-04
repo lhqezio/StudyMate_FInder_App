@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace StudyMate;
 public class Message{
     [ForeignKey("Users")]
-    public string SenderID { get;set;}
+    public string SenderID { get;set;} //Id should be int 
     [ForeignKey("Conversations")]
     public string ConversationID { get;set;}
     [Key]

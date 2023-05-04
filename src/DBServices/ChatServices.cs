@@ -31,35 +31,35 @@ public class ChatServices {
     }
     public void AddUserToConversation(string conversationID, string Id)
     {
-        var conversation = _context.Conversations?.Find(conversationID);
-        var user = _context.Users.Find(Id);
+        var conversation = _context.StudyMate_Conversations?.Find(conversationID);
+        var user = _context.StudyMate_Users.Find(Id);
         conversation.Users.Add(user);
         user.Conversations.Add(conversation);
         _context.SaveChanges();
     }
     public void RemoveUserFromConversation(string conversationID, string Id)
     {
-        var conversation = _context.Conversations.Find(conversationID);
-        var user = _context.Users.Find(Id);
+        var conversation = _context.StudyMate_Conversations.Find(conversationID);
+        var user = _context.StudyMate_Users.Find(Id);
         conversation.Users.Remove(user);
         user.Conversations.Remove(conversation);
         _context.SaveChanges();
     }
     public void DeleteConversation(string conversationID)
     {
-        var conversation = _context.Conversations.Find(conversationID);
-        _context.Conversations.Remove(conversation);
+        var conversation = _context.StudyMate_Conversations.Find(conversationID);
+        _context.StudyMate_Conversations.Remove(conversation);
         _context.SaveChanges();
     }
     public void SendMessage(string body, string conversationID, string senderID)
     {
         var message = new Message(Guid.NewGuid().ToString(),body, conversationID, senderID, DateTime.Now, false);
-        _context.Messages.Add(message);
+        _context.StudyMate_Messages.Add(message);
         _context.SaveChanges();
     }
     public List<Message> GetMessages(string conversationID)
     {
-        List<Message> messages = _context.Messages.Where(m => m.ConversationID == conversationID).ToList();
+        List<Message> messages = _context.StudyMate_Messages.Where(m => m.ConversationID == conversationID).ToList();
         foreach (var message in messages)
         {
             message.Sent = true;
@@ -69,7 +69,7 @@ public class ChatServices {
     }
     public List<Conversation> GetConversations(string Id)
     {
-        List<Conversation> conversations = _context.Conversations.Where(c => c.Users.Any(u => u.UserId == Id)).ToList();
+        List<Conversation> conversations = _context.StudyMate_Conversations.Where(c => c.Users.Any(u => u.UserId == Id)).ToList();
         return conversations;
     }
     public void Dispose()

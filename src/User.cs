@@ -18,7 +18,7 @@ public class User
     
 
     public User(){}
-    public User(string Id,string username, string email,string passwordHash) //Id shouldn't be an int
+    public User(string Id,string username, string email,string passwordHash) //Id shouldn't be in constructor
     {
         this.UserId = Id;
         this.Username = username;

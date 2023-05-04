@@ -132,7 +132,7 @@ public class EventServices
         }
 
         //EditEvent Method => Edit an event
-         public virtual void EditEvent(Event eventToChange, Event updatedEvent)
+         public virtual void EditEvent(Event eventToChange, Event updatedEvent, User currentUser)
         {
             // Get the event from the database
             var query = _context.StudyMate_Events?

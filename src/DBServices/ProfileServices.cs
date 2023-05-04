@@ -33,7 +33,7 @@ public class ProfileServices
                             .Include( p => p.User)
                             .Where( p => p.Name.Equals(profile.Name))
                             .ToList<Profile>();
-        Profile? trackedProfile = query.First();
+        Profile? trackedProfile = query.FirstOrDefault();
         
         // If the Profile already exists, it will not be added to the database.
         if (trackedProfile != null)
