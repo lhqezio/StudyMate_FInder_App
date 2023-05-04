@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace src.Migrations
 {
     /// <inheritdoc />
-    public partial class VersionNoBridgingTbls14 : Migration
+    public partial class VersionNoBridgingTbls16 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -248,14 +248,14 @@ namespace src.Migrations
                 {
                     EventId = table.Column<int>(type: "NUMBER(10)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
+                    ProfileId = table.Column<int>(type: "NUMBER(10)", nullable: false),
                     Title = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     Date = table.Column<DateTimeOffset>(type: "TIMESTAMP(7) WITH TIME ZONE", nullable: true),
                     Description = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     Location = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     Subjects = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     SchoolId = table.Column<int>(type: "NUMBER(10)", nullable: true),
-                    IsSent = table.Column<bool>(type: "NUMBER(1)", nullable: false),
-                    ProfileId = table.Column<int>(type: "NUMBER(10)", nullable: true)
+                    IsSent = table.Column<bool>(type: "NUMBER(1)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -264,7 +264,8 @@ namespace src.Migrations
                         name: "FK_StudyMate_Events_StudyMate_Profiles_ProfileId",
                         column: x => x.ProfileId,
                         principalTable: "StudyMate_Profiles",
-                        principalColumn: "ProfileId");
+                        principalColumn: "ProfileId",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_StudyMate_Events_StudyMate_Schools_SchoolId",
                         column: x => x.SchoolId,

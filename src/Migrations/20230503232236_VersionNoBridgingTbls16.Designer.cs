@@ -12,8 +12,8 @@ using StudyMate;
 namespace src.Migrations
 {
     [DbContext(typeof(StudyMateDbContext))]
-    [Migration("20230503203745_VersionNoBridgingTbls14")]
-    partial class VersionNoBridgingTbls14
+    [Migration("20230503232236_VersionNoBridgingTbls16")]
+    partial class VersionNoBridgingTbls16
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -168,7 +168,7 @@ namespace src.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.Property<int?>("ProfileId")
+                    b.Property<int>("ProfileId")
                         .HasColumnType("NUMBER(10)");
 
                     b.Property<int?>("SchoolId")
@@ -432,13 +432,17 @@ namespace src.Migrations
 
             modelBuilder.Entity("StudyMate.Event", b =>
                 {
-                    b.HasOne("StudyMate.Profile", null)
+                    b.HasOne("StudyMate.Profile", "Creator")
                         .WithMany("CreatorEvents")
-                        .HasForeignKey("ProfileId");
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("StudyMate.School", "School")
                         .WithMany("EventsForSchool")
                         .HasForeignKey("SchoolId");
+
+                    b.Navigation("Creator");
 
                     b.Navigation("School");
                 });

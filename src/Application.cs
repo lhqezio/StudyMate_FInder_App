@@ -12,161 +12,159 @@ namespace StudyMate
     
             using (db = new StudyMateDbContext())
             {
-                User user1 = new User("1", "Alain", "Alain@gmail.com", "120");
-                User user2 = new User("2", "Marc", "Marc@gmail.com", "120");
+            //     User user1 = new User("1", "Alain", "Alain@gmail.com", "120");
+            //     User user2 = new User("2", "Marc", "Marc@gmail.com", "120");
+            //     List<Course> TakenCourse = new List<Course>(){new Course("Algebra")};
+            //     List<Course> NeedHelpCourse = new List<Course>(){new Course("Humanities")};
+            //     List<Course> CanHelpCourse = new List<Course>(){new Course("Communication")};
+            //     List<Hobby> hobbies = new List<Hobby>(){new Hobby("Anime")};
+            // List<Course> eventCourses = new List<Course>(){ new Course("Humanities")}; 
+
+            //     Profile profile1 = new Profile(user1, "Alain", "Male", new School("Dawson College"), TakenCourse, CanHelpCourse, NeedHelpCourse, hobbies,  20, "Computer Science", "Hi I'm new here.");
+            //     Profile profile2 = new Profile(user2, "Marc", "Male", new School("Dawson College"), TakenCourse, CanHelpCourse, NeedHelpCourse, hobbies,  19, "Social Science", "Hope to meet new people");
+            //     Event event1 = new Event(profile1, "Studying Humanities", DateTime.Now.AddHours(2), "We will study for the next Humanities exam", "Chez Saza", "Humanities 101", eventCourses, new School("Dawson College"));
+            //     var eventService = new EventServices(db);
+            //     eventService.CreateEvent(event1);
+            //     eventService.AddParticipant(event1, profile2);
+           
+            //Set-up
+                System.Console.WriteLine("What's up Andrew?");
+                System.Console.WriteLine("Here is our PROOF");
+                var userService = new UserServices(db);
+                var profileService = new ProfileServices(db);
+                // var schoolService = new SchoolServices(db);
+                // var courseService = new CourseServices(db);
+                var conversationService = new ChatServices(db);
+                var eventService = new EventServices(db);
+                var searchService = new SearchServices(db);
+                
+                // 1.	Create a new user account (user1)
+                System.Console.WriteLine("Attempt to create user1");
+                currentUser = userService.Register("alain", "alain@heaumo.co", "100");
+                User user1 = currentUser;
+                System.Console.WriteLine(currentUser);
+                if (currentUser != null)
+                {
+                    Console.WriteLine("User created successfully");
+                }
+                else
+                {
+                    Console.WriteLine("User creation failed try logging in");
+                    currentUser = userService.Login("alain", "200");
+                    if (currentUser != null)
+                    {
+                        Console.WriteLine("User logged in successfully");
+                    }
+                    else
+                    {
+                        Console.WriteLine("User login failed quit");
+                        return;
+                    }
+                }
+
+                // 2.	Create a profile for user1 (You don’t need to fill in all details)
+                System.Console.WriteLine("Attempt to set up Profile for user1");
                 List<Course> TakenCourse = new List<Course>(){new Course("Algebra")};
                 List<Course> NeedHelpCourse = new List<Course>(){new Course("Humanities")};
                 List<Course> CanHelpCourse = new List<Course>(){new Course("Communication")};
                 List<Hobby> hobbies = new List<Hobby>(){new Hobby("Anime")};
-                List<Course> eventCourses = new List<Course>(){ new Course("Humanities")}; 
+                Profile profile1 = new Profile(currentUser, "Alain", "Male", new School("Dawson College"), TakenCourse, CanHelpCourse, NeedHelpCourse, hobbies,  20, "Computer Science", "Hi I'm new here.");
+                profileService.AddProfile(profile1);
 
-                Profile profile1 = new Profile(user1, "Alain", "Male", new School("Dawson College"), TakenCourse, CanHelpCourse, NeedHelpCourse, hobbies,  20, "Computer Science", "Hi I'm new here.");
-                Profile profile2 = new Profile(user2, "Marc", "Male", new School("Dawson College"), TakenCourse, CanHelpCourse, NeedHelpCourse, hobbies,  19, "Social Science", "Hope to meet new people");
-                Event event1 = new Event(profile1, "Studying Humanities", DateTime.Now.AddHours(2), "We will study for the next Humanities exam", "Chez Saza", "Humanities 101", eventCourses, new School("Dawson College"));
-                var eventService = new EventServices(db);
-                eventService.CreateEvent(event1);
-                // eventService.DeleteEvent(event1);
-                eventService.AddParticipant(event1, profile2);
-            //     //Set-up
-            //     System.Console.WriteLine("What's up Andrew?");
-            //     System.Console.WriteLine("Here is our PROOF");
-            //     var userService = new UserServices(db);
-            //     var profileService = new ProfileServices(db);
-            //     var schoolService = new SchoolServices(db);
-            //     var courseService = new CourseServices(db);
-            //     var conversationService = new ChatServices(db);
-            //     var eventService = new EventServices(db);
-            //     var searchService = new SearchServices(db);
+                // 3.	Create an event for user1
+                System.Console.WriteLine("Attempt to set up Event for user1");
+                var user1_profile = searchService.SearchProfileByUser(currentUser.UserId);
+                List<Course> eventCourses = new List<Course>(){ new Course("Humanities")};
+                Event event1_user1 = new Event(user1_profile, "Studying Humanities", DateTime.Now.AddHours(2), "We will study for the next Humanities exam", "Chez Saza", "Humanities 101", eventCourses, new School("Dawson College"));
+                eventService.CreateEvent(event1_user1);
+              
+                // 4.	Log out from user1
+                currentUser = userService.Logout(currentUser.Username);
+
+                // 5.	Create a new user account (user2)
+                System.Console.WriteLine("Attempt to create user2");
+                currentUser = userService.Register("samir", "samir@hema.com", "100");
+                User user2 = currentUser;
+                System.Console.WriteLine(currentUser);
+                if (currentUser != null)
+                {
+                    Console.WriteLine("User created successfully");
+                }
+                else
+                {
+                    Console.WriteLine("User creation failed try logging in");
+                    currentUser = userService.Login("samir", "100");
+                    if (currentUser != null)
+                    {
+                        Console.WriteLine("User logged in successfully");
+                    }
+                    else
+                    {
+                        Console.WriteLine("User login failed quit");
+                        return;
+                    }
+                }
+
+                // 6.	Create a profile for user2
+                System.Console.WriteLine("Attempt to set up Profile for user1");
+                List<Course> takenCourseP2 = new List<Course>(){ new Course("Math")};
+                List<Course> canHelpCourseP2 = new List<Course>(){ new Course("Linear Algebra")};
+                List<Course> needHelpCourseP2 = new List<Course>(){ new Course("Calculus")};
+                List<Hobby> hobbiesP2 = new List<Hobby>(){ new Hobby("Gym")};
+                Profile profile2 = new Profile(currentUser, "samir", "Male", new School("Dawson College"), takenCourseP2, canHelpCourseP2, needHelpCourseP2, hobbiesP2,  20, "Computer Science", "Hope to meet new people");
+                profileService.AddProfile(profile2);
+
+                // 7.	Perform a search to find the event created by user1 
+                System.Console.WriteLine("Attempt to find all the events created by user 1");
+                var user1profile = searchService.GetProfileById(user1.Profile.ProfileId);
+                if (user1profile is not null) //Refactor
+                {
+                    var user1events = searchService.GetProfileEvents(user1profile);
+                    foreach (var item in user1events)
+                    {
+                        System.Console.WriteLine("Event found");
+                        System.Console.WriteLine(item.Title);
+                    }
+                }
                 
-            //     // 1.	Create a new user account (user1)
-            //     System.Console.WriteLine("Attempt to create user1");
-            //     currentUser = userService.Register("alain", "alain@heaumo.co", "100");
-            //     System.Console.WriteLine(currentUser);
-            //     if (currentUser != null)
-            //     {
-            //         Console.WriteLine("User created successfully");
-            //     }
-            //     else
-            //     {
-            //         Console.WriteLine("User creation failed try logging in");
-            //         currentUser = userService.Login("alain", "200");
-            //         if (currentUser != null)
-            //         {
-            //             Console.WriteLine("User logged in successfully");
-            //         }
-            //         else
-            //         {
-            //             Console.WriteLine("User login failed quit");
-            //             return;
-            //         }
-            //     }
+                // 8.	Mark user2 as attending user1’s event
+                System.Console.WriteLine("Attempt to make user2 participate in user1's event");
+                event1_user1.AddParticipant(profile2);
 
-            //     // 2.	Create a profile for user1 (You don’t need to fill in all details)
-            //     System.Console.WriteLine("Attempt to set up Profile for user1");
-            //     var profile1= new Profile("1",currentUser,"Alain","Male",new School("1","Dawson"),18,"Computer Science");
-            //     List<CourseNeedHelpWith> coursesNeedHelpWith1=new List<CourseNeedHelpWith>(){new CourseNeedHelpWith(profile1,new Course("1","Math")),new CourseNeedHelpWith(profile1,new Course("2","Cinema"))};
-            //     profile1.CourseNeedHelpWith=coursesNeedHelpWith1;
-            //     profileService.AddProfile(profile1);
+                // 9.	Attempt to edit user1’s event as user2 (should fail)
+                System.Console.WriteLine("Attempt to edit user1's event as user2 new title is New Title");
+                Event event1New_user1 = event1_user1;
+                event1New_user1.Location = "At Mark's place";
+                eventService.EditEvent(event1_user1, event1New_user1);
+                System.Console.WriteLine("Event title is still: " + event1_user1.Title);
 
-            //     // 3.	Create an event for user1
-            //     //Inja irad dare. Age event add koni school id profile avaz mishe.
-            //     System.Console.WriteLine("Attempt to set up Event for user1");
-            //     var user1_profile = searchService.SearchProfileByUser(currentUser.UserId);
-            //     courseService.AddCourse(new Course("3","Linear Algebra"));
-            //     var event1_course=courseService.GetCourseByName("Linear Algebra");
-            //     var event_user1=new EventCalendar();  
-            //     if (user1_profile is not null && event1_course is not null)
-            //     {
-            //         event_user1=new EventCalendar("1","Study for Math 101", user1_profile, DateTime.Now.AddHours(2), "Math 101", "Beaudry", "Intro to Linear Algebra", new School("2","McGill"));
-            //         event_user1.EventCourse=new List<EventCourse>(){new EventCourse(event_user1,new Course("4","Calculus")),new EventCourse(event_user1,event1_course),new EventCourse(event_user1,new Course("5","Introduction to Computer Science"))};
-            //         event_user1.EventProfile=new List<EventProfile>(){new EventProfile(event_user1,user1_profile)};
-            //         eventService.CreateEvent(event_user1);
-            //     }
-                
-                                                
-            //     // 4.	Log out from user1
-            //     currentUser = userService.Logout(currentUser.Username);
+                // 10.	Perform a search that finds user1’s profile
+                System.Console.WriteLine("Search to find user one's profile");
+                Profile profile_user1_10  = searchService.GetProfileById(user1.Profile.ProfileId);
+                if (profile_user1_10 is not null)
+                {
+                    System.Console.WriteLine("The retrieved profile is for: "+ profile_user1_10.Name);
+                }
 
-            //     // 5.	Create a new user account (user2)
-            //     System.Console.WriteLine("Attempt to create user2");
-            //     currentUser = userService.Register("samir", "samir@hema.com", "100");
-            //     System.Console.WriteLine(currentUser);
-            //     if (currentUser != null)
-            //     {
-            //         Console.WriteLine("User created successfully");
-            //     }
-            //     else
-            //     {
-            //         Console.WriteLine("User creation failed try logging in");
-            //         currentUser = userService.Login("samir", "100");
-            //         if (currentUser != null)
-            //         {
-            //             Console.WriteLine("User logged in successfully");
-            //         }
-            //         else
-            //         {
-            //             Console.WriteLine("User login failed quit");
-            //             return;
-            //         }
-            //     }
+                // 11.	Send 3 messages from user2 to user1 
+                List<string> usernames = new List<string>();
+                usernames.Add(currentUser.Username);
+                usernames.Add("alain");
+                conversationService.CreateConversation(usernames, "Samir and Alain");
+                List<Conversation> convos = conversationService.GetConversations(currentUser.UserId);
+                Conversation convo = convos[0];
+                conversationService.SendMessage("Salut", convo.ConversationId, currentUser.UserId);
+                conversationService.SendMessage("Comment ca va?", convo.ConversationId, currentUser.UserId);
+                conversationService.SendMessage("Ca va bien?", convo.ConversationId, currentUser.UserId);
 
-            //     // 6.	Create a profile for user2
-            //     System.Console.WriteLine("Attempt to set up Profile for user1");
-            //     var profile2= new Profile("2",currentUser,"samir","Male",new School("1","Dawson"),20,"Computer Science");
-            //     List<CourseNeedHelpWith> coursesNeedHelpWith2=new List<CourseNeedHelpWith>(){new CourseNeedHelpWith(profile2,new Course("1","Math")),new CourseNeedHelpWith(profile2,new Course("3","Linear Algebra")),new CourseNeedHelpWith(profile2,new Course("4","Calculus")),new CourseNeedHelpWith(profile2,new Course("6","Chemistry"))};
-            //     profile2.CourseNeedHelpWith=coursesNeedHelpWith2;
-            //     profileService.AddProfile(profile2);
+                // 12.	Log out from user2
+                currentUser = null;
 
-            //     // 7.	Perform a search to find the event created by user1
-            //     System.Console.WriteLine("Attempt to find all the events created by user 1");
-            //     var user1profile = searchService.GetProfileById("1");
-            //     if (user1profile is not null)
-            //     {
-            //         var user1events = searchService.GetProfileEvents(user1profile);
-            //         foreach (var item in user1events)
-            //         {
-            //             System.Console.WriteLine("Event found");
-            //             System.Console.WriteLine(item.Title);
-            //         }
-            //     }
-                
-            //     // 8.	Mark user2 as attending user1’s event
-            //     System.Console.WriteLine("Attempt to make user2 participate in user1's event");
-            //     event_user1.EventProfile.Add(new EventProfile(event_user1,profile2));
-            //     eventService.AddParticipant(event_user1,profile2);
+                // 13.	Log in as user1
+                currentUser = userService.Login("alain", "100");
 
-            //     // // 9.	Attempt to edit user1’s event as user2 (should fail)
-            //     // System.Console.WriteLine("Attempt to edit user1's event as user2 new title is New Title");
-            //     // user1event.Title = "New Title";
-            //     // System.Console.WriteLine("Event title is still: " + user1event.Title);
-
-            //     // 10.	Perform a search that finds user1’s profile
-            //     System.Console.WriteLine("Search to find user one's profile");
-            //     var user1 = searchService.GetProfileById("1");
-            //     if (user1 is not null)
-            //     {
-            //         System.Console.WriteLine("The retrieved profile is for: "+ user1.Name);
-            //     }
-
-            //     // 11.	Send 3 messages from user2 to user1 
-            //     List<string> usernames = new List<string>();
-            //     usernames.Add(currentUser.Username);
-            //     usernames.Add("alain");
-            //     conversationService.CreateConversation(usernames, "Samir and Alain");
-            //     List<Conversation> convos = conversationService.GetConversations(currentUser.UserId);
-            //     Conversation convo = convos[0];
-            //     conversationService.SendMessage("Salut", convo.ConversationId, currentUser.UserId);
-            //     conversationService.SendMessage("Comment ca va?", convo.ConversationId, currentUser.UserId);
-            //     conversationService.SendMessage("Ca va bien?", convo.ConversationId, currentUser.UserId);
-
-            //     // 12.	Log out from user2
-            //     currentUser = null;
-
-            //     // 13.	Log in as user1
-            //     currentUser = userService.Login("alain", "100");
-
-            //     // 14.	Change user1’s password
-            //     userService.ChangePassword("alain", "100", "200");
+                // 14.	Change user1’s password
+                userService.ChangePassword("alain", "100", "200");
 
             //     // 15.	Modify user1’s profile
             //     if (currentUser is not null)

@@ -5,7 +5,6 @@ namespace StudyMate;
 public class ProfileServices
 {
     private StudyMateDbContext _context = null!;
-    public static Profile? __trackedProfile = new();
     private static ProfileServices? _instance;
     public static ProfileServices getInstance(StudyMateDbContext context)
     {
@@ -22,16 +21,26 @@ public class ProfileServices
 
     public virtual void AddProfile(Profile profile)
     {
-         // Get the Profile from the database
-        __trackedProfile = _context.StudyMate_Profiles?.SingleOrDefault(p => p.ProfileId == profile.ProfileId);
-
+        // Get the Profile from the database
+        var query = _context.StudyMate_Profiles?
+                            .Include( p => p.CourseCanHelpWith)
+                            .Include( p => p.CourseNeedHelpWith)
+                            .Include( p => p.CourseTaken)
+                            .Include( p => p.CreatorEvents)
+                            .Include( p => p.Hobbies)
+                            .Include( p => p.ParticipantEvents)
+                            .Include( p => p.School)
+                            .Include( p => p.User)
+                            .Where( p => p.Name.Equals(profile.Name))
+                            .ToList<Profile>();
+        Profile? trackedProfile = query.First();
+        
         // If the Profile already exists, it will not be added to the database.
-        if (__trackedProfile != null)
+        if (trackedProfile != null)
         {
             System.Console.WriteLine("This profile already exist in the database.");
         }else{
-            __trackedProfile = profile;
-            _context.StudyMate_Profiles!.Add(__trackedProfile);
+            _context.StudyMate_Profiles!.Add(profile);
             _context.SaveChanges();
         }
     }
@@ -39,11 +48,22 @@ public class ProfileServices
     public virtual void DeleteProfile(Profile profile)
     { 
         // Get the Profile from the database
-        __trackedProfile = _context.StudyMate_Profiles?.SingleOrDefault(p => p.ProfileId == profile.ProfileId);
+        var query = _context.StudyMate_Profiles?
+                            .Include( p => p.CourseCanHelpWith)
+                            .Include( p => p.CourseNeedHelpWith)
+                            .Include( p => p.CourseTaken)
+                            .Include( p => p.CreatorEvents)
+                            .Include( p => p.Hobbies)
+                            .Include( p => p.ParticipantEvents)
+                            .Include( p => p.School)
+                            .Include( p => p.User)
+                            .Where( p => p.Name.Equals(profile.Name))
+                            .ToList<Profile>();
+        Profile? trackedProfile = query.First();
         // If the Profile already exists, then delete it.
-        if (__trackedProfile != null)
+        if (trackedProfile != null)
         {
-            _context.StudyMate_Profiles!.Remove(__trackedProfile);
+            _context.StudyMate_Profiles!.Remove(trackedProfile);
             _context.SaveChanges();
         }else{
             System.Console.WriteLine("The profile you are trying to delete does not exist.");
@@ -53,12 +73,23 @@ public class ProfileServices
     public virtual void UpdateProfile(Profile profile)
     {
         // Get the Profile from the database
-        __trackedProfile = _context.StudyMate_Profiles?.SingleOrDefault(p => p.ProfileId == profile.ProfileId);
+        var query = _context.StudyMate_Profiles?
+                            .Include( p => p.CourseCanHelpWith)
+                            .Include( p => p.CourseNeedHelpWith)
+                            .Include( p => p.CourseTaken)
+                            .Include( p => p.CreatorEvents)
+                            .Include( p => p.Hobbies)
+                            .Include( p => p.ParticipantEvents)
+                            .Include( p => p.School)
+                            .Include( p => p.User)
+                            .Where( p => p.Name.Equals(profile.Name))
+                            .ToList<Profile>();
+        Profile? trackedProfile = query.First();
         // If the Profile already exists, it will be updated.
-        if (__trackedProfile != null)
+        if (trackedProfile != null)
         {
-            __trackedProfile=profile;
-            _context.StudyMate_Profiles!.Update(__trackedProfile);
+            trackedProfile=profile;
+            _context.StudyMate_Profiles!.Update(trackedProfile);
             _context.SaveChanges();
         }else{
            System.Console.WriteLine("The profile you are trying to update does not exist.");

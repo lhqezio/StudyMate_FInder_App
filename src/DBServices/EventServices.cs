@@ -24,8 +24,15 @@ public class EventServices
         //CreateEvent Method => Create an event
         public virtual void CreateEvent(Event newEvent){
                 // Get the event from the database
-            var trackedEvent = _context.StudyMate_Events?.FirstOrDefault(ev => ev.EventId == newEvent.EventId);
-                // If the event already exists, it will not be added to the database.
+            var query = _context.StudyMate_Events?
+                                .Include( e => e.Creator)
+                                .Include( e => e.School)
+                                .Include( e => e.Courses)
+                                .Include( e => e.Participants)
+                                .Where(e => e.Title.Equals(newEvent.Title))
+                                .ToList<Event>();
+            Event? trackedEvent = query.First();
+                            // If the event already exists, it will not be added to the database.
             if (trackedEvent == null)
             {               
                 _context.StudyMate_Events!.Add(newEvent);
@@ -36,9 +43,16 @@ public class EventServices
         }
 
         //DeleteEvent Method => Delete event to the list of events
-        public virtual void DeleteEvent(Event ev){
+        public virtual void DeleteEvent(Event eventToDelete){
             // Get the event from the database
-            var trackedEvent = _context.StudyMate_Events?.SingleOrDefault(e => e.EventId == ev.EventId);
+            var query = _context.StudyMate_Events?
+                                .Include( e => e.Creator)
+                                .Include( e => e.School)
+                                .Include( e => e.Courses)
+                                .Include( e => e.Participants)
+                                .Where(e => e.Title.Equals(eventToDelete.Title))
+                                .ToList<Event>();
+            Event? trackedEvent = query.First();
             // If the event already exists, then delete it.
             if (trackedEvent != null)
             {
@@ -52,7 +66,14 @@ public class EventServices
         //AddParticpant Method => Add one person (profile) in the participant list
         public virtual void AddParticipant(Event ev, Profile profile){
             // Get the event from the database
-            var trackedEvent = _context.StudyMate_Events?.SingleOrDefault(e => e.EventId == ev.EventId);
+            var query = _context.StudyMate_Events?
+                                .Include( e => e.Creator)
+                                .Include( e => e.School)
+                                .Include( e => e.Courses)
+                                .Include( e => e.Participants)
+                                .Where(e => e.Title.Equals(ev.Title))
+                                .ToList<Event>();
+            Event? trackedEvent = query.First();
             // If the event already exists, then delete it.
             if (trackedEvent != null){
                     trackedEvent.AddParticipant(profile);
@@ -65,7 +86,14 @@ public class EventServices
         //RemoveParticpant Method => Add one person (profile) in the participant list
         public virtual void RemoveParticpant(Event ev, Profile profile){
             // Get the event from the database
-            var trackedEvent = _context.StudyMate_Events?.SingleOrDefault(e => e.EventId == ev.EventId);
+            var query = _context.StudyMate_Events?
+                                .Include( e => e.Creator)
+                                .Include( e => e.School)
+                                .Include( e => e.Courses)
+                                .Include( e => e.Participants)
+                                .Where(e => e.Title.Equals(ev.Title))
+                                .ToList<Event>();
+            Event? trackedEvent = query.First();
             // If the event already exists, then delete it.
             if (trackedEvent != null)
             {   
@@ -78,14 +106,28 @@ public class EventServices
 
         //GetParticipant Method => Return a List<Profile> representing all participant of a certain event 
         public virtual List<Profile> GetParticipants(Event ev){
-            var trackedEvent = _context.StudyMate_Events?.SingleOrDefault(e => e.EventId == ev.EventId);
+            var query = _context.StudyMate_Events?
+                                .Include( e => e.Creator)
+                                .Include( e => e.School)
+                                .Include( e => e.Courses)
+                                .Include( e => e.Participants)
+                                .Where(e => e.Title.Equals(ev.Title))
+                                .ToList<Event>();
+            Event? trackedEvent = query.First();
             return trackedEvent.Participants;
         }
 
 
         //ShowParticipant Method => Return a List<String> representing all participants' name of a certain event 
         public virtual List<String> ShowParticipants(Event ev){
-            var trackedEvent = _context.StudyMate_Events?.SingleOrDefault(e => e.EventId == ev.EventId);
+            var query = _context.StudyMate_Events?
+                                .Include( e => e.Creator)
+                                .Include( e => e.School)
+                                .Include( e => e.Courses)
+                                .Include( e => e.Participants)
+                                .Where(e => e.Title.Equals(ev.Title))
+                                .ToList<Event>();
+            Event? trackedEvent = query.First();
             return trackedEvent.ShowParticipants();
         }
 
@@ -93,9 +135,17 @@ public class EventServices
          public virtual void EditEvent(Event eventToChange, Event updatedEvent)
         {
             // Get the event from the database
-            var trackedEvent = _context.StudyMate_Events?.SingleOrDefault(e => e.EventId == eventToChange.EventId);
+            var query = _context.StudyMate_Events?
+                                .Include( e => e.Creator)
+                                .Include( e => e.School)
+                                .Include( e => e.Courses)
+                                .Include( e => e.Participants)
+                                .Where(e => e.EventId.Equals(eventToChange.EventId))
+                                .ToList<Event>();
+            Event? trackedEvent = query.First();
             // If the Event already exists, it will be updated.
             if(trackedEvent != null){
+                trackedEvent = updatedEvent;
                 _context.StudyMate_Events!.Update(trackedEvent);
                 _context.SaveChanges();
             }

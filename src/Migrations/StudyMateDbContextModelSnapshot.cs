@@ -165,7 +165,7 @@ namespace src.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
-                    b.Property<int?>("ProfileId")
+                    b.Property<int>("ProfileId")
                         .HasColumnType("NUMBER(10)");
 
                     b.Property<int?>("SchoolId")
@@ -429,13 +429,17 @@ namespace src.Migrations
 
             modelBuilder.Entity("StudyMate.Event", b =>
                 {
-                    b.HasOne("StudyMate.Profile", null)
+                    b.HasOne("StudyMate.Profile", "Creator")
                         .WithMany("CreatorEvents")
-                        .HasForeignKey("ProfileId");
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.HasOne("StudyMate.School", "School")
                         .WithMany("EventsForSchool")
                         .HasForeignKey("SchoolId");
+
+                    b.Navigation("Creator");
 
                     b.Navigation("School");
                 });

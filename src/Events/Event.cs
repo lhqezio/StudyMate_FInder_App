@@ -12,24 +12,12 @@ namespace StudyMate
         public int EventId { get; set;}
 
         // Creator
-        [NotMapped]
+        [ForeignKey("ProfileId")]
         public Profile Creator {get; set;} = null!;
 
         //Participants
-        private List<Profile>? _participants {get; set;} = new();
         [InverseProperty("ParticipantEvents")]
-        public List<Profile>? Participants
-        {
-            get { return _participants; }
-            set
-            {
-                // if (value == null || value.Count == 0)
-                // {
-                //     throw new ArgumentException("There should be at least one participant.");
-                // }
-                _participants = value;
-            }
-        } 
+        public List<Profile>? Participants {get; set;} = new();
         
         //Title
         private string _title;
@@ -185,7 +173,7 @@ namespace StudyMate
         public List<String> ShowParticipants()
         {
             List<string> stringParticipant = new List<string>();
-            foreach (var participant in _participants)
+            foreach (var participant in this.Participants)
             {
                 stringParticipant.Add(participant.Name);
             }
