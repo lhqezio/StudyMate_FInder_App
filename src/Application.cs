@@ -19,8 +19,6 @@ namespace StudyMate
                 System.Console.WriteLine("Here is our PROOF");
                 var userService = new UserServices(db);
                 var profileService = new ProfileServices(db);
-                // var schoolService = new SchoolServices(db);
-                // var courseService = new CourseServices(db);
                 var conversationService = new ChatServices(db);
                 var eventService = new EventServices(db);
                 var searchService = new SearchServices(db);
@@ -106,8 +104,8 @@ namespace StudyMate
                 var user1profile = searchService.GetProfileById(user1_profileId);
                 if (user1profile is not null) //Refactor
                 {
-                    var user1events = searchService.GetAllProfileEvent(user1profile);
-                    foreach (var item in user1events)
+                    List<Event> user1_event_7 = searchService.GetAllProfileEvent(user1profile);
+                    foreach (var item in user1_event_7)
                     {
                         System.Console.WriteLine("Event found");
                         System.Console.WriteLine(item.Title);
@@ -120,11 +118,11 @@ namespace StudyMate
 
                 // 9.	Attempt to edit user1’s event as user2 (should fail)
                 System.Console.WriteLine("Attempt to edit user1's event as user2 new title is New Title");
-                event1_user1 = searchService.SearchEventsCreator(user1profile.ProfileId)[0];
-                Event event1New_user1 = new Event(event1_user1.Creator, "New Title", (DateTimeOffset)event1_user1.Date, event1_user1.Description, event1_user1.Location, event1_user1.Subjects, event1_user1.Courses, event1_user1.School);
-                event1New_user1.Title = "New Title";
-                eventService.EditEvent(event1_user1, event1New_user1, currentUser);
-                System.Console.WriteLine("Event title is still: " + event1_user1.Title);
+                Event event1_user1_9 = searchService.SearchEventsCreator(user1profile.ProfileId)[0];
+                Event event1_new_user1_9 = new Event(event1_user1_9.Creator, "New Title", (DateTimeOffset)event1_user1_9.Date, event1_user1_9.Description, event1_user1_9.Location, event1_user1_9.Subjects, event1_user1_9.Courses, event1_user1_9.School);
+                event1_new_user1_9.Title = "New Title";
+                eventService.EditEvent(event1_user1_9, event1_new_user1_9, currentUser);
+                System.Console.WriteLine("Event title is still: " + event1_user1_9.Title);
 
                 // 10.	Perform a search that finds user1’s profile
                 System.Console.WriteLine("Search to find user one's profile");
@@ -185,35 +183,35 @@ namespace StudyMate
                 }
                 
                 // 19.	Modify user1’s event.
-                //Age shool az ghabl vojood dashte bashe kar nemikone be khatere track.
                 System.Console.WriteLine("Attempt to edit user1's event");
-                event1_user1 = searchService.GetEventById(event1_user1.EventId);
                 Event event1_user1_19 = new Event(event1_user1.Creator, "Yaayy New title", (DateTimeOffset)event1_user1.Date, event1_user1.Description, "Toronto Campus", event1_user1.Subjects, event1_user1.Courses, event1_user1.School);
                 eventService.EditEvent(event1_user1, event1_user1_19, user1);
+                Event event1_modified_19 = searchService.GetEventById(event1_user1.EventId);
                 System.Console.WriteLine("Event title is now: " + event1_user1.Title);
 
-            //     // 20.	Delete user1’s profile
-            //     System.Console.WriteLine("Deleting profile");
-            //     if (currentUser is not null)
-            //     {
-            //         profileService.DeleteProfile(currentUser);
-            //     }
+                // 20.	Delete user1’s profile
+                System.Console.WriteLine("Deleting profile");
+                if (currentUser is not null)
+                {
+                    var currentUserProfile = searchService.SearchProfileByUser(currentUser.UserId);
+                    profileService.DeleteProfile(currentUserProfile);
+                }
                 
-            //     // 21.	Delete user1’s account
-            //     currentUser = null;
-            //     System.Console.WriteLine("Deleting user1");
-            //     userService.DeleteUser("alain", "200");
+                // 21.	Delete user1’s account
+                currentUser = null;
+                System.Console.WriteLine("Deleting user1");
+                userService.DeleteUser("alain", "200");
 
-            //     // 22.	Log in as user2
-            //     System.Console.WriteLine("Logging in as Samir");
-            //     currentUser = userService.Login("samir", "100");
+                // 22.	Log in as user2
+                System.Console.WriteLine("Logging in as Samir");
+                currentUser = userService.Login("samir", "100");
 
-            //     // 23.	Delete user2’s account
-            //     System.Console.WriteLine("Deleting user2");
-            //     userService.DeleteUser("samir", "100");
+                // 23.	Delete user2’s account
+                System.Console.WriteLine("Deleting user2");
+                userService.DeleteUser("samir", "100");
 
-            //     // Change the password back to its inital state.
-            //     userService.ChangePassword("alain", "200", "100");
+                // Change the password back to its inital state.
+                userService.ChangePassword("alain", "200", "100");
             }
         }
         public static void Logout(){

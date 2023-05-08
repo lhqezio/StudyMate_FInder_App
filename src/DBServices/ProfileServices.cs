@@ -67,7 +67,7 @@ public class ProfileServices
                             .Include( p => p.ParticipantEvents)
                             .Include( p => p.School)
                             .Include( p => p.User)
-                            .Where( p => p.Name.Equals(profile.Name))
+                            .Where( p => p.ProfileId.Equals(profile.ProfileId))
                             .ToList<Profile>();
         Profile? trackedProfile = query.Any() ? query.FirstOrDefault() : null;
         // If the Profile already exists, then delete it.
@@ -98,7 +98,16 @@ public class ProfileServices
         // If the Profile already exists, it will be updated.
         if (trackedProfile != null)
         {
-            trackedProfile=updatedProfile;
+            trackedProfile.Name = updatedProfile.Name;
+            trackedProfile.Gender = updatedProfile.Gender;
+            trackedProfile.School = updatedProfile.School;
+            trackedProfile.CourseTaken = updatedProfile.CourseTaken;
+            trackedProfile.CourseCanHelpWith = updatedProfile.CourseCanHelpWith;
+            trackedProfile.CourseNeedHelpWith = updatedProfile.CourseNeedHelpWith;
+            trackedProfile.Hobbies = updatedProfile.Hobbies;
+            trackedProfile.Age = updatedProfile.Age;
+            trackedProfile.Program = updatedProfile.Program;
+            trackedProfile.PersonalDescription = updatedProfile.PersonalDescription; 
             _context.StudyMate_Profiles!.Update(trackedProfile);
             _context.SaveChanges();
         }else{

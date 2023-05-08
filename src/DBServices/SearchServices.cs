@@ -26,13 +26,29 @@ public class SearchServices
     //SEARCH FOR EVENT
     //GetAllProfileEvent => Return events based on profile
     public List<Event> GetAllProfileEvent(Profile profile){
-        return _context.StudyMate_Events!.Where(e => e.Participants!.Any(p => p.ProfileId == profile.ProfileId))
-            .ToList();
+        var query = _context.StudyMate_Events?
+                                .Include( e => e.Creator)
+                                .Include( e => e.School)
+                                .Include( e => e.Courses)
+                                .Include( e => e.Participants)
+                                .Where(e => e.Creator.ProfileId.Equals(profile.ProfileId))
+                                .ToList<Event>();
+            
+        return query;
     }
         
     //GetEventById => Return events based on event id
     public Event GetEventById(int id){
-        return _context.StudyMate_Events!.SingleOrDefault(e => e.EventId == id)!;
+        var query = _context.StudyMate_Events?
+                                .Include( e => e.Creator)
+                                .Include( e => e.School)
+                                .Include( e => e.Courses)
+                                .Include( e => e.Participants)
+                                .Where(e => e.EventId.Equals(id))
+                                .ToList<Event>();
+            
+        Event? trackedEvent = query.Any() ? query.FirstOrDefault() : null;
+        return trackedEvent;
     }
 
     //SEARCH FOR PROFILE

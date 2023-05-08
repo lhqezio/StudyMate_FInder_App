@@ -20,13 +20,13 @@ public class EventServices
         _context = context;
     }
 
-    public Event? GetEventByTitle(string eventTitle){
+    public Event? GetEventById(int EventId){
         var query = _context.StudyMate_Events?
                                 .Include( e => e.Creator)
                                 .Include( e => e.School)
                                 .Include( e => e.Courses)
                                 .Include( e => e.Participants)
-                                .Where(e => e.Title.Equals(eventTitle))
+                                .Where(e => e.EventId.Equals(EventId))
                                 .ToList<Event>();
             
         Event? trackedEvent = query.Any() ? query.FirstOrDefault() : null;
@@ -54,7 +54,15 @@ public class EventServices
         //CreateEvent Method => Create an event
         public virtual void CreateEvent(Event newEvent){
                 // Get the event from the database
-            Event? trackedEvent = GetEventByTitle(newEvent.Title);
+            var query = _context.StudyMate_Events?
+                                .Include( e => e.Creator)
+                                .Include( e => e.School)
+                                .Include( e => e.Courses)
+                                .Include( e => e.Participants)
+                                .Where(e => e.Title.Equals(newEvent.Title))
+                                .ToList<Event>();
+            
+        Event? trackedEvent = query.Any() ? query.FirstOrDefault() : null;
                 // If the event already exists, it will not be added to the database.
             if (trackedEvent == null)
             {
@@ -73,7 +81,7 @@ public class EventServices
         //DeleteEvent Method => Delete event to the list of events
         public virtual void DeleteEvent(Event eventToDelete){
             // Get the event from the database
-            Event? trackedEvent = GetEventByTitle(eventToDelete.Title);
+            Event? trackedEvent = GetEventById(eventToDelete.EventId);
             // If the event already exists, then delete it.
             if (trackedEvent != null)
             {
@@ -87,7 +95,7 @@ public class EventServices
         //AddParticpant Method => Add one person (profile) in the participant list
         public virtual void AddParticipant(Event ev, Profile profile){
             // Get the event from the database
-            Event? trackedEvent = GetEventByTitle(ev.Title);
+            Event? trackedEvent = GetEventById(ev.EventId);
             // If the event already exists, then delete it.
             if (trackedEvent != null){
                     trackedEvent.AddParticipant(profile);
@@ -100,7 +108,7 @@ public class EventServices
         //RemoveParticpant Method => Add one person (profile) in the participant list
         public virtual void RemoveParticipant(Event ev, Profile profile){
             // Get the event from the database
-            Event? trackedEvent = GetEventByTitle(ev.Title);
+            Event? trackedEvent = GetEventById(ev.EventId);
             // If the event already exists, then delete it.
             if (trackedEvent != null)
             {   
@@ -114,7 +122,7 @@ public class EventServices
 
         //ShowParticipant Method => Return a List<String> representing all participants' name of a certain event 
         public virtual List<String> ShowParticipants(Event ev){
-            Event? trackedEvent = GetEventByTitle(ev.Title);
+            Event? trackedEvent = GetEventById(ev.EventId);
             return trackedEvent.ShowParticipants();
         }
 
@@ -122,13 +130,20 @@ public class EventServices
          public virtual void EditEvent(Event eventToChange, Event updatedEvent, User user)
         {
             // Get the event related profile from the database
-            Event? trackedEvent = GetEventByTitle(eventToChange.Title);
+            Event? trackedEvent = GetEventById(eventToChange.EventId);
             Profile? trackedProfile = GetProfiletByUserId(user.UserId);
             
             // If the Event already exists, it will be updated.
             if(trackedEvent != null){
                 if(trackedProfile.ProfileId.Equals(trackedEvent.Creator.ProfileId)){
-                    trackedEvent = updatedEvent;
+                    trackedEvent.Title = updatedEvent.Title;
+                    trackedEvent.Date = updatedEvent.Date;
+                    trackedEvent.Description = updatedEvent.Description;
+                    trackedEvent.Location = updatedEvent.Location;
+                    trackedEvent.Subjects = updatedEvent.Subjects;
+                    trackedEvent.Courses = updatedEvent.Courses;
+                    trackedEvent.School = updatedEvent.School;
+                    trackedEvent.IsSent = updatedEvent.IsSent;
                     _context.StudyMate_Events!.Update(trackedEvent);    
                     _context.SaveChanges();
                 }else{
