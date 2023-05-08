@@ -12,8 +12,8 @@ using StudyMate;
 namespace src.Migrations
 {
     [DbContext(typeof(StudyMateDbContext))]
-    [Migration("20230503232236_VersionNoBridgingTbls16")]
-    partial class VersionNoBridgingTbls16
+    [Migration("20230506012401_VersionNoBridgingTbls17")]
+    partial class VersionNoBridgingTbls17
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -266,16 +266,9 @@ namespace src.Migrations
                     b.Property<int?>("SchoolId")
                         .HasColumnType("NUMBER(10)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("NVARCHAR2(450)");
-
                     b.HasKey("ProfileId");
 
                     b.HasIndex("SchoolId");
-
-                    b.HasIndex("UserId")
-                        .IsUnique();
 
                     b.ToTable("StudyMate_Profiles");
                 });
@@ -310,6 +303,9 @@ namespace src.Migrations
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(2000)");
 
+                    b.Property<int?>("ProfileId")
+                        .HasColumnType("NUMBER(10)");
+
                     b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("NVARCHAR2(450)");
@@ -318,6 +314,10 @@ namespace src.Migrations
 
                     b.HasIndex("Email")
                         .IsUnique();
+
+                    b.HasIndex("ProfileId")
+                        .IsUnique()
+                        .HasFilter("\"ProfileId\" IS NOT NULL");
 
                     b.HasIndex("Username")
                         .IsUnique();
@@ -453,15 +453,16 @@ namespace src.Migrations
                         .WithMany("ProfilsForSchool")
                         .HasForeignKey("SchoolId");
 
-                    b.HasOne("StudyMate.User", "User")
-                        .WithOne("Profile")
-                        .HasForeignKey("StudyMate.Profile", "UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("School");
+                });
 
-                    b.Navigation("User");
+            modelBuilder.Entity("StudyMate.User", b =>
+                {
+                    b.HasOne("StudyMate.Profile", "Profile")
+                        .WithOne("User")
+                        .HasForeignKey("StudyMate.User", "ProfileId");
+
+                    b.Navigation("Profile");
                 });
 
             modelBuilder.Entity("UserConversation", b =>
@@ -482,6 +483,9 @@ namespace src.Migrations
             modelBuilder.Entity("StudyMate.Profile", b =>
                 {
                     b.Navigation("CreatorEvents");
+
+                    b.Navigation("User")
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("StudyMate.School", b =>
@@ -489,11 +493,6 @@ namespace src.Migrations
                     b.Navigation("EventsForSchool");
 
                     b.Navigation("ProfilsForSchool");
-                });
-
-            modelBuilder.Entity("StudyMate.User", b =>
-                {
-                    b.Navigation("Profile");
                 });
 #pragma warning restore 612, 618
         }

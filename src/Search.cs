@@ -29,7 +29,7 @@ namespace StudyMate
         }
 
         //SearchEventsCreator
-        public List<Event> SearchEventsCreator(string creatorId)
+        public List<Event> SearchEventsCreator(int creatorId)
         {
             var events = _context.StudyMate_Events!
                         .Where(e => e.Creator.ProfileId.Equals(creatorId))
@@ -70,14 +70,6 @@ namespace StudyMate
              return profiles;
         }
 
-        //SearchProfileByUser
-        public Profile SearchProfileByUser(string userId)
-        {
-            List<Profile> profiles =  _context.StudyMate_Profiles!.Where(p => p.User.UserId == userId).ToList();
-            if (profiles.Count != 0){
-                return profiles[0];
-            }   
-            return null;
-        }
+        
      }
  }

@@ -13,7 +13,11 @@ class UserServices
     public virtual User? Login(string username, string password)
     {
         // Get the user from the database
-        User? user = _context.StudyMate_Users?.SingleOrDefault(u => u.Username == username);
+        var query = _context.StudyMate_Users?
+                            .Where( u => u.Username.Equals(username))
+                            .ToList<User>();
+        
+        User? user = query.Any() ? query.FirstOrDefault() : null;
         // If the user doesn't exist, return null
         if (user == null)
         {
@@ -30,13 +34,14 @@ class UserServices
         return new User(user.UserId, user.Username, user.PasswordHash, user.UserId);
     }
 
-    public virtual User? Logout(string username)
-    {
-        // Get the user from the database
-        User? user = _context.StudyMate_Users?.SingleOrDefault(u => u.Username == username);
-        user=null;
-        return user;
-    }
+    // public virtual User? Logout(string username)
+    // {
+    //     // Get the user from the database
+    //     db.Entry()
+    //     User? user = _context.StudyMate_Users?.SingleOrDefault(u => u.Username == username);
+    //     user=null;
+    //     return user;
+    // }
 
     public virtual User? Register(string username, string email, string password)
     {

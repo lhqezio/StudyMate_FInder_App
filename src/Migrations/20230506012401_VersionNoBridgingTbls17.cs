@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace src.Migrations
 {
     /// <inheritdoc />
-    public partial class VersionNoBridgingTbls16 : Migration
+    public partial class VersionNoBridgingTbls17 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -79,26 +79,11 @@ namespace src.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudyMate_Users",
-                columns: table => new
-                {
-                    UserId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    Username = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    Email = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    PasswordHash = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_StudyMate_Users", x => x.UserId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "StudyMate_Profiles",
                 columns: table => new
                 {
                     ProfileId = table.Column<int>(type: "NUMBER(10)", nullable: false)
                         .Annotation("Oracle:Identity", "START WITH 1 INCREMENT BY 1"),
-                    UserId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
                     SchoolId = table.Column<int>(type: "NUMBER(10)", nullable: true),
                     Name = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
                     Gender = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false),
@@ -114,36 +99,6 @@ namespace src.Migrations
                         column: x => x.SchoolId,
                         principalTable: "StudyMate_Schools",
                         principalColumn: "SchoolId");
-                    table.ForeignKey(
-                        name: "FK_StudyMate_Profiles_StudyMate_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "StudyMate_Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "UserConversation",
-                columns: table => new
-                {
-                    ConversationId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
-                    UserId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_UserConversation", x => new { x.ConversationId, x.UserId });
-                    table.ForeignKey(
-                        name: "FK_UserConversation_StudyMate_Conversations_ConversationId",
-                        column: x => x.ConversationId,
-                        principalTable: "StudyMate_Conversations",
-                        principalColumn: "ConversationId",
-                        onDelete: ReferentialAction.Cascade);
-                    table.ForeignKey(
-                        name: "FK_UserConversation_StudyMate_Users_UserId",
-                        column: x => x.UserId,
-                        principalTable: "StudyMate_Users",
-                        principalColumn: "UserId",
-                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -274,6 +229,26 @@ namespace src.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "StudyMate_Users",
+                columns: table => new
+                {
+                    UserId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    ProfileId = table.Column<int>(type: "NUMBER(10)", nullable: true),
+                    Username = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    Email = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    PasswordHash = table.Column<string>(type: "NVARCHAR2(2000)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_StudyMate_Users", x => x.UserId);
+                    table.ForeignKey(
+                        name: "FK_StudyMate_Users_StudyMate_Profiles_ProfileId",
+                        column: x => x.ProfileId,
+                        principalTable: "StudyMate_Profiles",
+                        principalColumn: "ProfileId");
+                });
+
+            migrationBuilder.CreateTable(
                 name: "CourseEvent",
                 columns: table => new
                 {
@@ -318,6 +293,30 @@ namespace src.Migrations
                         column: x => x.ParticipantsProfileId,
                         principalTable: "StudyMate_Profiles",
                         principalColumn: "ProfileId",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserConversation",
+                columns: table => new
+                {
+                    ConversationId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false),
+                    UserId = table.Column<string>(type: "NVARCHAR2(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserConversation", x => new { x.ConversationId, x.UserId });
+                    table.ForeignKey(
+                        name: "FK_UserConversation_StudyMate_Conversations_ConversationId",
+                        column: x => x.ConversationId,
+                        principalTable: "StudyMate_Conversations",
+                        principalColumn: "ConversationId",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_UserConversation_StudyMate_Users_UserId",
+                        column: x => x.UserId,
+                        principalTable: "StudyMate_Users",
+                        principalColumn: "UserId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
@@ -367,16 +366,17 @@ namespace src.Migrations
                 column: "SchoolId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudyMate_Profiles_UserId",
-                table: "StudyMate_Profiles",
-                column: "UserId",
-                unique: true);
-
-            migrationBuilder.CreateIndex(
                 name: "IX_StudyMate_Users_Email",
                 table: "StudyMate_Users",
                 column: "Email",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_StudyMate_Users_ProfileId",
+                table: "StudyMate_Users",
+                column: "ProfileId",
+                unique: true,
+                filter: "\"ProfileId\" IS NOT NULL");
 
             migrationBuilder.CreateIndex(
                 name: "IX_StudyMate_Users_Username",
@@ -430,13 +430,13 @@ namespace src.Migrations
                 name: "StudyMate_Conversations");
 
             migrationBuilder.DropTable(
+                name: "StudyMate_Users");
+
+            migrationBuilder.DropTable(
                 name: "StudyMate_Profiles");
 
             migrationBuilder.DropTable(
                 name: "StudyMate_Schools");
-
-            migrationBuilder.DropTable(
-                name: "StudyMate_Users");
         }
     }
 }

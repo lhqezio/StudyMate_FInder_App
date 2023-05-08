@@ -45,9 +45,6 @@ public class SearchServices
     public virtual Profile? GetProfileById(int profileId) {
         return _context.StudyMate_Profiles!.SingleOrDefault(p => p.ProfileId == profileId);
     }
-    public virtual List<Event> GetProfileEvents(Profile profile){
-        return _context.StudyMate_Events!.Where(e => e.Creator.ProfileId == profile.ProfileId).ToList();
-    }
 
     //SEARCH FCTS
     //SearchEventsCourseSchool Method => Search Events based on Course and School
@@ -57,9 +54,16 @@ public class SearchServices
     }
 
     //SearchEventsCreator Method => Search Events based on the creator (profile)
-    public virtual List<Event> SearchEventsCreator(string creatorId){
-        Search sc = new Search(_context);
-        return sc.SearchEventsCreator(creatorId);
+    public virtual List<Event> SearchEventsCreator(int creatorId){
+            var query = _context.StudyMate_Events?
+                                .Include( e => e.Creator)
+                                .Include( e => e.School)
+                                .Include( e => e.Courses)
+                                .Include( e => e.Participants)
+                                .Where(e => e.Creator.ProfileId.Equals(creatorId))
+                                .ToList<Event>();
+        List<Event> events =  query;
+        return events;
     }
 
     //SearchEventTitleDescription Method => Search Event by title and description
@@ -82,8 +86,20 @@ public class SearchServices
         
     //SearchProfileByUser Method => Search Profile by Associated User
     public virtual Profile SearchProfileByUser(string userId){
-        Search sc = new Search(_context);
-        return sc.SearchProfileByUser(userId);
+        
+        var queryProfile = _context.StudyMate_Profiles?
+                                .Include( p => p.CourseCanHelpWith)
+                                .Include( p => p.CourseNeedHelpWith)
+                                .Include( p => p.CourseTaken)
+                                .Include( p => p.CreatorEvents)
+                                .Include( p => p.Hobbies)
+                                .Include( p => p.ParticipantEvents)
+                                .Include( p => p.School)
+                                .Include( p => p.User)
+                                .Where( p => p.User.UserId.Equals(userId))
+                                .ToList<Profile>();
+            Profile? profile = queryProfile.Any() ? queryProfile.FirstOrDefault() : null;
+            return profile;
     }
 
     //SearchAllProfile Method => Search All Profile 

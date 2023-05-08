@@ -19,7 +19,7 @@ public class ProfileServices
         _context = context;
     }
 
-    public virtual void AddProfile(Profile profile)
+    public virtual Profile AddProfile(Profile profile)
     {
         // Get the Profile from the database
         var query = _context.StudyMate_Profiles?
@@ -33,15 +33,25 @@ public class ProfileServices
                             .Include( p => p.User)
                             .Where( p => p.Name.Equals(profile.Name))
                             .ToList<Profile>();
-        Profile? trackedProfile = query.FirstOrDefault();
+        
+        Profile? trackedProfile = query.Any() ? query.FirstOrDefault() : null;
         
         // If the Profile already exists, it will not be added to the database.
         if (trackedProfile != null)
         {
             System.Console.WriteLine("This profile already exist in the database.");
-        }else{
+            return trackedProfile;
+        }else
+        {
+            var existingUser = _context.StudyMate_Users.Find(profile.User.UserId);
+            if (existingUser != null)
+            {
+                profile.User = existingUser;
+            }
+   
             _context.StudyMate_Profiles!.Add(profile);
             _context.SaveChanges();
+            return profile;
         }
     }
 
@@ -59,7 +69,7 @@ public class ProfileServices
                             .Include( p => p.User)
                             .Where( p => p.Name.Equals(profile.Name))
                             .ToList<Profile>();
-        Profile? trackedProfile = query.First();
+        Profile? trackedProfile = query.Any() ? query.FirstOrDefault() : null;
         // If the Profile already exists, then delete it.
         if (trackedProfile != null)
         {
@@ -70,7 +80,7 @@ public class ProfileServices
         }
     }
 
-    public virtual void UpdateProfile(Profile profile)
+    public virtual void UpdateProfile(Profile profileToChange, Profile updatedProfile)
     {
         // Get the Profile from the database
         var query = _context.StudyMate_Profiles?
@@ -82,13 +92,13 @@ public class ProfileServices
                             .Include( p => p.ParticipantEvents)
                             .Include( p => p.School)
                             .Include( p => p.User)
-                            .Where( p => p.Name.Equals(profile.Name))
+                            .Where( p => p.Name.Equals(profileToChange.Name))
                             .ToList<Profile>();
-        Profile? trackedProfile = query.First();
+        Profile? trackedProfile = query.Any() ? query.FirstOrDefault() : null;
         // If the Profile already exists, it will be updated.
         if (trackedProfile != null)
         {
-            trackedProfile=profile;
+            trackedProfile=updatedProfile;
             _context.StudyMate_Profiles!.Update(trackedProfile);
             _context.SaveChanges();
         }else{

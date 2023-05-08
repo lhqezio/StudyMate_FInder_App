@@ -12,20 +12,7 @@ namespace StudyMate
     
             using (db = new StudyMateDbContext())
             {
-            //     User user1 = new User("1", "Alain", "Alain@gmail.com", "120");
-            //     User user2 = new User("2", "Marc", "Marc@gmail.com", "120");
-            //     List<Course> TakenCourse = new List<Course>(){new Course("Algebra")};
-            //     List<Course> NeedHelpCourse = new List<Course>(){new Course("Humanities")};
-            //     List<Course> CanHelpCourse = new List<Course>(){new Course("Communication")};
-            //     List<Hobby> hobbies = new List<Hobby>(){new Hobby("Anime")};
-            // List<Course> eventCourses = new List<Course>(){ new Course("Humanities")}; 
-
-            //     Profile profile1 = new Profile(user1, "Alain", "Male", new School("Dawson College"), TakenCourse, CanHelpCourse, NeedHelpCourse, hobbies,  20, "Computer Science", "Hi I'm new here.");
-            //     Profile profile2 = new Profile(user2, "Marc", "Male", new School("Dawson College"), TakenCourse, CanHelpCourse, NeedHelpCourse, hobbies,  19, "Social Science", "Hope to meet new people");
-            //     Event event1 = new Event(profile1, "Studying Humanities", DateTime.Now.AddHours(2), "We will study for the next Humanities exam", "Chez Saza", "Humanities 101", eventCourses, new School("Dawson College"));
-            //     var eventService = new EventServices(db);
-            //     eventService.CreateEvent(event1);
-            //     eventService.AddParticipant(event1, profile2);
+            
            
             //Set-up
                 System.Console.WriteLine("What's up Andrew?");
@@ -41,8 +28,6 @@ namespace StudyMate
                 // 1.	Create a new user account (user1)
                 System.Console.WriteLine("Attempt to create user1");
                 currentUser = userService.Register("alain", "alain@heaumo.co", "100");
-                User user1 = currentUser;
-                System.Console.WriteLine(currentUser);
                 if (currentUser != null)
                 {
                     Console.WriteLine("User created successfully");
@@ -50,7 +35,7 @@ namespace StudyMate
                 else
                 {
                     Console.WriteLine("User creation failed try logging in");
-                    currentUser = userService.Login("alain", "00");
+                    currentUser = userService.Login("alain", "100");
                     if (currentUser != null)
                     {
                         Console.WriteLine("User logged in successfully");
@@ -61,6 +46,7 @@ namespace StudyMate
                         return;
                     }
                 }
+                User user1 = currentUser;
 
                 // 2.	Create a profile for user1 (You don’t need to fill in all details)
                 System.Console.WriteLine("Attempt to set up Profile for user1");
@@ -69,7 +55,8 @@ namespace StudyMate
                 List<Course> CanHelpCourse = new List<Course>(){new Course("Communication")};
                 List<Hobby> hobbies = new List<Hobby>(){new Hobby("Anime")};
                 Profile profile1 = new Profile(currentUser, "Alain", "Male", new School("Dawson College"), TakenCourse, CanHelpCourse, NeedHelpCourse, hobbies,  20, "Computer Science", "Hi I'm new here.");
-                profileService.AddProfile(profile1);
+                profile1 = profileService.AddProfile(profile1);
+                int user1_profileId = profile1.ProfileId;
 
                 // 3.	Create an event for user1
                 System.Console.WriteLine("Attempt to set up Event for user1");
@@ -79,7 +66,7 @@ namespace StudyMate
                 eventService.CreateEvent(event1_user1);
               
                 // 4.	Log out from user1
-                currentUser = userService.Logout(currentUser.Username);
+                Logout();
 
                 // 5.	Create a new user account (user2)
                 System.Console.WriteLine("Attempt to create user2");
@@ -116,10 +103,10 @@ namespace StudyMate
 
                 // 7.	Perform a search to find the event created by user1 
                 System.Console.WriteLine("Attempt to find all the events created by user 1");
-                var user1profile = searchService.GetProfileById(user1.Profile.ProfileId);
+                var user1profile = searchService.GetProfileById(user1_profileId);
                 if (user1profile is not null) //Refactor
                 {
-                    var user1events = searchService.GetProfileEvents(user1profile);
+                    var user1events = searchService.GetAllProfileEvent(user1profile);
                     foreach (var item in user1events)
                     {
                         System.Console.WriteLine("Event found");
@@ -133,14 +120,15 @@ namespace StudyMate
 
                 // 9.	Attempt to edit user1’s event as user2 (should fail)
                 System.Console.WriteLine("Attempt to edit user1's event as user2 new title is New Title");
-                Event event1New_user1 = event1_user1;
+                event1_user1 = searchService.SearchEventsCreator(user1profile.ProfileId)[0];
+                Event event1New_user1 = new Event(event1_user1.Creator, "New Title", (DateTimeOffset)event1_user1.Date, event1_user1.Description, event1_user1.Location, event1_user1.Subjects, event1_user1.Courses, event1_user1.School);
                 event1New_user1.Title = "New Title";
                 eventService.EditEvent(event1_user1, event1New_user1, currentUser);
                 System.Console.WriteLine("Event title is still: " + event1_user1.Title);
 
                 // 10.	Perform a search that finds user1’s profile
                 System.Console.WriteLine("Search to find user one's profile");
-                Profile profile_user1_10  = searchService.GetProfileById(user1.Profile.ProfileId);
+                Profile profile_user1_10  = searchService.SearchProfileByUser(user1.UserId);
                 if (profile_user1_10 is not null)
                 {
                     System.Console.WriteLine("The retrieved profile is for: "+ profile_user1_10.Name);
@@ -167,76 +155,70 @@ namespace StudyMate
                 userService.ChangePassword("alain", "100", "200");
 
                 // 15.	Modify user1’s profile
-                if (currentUser is not null)
+                profile1 = searchService.SearchProfileByUser(user1.UserId);
+                Profile newProfile1 = new Profile( profile1.User, "Hoang", profile1.Gender, profile1.School, profile1.CourseTaken, profile1.CourseCanHelpWith, profile1.CourseNeedHelpWith, profile1.Hobbies, (int)profile1.Age, profile1.Program, "I like tacos");
+                profileService.UpdateProfile(profile1, newProfile1);
+                profile1 = searchService.SearchProfileByUser(user1.UserId);
+                System.Console.WriteLine("Updated Profile (Name): " + profile1.Name);
+                System.Console.WriteLine("Updated Profile (Description): " + profile1.PersonalDescription);
+                
+                // 16.	Access messages, viewing text of the messages sent by user2.
+                List<Conversation> convos2 = conversationService.GetConversations(currentUser.UserId);
+                Conversation convo2 = convos2[0];
+                List<Message> messages = conversationService.GetMessages(convo2.ConversationId);
+                foreach (Message m in messages)
                 {
-                    var my_profile = searchService.SearchProfileByUser(currentUser.UserId);
-                    if (my_profile is not null)
-                    {
-                        my_profile.Name = "Amirreza";
-                        my_profile.SchoolId="2";
-                        profileService.UpdateProfile(my_profile);
-                    }
-                    my_profile = searchService.SearchProfileByUser(currentUser.UserId);
-                    if (my_profile is not null)
-                    {
-                        var sch=schoolService.GetSchool(my_profile.SchoolId);
-                        System.Console.WriteLine("Updated Profile (Name)" + my_profile.Name);
-                        if (sch is not null)
-                        {
-                            System.Console.WriteLine("Updated Profile (School)" + sch.SchoolName);
-                        }
-                    }
-                    // 16.	Access messages, viewing text of the messages sent by user2.
-                    List<Conversation> convos2 = conversationService.GetConversations(currentUser.UserId);
-                    Conversation convo2 = convos2[0];
-                    List<Message> messages = conversationService.GetMessages(convo2.ConversationId);
-                    foreach (Message m in messages)
-                    {
-                        System.Console.WriteLine(m.Body);
-                    }
-                    // 17.	Send a message to user2 from user1.
-                    System.Console.WriteLine("Sending message to Samir");
-                    conversationService.SendMessage("Salut Samir", convo2.ConversationId, currentUser.UserId);
-                    System.Console.WriteLine("Message sent, deleting conversation");
-                    conversationService.DeleteConversation(convo2.ConversationId);
+                    System.Console.WriteLine(m.Body);
                 }
+                
+                // 17.	Send a message to user2 from user1.
+                System.Console.WriteLine("Sending message to Samir");
+                conversationService.SendMessage("Salut Samir", convo2.ConversationId, currentUser.UserId);
+                System.Console.WriteLine("Message sent, deleting conversation");
+                conversationService.DeleteConversation(convo2.ConversationId);
+            
                 
                 // 18.	Find and view the attendees of user1’s event
                 System.Console.WriteLine("View user1's event's participants");
-                foreach(Profile profile in eventService.GetParticipants("1")){
-                    System.Console.WriteLine("Attendee: "+profile.Name);
+                foreach(var name in  event1_user1.ShowParticipants()){
+                    System.Console.WriteLine("Attendee: "+name);
                 }
                 
                 // 19.	Modify user1’s event.
                 //Age shool az ghabl vojood dashte bashe kar nemikone be khatere track.
-                event_user1.Title="Yayyy title got updated";
-                event_user1.School=new School("3","U of T");
-                event_user1.Location="University of Toronto Campus";
-                eventService.UpdateEvent(event_user1);
+                System.Console.WriteLine("Attempt to edit user1's event");
+                event1_user1 = searchService.GetEventById(event1_user1.EventId);
+                Event event1_user1_19 = new Event(event1_user1.Creator, "Yaayy New title", (DateTimeOffset)event1_user1.Date, event1_user1.Description, "Toronto Campus", event1_user1.Subjects, event1_user1.Courses, event1_user1.School);
+                eventService.EditEvent(event1_user1, event1_user1_19, user1);
+                System.Console.WriteLine("Event title is now: " + event1_user1.Title);
 
-                // 20.	Delete user1’s profile
-                System.Console.WriteLine("Deleting profile");
-                if (currentUser is not null)
-                {
-                    profileService.DeleteProfile(currentUser);
-                }
+            //     // 20.	Delete user1’s profile
+            //     System.Console.WriteLine("Deleting profile");
+            //     if (currentUser is not null)
+            //     {
+            //         profileService.DeleteProfile(currentUser);
+            //     }
                 
-                // 21.	Delete user1’s account
-                currentUser = null;
-                System.Console.WriteLine("Deleting user1");
-                userService.DeleteUser("alain", "200");
+            //     // 21.	Delete user1’s account
+            //     currentUser = null;
+            //     System.Console.WriteLine("Deleting user1");
+            //     userService.DeleteUser("alain", "200");
 
-                // 22.	Log in as user2
-                System.Console.WriteLine("Logging in as Samir");
-                currentUser = userService.Login("samir", "100");
+            //     // 22.	Log in as user2
+            //     System.Console.WriteLine("Logging in as Samir");
+            //     currentUser = userService.Login("samir", "100");
 
-                // 23.	Delete user2’s account
-                System.Console.WriteLine("Deleting user2");
-                userService.DeleteUser("samir", "100");
+            //     // 23.	Delete user2’s account
+            //     System.Console.WriteLine("Deleting user2");
+            //     userService.DeleteUser("samir", "100");
 
-                // Change the password back to its inital state.
-                userService.ChangePassword("alain", "200", "100");
+            //     // Change the password back to its inital state.
+            //     userService.ChangePassword("alain", "200", "100");
             }
+        }
+        public static void Logout(){
+            db.Entry(currentUser).State = EntityState.Detached;
+            currentUser = null;
         }
     }
 }
