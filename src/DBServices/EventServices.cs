@@ -70,7 +70,8 @@ public class EventServices
                 if (existingUser != null)
                 {
                     newEvent.Creator.User = existingUser;
-                }               
+                }       
+                //No duplicate school        
                 var existingSchool = _context.StudyMate_Schools.FirstOrDefault(s => s.SchoolName == newEvent.School.SchoolName);
                 if (existingSchool == null)
                 {
@@ -152,7 +153,6 @@ public class EventServices
                     trackedEvent.Description = updatedEvent.Description;
                     trackedEvent.Location = updatedEvent.Location;
                     trackedEvent.Subjects = updatedEvent.Subjects;
-                    trackedEvent.Courses = updatedEvent.Courses;
                     var existingSchool = _context.StudyMate_Schools.FirstOrDefault(s => s.SchoolName == updatedEvent.School.SchoolName);
                     if (existingSchool == null)
                     {
@@ -173,6 +173,23 @@ public class EventServices
             }
             else{
                 System.Console.WriteLine("The event you are trying to update does not exist.");
+            }
+        }
+
+        public Course GetOrCreateCourseByName(string courseName)
+        {
+            var existingCourse = _context.StudyMate_Courses.FirstOrDefault(c => c.CourseName.Equals(courseName));
+
+            if (existingCourse != null)
+            {
+                return existingCourse;
+            }
+            else
+            {
+                var newCourse = new Course { CourseName = courseName };
+                _context.StudyMate_Courses.Add(newCourse);
+                _context.SaveChanges();
+                return newCourse;
             }
         }
 }

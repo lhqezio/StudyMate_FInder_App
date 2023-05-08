@@ -43,11 +43,13 @@ public class ProfileServices
             return trackedProfile;
         }else
         {
+            //Check User
             var existingUser = _context.StudyMate_Users.Find(profile.User.UserId);
             if (existingUser != null)
             {
                 profile.User = existingUser;
             }
+            //No duplicate School
             var existingSchool = _context.StudyMate_Schools.FirstOrDefault(s => s.SchoolName == profile.School.SchoolName);
             if (existingSchool == null)
             {
@@ -59,7 +61,6 @@ public class ProfileServices
             {
                 profile.School = existingSchool;
             }
-                    
             _context.StudyMate_Profiles!.Add(profile);
             _context.SaveChanges();
             return profile;
@@ -103,7 +104,7 @@ public class ProfileServices
                             .Include( p => p.ParticipantEvents)
                             .Include( p => p.School)
                             .Include( p => p.User)
-                            .Where( p => p.Name.Equals(profileToChange.Name))
+                            .Where( p => p.ProfileId.Equals(profileToChange.ProfileId))
                             .ToList<Profile>();
         Profile? trackedProfile = query.Any() ? query.FirstOrDefault() : null;
         // If the Profile already exists, it will be updated.
@@ -111,6 +112,7 @@ public class ProfileServices
         {
             trackedProfile.Name = updatedProfile.Name;
             trackedProfile.Gender = updatedProfile.Gender;
+            //No school duplicate
             var existingSchool = _context.StudyMate_Schools.FirstOrDefault(s => s.SchoolName == updatedProfile.School.SchoolName);
             if (existingSchool == null)
             {
@@ -121,10 +123,7 @@ public class ProfileServices
             else
             {
                 trackedProfile.School = existingSchool;
-            }        
-            trackedProfile.CourseTaken = updatedProfile.CourseTaken;
-            trackedProfile.CourseCanHelpWith = updatedProfile.CourseCanHelpWith;
-            trackedProfile.CourseNeedHelpWith = updatedProfile.CourseNeedHelpWith;
+            }
             trackedProfile.Hobbies = updatedProfile.Hobbies;
             trackedProfile.Age = updatedProfile.Age;
             trackedProfile.Program = updatedProfile.Program;
