@@ -1,10 +1,10 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using StudyMate.ViewModels;
-using StudyMate.Views;
+using StudyApp.ViewModels;
+using StudyApp.Views;
 
-namespace StudyMate;
+namespace StudyApp;
 
 public partial class App : Application
 {
@@ -15,14 +15,15 @@ public partial class App : Application
 
     public override void OnFrameworkInitializationCompleted()
     {
+        base.OnFrameworkInitializationCompleted();
+
         if (ApplicationLifetime is IClassicDesktopStyleApplicationLifetime desktop)
         {
+
             desktop.MainWindow = new MainWindow
             {
                 DataContext = new MainWindowViewModel(),
             };
         }
-
-        base.OnFrameworkInitializationCompleted();
     }
 }

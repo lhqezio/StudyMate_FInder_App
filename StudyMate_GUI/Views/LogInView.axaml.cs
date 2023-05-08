@@ -2,11 +2,11 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace StudyMate.Views;
+namespace StudyApp.Views;
 
-public partial class DisplayEvent : UserControl
+public partial class LogInView : UserControl
 {
-    public DisplayEvent()
+    public LogInView()
     {
         InitializeComponent();
     }
