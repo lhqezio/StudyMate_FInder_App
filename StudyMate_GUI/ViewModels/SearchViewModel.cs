@@ -2,10 +2,10 @@ using System;
 using System.Collections.Generic;
 using ReactiveUI;
 using System.Collections.ObjectModel;
-using StudyApp.Models;
+using StudyMate.Models;
 using System.Reactive;
 
-namespace StudyApp.ViewModels
+namespace StudyMate.ViewModels
 {
     public class SearchViewModel : ViewModelBase
     {
