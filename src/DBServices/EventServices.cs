@@ -71,6 +71,17 @@ public class EventServices
                 {
                     newEvent.Creator.User = existingUser;
                 }               
+                var existingSchool = _context.StudyMate_Schools.FirstOrDefault(s => s.SchoolName == newEvent.School.SchoolName);
+                if (existingSchool == null)
+                {
+                    var newSchool = new School { SchoolName = newEvent.School.SchoolName };
+                    _context.StudyMate_Schools.Add(newSchool);
+                    newEvent.School = newSchool;
+                }
+                else
+                {
+                    newEvent.School = existingSchool;
+                }
                 _context.StudyMate_Events!.Add(newEvent);
                 _context.SaveChanges();
             }else{
@@ -142,7 +153,17 @@ public class EventServices
                     trackedEvent.Location = updatedEvent.Location;
                     trackedEvent.Subjects = updatedEvent.Subjects;
                     trackedEvent.Courses = updatedEvent.Courses;
-                    trackedEvent.School = updatedEvent.School;
+                    var existingSchool = _context.StudyMate_Schools.FirstOrDefault(s => s.SchoolName == updatedEvent.School.SchoolName);
+                    if (existingSchool == null)
+                    {
+                        var newSchool = new School { SchoolName = updatedEvent.School.SchoolName };
+                        _context.StudyMate_Schools.Add(newSchool);
+                        trackedEvent.School = newSchool;
+                    }
+                    else
+                    {
+                        trackedEvent.School = existingSchool;
+                    }
                     trackedEvent.IsSent = updatedEvent.IsSent;
                     _context.StudyMate_Events!.Update(trackedEvent);    
                     _context.SaveChanges();

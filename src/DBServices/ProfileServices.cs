@@ -48,7 +48,18 @@ public class ProfileServices
             {
                 profile.User = existingUser;
             }
-   
+            var existingSchool = _context.StudyMate_Schools.FirstOrDefault(s => s.SchoolName == profile.School.SchoolName);
+            if (existingSchool == null)
+            {
+                var newSchool = new School { SchoolName = profile.School.SchoolName };
+                _context.StudyMate_Schools.Add(newSchool);
+                profile.School = newSchool;
+            }
+            else
+            {
+                profile.School = existingSchool;
+            }
+                    
             _context.StudyMate_Profiles!.Add(profile);
             _context.SaveChanges();
             return profile;
@@ -100,7 +111,17 @@ public class ProfileServices
         {
             trackedProfile.Name = updatedProfile.Name;
             trackedProfile.Gender = updatedProfile.Gender;
-            trackedProfile.School = updatedProfile.School;
+            var existingSchool = _context.StudyMate_Schools.FirstOrDefault(s => s.SchoolName == updatedProfile.School.SchoolName);
+            if (existingSchool == null)
+            {
+                var newSchool = new School { SchoolName = updatedProfile.School.SchoolName };
+                _context.StudyMate_Schools.Add(newSchool);
+                trackedProfile.School = newSchool;
+            }
+            else
+            {
+                trackedProfile.School = existingSchool;
+            }        
             trackedProfile.CourseTaken = updatedProfile.CourseTaken;
             trackedProfile.CourseCanHelpWith = updatedProfile.CourseCanHelpWith;
             trackedProfile.CourseNeedHelpWith = updatedProfile.CourseNeedHelpWith;
