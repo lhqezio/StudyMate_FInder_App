@@ -107,7 +107,7 @@ namespace StudyMate.ViewModels
                 this.CoursesNeedHelpWith.Add(Course); 
             });
             AddHobbiesCommand = ReactiveCommand.Create(() => {
-                var Hobby = new Hobby(this.HobbieName);
+                var Hobby = new Hobby(this.HobbyName);
                 this.Hobbies.Add(Hobby);
             });
             CreateProfile = ReactiveCommand.Create(() => {

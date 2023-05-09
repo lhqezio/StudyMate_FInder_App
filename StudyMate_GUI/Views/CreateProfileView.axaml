@@ -24,29 +24,30 @@
         <TextBlock Text="Course Taken: "/>
         <StackPanel>
             <TextBox Text="{Binding CourseTakenName}"/>
-            <Button Content="Add" Command="{Binding AddCoursesTakenCommand}"/>
+            <Button Command="{Binding AddCoursesTakenCommand}">Add the course</Button>
         </StackPanel>
         
         <TextBlock Text="Course Can Help With: "/>
         <StackPanel>
             <TextBox Text="{Binding CourseCanHelpWithName}"/>
-            <Button Content="Add" Command="{Binding AddCoursesCanHelpWithCommand}"/>
+            <Button Command="{Binding AddCoursesCanHelpWithCommand}"> Add the course</Button>
         </StackPanel>
         
         <TextBlock Text="Course Need Help With: "/>
         <StackPanel>
             <TextBox Text="{Binding CourseNeedHelpWithName}"/>
-            <Button Content="Add" Command="{Binding AddCoursesNeedHelpWithCommand}"/>
+            <Button Command="{Binding AddCoursesNeedHelpWithCommand}">Add the course</Button>
         </StackPanel>
         
         <TextBlock Text="Hobby: "/>
         <StackPanel>
             <TextBox Text="{Binding HobbyName}"/>
-            <Button Content="Add" Command="{Binding AddHobbiesCommand}"/>
+            <Button Command="{Binding AddHobbiesCommand}">Add the hobby</Button>
         </StackPanel>
         
         <TextBlock Text="Personal Description: "/>
         <TextBox Text="{Binding PersonalDescription}"/>
+        <Button Command="{Binding CreateProfile}">Create the profile</Button>
     </StackPanel>
   </DockPanel>
 </UserControl>
