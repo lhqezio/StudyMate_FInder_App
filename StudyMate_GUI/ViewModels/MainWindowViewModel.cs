@@ -66,7 +66,16 @@ namespace StudyMate.ViewModels
         //Show profile of logged in user
         private void ShowPersonalProfile()
         {
-            DisplayProfile(new Profile(LoggedInUser));
+            if (LoggedInUser == null)
+            {
+                throw new Exception("User not logged in");
+            }
+            Profile p = LoggedInUser.Profile;
+            if (p == null)
+            {
+                throw new Exception("User has no profile");
+            }
+            DisplayProfile(p);
         }
 
         //Show profile of a specified user

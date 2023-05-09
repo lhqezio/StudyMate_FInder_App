@@ -1,9 +1,9 @@
 using System;
 using System.Collections.Generic;
 using ReactiveUI;
-using System.Collections.ObjectModel;
 using StudyMate.Models;
 using System.Reactive;
+using StudyMate.Services;
 
 namespace StudyMate.ViewModels
 {
@@ -62,14 +62,25 @@ namespace StudyMate.ViewModels
         {
            ShowEventResults = false;
            ShowProfileResults = true;
-           ProfileResults = ProfileSearcher.SearchProfiles("");
+           StudyMateDbContext db = new StudyMateDbContext();
+           using (db)
+           {
+            Search s = new Search(db);
+            ProfileResults = s.SearchProfileCourseSchool("");
+           }
+
         }
 
         private void DisplayEventResults()
         {
             ShowProfileResults = false;
             ShowEventResults = true;
-            EventResults = EventSearcher.SearchEvents("");
+            StudyMateDbContext db = new StudyMateDbContext();
+            using (db)
+            {
+                Search s = new Search(db);
+                EventResults = s.SearchEventsCourseSchool("");
+            }
         }
     }
 }
