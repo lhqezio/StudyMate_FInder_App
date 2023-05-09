@@ -10,6 +10,12 @@ namespace StudyMate.ViewModels
     public class CreateProfileViewModel : ViewModelBase
     {
         public User User{get;set;}
+        public List<Course> CoursesTaken { get; set; } = new List<Course>();
+        public List<Course> CoursesCanHelpWith { get; set; } = new List<Course>();
+        public List<Course> CoursesNeedHelpWith { get; set; } = new List<Course>();
+        public List<Hobby> Hobbies { get; set; } = new List<Hobby>();
+        public Profile Profile {get;set;} = new Profile();
+        public School School{get;set;} = new School();
         private string _name;
         public string Name
         {
@@ -66,11 +72,11 @@ namespace StudyMate.ViewModels
             set => this.RaiseAndSetIfChanged(ref _courseNeedHelpWithName, value);
         }
 
-        private string _hobbieName;
-        public string HobbieName
+        private string _hobbyName;
+        public string HobbyName
         {
-            get => _hobbieName;
-            set => this.RaiseAndSetIfChanged(ref _hobbieName, value);
+            get => _hobbyName;
+            set => this.RaiseAndSetIfChanged(ref _hobbyName, value);
         }
 
         private string _personalDescription;
@@ -81,10 +87,35 @@ namespace StudyMate.ViewModels
         }
 
         public ReactiveCommand<Unit, Unit> CreateProfile { get; }
+        public ReactiveCommand<Unit, Unit> AddCoursesTakenCommand { get; }
+        public ReactiveCommand<Unit, Unit> AddCoursesCanHelpWithCommand { get; }
+        public ReactiveCommand<Unit, Unit> AddCoursesNeedHelpWithCommand { get; }
+        public ReactiveCommand<Unit, Unit> AddHobbiesCommand { get; }
 
         public CreateProfileViewModel()
         {
-
+            AddCoursesTakenCommand = ReactiveCommand.Create(() => {
+                var Course = new Course(this.CourseTakenName);
+                this.CoursesTaken.Add(Course);
+            });
+            AddCoursesCanHelpWithCommand = ReactiveCommand.Create(() => {
+                var Course = new Course(this.CourseCanHelpWithName);
+                this.CoursesCanHelpWith.Add(Course);
+            });
+            AddCoursesNeedHelpWithCommand = ReactiveCommand.Create(() => {
+                var Course = new Course(this.CourseNeedHelpWithName);
+                this.CoursesNeedHelpWith.Add(Course); 
+            });
+            AddHobbiesCommand = ReactiveCommand.Create(() => {
+                var Hobby = new Hobby(this.HobbieName);
+                this.Hobbies.Add(Hobby);
+            });
+            CreateProfile = ReactiveCommand.Create(() => {
+                var School=new School(this.SchoolName);
+                this.Profile= new Profile(this.User,this.Name,this.Gender,this.School,
+                this.CoursesTaken,this.CoursesCanHelpWith,this.CoursesNeedHelpWith,
+                this.Hobbies,this.Age,this.Program,this.PersonalDescription);
+            });
         }
     }
 }
