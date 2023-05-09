@@ -4,5 +4,53 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="StudyMate.View.CreateProfileView">
-  Welcome to Avalonia!
+  <DockPanel>
+    <StackPanel>
+        <TextBlock Text="Name"/>
+        <TextBox Text="{Binding Name, Mode=TwoWay}"/>
+        
+        <TextBlock Text="Gender"/>
+        <TextBox Text="{Binding Gender, Mode=TwoWay}"/>
+        
+        <TextBlock Text="Age"/>
+        <TextBox Text="{Binding Age, Mode=TwoWay}"/>
+        
+        <TextBlock Text="School"/>
+        <TextBox Text="{Binding School.Name, Mode=TwoWay}"/>
+        
+        <TextBlock Text="Program"/>
+        <TextBox Text="{Binding Program, Mode=TwoWay}"/>
+        
+        <TextBlock Text="Courses Taken"/>
+        <StackPanel>
+            <TextBox x:Name="coursesTakenTextBox"/>
+            <Button Content="Add" Command="{Binding AddCoursesTakenCommand}" 
+                    CommandParameter="{Binding Text, ElementName=coursesTakenTextBox}"/>
+        </StackPanel>
+        
+        <TextBlock Text="Courses Can Help With"/>
+        <StackPanel>
+            <TextBox x:Name="coursesCanHelpWithTextBox"/>
+            <Button Content="Add" Command="{Binding AddCoursesCanHelpWithCommand}" 
+                    CommandParameter="{Binding Text, ElementName=coursesCanHelpWithTextBox}"/>
+        </StackPanel>
+        
+        <TextBlock Text="Courses Need Help With"/>
+        <StackPanel>
+            <TextBox x:Name="coursesNeedHelpWithTextBox"/>
+            <Button Content="Add" Command="{Binding AddCoursesNeedHelpWithCommand}" 
+                    CommandParameter="{Binding Text, ElementName=coursesNeedHelpWithTextBox}"/>
+        </StackPanel>
+        
+        <TextBlock Text="Hobbies"/>
+        <StackPanel>
+            <TextBox x:Name="hobbiesTextBox"/>
+            <Button Content="Add" Command="{Binding AddHobbiesCommand}" 
+                    CommandParameter="{Binding Text, ElementName=hobbiesTextBox}"/>
+        </StackPanel>
+        
+        <TextBlock Text="Personal Description"/>
+        <TextBox Text="{Binding PersonalDescription, Mode=TwoWay}"/>
+    </StackPanel>
+  </DockPanel>
 </UserControl>
