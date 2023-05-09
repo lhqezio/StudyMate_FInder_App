@@ -2,8 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Oracle.EntityFrameworkCore;
 using System.Collections.Generic;
 using System;
-
-namespace StudyMate
+using StudyMate.Models;
+namespace StudyMate.Services
 {
     public class StudyMateDbContext : DbContext
     {

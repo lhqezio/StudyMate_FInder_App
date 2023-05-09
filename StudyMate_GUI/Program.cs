@@ -2,7 +2,7 @@
 using Avalonia.ReactiveUI;
 using System;
 
-namespace StudyApp;
+namespace StudyMate;
 
 class Program
 {

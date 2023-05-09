@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 
-namespace StudyMate
+namespace StudyMate.Models
 {
     public class Profile //Profile Picture ??
     {

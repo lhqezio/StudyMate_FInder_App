@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 using System;
 
-namespace StudyMate
+namespace StudyMate.Models
 {
     public class Event
     {

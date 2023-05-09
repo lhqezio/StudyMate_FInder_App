@@ -2,8 +2,8 @@ using System;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
-
-namespace StudyMate;
+using StudyMate.Models;
+namespace StudyMate.Services;
 class UserServices
 {
     private StudyMateDbContext _context = null!;

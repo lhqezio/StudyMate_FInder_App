@@ -1,9 +1,9 @@
 using System;
 using Avalonia.Controls;
 using Avalonia.Controls.Templates;
-using StudyApp.ViewModels;
+using StudyMate.ViewModels;
 
-namespace StudyApp;
+namespace StudyMate;
 
 public class ViewLocator : IDataTemplate
 {

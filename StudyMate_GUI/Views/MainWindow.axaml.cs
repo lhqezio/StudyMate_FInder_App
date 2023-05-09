@@ -1,6 +1,6 @@
 using Avalonia.Controls;
 
-namespace StudyApp.Views;
+namespace StudyMate.Views;
 
 public partial class MainWindow : Window
 {

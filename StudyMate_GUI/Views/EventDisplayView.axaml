@@ -3,7 +3,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="300"
-             x:Class="StudyApp.Views.EventDisplayView">
+             x:Class="StudyMate.Views.EventDisplayView">
   <StackPanel Margin="10,0,0,0">
     <TextBlock Text="{Binding Event.Title}"
                 FontSize="28"/>

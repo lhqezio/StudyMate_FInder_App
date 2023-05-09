@@ -1,8 +1,8 @@
 using System.Reactive;
-using StudyApp.Models;
+using StudyMate.Models;
 using ReactiveUI;
 
-namespace StudyApp.ViewModels
+namespace StudyMate.ViewModels
 {
     public class ProfileEditViewModel : ViewModelBase
     {

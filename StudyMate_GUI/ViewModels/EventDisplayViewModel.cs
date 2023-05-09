@@ -2,7 +2,8 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using StudyMate.Models;
 
-namespace Study.ViewModels
+
+namespace StudyMate.ViewModels
 {
     public class EventDisplayViewModel : ViewModelBase
     {

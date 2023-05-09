@@ -1,14 +1,15 @@
-using StudyApp.Models;
+using StudyMate.Models;
 using ReactiveUI;
 using System.Reactive;
-
-namespace StudyApp.ViewModels
+using StudyMate.Services;
+namespace StudyMate.ViewModels
 {
     public class LogInViewModel : ViewModelBase
     {
 
         public string _username;
         public string _password;
+        public string _email;
         public string Username
         {
             get => _username;
@@ -18,6 +19,12 @@ namespace StudyApp.ViewModels
         {
             get => _password;
             private set => this.RaiseAndSetIfChanged(ref _password, value);
+        }
+
+        public string Email
+        {
+            get => _email;
+            private set => this.RaiseAndSetIfChanged(ref _email, value);
         }
 
         public ReactiveCommand<Unit, Unit> Login { get; }
@@ -40,13 +47,23 @@ namespace StudyApp.ViewModels
 
         public User? User { get; private set;}
         public User RegisterUser(){
-            this.User = new User(Username, Password);
-            return this.User;
+            StudyMateDbContext context = new StudyMateDbContext();
+            using (context)
+            {
+                UserServices userServices = new UserServices(context);
+                User = userServices.Register(Username, Password, Email);
+                return this.User;
+            }
         }
 
         public User LoginUser(){
-            this.User = new User(Username, Password);
-            return this.User;
+            StudyMateDbContext context = new StudyMateDbContext();
+            using (context)
+            {
+                UserServices userServices = new UserServices(context);
+                User = userServices.Login(Username, Password);
+                return this.User;
+            }
         }
 
 

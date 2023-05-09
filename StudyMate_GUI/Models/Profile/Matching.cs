@@ -1,8 +1,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
+using StudyMate.Models;
 // This class stores all the profiles that may be a good match for the user calling it.
-namespace StudyMate
+namespace StudyMate.Services
 {
 
     public class Matching{

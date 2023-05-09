@@ -1,8 +1,8 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using StudyApp.Models;
+using StudyMate.Models;
 
-namespace StudyApp.ViewModels
+namespace StudyMate.ViewModels
 {
     public class ProfileDisplayViewModel : ViewModelBase
     {

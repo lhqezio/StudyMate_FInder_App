@@ -1,9 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Emit;
-
-namespace StudyMate;
+using StudyMate.Models;
+namespace StudyMate.Services;
 public class SearchServices
 {
     private StudyMateDbContext _context = null!;

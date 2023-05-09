@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace StudyMate;
+namespace StudyMate.Models;
 public class User
 {
     //Generates a random primary key for the User class

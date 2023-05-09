@@ -1,10 +1,10 @@
 using Avalonia;
 using Avalonia.Controls.ApplicationLifetimes;
 using Avalonia.Markup.Xaml;
-using StudyApp.ViewModels;
-using StudyApp.Views;
+using StudyMate.ViewModels;
+using StudyMate.Views;
 
-namespace StudyApp;
+namespace StudyMate;
 
 public partial class App : Application
 {

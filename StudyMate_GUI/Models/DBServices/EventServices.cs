@@ -1,9 +1,10 @@
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
+using StudyMate.Models;
 using System.Reflection.Emit;
 
-namespace StudyMate;
+namespace StudyMate.Services;
 public class EventServices
 {
     private StudyMateDbContext _context = null!;

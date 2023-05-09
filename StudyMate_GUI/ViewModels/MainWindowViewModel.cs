@@ -1,10 +1,10 @@
 ﻿using System;
 using System.Reactive.Linq;
 using ReactiveUI;
-using StudyApp.Models;
+using StudyMate.Models;
 using System.Reactive;
 
-namespace StudyApp.ViewModels
+namespace StudyMate.ViewModels
 {
     class MainWindowViewModel : ViewModelBase
     {

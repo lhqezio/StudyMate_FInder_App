@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-
-namespace StudyMate;
+using StudyMate.Models;
+namespace StudyMate.Services;
 public class ChatServices {
     private StudyMateDbContext _context = null!;
     private static ChatServices? _instance;

@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection.Emit;
-
+using StudyMate.Models;
 //This class takes of searching. It uses REGEX to find the profile that user wants to see.
 //Its constructor takes as input a DatabaseReader object and 
-namespace StudyMate
+namespace StudyMate.Services
 {   
     public class Search{
 

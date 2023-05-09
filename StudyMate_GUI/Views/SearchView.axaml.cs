@@ -2,7 +2,7 @@ using Avalonia;
 using Avalonia.Controls;
 using Avalonia.Markup.Xaml;
 
-namespace StudyApp.Views;
+namespace StudyMate.Views;
 
 public partial class SearchView : UserControl
 {

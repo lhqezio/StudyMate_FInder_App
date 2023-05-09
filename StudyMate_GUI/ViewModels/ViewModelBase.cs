@@ -1,6 +1,6 @@
 ﻿using ReactiveUI;
 
-namespace StudyApp.ViewModels;
+namespace StudyMate.ViewModels;
 
 public class ViewModelBase : ReactiveObject
 {
