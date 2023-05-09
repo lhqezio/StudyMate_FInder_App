@@ -10,7 +10,7 @@ namespace StudyMate.ViewModels
     {
         private ViewModelBase _content;
         private Boolean _visibleNavigation;
-        User? LoggedInUser;
+        User? LoggedInUser=new User("1","dfgsgdsfg","j@j.com","sdaadf");
 
         public Boolean VisibleNavigation
         {
@@ -43,8 +43,9 @@ namespace StudyMate.ViewModels
             Search  = ReactiveCommand.Create(() => {OpenSearch();});
             Message = ReactiveCommand.Create(() => {OpenMessages();});
             Logout = ReactiveCommand.Create(() => {ShowLogin();});
+            PrepareMainPage(LoggedInUser);
             
-            ShowLogin();
+            // ShowLogin();
         }
 
         private void ShowLogin(){
