@@ -107,20 +107,31 @@ public class EventServices
         //UpdateEvent Method => Edit an event
          public virtual void UpdateEvent(EventCalendar eventToUpdate)
         {
-            // Get the event from the database
-            __trackedEvent = _context.Events?.SingleOrDefault(e => e.EventId == eventToUpdate.EventId);
-            // If the Event already exists, it will be updated.
-            if (__trackedEvent != null)
+            School school = eventToUpdate.School;
+            var schoolTrackedEntities=_context.ChangeTracker.Entries<School>();
+            if (__trackedEvent is not null)
             {
-                __trackedEvent=eventToUpdate;
+                var entity = schoolTrackedEntities.FirstOrDefault(s => s.Entity.SchoolId == __trackedEvent.SchooId);
+                if (entity != null)
+                {
+                    _context.Entry(entity.Entity).State = EntityState.Detached;
+                }
+            }
+            // Get the event from the database
+            var existingEventEntity = _context.Set<EventCalendar>().Find(eventToUpdate.EventId);
+            // existingEventEntity = _context.Events?.SingleOrDefault(e => e.EventId == eventToUpdate.EventId);
+            // If the Event already exists, it will be updated.
+            if (existingEventEntity != null)
+            {
+                existingEventEntity.Description="Gay";
                 var schoolService=new SchoolServices(_context);
                 var courseService=new CourseServices(_context);
-                foreach (var item in __trackedEvent.EventCourse)
+                foreach (var item in existingEventEntity.EventCourse)
                 {
                     courseService.AddCourse(new Course(item.CourseId,item.CourseName));
                 }
-                schoolService.UpdateSchool(__trackedEvent.School);
-                _context.Events!.Update(__trackedEvent);
+                schoolService.UpdateSchool(school);
+                _context.Events!.Update(existingEventEntity);
                 _context.SaveChanges();
             }else{
                 System.Console.WriteLine("The event you are trying to update does not exist.");

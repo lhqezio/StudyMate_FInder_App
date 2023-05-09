@@ -84,6 +84,17 @@ public class CourseServices
 
     public virtual void CheckCoursesEvent(List<EventCourse> eventCourse)
     {
+        // I detach profile here so the changes made to events table does not affect the 
+        // profiles table.
+        var profileTrackedEntities=_context.ChangeTracker.Entries<Profile>();
+        if (EventServices.__trackedEvent is not null)
+        {
+            var entity = profileTrackedEntities.FirstOrDefault(p => p.Entity.ProfileId == EventServices.__trackedEvent.CreatorId);
+            if (entity != null)
+            {
+                _context.Entry(entity.Entity).State = EntityState.Detached;
+            }
+        }
          for (int i=0;i<eventCourse.Count;i++)
          {
             __trackedCourse = _context.StudyCourses?.SingleOrDefault(c => c.CourseId == eventCourse[i].CourseId);
