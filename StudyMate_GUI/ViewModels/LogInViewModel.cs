@@ -6,8 +6,6 @@ namespace StudyMate.ViewModels
 {
     public class LogInViewModel : ViewModelBase
     {
-        private bool isTextBlockVisible;
-
         public bool IsLoginFailed{get;set;} = false;
         public string _username;
         public string _password;
