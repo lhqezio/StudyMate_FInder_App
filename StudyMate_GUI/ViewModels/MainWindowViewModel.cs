@@ -51,7 +51,6 @@ namespace StudyMate.ViewModels
         }
 
         private void ShowRegister(){
-            System.Console.WriteLine("ShowRegister");
             VisibleNavigation = false;
             var vm = new RegisterViewModel(context);
             vm.Register.Subscribe(x => {PrepareMainPage(vm.RegisterUser());});
@@ -73,15 +72,10 @@ namespace StudyMate.ViewModels
         //Show profile of logged in user
         private void ShowPersonalProfile()
         {
-            if (LoggedInUser == null)
-            {   
-                throw new Exception("User not logged in");
-            }
             Profile p = LoggedInUser.Profile;
             if (p == null)
             {
                 throw new Exception("User does not have a profile");
-
             }
             DisplayProfile(p);
         }
