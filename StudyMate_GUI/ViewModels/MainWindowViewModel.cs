@@ -3,6 +3,7 @@ using System.Reactive.Linq;
 using ReactiveUI;
 using StudyMate.Models;
 using System.Reactive;
+using StudyMate.Services;
 
 namespace StudyMate.ViewModels
 {
@@ -10,8 +11,13 @@ namespace StudyMate.ViewModels
     {
         private ViewModelBase _content;
         private Boolean _visibleNavigation;
+<<<<<<< HEAD
         User? LoggedInUser=new User("1","dfgsgdsfg","j@j.com","sdaadf");
 
+=======
+        User? LoggedInUser;
+        StudyMateDbContext context = new StudyMateDbContext();
+>>>>>>> 35d4d4aa3bf5f59721442ad512d58f901ba7168a
         public Boolean VisibleNavigation
         {
             get => _visibleNavigation;
@@ -30,12 +36,6 @@ namespace StudyMate.ViewModels
         public ReactiveCommand<Unit, Unit> Message { get; }
         public ReactiveCommand<Unit, Unit> Logout { get; }
 
-
-
-
-
-
-
         public MainWindowViewModel()
         {
             Profile = ReactiveCommand.Create(() => {ShowPersonalProfile();});
@@ -43,24 +43,41 @@ namespace StudyMate.ViewModels
             Search  = ReactiveCommand.Create(() => {OpenSearch();});
             Message = ReactiveCommand.Create(() => {OpenMessages();});
             Logout = ReactiveCommand.Create(() => {ShowLogin();});
+<<<<<<< HEAD
             PrepareMainPage(LoggedInUser);
             
             // ShowLogin();
+=======
+            ShowRegister();
+>>>>>>> 35d4d4aa3bf5f59721442ad512d58f901ba7168a
         }
 
-        private void ShowLogin(){
+        private void ShowLogin(bool isLoginFailed = false){
             VisibleNavigation = false;
-
-            LogInViewModel vm = new LogInViewModel();
+            LogInViewModel vm = new LogInViewModel(context);
+            vm.IsLoginFailed = isLoginFailed;
+            vm.Register = ReactiveCommand.Create(() => {ShowRegister();});
             vm.Login.Subscribe(x => {PrepareMainPage(vm.LoginUser());});
-            vm.Register.Subscribe(x => {PrepareMainPage(vm.RegisterUser());});
             Content = vm;
         }
 
+        private void ShowRegister(){
+            System.Console.WriteLine("ShowRegister");
+            VisibleNavigation = false;
+            var vm = new RegisterViewModel(context);
+            vm.Register.Subscribe(x => {PrepareMainPage(vm.RegisterUser());});
+            vm.Login = ReactiveCommand.Create(() => {ShowLogin();});
+            Content = vm;
+        }
 
         public void PrepareMainPage(User u){
-            VisibleNavigation = true;
             LoggedInUser = u;
+            if (u == null)
+            {
+                ShowLogin(true);
+                return;
+            }
+            VisibleNavigation = true;
             ShowPersonalProfile();
         }
 
@@ -68,7 +85,7 @@ namespace StudyMate.ViewModels
         private void ShowPersonalProfile()
         {
             if (LoggedInUser == null)
-            {
+            {   
                 throw new Exception("User not logged in");
             }
             Profile p = LoggedInUser.Profile;
@@ -113,7 +130,7 @@ namespace StudyMate.ViewModels
         public void EditEvent()
         {
             EventDisplayViewModel dispvm = (EventDisplayViewModel) Content;
-            var vm = new EventEditViewModel(dispvm.Event);
+            var vm = new EventEditViewModel(dispvm.Event,context);
             
             vm.Ok.Subscribe(x => {Content = dispvm;});
             Content = vm;

@@ -4,9 +4,8 @@ using System.Reactive;
 using StudyMate.Services;
 namespace StudyMate.ViewModels
 {
-    public class LogInViewModel : ViewModelBase
+    public class RegisterViewModel : ViewModelBase
     {
-        public bool IsLoginFailed { get; set; } = false;
         public string _username;
         public string _password;
         public string _email;
@@ -15,7 +14,7 @@ namespace StudyMate.ViewModels
             get => _username;
             private set => this.RaiseAndSetIfChanged(ref _username, value);
         }
-        public string Password
+        public string Password 
         {
             get => _password;
             private set => this.RaiseAndSetIfChanged(ref _password, value);
@@ -27,40 +26,36 @@ namespace StudyMate.ViewModels
             private set => this.RaiseAndSetIfChanged(ref _email, value);
         }
 
-        public ReactiveCommand<Unit, Unit> Login { get; }
+        public ReactiveCommand<Unit, Unit> Login { get;set; }
 
-        public ReactiveCommand<Unit, Unit>? Register { get; set; }
+        public ReactiveCommand<Unit, Unit> Register { get; }
 
         private StudyMateDbContext _context;
-
-        public LogInViewModel(StudyMateDbContext db)
+        public RegisterViewModel(StudyMateDbContext db)
         {
             //Enable the register button only when the user has entered a valid username
-            var loginEnabled = this.WhenAnyValue(
+            var registerEnabled = this.WhenAnyValue(
                 x => x.Username,
-                (username) => !string.IsNullOrWhiteSpace(username));
-
+                x => !string.IsNullOrWhiteSpace(x));
 
             //Create the command to bind to the login and register buttons. Enable it only when loginEnabled is set to true.
-            Login = ReactiveCommand.Create(() => { LoginUser(); }, loginEnabled);
+            Register = ReactiveCommand.Create(() => {RegisterUser();}, registerEnabled);
             _context = db;
-
+            
         }
 
-        public User? User { get; private set; }
-        public User LoginUser()
-        {
-            UserServices userServices = new UserServices(_context);
-            try
-            {
-                User = userServices.Login(Username, Password);
-            }
-            catch
-            {
-                return null;
-            }
-            return this.User;
+        public User? User { get; private set;}
+        public User RegisterUser(){
+                UserServices userServices = new UserServices(_context);
+                try
+                {
+                    User = userServices.Register(Username, Password, Email);
+                }
+                catch
+                {
+                    return null;
+                }
+                return this.User;
         }
-
     }
 }
