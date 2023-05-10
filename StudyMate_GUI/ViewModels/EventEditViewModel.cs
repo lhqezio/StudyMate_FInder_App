@@ -7,8 +7,8 @@ namespace StudyMate.ViewModels
 {
     public class EventEditViewModel : ViewModelBase
     {
-        
-        public Event Event {get; set;}
+
+        public Event Event { get; set; }
         private StudyMateDbContext _context;
         public ReactiveCommand<Unit, Unit> Ok { get; }
         public EventEditViewModel(Event e, StudyMateDbContext db)
@@ -18,8 +18,5 @@ namespace StudyMate.ViewModels
             Ok = ReactiveCommand.Create(() => { });
 
         }
-
-
-        
     }
 }
