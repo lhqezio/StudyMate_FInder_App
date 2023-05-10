@@ -3,6 +3,7 @@ using System.Reactive.Linq;
 using ReactiveUI;
 using StudyMate.Models;
 using System.Reactive;
+using StudyMate.Services;
 
 namespace StudyMate.ViewModels
 {
@@ -11,7 +12,7 @@ namespace StudyMate.ViewModels
         private ViewModelBase _content;
         private Boolean _visibleNavigation;
         User? LoggedInUser;
-
+        StudyMateDbContext context = new StudyMateDbContext();
         public Boolean VisibleNavigation
         {
             get => _visibleNavigation;
@@ -43,15 +44,16 @@ namespace StudyMate.ViewModels
         private void ShowLogin(){
             VisibleNavigation = false;
 
-            LogInViewModel vm = new LogInViewModel();
+            LogInViewModel vm = new LogInViewModel(context);
             vm.Register = ReactiveCommand.Create(() => {ShowRegister();});
             vm.Login.Subscribe(x => {PrepareMainPage(vm.LoginUser());});
             Content = vm;
         }
 
         private void ShowRegister(){
+            System.Console.WriteLine("ShowRegister");
             VisibleNavigation = false;
-            var vm = new RegisterViewModel();
+            var vm = new RegisterViewModel(context);
             vm.Register.Subscribe(x => {PrepareMainPage(vm.RegisterUser());});
             vm.Login = ReactiveCommand.Create(() => {ShowLogin();});
         }
@@ -108,7 +110,7 @@ namespace StudyMate.ViewModels
         public void EditEvent()
         {
             EventDisplayViewModel dispvm = (EventDisplayViewModel) Content;
-            var vm = new EventEditViewModel(dispvm.Event);
+            var vm = new EventEditViewModel(dispvm.Event,context);
             
             vm.Ok.Subscribe(x => {Content = dispvm;});
             Content = vm;

@@ -15,7 +15,7 @@ namespace StudyMate.ViewModels
             get => _username;
             private set => this.RaiseAndSetIfChanged(ref _username, value);
         }
-        public string Password 
+        public string Password
         {
             get => _password;
             private set => this.RaiseAndSetIfChanged(ref _password, value);
@@ -29,10 +29,11 @@ namespace StudyMate.ViewModels
 
         public ReactiveCommand<Unit, Unit> Login { get; }
 
-        public ReactiveCommand<Unit, Unit>? Register { get;set; }
+        public ReactiveCommand<Unit, Unit>? Register { get; set; }
 
+        private StudyMateDbContext _context;
 
-        public LogInViewModel()
+        public LogInViewModel(StudyMateDbContext db)
         {
             //Enable the register button only when the user has entered a valid username
             var loginEnabled = this.WhenAnyValue(
@@ -40,29 +41,17 @@ namespace StudyMate.ViewModels
                 x => !string.IsNullOrWhiteSpace(x));
 
             //Create the command to bind to the login and register buttons. Enable it only when loginEnabled is set to true.
-            Login = ReactiveCommand.Create(() => {LoginUser();}, loginEnabled);
-            
+            Login = ReactiveCommand.Create(() => { LoginUser(); }, loginEnabled);
+            _context = db;
+
         }
 
-        public User? User { get; private set;}
-        public User RegisterUser(){
-            StudyMateDbContext context = new StudyMateDbContext();
-            using (context)
-            {
-                UserServices userServices = new UserServices(context);
-                User = userServices.Register(Username, Password, Email);
-                return this.User;
-            }
-        }
-
-        public User LoginUser(){
-            StudyMateDbContext context = new StudyMateDbContext();
-            using (context)
-            {
-                UserServices userServices = new UserServices(context);
-                User = userServices.Login(Username, Password);
-                return this.User;
-            }
+        public User? User { get; private set; }
+        public User LoginUser()
+        {
+            UserServices userServices = new UserServices(_context);
+            User = userServices.Login(Username, Password);
+            return this.User;
         }
 
     }
