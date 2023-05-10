@@ -3,51 +3,53 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
-             x:Class="StudyMate.View.CreateProfileView">
-  <DockPanel>
-    <StackPanel>
-        <TextBlock Text="Name: "/>
-        <TextBox Text="{Binding Name}"/>
-        
-        <TextBlock Text="Gender: "/>
-        <TextBox Text="{Binding Gender}"/>
-        
-        <TextBlock Text="Age: "/>
-        <TextBox Text="{Binding Age}"/>
-        
-        <TextBlock Text="School: "/>
-        <TextBox Text="{Binding SchoolName}"/>
-        
-        <TextBlock Text="Program: "/>
-        <TextBox Text="{Binding Program}"/>
-        
-        <TextBlock Text="Course Taken: "/>
+             x:Class="StudyMate.Views.CreateProfileView">
+  <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <DockPanel>
         <StackPanel>
-            <TextBox Text="{Binding CourseTakenName}"/>
-            <Button Command="{Binding AddCoursesTakenCommand}">Add the course</Button>
+            <TextBlock Text="Name: "/>
+            <TextBox Text="{Binding Name}"/>
+            
+            <TextBlock Text="Gender: "/>
+            <TextBox Text="{Binding Gender}"/>
+            
+            <TextBlock Text="Age: "/>
+            <TextBox Text="{Binding Age}"/>
+            
+            <TextBlock Text="School: "/>
+            <TextBox Text="{Binding SchoolName}"/>
+            
+            <TextBlock Text="Program: "/>
+            <TextBox Text="{Binding Program}"/>
+            
+            <TextBlock Text="Course Taken: "/>
+            <StackPanel>
+                <TextBox Text="{Binding CourseTakenName}"/>
+                <Button Command="{Binding AddCoursesTakenCommand}">Add the course</Button>
+            </StackPanel>
+            
+            <TextBlock Text="Course Can Help With: "/>
+            <StackPanel>
+                <TextBox Text="{Binding CourseCanHelpWithName}"/>
+                <Button Command="{Binding AddCoursesCanHelpWithCommand}"> Add the course</Button>
+            </StackPanel>
+            
+            <TextBlock Text="Course Need Help With: "/>
+            <StackPanel>
+                <TextBox Text="{Binding CourseNeedHelpWithName}"/>
+                <Button Command="{Binding AddCoursesNeedHelpWithCommand}">Add the course</Button>
+            </StackPanel>
+            
+            <TextBlock Text="Hobby: "/>
+            <StackPanel>
+                <TextBox Text="{Binding HobbyName}"/>
+                <Button Command="{Binding AddHobbiesCommand}">Add the hobby</Button>
+            </StackPanel>
+            
+            <TextBlock Text="Personal Description: "/>
+            <TextBox Text="{Binding PersonalDescription}"/>
+            <Button Command="{Binding CreateProfile}">Create the profile</Button>
         </StackPanel>
-        
-        <TextBlock Text="Course Can Help With: "/>
-        <StackPanel>
-            <TextBox Text="{Binding CourseCanHelpWithName}"/>
-            <Button Command="{Binding AddCoursesCanHelpWithCommand}"> Add the course</Button>
-        </StackPanel>
-        
-        <TextBlock Text="Course Need Help With: "/>
-        <StackPanel>
-            <TextBox Text="{Binding CourseNeedHelpWithName}"/>
-            <Button Command="{Binding AddCoursesNeedHelpWithCommand}">Add the course</Button>
-        </StackPanel>
-        
-        <TextBlock Text="Hobby: "/>
-        <StackPanel>
-            <TextBox Text="{Binding HobbyName}"/>
-            <Button Command="{Binding AddHobbiesCommand}">Add the hobby</Button>
-        </StackPanel>
-        
-        <TextBlock Text="Personal Description: "/>
-        <TextBox Text="{Binding PersonalDescription}"/>
-        <Button Command="{Binding CreateProfile}">Create the profile</Button>
-    </StackPanel>
-  </DockPanel>
+    </DockPanel>
+  </ScrollViewer>
 </UserControl>

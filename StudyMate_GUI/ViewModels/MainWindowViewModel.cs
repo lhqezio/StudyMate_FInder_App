@@ -74,9 +74,12 @@ namespace StudyMate.ViewModels
             Profile p = LoggedInUser.Profile;
             if (p == null)
             {
-                throw new Exception("User has no profile");
+                CreateProfileViewModel cp = new CreateProfileViewModel();
+                Content=cp;
+                // throw new Exception("User has no profile");
+            }else{
+                DisplayProfile(p);
             }
-            DisplayProfile(p);
         }
 
         //Show profile of a specified user
@@ -127,9 +130,6 @@ namespace StudyMate.ViewModels
         {
             Content = new SearchViewModel();
         }
-
-
-
 
     }
 }
