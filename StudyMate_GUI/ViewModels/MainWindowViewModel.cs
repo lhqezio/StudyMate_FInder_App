@@ -30,12 +30,6 @@ namespace StudyMate.ViewModels
         public ReactiveCommand<Unit, Unit> Message { get; }
         public ReactiveCommand<Unit, Unit> Logout { get; }
 
-
-
-
-
-
-
         public MainWindowViewModel()
         {
             Profile = ReactiveCommand.Create(() => {ShowPersonalProfile();});
@@ -43,7 +37,6 @@ namespace StudyMate.ViewModels
             Search  = ReactiveCommand.Create(() => {OpenSearch();});
             Message = ReactiveCommand.Create(() => {OpenMessages();});
             Logout = ReactiveCommand.Create(() => {ShowLogin();});
-            
             ShowLogin();
         }
 
@@ -51,11 +44,17 @@ namespace StudyMate.ViewModels
             VisibleNavigation = false;
 
             LogInViewModel vm = new LogInViewModel();
+            vm.Register = ReactiveCommand.Create(() => {ShowRegister();});
             vm.Login.Subscribe(x => {PrepareMainPage(vm.LoginUser());});
-            vm.Register.Subscribe(x => {PrepareMainPage(vm.RegisterUser());});
             Content = vm;
         }
 
+        private void ShowRegister(){
+            VisibleNavigation = false;
+            var vm = new RegisterViewModel();
+            vm.Register.Subscribe(x => {PrepareMainPage(vm.RegisterUser());});
+            vm.Login = ReactiveCommand.Create(() => {ShowLogin();});
+        }
 
         public void PrepareMainPage(User u){
             VisibleNavigation = true;
@@ -126,9 +125,5 @@ namespace StudyMate.ViewModels
         {
             Content = new SearchViewModel();
         }
-
-
-
-
     }
 }
