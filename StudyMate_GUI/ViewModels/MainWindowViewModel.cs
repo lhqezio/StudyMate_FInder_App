@@ -41,10 +41,10 @@ namespace StudyMate.ViewModels
             ShowRegister();
         }
 
-        private void ShowLogin(){
+        private void ShowLogin(bool isLoginFailed = false){
             VisibleNavigation = false;
-
             LogInViewModel vm = new LogInViewModel(context);
+            vm.IsLoginFailed = isLoginFailed;
             vm.Register = ReactiveCommand.Create(() => {ShowRegister();});
             vm.Login.Subscribe(x => {PrepareMainPage(vm.LoginUser());});
             Content = vm;
@@ -63,9 +63,7 @@ namespace StudyMate.ViewModels
             LoggedInUser = u;
             if (u == null)
             {
-                var vm = new LogInViewModel(context);
-                vm.IsLoginFailed = true;
-                Content = vm;
+                ShowLogin(true);
                 return;
             }
             VisibleNavigation = true;

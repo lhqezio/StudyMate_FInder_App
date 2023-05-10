@@ -47,7 +47,14 @@ namespace StudyMate.ViewModels
         public User? User { get; private set;}
         public User RegisterUser(){
                 UserServices userServices = new UserServices(_context);
-                User = userServices.Register(Username, Password, Email);
+                try
+                {
+                    User = userServices.Register(Username, Password, Email);
+                }
+                catch
+                {
+                    return null;
+                }
                 return this.User;
         }
     }

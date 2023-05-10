@@ -8,6 +8,12 @@
               VerticalAlignment="Center"
               Width="400">
     <Image Source="/Assets/TitleImage.jpg" />
+    <StackPanel HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              Orientation="Horizontal"
+              Width="100">
+                  <TextBlock Text="Register"/>
+  </StackPanel>
     <Grid ColumnDefinitions="1*,4*"
             RowDefinitions="*,*,*"  
             Margin="4">

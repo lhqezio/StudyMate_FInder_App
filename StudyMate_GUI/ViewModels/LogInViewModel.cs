@@ -6,7 +6,7 @@ namespace StudyMate.ViewModels
 {
     public class LogInViewModel : ViewModelBase
     {
-        public bool IsLoginFailed{get;set;} = false;
+        public bool IsLoginFailed { get; set; } = false;
         public string _username;
         public string _password;
         public string _email;
@@ -51,10 +51,12 @@ namespace StudyMate.ViewModels
         public User LoginUser()
         {
             UserServices userServices = new UserServices(_context);
-            try {
+            try
+            {
                 User = userServices.Login(Username, Password);
             }
-            catch {
+            catch
+            {
                 return null;
             }
             return this.User;
