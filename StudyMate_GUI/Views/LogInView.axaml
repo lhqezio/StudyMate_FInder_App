@@ -30,6 +30,12 @@
               Width="200">
     <Button Command="{Binding Register}">Register</Button>
     <Button Command="{Binding Login}">Login</Button>
+  </StackPanel >
+  <StackPanel HorizontalAlignment="Center"
+              VerticalAlignment="Center"
+              Orientation="Horizontal"
+              Width="100">
+                  <TextBlock Text="Login Or Register Failed" IsVisible="{Binding IsLoginFailed}" />
   </StackPanel>
   </StackPanel>
 </UserControl>

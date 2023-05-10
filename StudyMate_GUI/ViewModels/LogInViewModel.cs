@@ -6,7 +6,9 @@ namespace StudyMate.ViewModels
 {
     public class LogInViewModel : ViewModelBase
     {
+        private bool isTextBlockVisible;
 
+        public bool IsLoginFailed{get;set;} = false;
         public string _username;
         public string _password;
         public string _email;
@@ -39,7 +41,7 @@ namespace StudyMate.ViewModels
             var loginEnabled = this.WhenAnyValue(
                 x => x.Username,
                 (username) => !string.IsNullOrWhiteSpace(username));
-            
+
 
             //Create the command to bind to the login and register buttons. Enable it only when loginEnabled is set to true.
             Login = ReactiveCommand.Create(() => { LoginUser(); }, loginEnabled);
@@ -51,7 +53,12 @@ namespace StudyMate.ViewModels
         public User LoginUser()
         {
             UserServices userServices = new UserServices(_context);
-            User = userServices.Login(Username, Password);
+            try {
+                User = userServices.Login(Username, Password);
+            }
+            catch {
+                return null;
+            }
             return this.User;
         }
 

@@ -60,8 +60,15 @@ namespace StudyMate.ViewModels
         }
 
         public void PrepareMainPage(User u){
-            VisibleNavigation = true;
             LoggedInUser = u;
+            if (u == null)
+            {
+                var vm = new LogInViewModel(context);
+                vm.IsLoginFailed = true;
+                Content = vm;
+                return;
+            }
+            VisibleNavigation = true;
             ShowPersonalProfile();
         }
 
@@ -69,7 +76,7 @@ namespace StudyMate.ViewModels
         private void ShowPersonalProfile()
         {
             if (LoggedInUser == null)
-            {
+            {   
                 throw new Exception("User not logged in");
             }
             Profile p = LoggedInUser.Profile;

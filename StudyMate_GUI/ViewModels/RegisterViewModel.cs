@@ -6,7 +6,6 @@ namespace StudyMate.ViewModels
 {
     public class RegisterViewModel : ViewModelBase
     {
-
         public string _username;
         public string _password;
         public string _email;
