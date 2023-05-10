@@ -38,7 +38,7 @@ namespace StudyMate.ViewModels
             Search  = ReactiveCommand.Create(() => {OpenSearch();});
             Message = ReactiveCommand.Create(() => {OpenMessages();});
             Logout = ReactiveCommand.Create(() => {ShowLogin();});
-            ShowLogin();
+            ShowRegister();
         }
 
         private void ShowLogin(){
@@ -56,6 +56,7 @@ namespace StudyMate.ViewModels
             var vm = new RegisterViewModel(context);
             vm.Register.Subscribe(x => {PrepareMainPage(vm.RegisterUser());});
             vm.Login = ReactiveCommand.Create(() => {ShowLogin();});
+            Content = vm;
         }
 
         public void PrepareMainPage(User u){
@@ -74,7 +75,8 @@ namespace StudyMate.ViewModels
             Profile p = LoggedInUser.Profile;
             if (p == null)
             {
-                throw new Exception("User has no profile");
+                throw new Exception("User does not have a profile");
+
             }
             DisplayProfile(p);
         }
@@ -127,5 +129,6 @@ namespace StudyMate.ViewModels
         {
             Content = new SearchViewModel();
         }
+
     }
 }

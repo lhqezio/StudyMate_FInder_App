@@ -35,12 +35,12 @@ namespace StudyMate.ViewModels
         public RegisterViewModel(StudyMateDbContext db)
         {
             //Enable the register button only when the user has entered a valid username
-            var loginEnabled = this.WhenAnyValue(
+            var registerEnabled = this.WhenAnyValue(
                 x => x.Username,
                 x => !string.IsNullOrWhiteSpace(x));
 
             //Create the command to bind to the login and register buttons. Enable it only when loginEnabled is set to true.
-            Register = ReactiveCommand.Create(() => {RegisterUser();}, loginEnabled);
+            Register = ReactiveCommand.Create(() => {RegisterUser();}, registerEnabled);
             _context = db;
             
         }

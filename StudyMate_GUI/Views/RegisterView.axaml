@@ -9,7 +9,7 @@
               Width="400">
     <Image Source="/Assets/TitleImage.jpg" />
     <Grid ColumnDefinitions="1*,4*"
-            RowDefinitions="*,*"  
+            RowDefinitions="*,*,*"  
             Margin="4">
         <TextBlock Text="Email: " Grid.Row="0" Grid.Column="0"/>
         <TextBox AcceptsReturn="False"

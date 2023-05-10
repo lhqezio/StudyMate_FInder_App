@@ -38,7 +38,8 @@ namespace StudyMate.ViewModels
             //Enable the register button only when the user has entered a valid username
             var loginEnabled = this.WhenAnyValue(
                 x => x.Username,
-                x => !string.IsNullOrWhiteSpace(x));
+                (username) => !string.IsNullOrWhiteSpace(username));
+            
 
             //Create the command to bind to the login and register buttons. Enable it only when loginEnabled is set to true.
             Login = ReactiveCommand.Create(() => { LoginUser(); }, loginEnabled);
