@@ -16,12 +16,16 @@ class ChatViewModel : ViewModelBase
     }
 
     public List<Message> Messages { get; private set; }
+    private User u = null!;
 
-    public ChatViewModel(StudyMateDbContext context)
+    
+    public ChatViewModel(StudyMateDbContext context,User u)
     {
         _context = context;
+        this.u = u;
+
     }
-    public void GetConversations(User u)
+    public void GetConversations()
     {
         ChatServices chatServices = new ChatServices(_context);
         Conversations = chatServices.GetConversations(u.UserId); 
@@ -31,5 +35,12 @@ class ChatViewModel : ViewModelBase
     {
         ChatServices chatServices = new ChatServices(_context);
         List<Message> messages = chatServices.GetMessages(SelectedConversation.ConversationId);
+    }
+
+    public void NewConversation(List<string> userId)
+    {
+
+        ChatServices chatServices = new ChatServices(_context);
+        chatServices.CreateConversation(userId, "New Conversation");
     }
 }

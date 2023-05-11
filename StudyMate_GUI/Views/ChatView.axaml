@@ -4,5 +4,37 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="StudyMate.Views.ChatView">
-  Welcome to Avalonia!
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        
+        <!-- First Column -->
+        <Border Grid.Column="0" Background="LightBlue">
+            <!-- Content for the first column -->
+            <ListBox Items="{Binding Conversations}">
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <TextBlock Text="{Binding ConversationName}" />
+                            <ItemsRepeater Items="{Binding Users}">
+                                <ItemsRepeater.ItemTemplate>
+                                    <DataTemplate>
+                                        <TextBlock Text="{Binding Username}" />
+                                        <Border Margin="10,0,0,0" Padding="2">
+                                    </DataTemplate>
+                                </ItemsRepeater.ItemTemplate>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
+            <Button Content="New Conversation" Command="{Binding NewConversation}" />
+        </Border>       
+        <!-- Second Column -->
+        <Border Grid.Column="1" Background="LightGreen">
+            <!-- Content for the second column -->
+            <TextBlock Text="Second Column Content" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
+        </Border>
+    </Grid>
 </UserControl>
