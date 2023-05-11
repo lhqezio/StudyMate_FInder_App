@@ -4,6 +4,7 @@ using ReactiveUI;
 using StudyMate.Models;
 using System.Reactive;
 using StudyMate.Services;
+using System.Collections.Generic;
 
 namespace StudyMate.ViewModels
 {
@@ -38,7 +39,16 @@ namespace StudyMate.ViewModels
             Search  = ReactiveCommand.Create(() => {OpenSearch();});
             Message = ReactiveCommand.Create(() => {OpenMessages();});
             Logout = ReactiveCommand.Create(() => {ShowLogin();});
-            ShowLogin();
+            var u = new User("100","df","happy@lol.com","1");
+            var p = new Profile(u, "John Doe", "Male", new School(), new List<Course>(), new List<Course>(), new List<Course>(), new List<Hobby>(), 20, "Computer Science", "I am a computer science student");
+
+            var p2 = new Profile(u, "Amir", "Male", new School(), new List<Course>(), new List<Course>(), new List<Course>(), new List<Hobby>(), 20, "Computer Science", "I am a computer science student");
+            var p3 = new Profile(u, "Jack", "Male", new School(), new List<Course>(), new List<Course>(), new List<Course>(), new List<Hobby>(), 20, "Computer Science", "I am a computer science student");
+            var p4 = new Profile(u, "Frank", "Male", new School(), new List<Course>(), new List<Course>(), new List<Course>(), new List<Hobby>(), 20, "Computer Science", "I am a computer science student");
+            var e = new Event(p,"this is a title",new DateTimeOffset(new DateTime(2023, 5, 15)), "this is a description","Montreal","All are subjects",new List<Course>(),new School("Jordan"));
+            e.Participants=new List<Profile>(){p2,p3,p4};
+            DisplayEvent(e);
+            // ShowLogin();
         }
 
         private void ShowLogin(bool isLoginFailed = false){
@@ -116,7 +126,8 @@ namespace StudyMate.ViewModels
 
         //Display an existing event
         private void DisplayEvent(Event e){
-            Content = new EventDisplayViewModel(e) ;
+            var edv= new EventDisplayViewModel(e);
+            Content = edv;
         }
 
         //Navigate to edit event view from event display view
