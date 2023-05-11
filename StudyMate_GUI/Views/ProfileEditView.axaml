@@ -17,9 +17,9 @@
                 Watermark="Name"
                 Grid.Row="0" Grid.Column="1"/>
 
-      <TextBlock Text="Pronouns: " Grid.Row="1" Grid.Column="0"/>
+      <TextBlock Text="Gender: " Grid.Row="1" Grid.Column="0"/>
       <TextBox AcceptsReturn="False"
-              Text="{Binding Profile.Pronouns}"
+              Text="{Binding Profile.Gender}"
               Watermark="Pronouns"
               Grid.Row="1" Grid.Column="1"/>
       
@@ -38,13 +38,13 @@
 
       <TextBlock Text="School: " Grid.Row="4" Grid.Column="0"/>
       <TextBox AcceptsReturn="False"
-              Text="{Binding Profile.School}"
+              Text="{Binding Profile.School.SchoolName}"
               Watermark="School"
               Grid.Row="4" Grid.Column="1"/>
 
       <TextBlock Text="Description: " Grid.Row="5" Grid.Column="0"/>
       <TextBox AcceptsReturn="False"
-              Text="{Binding Profile.Description}"
+              Text="{Binding Profile.PersonalDescription}"
               Watermark="Description"
               Grid.Row="5" Grid.Column="1"/>
       </Grid>
