@@ -4,12 +4,13 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="StudyMate.Views.ProfileEditView">
+<ScrollViewer VerticalScrollBarVisibility="Auto">
   <DockPanel>
     <Button DockPanel.Dock="Bottom" Command="{Binding Ok}">Done</Button>
     <TextBlock Text="Edit Profile" FontSize="24" DockPanel.Dock="Top"/>
-    <StackPanel>    
-      <Grid ColumnDefinitions="1*,4*"
-            RowDefinitions="*,*,*,*,*,*"  
+    <StackPanel Spacing="10">    
+      <Grid ColumnDefinitions="2*,4*"
+            RowDefinitions="*,*,*,*,*,*,*,*,*,*,*"  
             Margin="4">
         <TextBlock Text="Name: " Grid.Row="0" Grid.Column="0"/>
         <TextBox AcceptsReturn="False"
@@ -17,9 +18,9 @@
                 Watermark="Name"
                 Grid.Row="0" Grid.Column="1"/>
 
-      <TextBlock Text="Pronouns: " Grid.Row="1" Grid.Column="0"/>
+      <TextBlock Text="Gender: " Grid.Row="1" Grid.Column="0"/>
       <TextBox AcceptsReturn="False"
-              Text="{Binding Profile.Pronouns}"
+              Text="{Binding Profile.Gender}"
               Watermark="Pronouns"
               Grid.Row="1" Grid.Column="1"/>
       
@@ -38,16 +39,55 @@
 
       <TextBlock Text="School: " Grid.Row="4" Grid.Column="0"/>
       <TextBox AcceptsReturn="False"
-              Text="{Binding Profile.School}"
+              Text="{Binding Profile.School.SchoolName}"
               Watermark="School"
               Grid.Row="4" Grid.Column="1"/>
 
       <TextBlock Text="Description: " Grid.Row="5" Grid.Column="0"/>
       <TextBox AcceptsReturn="False"
-              Text="{Binding Profile.Description}"
+              Text="{Binding Profile.PersonalDescription}"
               Watermark="Description"
               Grid.Row="5" Grid.Column="1"/>
+
+        <TextBlock Text="Courses Taken:" Grid.Row="6" Grid.Column="0"/>
+        <ItemsControl Items="{Binding CoursesTaken}" Grid.Row="6" Grid.Column="1">
+        <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                <TextBox Text="{Binding CourseName}" />
+                </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        
+        <TextBlock Text="Courses Can Help With:" Grid.Row="7" Grid.Column="0"/>
+        <ItemsControl Items="{Binding CoursesCanHelpWith}" Grid.Row="7" Grid.Column="1">
+        <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                <TextBox Text="{Binding CourseName}" Grid.Row="7" Grid.Column="1"/>
+                </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
+        
+        <TextBlock Text="Courses Need Help With:" Grid.Row="8" Grid.Column="0"/>
+        <ItemsControl Items="{Binding CoursesNeedHelpWith}" Grid.Row="8" Grid.Column="1">
+        <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                <TextBox Text="{Binding CourseName}" Grid.Row="8" Grid.Column="1"/>
+                </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
+        <TextBlock Text="Hobbies:" Grid.Row="9" Grid.Column="0"/>
+        <ItemsControl Items="{Binding Hobbies}" Grid.Row="9" Grid.Column="1">
+        <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                <TextBox Text="{Binding HobbyName}" Grid.Row="9" Grid.Column="1"/>
+                </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        </ItemsControl>
       </Grid>
     </StackPanel>
-  </DockPanel>
+   </DockPanel>
+  </ScrollViewer>
 </UserControl>
