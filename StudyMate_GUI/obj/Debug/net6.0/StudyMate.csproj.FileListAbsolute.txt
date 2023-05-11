@@ -48,7 +48,6 @@ C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\Study
 C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMate_GUI\bin\Debug\net6.0\StudyMate.exe
 C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMate_GUI\bin\Debug\net6.0\StudyMate.deps.json
 C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMate_GUI\bin\Debug\net6.0\StudyMate.runtimeconfig.json
-C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMate_GUI\bin\Debug\net6.0\StudyMate.pdb
 C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMate_GUI\bin\Debug\net6.0\Avalonia.DesignerSupport.dll
 C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMate_GUI\bin\Debug\net6.0\Avalonia.Dialogs.dll
 C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMate_GUI\bin\Debug\net6.0\Avalonia.Themes.Default.dll
@@ -270,4 +269,5 @@ C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\Study
 C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMate_GUI\obj\Debug\net6.0\refint\StudyMate.dll
 C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMate_GUI\obj\Debug\net6.0\StudyMate.pdb
 C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMate_GUI\obj\Debug\net6.0\StudyMate.genruntimeconfig.cache
+C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMate_GUI\bin\Debug\net6.0\StudyMate.pdb
 C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMate_GUI\obj\Debug\net6.0\ref\StudyMate.dll
