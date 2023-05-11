@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Oracle.EntityFrameworkCore.Metadata;
 using StudyMate.Services;
@@ -11,9 +12,11 @@ using StudyMate.Services;
 namespace StudyMate.Migrations
 {
     [DbContext(typeof(StudyMateDbContext))]
-    partial class StudyMateDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230511191137_InitialCreate3")]
+    partial class InitialCreate3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

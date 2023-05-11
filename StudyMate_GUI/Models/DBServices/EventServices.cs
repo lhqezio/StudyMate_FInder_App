@@ -51,7 +51,65 @@ public class EventServices
         return trackedProfile;
     }
 
-    
+    public virtual void checkUser(Event newEvent){
+        var existingUser = _context.StudyMate_Users!.Find(newEvent.Creator.User.UserId);
+        if (existingUser != null){
+            newEvent.Creator.User = existingUser;
+        }       
+    }
+
+    public virtual void checkCourses(Event newEvent){
+        for (int i = 0; i < newEvent.Courses!.Count; i++)
+        {
+            var existingCourse = _context.StudyMate_Courses!.FirstOrDefault(co => co.CourseName.Equals(newEvent.Courses[i].CourseName));
+            if (existingCourse == null)
+            {
+                var newCourse = new Course { CourseName = newEvent.Courses[i].CourseName };
+                _context.StudyMate_Courses!.Add(newCourse);
+                newEvent.Courses[i] = newCourse;
+            }else{
+                newEvent.Courses[i] = existingCourse;
+            }
+        }
+    }
+
+
+    public virtual void checkEditCourses(Event newEvent, Event trackedEvent){
+        for (int i = 0; i < trackedEvent.Courses!.Count; i++)
+        {
+            var existingCourse = _context.StudyMate_Courses!.FirstOrDefault(co => co.CourseName == trackedEvent.Courses[i].CourseName);
+            if (existingCourse == null){
+                var newCourse = new Course { CourseName = trackedEvent.Courses[i].CourseName };
+                _context.StudyMate_Courses!.Add(newCourse);
+                trackedEvent.Courses[i] = newCourse;
+            }else{
+                trackedEvent.Courses[i] = existingCourse;
+            }
+        }
+    }
+
+    public virtual void checkSchool(Event newEvent){
+       var existingSchool = _context.StudyMate_Schools!.FirstOrDefault(s => s.SchoolName == newEvent.School!.SchoolName);
+        if (existingSchool == null){
+            var newSchool = new School { SchoolName = newEvent.School!.SchoolName };
+            _context.StudyMate_Schools!.Add(newSchool);
+            newEvent.School = newSchool;
+        }else{
+            newEvent.School = existingSchool;
+        }
+    }
+
+    public virtual void checkEditSchool(Event updatedEvent, Event trackedEvent){
+       var existingSchool = _context.StudyMate_Schools!.FirstOrDefault(s => s.SchoolName == updatedEvent.School!.SchoolName);
+        if (existingSchool == null){
+            var newSchool = new School { SchoolName = updatedEvent.School!.SchoolName };
+            _context.StudyMate_Schools!.Add(newSchool);
+            trackedEvent.School = newSchool;
+        }else{
+            trackedEvent.School = existingSchool;
+        }
+    }
+
     //EVENT FCTS
         //CreateEvent Method => Create an event
         public virtual void CreateEvent(Event newEvent){
@@ -68,23 +126,11 @@ public class EventServices
                 // If the event already exists, it will not be added to the database.
             if (trackedEvent == null)
             {
-                var existingUser = _context.StudyMate_Users!.Find(newEvent.Creator.User.UserId);
-                if (existingUser != null)
-                {
-                    newEvent.Creator.User = existingUser;
-                }       
-                //No duplicate school        
-                var existingSchool = _context.StudyMate_Schools!.FirstOrDefault(s => s.SchoolName == newEvent.School!.SchoolName);
-                if (existingSchool == null)
-                {
-                    var newSchool = new School { SchoolName = newEvent.School!.SchoolName };
-                    _context.StudyMate_Schools!.Add(newSchool);
-                    newEvent.School = newSchool;
-                }
-                else
-                {
-                    newEvent.School = existingSchool;
-                }
+                checkUser(newEvent);
+                //No duplicate school   
+                checkSchool(newEvent);   
+                //No duplicate course
+                checkCourses(newEvent);  
                 _context.StudyMate_Events!.Add(newEvent);
                 _context.SaveChanges();
             }else{
@@ -155,17 +201,8 @@ public class EventServices
                     trackedEvent.Description = updatedEvent.Description;
                     trackedEvent.Location = updatedEvent.Location;
                     trackedEvent.Subjects = updatedEvent.Subjects;
-                    var existingSchool = _context.StudyMate_Schools!.FirstOrDefault(s => s.SchoolName == updatedEvent.School!.SchoolName);
-                    if (existingSchool == null)
-                    {
-                        var newSchool = new School { SchoolName = updatedEvent.School!.SchoolName };
-                        _context.StudyMate_Schools!.Add(newSchool);
-                        trackedEvent.School = newSchool;
-                    }
-                    else
-                    {
-                        trackedEvent.School = existingSchool;
-                    }
+                    checkEditSchool(updatedEvent, trackedEvent);
+                    checkEditCourses(updatedEvent, trackedEvent);
                     trackedEvent.IsSent = updatedEvent.IsSent;
                     _context.StudyMate_Events!.Update(trackedEvent);    
                     _context.SaveChanges();
@@ -195,5 +232,4 @@ public class EventServices
             }
         }
 }
-
 

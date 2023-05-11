@@ -14,6 +14,7 @@ namespace StudyMate.Services
         public virtual DbSet<Event>? StudyMate_Events { get; set; }
         public virtual  DbSet<Conversation>? StudyMate_Conversations { get; set; }
         public virtual  DbSet<Message>? StudyMate_Messages { get; set; }
+        public virtual  DbSet<Hobby>? StudyMate_Hobbies { get; set; }
        
 
         private StudyMateDbContext _context = null!;
