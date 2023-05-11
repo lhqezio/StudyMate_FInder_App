@@ -82,7 +82,6 @@ namespace StudyMate.ViewModels
             if (p == null)
             {
                 CreatePersonalProfile(LoggedInUser);
-                
             }else{
                 DisplayProfile(p);
             }

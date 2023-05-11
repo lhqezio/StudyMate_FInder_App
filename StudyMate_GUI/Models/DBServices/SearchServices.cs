@@ -63,7 +63,12 @@ public class SearchServices
     }
 
     public virtual Profile? GetProfileByUserId(string userId) {
-        return _context.StudyMate_Profiles!.SingleOrDefault(p => p.User.UserId == userId);
+        return _context.StudyMate_Profiles!
+        .Include(p=>p.CourseTaken)
+        .Include(p=>p.CourseCanHelpWith)
+        .Include(p=>p.CourseNeedHelpWith)
+        .Include(p=>p.Hobbies)
+        .SingleOrDefault(p => p.User.UserId == userId);
     }
 
     //SEARCH FCTS

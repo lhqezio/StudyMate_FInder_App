@@ -34,42 +34,42 @@
       </StackPanel>
 
       <StackPanel Width="200" Spacing="5">
-        <TextBlock Text="Subjects:"/>
-        <ItemsRepeater Items="{Binding Profile.Subjects}">
+        <TextBlock Text="Taken courses: "/>
+        <ItemsRepeater Items="{Binding Profile.CourseTaken}">
           <ItemsRepeater.ItemTemplate>
             <DataTemplate>
              <Border Margin="10,0,0,0" Padding="2">
-               <TextBlock Text="{Binding}"/>
+               <TextBlock Text="{Binding CourseName}"/>
               </Border>
             </DataTemplate>
           </ItemsRepeater.ItemTemplate>
         </ItemsRepeater>
-        <TextBlock Text="CoursesTaking:"/>
-        <ItemsRepeater Items="{Binding Profile.CoursesTaking}">
+        <TextBlock Text="Can help with courses: "/>
+        <ItemsRepeater Items="{Binding Profile.CourseCanHelpWith}">
           <ItemsRepeater.ItemTemplate>
             <DataTemplate>
              <Border Margin="10,0,0,0" Padding="2">
-               <TextBlock Text="{Binding}"/>
+               <TextBlock Text="{Binding CourseName}"/>
               </Border>
             </DataTemplate>
           </ItemsRepeater.ItemTemplate>
         </ItemsRepeater>
-        <TextBlock Text="CoursesStudying:"/>
-        <ItemsRepeater Items="{Binding Profile.CoursesStudying}">
+        <TextBlock Text="Need help with courses: "/>
+        <ItemsRepeater Items="{Binding Profile.CourseNeedHelpWith}">
           <ItemsRepeater.ItemTemplate>
             <DataTemplate>
              <Border Margin="10,0,0,0" Padding="2">
-               <TextBlock Text="{Binding}"/>
+               <TextBlock Text="{Binding CourseName}"/>
               </Border>
             </DataTemplate>
           </ItemsRepeater.ItemTemplate>
         </ItemsRepeater>
         <TextBlock Text="Interests:"/>
-        <ItemsRepeater Items="{Binding Profile.Interests}">
+        <ItemsRepeater Items="{Binding Profile.Hobbies}">
           <ItemsRepeater.ItemTemplate>
             <DataTemplate>
              <Border Margin="10,0,0,0" Padding="2">
-               <TextBlock Text="{Binding}"/>
+               <TextBlock Text="{Binding HobbyName}"/>
               </Border>
             </DataTemplate>
           </ItemsRepeater.ItemTemplate>

@@ -6,6 +6,7 @@ namespace StudyMate.ViewModels
 {
     public class ProfileDisplayViewModel : ViewModelBase
     {
+        
         public ProfileDisplayViewModel(Profile p)
         {
             Profile = p;
