@@ -39,9 +39,6 @@ namespace StudyMate.ViewModels
             Message = ReactiveCommand.Create(() => {OpenMessages();});
             Logout = ReactiveCommand.Create(() => {ShowLogin();});
             ShowLogin();
-            // CreatePersonalProfile(this.LoggedInUser);
-            // PrepareMainPage(LoggedInUser);
-            // ShowRegister();
         }
 
         private void ShowLogin(bool isLoginFailed = false){
@@ -80,10 +77,12 @@ namespace StudyMate.ViewModels
             {   
                 throw new Exception("User not logged in");
             }
-            Profile p = LoggedInUser.Profile;
+            var search=new SearchServices(context);
+            Profile? p = search.GetProfileByUserId(LoggedInUser.UserId);
             if (p == null)
             {
                 CreatePersonalProfile(LoggedInUser);
+                
             }else{
                 DisplayProfile(p);
             }

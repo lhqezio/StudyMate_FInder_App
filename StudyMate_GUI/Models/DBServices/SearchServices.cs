@@ -62,6 +62,10 @@ public class SearchServices
         return _context.StudyMate_Profiles!.SingleOrDefault(p => p.ProfileId == profileId);
     }
 
+    public virtual Profile? GetProfileByUserId(string userId) {
+        return _context.StudyMate_Profiles!.SingleOrDefault(p => p.User.UserId == userId);
+    }
+
     //SEARCH FCTS
     //SearchEventsCourseSchool Method => Search Events based on Course and School
     public virtual List<Event> SearchEventsCourseSchool(string keyword){
