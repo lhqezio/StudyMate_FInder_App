@@ -21,17 +21,18 @@
                             <ItemsRepeater Items="{Binding Users}">
                                 <ItemsRepeater.ItemTemplate>
                                     <DataTemplate>
-                                        <TextBlock Text="{Binding Username}" />
                                         <Border Margin="10,0,0,0" Padding="2">
+                                            <TextBlock Text="{Binding Username}" />
+                                        </Border>
                                     </DataTemplate>
                                 </ItemsRepeater.ItemTemplate>
+                            </ItemsRepeater>
                         </StackPanel>
                     </DataTemplate>
                 </ListBox.ItemTemplate>
             </ListBox>
             <Button Content="New Conversation" Command="{Binding NewConversation}" />
         </Border>       
-        <!-- Second Column -->
         <Border Grid.Column="1" Background="LightGreen">
             <!-- Content for the second column -->
             <TextBlock Text="Second Column Content" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
