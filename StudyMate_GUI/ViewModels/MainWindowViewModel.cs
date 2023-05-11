@@ -11,13 +11,8 @@ namespace StudyMate.ViewModels
     {
         private ViewModelBase _content;
         private Boolean _visibleNavigation;
-<<<<<<< HEAD
-        User? LoggedInUser=new User("1","dfgsgdsfg","j@j.com","sdaadf");
-
-=======
-        User? LoggedInUser;
+        User? LoggedInUser=new User("1","Test username","test@gmail.com","123");
         StudyMateDbContext context = new StudyMateDbContext();
->>>>>>> 35d4d4aa3bf5f59721442ad512d58f901ba7168a
         public Boolean VisibleNavigation
         {
             get => _visibleNavigation;
@@ -43,13 +38,10 @@ namespace StudyMate.ViewModels
             Search  = ReactiveCommand.Create(() => {OpenSearch();});
             Message = ReactiveCommand.Create(() => {OpenMessages();});
             Logout = ReactiveCommand.Create(() => {ShowLogin();});
-<<<<<<< HEAD
-            PrepareMainPage(LoggedInUser);
-            
-            // ShowLogin();
-=======
-            ShowRegister();
->>>>>>> 35d4d4aa3bf5f59721442ad512d58f901ba7168a
+            ShowLogin();
+            // CreatePersonalProfile(this.LoggedInUser);
+            // PrepareMainPage(LoggedInUser);
+            // ShowRegister();
         }
 
         private void ShowLogin(bool isLoginFailed = false){
@@ -91,12 +83,15 @@ namespace StudyMate.ViewModels
             Profile p = LoggedInUser.Profile;
             if (p == null)
             {
-                CreateProfileViewModel cp = new CreateProfileViewModel();
-                Content=cp;
-                // throw new Exception("User has no profile");
+                CreatePersonalProfile(LoggedInUser);
             }else{
                 DisplayProfile(p);
             }
+        }
+
+        private void CreatePersonalProfile(User u){
+            CreateProfileViewModel cp = new CreateProfileViewModel(u);
+            Content=cp;
         }
 
         //Show profile of a specified user

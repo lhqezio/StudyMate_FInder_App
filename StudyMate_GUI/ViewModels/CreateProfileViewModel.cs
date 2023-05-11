@@ -92,8 +92,9 @@ namespace StudyMate.ViewModels
         public ReactiveCommand<Unit, Unit> AddCoursesNeedHelpWithCommand { get; }
         public ReactiveCommand<Unit, Unit> AddHobbiesCommand { get; }
 
-        public CreateProfileViewModel()
+        public CreateProfileViewModel(User user)
         {
+            this.User=user;
             AddCoursesTakenCommand = ReactiveCommand.Create(() => {
                 var Course = new Course(this.CourseTakenName);
                 this.CoursesTaken.Add(Course);
@@ -111,15 +112,14 @@ namespace StudyMate.ViewModels
                 this.Hobbies.Add(Hobby);
             });
             CreateProfile = ReactiveCommand.Create(() => {
-                using (var ressource = new StudyMateDbContext())
-                { 
-                    this.User= new User("1","amirreza","j@j.com","sdasdfdfs");
-                var School=new School(this.SchoolName);
+                this.School=new School(this.SchoolName);
                 this.Profile= new Profile(this.User,this.Name,this.Gender,this.School,
                 this.CoursesTaken,this.CoursesCanHelpWith,this.CoursesNeedHelpWith,
                 this.Hobbies,this.Age,this.Program,this.PersonalDescription);
-                ProfileServices ProfileService= new ProfileServices(ressource);
-                ProfileService.AddProfile(this.Profile);
+                using (var db = new StudyMateDbContext())
+                {
+                    ProfileServices ProfileService= new ProfileServices(db);
+                    ProfileService.AddProfile(this.Profile);
                 }
             });
         }
