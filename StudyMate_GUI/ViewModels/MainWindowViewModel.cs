@@ -126,6 +126,7 @@ namespace StudyMate.ViewModels
 
         //Display an existing event
         private void DisplayEvent(Event e){
+            VisibleNavigation=true;
             var edv= new EventDisplayViewModel(e);
             Content = edv;
         }
@@ -134,7 +135,7 @@ namespace StudyMate.ViewModels
         public void EditEvent()
         {
             EventDisplayViewModel dispvm = (EventDisplayViewModel) Content;
-            var vm = new EventEditViewModel(dispvm.Event,context);
+            var vm = new EventEditViewModel(dispvm.Event,context,this.LoggedInUser);
             
             vm.Ok.Subscribe(x => {Content = dispvm;});
             Content = vm;

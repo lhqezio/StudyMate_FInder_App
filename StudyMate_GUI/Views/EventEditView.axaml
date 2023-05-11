@@ -32,34 +32,29 @@
       
       <TextBlock Text="Subject: " Grid.Row="3" Grid.Column="0"/>
       <TextBox AcceptsReturn="False"
-              Text="{Binding Event.Subject}"
+              Text="{Binding Event.Subjects}"
               Watermark="Event Subject"
               Grid.Row="3" Grid.Column="1"/>
 
-      <TextBlock Text="Course: " Grid.Row="4" Grid.Column="0"/>
-      <TextBox AcceptsReturn="False"
-              Text="{Binding Event.Course}"
-              Watermark="Event Course"
-              Grid.Row="4" Grid.Column="1"/>
+      <TextBlock Text="Courses: " Grid.Row="4" Grid.Column="0"/>
+      <ItemsControl Items="{Binding Event.Courses}" Grid.Row="4" Grid.Column="1">
+      <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                <TextBox Text="{Binding CourseName}" />
+                </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        </ItemsControl>
 
-      <TextBlock Text="Program: " Grid.Row="5" Grid.Column="0"/>
+      <TextBlock Text="School: " Grid.Row="5" Grid.Column="0"/>
       <TextBox AcceptsReturn="False"
-              Text="{Binding Event.Program}"
-              Watermark="Event Program"
+              Text="{Binding Event.School.SchoolName}"
+              Watermark="Event School"
               Grid.Row="5" Grid.Column="1"/>
 
-      <TextBlock Text="School: " Grid.Row="6" Grid.Column="0"/>
-      <TextBox AcceptsReturn="False"
-              Text="{Binding Event.School}"
-              Watermark="Event School"
-              Grid.Row="6" Grid.Column="1"/>
-      <TextBlock Text="Date: " Grid.Row="7" Grid.Column="0"/>
+      <TextBlock Text="Date: " Grid.Row="6" Grid.Column="0"/>
       <DatePicker SelectedDate="{Binding Event.Date}"
-                  Grid.Row="7" Grid.Column="1"/>
+                  Grid.Row="6" Grid.Column="1"/>
 
-      <TextBlock Text="Time: " Grid.Row="8" Grid.Column="0"/>
-      <TimePicker SelectedTime="{Binding Event.TimeOfDay}"
-                  Grid.Row="8" Grid.Column="1"/>
       </Grid>
     </StackPanel>
   </DockPanel>
