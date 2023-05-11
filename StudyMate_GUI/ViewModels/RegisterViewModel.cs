@@ -49,7 +49,7 @@ namespace StudyMate.ViewModels
                 UserServices userServices = new UserServices(_context);
                 try
                 {
-                    User = userServices.Register(Username, Password, Email);
+                    User = userServices.Register(Username, Email, Password);
                 }
                 catch
                 {
