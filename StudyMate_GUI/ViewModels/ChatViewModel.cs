@@ -44,8 +44,12 @@ class ChatViewModel : ViewModelBase
     {
         get => _selectedConversation;
         set {
+            
             this.RaiseAndSetIfChanged(ref _selectedConversation, value);
-            GetMessages();
+            if(value != null)
+                GetMessages();  
+            else
+                Messages = new AvaloniaList<Message>();
         }
     }
     private AvaloniaList<Message> _messages;
