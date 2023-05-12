@@ -25,26 +25,26 @@ public class ChatServices {
         {
             var user = _context.StudyMate_Users?.SingleOrDefault(u => u.Username == username);
             if(user!=null) {
-            conversation.Users.Add(user);
-            user.Conversations.Add(conversation);
+                conversation.Users.Add(user);
+                user.Conversations.Add(conversation);
             }
         }
         _context.StudyMate_Conversations?.Add(conversation);
         _context.SaveChanges();
         return conversation;
     }
-    public void AddUserToConversation(string conversationID, string Id)
+    public void AddUserToConversation(string conversationID, string username)
     {
         var conversation = _context.StudyMate_Conversations?.Find(conversationID);
-        var user = _context.StudyMate_Users!.Find(Id);
+        var user = _context.StudyMate_Users!.FirstOrDefault(u => u.Username == username);
         conversation!.Users.Add(user!);
         user!.Conversations.Add(conversation);
         _context.SaveChanges();
     }
-    public void RemoveUserFromConversation(string conversationID, string Id)
+    public void RemoveUserFromConversation(string conversationID, string username)
     {
         var conversation = _context.StudyMate_Conversations!.Find(conversationID);
-        var user = _context.StudyMate_Users!.Find(Id);
+        var user = _context.StudyMate_Users!.FirstOrDefault(u => u.Username == username);
         conversation!.Users.Remove(user!);
         user!.Conversations.Remove(conversation);
         _context.SaveChanges();
@@ -75,9 +75,5 @@ public class ChatServices {
     {
         List<Conversation> conversations = _context.StudyMate_Conversations!.Where(c => c.Users.Any(u => u.UserId == Id)).ToList();
         return conversations;
-    }
-    public void Dispose()
-    {
-        _context.Dispose();
     }
 }
