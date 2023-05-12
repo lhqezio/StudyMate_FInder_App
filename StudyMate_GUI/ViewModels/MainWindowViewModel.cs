@@ -107,6 +107,15 @@ namespace StudyMate.ViewModels
             Content = vm;
         }
 
+        public void DeleteProfile(){
+            using(var db = new StudyMateDbContext()){
+                ProfileDisplayViewModel dispvm = (ProfileDisplayViewModel) Content;
+                ProfileServices p = new ProfileServices(db);
+                p.DeleteProfile(dispvm.Profile);
+            }
+            ShowLogin();
+            return;
+        }
         //Create and display a new event
         private void CreateEvent()
         {
