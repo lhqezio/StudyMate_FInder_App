@@ -54,6 +54,8 @@
       <TextBlock Text="Date: " Grid.Row="6" Grid.Column="0"/>
       <DatePicker SelectedDate="{Binding Event.Date}"
                   Grid.Row="6" Grid.Column="1"/>
+        <Button Content="Delete Event"
+                Command="{Binding $parent[Window].DataContext.DeleteEvent}"/>
 
       </Grid>
     </StackPanel>

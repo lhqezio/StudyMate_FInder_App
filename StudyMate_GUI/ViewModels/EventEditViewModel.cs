@@ -11,6 +11,7 @@ namespace StudyMate.ViewModels
         public Event Event { get; set; }
         private StudyMateDbContext _context;
         public ReactiveCommand<Unit, Unit> Ok { get; }
+        
         public EventEditViewModel(Event e, StudyMateDbContext db,User u)
         {
             Event = e;

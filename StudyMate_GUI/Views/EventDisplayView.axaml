@@ -47,6 +47,8 @@
         
         <Button Content="Edit Event"
                 Command="{Binding $parent[Window].DataContext.EditEvent}"/>
+        <Button Content="Delete Event"
+                Command="{Binding $parent[Window].DataContext.DeleteEvent}"/>
       </StackPanel>
     </StackPanel>       
   </StackPanel>

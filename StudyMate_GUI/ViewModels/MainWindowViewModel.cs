@@ -117,6 +117,16 @@ namespace StudyMate.ViewModels
             Content = vm;
         }
 
+        public void ChangePassword(){
+             using(var db = new StudyMateDbContext()){
+                SearchServices s = new SearchServices(db);
+                Profile? p = s.GetProfileByUserId(this.LoggedInUser.UserId);
+                ChangePasswordViewModel cpvm = new ChangePasswordViewModel(p);
+                Content=cpvm;
+                cpvm.Change.Subscribe(x => {Content=new ProfileDisplayViewModel(p);});
+            }
+        }
+
         public void DeleteProfile(){
             using(var db = new StudyMateDbContext()){
                 ProfileDisplayViewModel dispvm = (ProfileDisplayViewModel) Content;
@@ -126,6 +136,18 @@ namespace StudyMate.ViewModels
             ShowLogin();
             return;
         }
+
+        public void DeleteEvent(){
+            using(var db = new StudyMateDbContext()){
+                EventDisplayViewModel edvm = (EventDisplayViewModel) Content;
+                EventServices eventServices = new EventServices(db);
+                eventServices.DeleteEvent(edvm.Event);
+                SearchServices s = new SearchServices(db);
+                Profile? p = s.GetProfileByUserId(this.LoggedInUser.UserId);
+                Content=new ProfileDisplayViewModel(p);
+            }
+        }
+
         //Create and display a new event
         private void CreateEvent()
         {
