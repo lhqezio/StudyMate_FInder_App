@@ -14,7 +14,6 @@ public class User
     public string Username { get; set; } = null!;
     public string Email { get; set; } = null!;
     public string PasswordHash { get; set; } = null!;
-    [InverseProperty("Users")]
     public List<Conversation> Conversations { get; set; } = new();
     
 

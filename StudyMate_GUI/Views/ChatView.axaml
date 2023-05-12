@@ -12,7 +12,7 @@
                     RowDefinitions="*,*"
                     >
                         <Border Grid.Row="0" Background="Gray" >
-                            <ListBox Items="{Binding Conversations}" SelectionMode="Single,AlwaysSelected" >
+                            <ListBox Items="{Binding Conversations}" SelectionMode="Single,AlwaysSelected" SelectedItem="{Binding SelectedConversation}" >
                                 <ListBox.ItemTemplate>
                                     <DataTemplate>
                                         <StackPanel Orientation="Vertical">
@@ -46,6 +46,38 @@
                     </Grid>
                 </Border>
                 <Border Grid.Column="1" BorderBrush="White" BorderThickness="2">
+                    <Grid
+                    RowDefinitions="5*,1*">
+                        <Border Grid.Row="0" Background="Gray">
+                            <ItemsRepeater Items="{Binding Messages}">
+                                <ItemsRepeater.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="From:" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding SenderID}" FontWeight="Bold"/>
+                                            <TextBlock Text="Message:" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding Body}" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding Timestamp}" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsRepeater.ItemTemplate>
+                            </ItemsRepeater>
+                        </Border>
+                        <Border Grid.Row="1">
+                            <Grid ColumnDefinitions="2*,1*">
+                                <TextBox AcceptsReturn="True"
+                                        Text="{Binding Message}"
+                                        Watermark="Message"
+                                        Grid.Row="0" Grid.Column="0"/>
+                                <Grid 
+                                RowDefinitions="*,*"
+                                Grid.Row="0" Grid.Column="1">
+                                    <Button Content="Send" Command="{Binding SendMessage}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"/>
+                                    <Button Content="Delete" Command="{Binding DeleteConversation}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
                 </Border>
             </Grid>
 </UserControl>
