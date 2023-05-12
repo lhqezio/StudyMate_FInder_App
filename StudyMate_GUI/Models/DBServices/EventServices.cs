@@ -132,7 +132,16 @@ public class EventServices
                 //No duplicate course
                 checkCourses(newEvent);  
                 _context.StudyMate_Events!.Add(newEvent);
-                _context.SaveChanges();
+                try
+                {
+                    _context.SaveChanges();
+                }
+                catch (Microsoft.EntityFrameworkCore.DbUpdateException)
+                {
+                    
+                    System.Console.WriteLine("Error occured while trying to create the event.");
+                }
+                
             }else{
                 System.Console.WriteLine("This event already exist in the database."); //Will be changed to a raised error to be displayed to the user
             }
