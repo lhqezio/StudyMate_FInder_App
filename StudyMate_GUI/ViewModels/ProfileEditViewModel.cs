@@ -39,9 +39,6 @@ namespace StudyMate.ViewModels
                 var searchServices = new SearchServices(ressource);
                 return searchServices.GetProfileByUserId(UserId);
             }
-        }
-
-
-        
+        }        
     }
 }

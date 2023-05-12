@@ -16,6 +16,9 @@ build_property.ProjectDir = C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C
 [C:/Users/amirr/OneDrive/Desktop/Dawson/Programming/C\# I/Project/410project/StudyMate_GUI/App.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 
+[C:/Users/amirr/OneDrive/Desktop/Dawson/Programming/C\# I/Project/410project/StudyMate_GUI/Views/CreateEventView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
 [C:/Users/amirr/OneDrive/Desktop/Dawson/Programming/C\# I/Project/410project/StudyMate_GUI/Views/CreateProfileView.axaml]
 build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
 

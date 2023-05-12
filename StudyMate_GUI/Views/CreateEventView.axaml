@@ -1,0 +1,38 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="StudyMate.Views.CreateEventView">
+  <ScrollViewer VerticalScrollBarVisibility="Auto">
+    <DockPanel>
+        <StackPanel>
+            <TextBlock Text="Title: "/>
+            <TextBox Text="{Binding Title}"/>
+            
+            <TextBlock Text="Date: "/>
+            <DatePicker SelectedDate="{Binding Date}"/>
+            
+            <TextBlock Text="Location: "/>
+            <TextBox Text="{Binding Location}"/>
+            
+            <TextBlock Text="School Name: "/>
+            <TextBox Text="{Binding SchoolName}"/>
+            
+            <TextBlock Text="Description: "/>
+            <TextBox Text="{Binding Description}"/>
+            
+            <TextBlock Text="Courses Involved: "/>
+            <StackPanel>
+                <TextBox Text="{Binding CourseName}"/>
+                <Button Command="{Binding AddCourses}">Add the course</Button>
+            </StackPanel>
+
+            <TextBlock Text="Subjects Discussed: "/>
+            <TextBox Text="{Binding Subjects}"/>
+            
+            <Button Command="{Binding CreateEvent}">Create the event</Button>
+        </StackPanel>
+    </DockPanel>
+  </ScrollViewer>
+</UserControl>

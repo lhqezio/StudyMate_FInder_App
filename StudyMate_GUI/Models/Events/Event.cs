@@ -27,10 +27,10 @@ namespace StudyMate.Models
             get { return _title; }
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("Title can't be empty, null, or whitespace.");
-                }
+                // if (string.IsNullOrEmpty(value))
+                // {
+                //     throw new ArgumentException("Title can't be empty, null, or whitespace.");
+                // }
                 _title = value;
             }
         }
@@ -42,10 +42,10 @@ namespace StudyMate.Models
             get { return _date; }
             set
             {
-                if (value < DateTimeOffset.Now)
-                {
-                    throw new ArgumentException("The event can't be in the past.");
-                }
+                // if (value < DateTimeOffset.Now)
+                // {
+                //     throw new ArgumentException("The event can't be in the past.");
+                // }
                 _date = value;
             }
         }
@@ -57,10 +57,10 @@ namespace StudyMate.Models
             get { return _description; }
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("Your description can't be empty.");
-                }
+                // if (string.IsNullOrWhiteSpace(value))
+                // {
+                //     throw new ArgumentException("Your description can't be empty.");
+                // }
                 _description = value; 
             }
         }
@@ -72,10 +72,10 @@ namespace StudyMate.Models
             get { return _location; }
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("Your location can't be empty.");
-                }
+                // if (string.IsNullOrWhiteSpace(value))
+                // {
+                //     throw new ArgumentException("Your location can't be empty.");
+                // }
                 _location = value; 
             }
         }
@@ -87,10 +87,10 @@ namespace StudyMate.Models
             get { return _subjects; }
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    throw new ArgumentException("Subjects can't be empty, null, or whitespace.");
-                }
+                // if (string.IsNullOrWhiteSpace(value))
+                // {
+                //     throw new ArgumentException("Subjects can't be empty, null, or whitespace.");
+                // }
                 _subjects = value;
             }
         }
@@ -102,9 +102,9 @@ namespace StudyMate.Models
         {
             get { return _courses; }
             set{
-                if (value == null){
-                    throw new ArgumentException("Courses can't be empty, null.");
-                }
+                // if (value == null){
+                //     throw new ArgumentException("Courses can't be empty, null.");
+                // }
                 _courses = value;
             }
         }        

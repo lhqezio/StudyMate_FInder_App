@@ -47,8 +47,8 @@ namespace StudyMate.ViewModels
             var p4 = new Profile(u, "Frank", "Male", new School(), new List<Course>(), new List<Course>(), new List<Course>(), new List<Hobby>(), 20, "Computer Science", "I am a computer science student");
             var e = new Event(p,"this is a title",new DateTimeOffset(new DateTime(2023, 5, 15)), "this is a description","Montreal","All are subjects",new List<Course>(),new School("Jordan"));
             e.Participants=new List<Profile>(){p2,p3,p4};
-            DisplayEvent(e);
-            // ShowLogin();
+            // DisplayEvent(e);
+            ShowLogin();
         }
 
         private void ShowLogin(bool isLoginFailed = false){
@@ -121,7 +121,9 @@ namespace StudyMate.ViewModels
         //Create and display a new event
         private void CreateEvent()
         {
-           DisplayEvent(new Event());
+            VisibleNavigation = true;
+           CreateEventViewModel cp = new CreateEventViewModel(this.LoggedInUser);
+           Content=cp;
         }
 
         //Display an existing event
