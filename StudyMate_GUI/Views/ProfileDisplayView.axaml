@@ -77,6 +77,8 @@
       </StackPanel>
     </StackPanel>
       <Button Content="Edit Profile"
-              Command="{Binding $parent[Window].DataContext.EditProfile}"/>       
+              Command="{Binding $parent[Window].DataContext.EditProfile}"/>
+      <Button Content="Delete Profile"
+              Command="{Binding $parent[Window].DataContext.DeleteProfile}"/>       
   </StackPanel>
 </UserControl>

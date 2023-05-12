@@ -61,7 +61,6 @@ namespace StudyMate.ViewModels
         }
 
         private void ShowRegister(){
-            System.Console.WriteLine("ShowRegister");
             VisibleNavigation = false;
             var vm = new RegisterViewModel(context);
             vm.Register.Subscribe(x => {PrepareMainPage(vm.RegisterUser());});
@@ -118,6 +117,15 @@ namespace StudyMate.ViewModels
             Content = vm;
         }
 
+        public void DeleteProfile(){
+            using(var db = new StudyMateDbContext()){
+                ProfileDisplayViewModel dispvm = (ProfileDisplayViewModel) Content;
+                ProfileServices p = new ProfileServices(db);
+                p.DeleteProfile(dispvm.Profile);
+            }
+            ShowLogin();
+            return;
+        }
         //Create and display a new event
         private void CreateEvent()
         {
