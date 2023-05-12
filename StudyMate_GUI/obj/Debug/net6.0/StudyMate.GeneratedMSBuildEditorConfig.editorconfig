@@ -1,0 +1,53 @@
+is_global = true
+build_property.AvaloniaNameGeneratorBehavior = InitializeComponent
+build_property.AvaloniaNameGeneratorDefaultFieldModifier = internal
+build_property.AvaloniaNameGeneratorFilterByPath = *
+build_property.AvaloniaNameGeneratorFilterByNamespace = *
+build_property.TargetFramework = net6.0
+build_property.TargetPlatformMinVersion = 
+build_property.UsingMicrosoftNETSdkWeb = 
+build_property.ProjectTypeGuids = 
+build_property.InvariantGlobalization = 
+build_property.PlatformNeutralAssembly = 
+build_property._SupportedPlatformList = Linux,macOS,Windows
+build_property.RootNamespace = StudyMate
+build_property.ProjectDir = C:\Users\amirr\OneDrive\Desktop\Dawson\Programming\C# I\Project\410project\StudyMate_GUI\
+
+[C:/Users/amirr/OneDrive/Desktop/Dawson/Programming/C\# I/Project/410project/StudyMate_GUI/App.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/amirr/OneDrive/Desktop/Dawson/Programming/C\# I/Project/410project/StudyMate_GUI/Views/ChangePasswordView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/amirr/OneDrive/Desktop/Dawson/Programming/C\# I/Project/410project/StudyMate_GUI/Views/ChatView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/amirr/OneDrive/Desktop/Dawson/Programming/C\# I/Project/410project/StudyMate_GUI/Views/CreateEventView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/amirr/OneDrive/Desktop/Dawson/Programming/C\# I/Project/410project/StudyMate_GUI/Views/CreateProfileView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/amirr/OneDrive/Desktop/Dawson/Programming/C\# I/Project/410project/StudyMate_GUI/Views/EventDisplayView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/amirr/OneDrive/Desktop/Dawson/Programming/C\# I/Project/410project/StudyMate_GUI/Views/EventEditView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/amirr/OneDrive/Desktop/Dawson/Programming/C\# I/Project/410project/StudyMate_GUI/Views/LogInView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/amirr/OneDrive/Desktop/Dawson/Programming/C\# I/Project/410project/StudyMate_GUI/Views/MainWindow.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/amirr/OneDrive/Desktop/Dawson/Programming/C\# I/Project/410project/StudyMate_GUI/Views/ProfileDisplayView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/amirr/OneDrive/Desktop/Dawson/Programming/C\# I/Project/410project/StudyMate_GUI/Views/ProfileEditView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/amirr/OneDrive/Desktop/Dawson/Programming/C\# I/Project/410project/StudyMate_GUI/Views/RegisterView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml
+
+[C:/Users/amirr/OneDrive/Desktop/Dawson/Programming/C\# I/Project/410project/StudyMate_GUI/Views/SearchView.axaml]
+build_metadata.AdditionalFiles.SourceItemGroup = AvaloniaXaml

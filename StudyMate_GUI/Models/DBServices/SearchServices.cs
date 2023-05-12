@@ -69,6 +69,7 @@ public class SearchServices
         .Include(p=>p.CourseNeedHelpWith)
         .Include(p=>p.Hobbies)
         .Include(p=>p.School)
+        .Include(p=>p.User)
         .SingleOrDefault(p => p.User.UserId == userId);
     }
 
