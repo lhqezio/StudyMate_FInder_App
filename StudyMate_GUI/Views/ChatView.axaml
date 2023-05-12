@@ -4,38 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
              x:Class="StudyMate.Views.ChatView">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="*" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        
-        <!-- First Column -->
-        <Border Grid.Column="0" Background="LightBlue">
-            <!-- Content for the first column -->
-            <ListBox Items="{Binding Conversations}">
-                <ListBox.ItemTemplate>
-                    <DataTemplate>
-                        <StackPanel>
-                            <TextBlock Text="{Binding ConversationName}" />
-                            <ItemsRepeater Items="{Binding Users}">
-                                <ItemsRepeater.ItemTemplate>
-                                    <DataTemplate>
-                                        <Border Margin="10,0,0,0" Padding="2">
-                                            <TextBlock Text="{Binding Username}" />
-                                        </Border>
-                                    </DataTemplate>
-                                </ItemsRepeater.ItemTemplate>
-                            </ItemsRepeater>
-                        </StackPanel>
-                    </DataTemplate>
-                </ListBox.ItemTemplate>
-            </ListBox>
-            <Button Content="New Conversation" Command="{Binding NewConversation}" />
-        </Border>       
-        <Border Grid.Column="1" Background="LightGreen">
-            <!-- Content for the second column -->
-            <TextBlock Text="Second Column Content" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20" />
-        </Border>
-    </Grid>
+            <Grid
+            ColumnDefinitions="*,*"
+            >
+                <Border Grid.Column="0">
+                    <ListBox Items="{Binding Conversations}" SelectionMode="Single,AlwaysSelected" >
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Text="{Binding ConversationName}" FontWeight="Bold"/>
+                                </StackPanel>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
+                    </ListBox>
+                </Border>
+                <Border Grid.Column="1">
+                </Border>
+            </Grid>
 </UserControl>

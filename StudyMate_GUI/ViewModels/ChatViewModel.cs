@@ -2,45 +2,53 @@ using System.Collections.Generic;
 using StudyMate.Models;
 using StudyMate.Services;
 using ReactiveUI;
-
+using System.Collections.ObjectModel;
+using Avalonia.Collections;
 namespace StudyMate.ViewModels;
 
 class ChatViewModel : ViewModelBase
 {
-    private StudyMateDbContext _context;
-    public List<Conversation> Conversations { get; private set; }
+    public AvaloniaList<Conversation> Conversations { get; private set; }
     private Conversation _selectedConversation = null!;
     public Conversation SelectedConversation {
         get => _selectedConversation;
         set => this.RaiseAndSetIfChanged(ref _selectedConversation, value);
     }
 
-    public List<Message> Messages { get; private set; }
+    public AvaloniaList<Message> Messages { get; private set; }
     private User u = null!;
 
-    
-    public ChatViewModel(StudyMateDbContext context,User u)
+
+    public ChatViewModel(User u)
     {
-        _context = context;
         this.u = u;
 
     }
     public void GetConversations()
     {
-        ChatServices chatServices = new ChatServices(_context);
-        Conversations = chatServices.GetConversations(u.UserId); 
+        using(var db = new StudyMateDbContext())
+        {
+            ChatServices chatServices = new ChatServices(db);
+            Conversations = new AvaloniaList<Conversation>(chatServices.GetConversations(u.UserId));
+        }
     }
 
     public void GetMessages()
     {
-        ChatServices chatServices = new ChatServices(_context);
-        List<Message> messages = chatServices.GetMessages(SelectedConversation.ConversationId);
+        using(var db = new StudyMateDbContext())
+        {
+            ChatServices chatServices = new ChatServices(db);
+            Messages = new AvaloniaList<Message>(chatServices.GetMessages(SelectedConversation.ConversationId));
+        }
     }
 
-    public void NewConversation(List<string> userId)
+    public void NewConversation(List<string> userId, string name)
     {
 
-        ChatServices chatServices = new ChatServices(_context);
-        chatServices.CreateConversation(userId, "New Conversation");
+        using(var db = new StudyMateDbContext())
+        {
+            ChatServices chatServices = new ChatServices(db);
+            chatServices.CreateConversation(userId,name);
+        }
     }
 }
