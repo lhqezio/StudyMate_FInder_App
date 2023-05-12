@@ -7,18 +7,45 @@
             <Grid
             ColumnDefinitions="*,*"
             >
-                <Border Grid.Column="0">
-                    <ListBox Items="{Binding Conversations}" SelectionMode="Single,AlwaysSelected" >
-                        <ListBox.ItemTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Vertical">
-                                    <TextBlock Text="{Binding ConversationName}" FontWeight="Bold"/>
-                                </StackPanel>
-                            </DataTemplate>
-                        </ListBox.ItemTemplate>
-                    </ListBox>
+                <Border Grid.Column="0" BorderBrush="White" BorderThickness="2">
+                    <Grid
+                    RowDefinitions="*,*"
+                    >
+                        <Border Grid.Row="0" Background="Gray" >
+                            <ListBox Items="{Binding Conversations}" SelectionMode="Single,AlwaysSelected" >
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding ConversationName}" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Border>
+                        <Border Grid.Row="1">
+                            <StackPanel>
+                                <TextBlock Text="New Convo" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <Grid ColumnDefinitions="*,*"
+                                        RowDefinitions="*,*"  
+                                        Margin="4">
+                                    <TextBlock Text="Convo Name: " Grid.Row="0" Grid.Column="0"/>
+                                    <TextBox AcceptsReturn="False"
+                                            Text="{Binding ConversationName}"
+                                            Watermark="Conversation Name"
+                                            Grid.Row="0" Grid.Column="1"/>
+
+                                <TextBlock Text="Participants: " Grid.Row="1" Grid.Column="0"/>
+                                <TextBox AcceptsReturn="False"
+                                        Text="{Binding Participants}"
+                                        Watermark="Participants"
+                                        Grid.Row="1" Grid.Column="1"/>
+                                </Grid>
+                                <Button Content="Create" Command="{Binding NewConvo}"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
                 </Border>
-                <Border Grid.Column="1">
+                <Border Grid.Column="1" BorderBrush="White" BorderThickness="2">
                 </Border>
             </Grid>
 </UserControl>

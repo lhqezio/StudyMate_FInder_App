@@ -11,7 +11,7 @@ namespace StudyMate.ViewModels
     {
         private ViewModelBase _content;
         private Boolean _visibleNavigation;
-        User? LoggedInUser=new User("1","Test username","test@gmail.com","123");
+        private User? LoggedInUser;
         StudyMateDbContext context = new StudyMateDbContext();
         public Boolean VisibleNavigation
         {
@@ -53,7 +53,7 @@ namespace StudyMate.ViewModels
         private void ShowRegister(){
             VisibleNavigation = false;
             var vm = new RegisterViewModel(context);
-            vm.Register.Subscribe(x => {PrepareMainPage(vm.RegisterUser());});
+            vm.Register.Subscribe(x => {ShowLogin();});
             vm.Login = ReactiveCommand.Create(() => {ShowLogin();});
             Content = vm;
         }
@@ -140,7 +140,7 @@ namespace StudyMate.ViewModels
         //Navigate to message view
         private void OpenMessages()
         {
-            throw new NotImplementedException();
+            Content = new ChatViewModel(LoggedInUser);
         }
 
         //Navigate to search view
