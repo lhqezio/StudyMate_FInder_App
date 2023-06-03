@@ -1,0 +1,83 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="StudyMate.Views.ChatView">
+            <Grid
+            ColumnDefinitions="*,*"
+            >
+                <Border Grid.Column="0" BorderBrush="White" BorderThickness="2">
+                    <Grid
+                    RowDefinitions="*,*"
+                    >
+                        <Border Grid.Row="0" Background="Gray" >
+                            <ListBox Items="{Binding Conversations}" SelectionMode="Single,AlwaysSelected" SelectedItem="{Binding SelectedConversation}" >
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="{Binding ConversationName}" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </Border>
+                        <Border Grid.Row="1">
+                            <StackPanel>
+                                <TextBlock Text="New Convo" HorizontalAlignment="Center" VerticalAlignment="Top"/>
+                            <Grid ColumnDefinitions="*,*"
+                                        RowDefinitions="*,*"  
+                                        Margin="4">
+                                    <TextBlock Text="Convo Name: " Grid.Row="0" Grid.Column="0"/>
+                                    <TextBox AcceptsReturn="False"
+                                            Text="{Binding ConversationName}"
+                                            Watermark="Conversation Name"
+                                            Grid.Row="0" Grid.Column="1"/>
+
+                                <TextBlock Text="Participants: " Grid.Row="1" Grid.Column="0"/>
+                                <TextBox AcceptsReturn="False"
+                                        Text="{Binding Participants}"
+                                        Watermark="Participants"
+                                        Grid.Row="1" Grid.Column="1"/>
+                                </Grid>
+                                <Button Content="Create" Command="{Binding NewConvo}"/>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+                </Border>
+                <Border Grid.Column="1" BorderBrush="White" BorderThickness="2">
+                    <Grid
+                    RowDefinitions="5*,1*">
+                        <Border Grid.Row="0" Background="Gray">
+                            <ItemsRepeater Items="{Binding Messages}">
+                                <ItemsRepeater.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="From:" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding SenderID}" FontWeight="Bold"/>
+                                            <TextBlock Text="Message:" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding Body}" FontWeight="Bold"/>
+                                            <TextBlock Text="{Binding Timestamp}" FontWeight="Bold"/>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ItemsRepeater.ItemTemplate>
+                            </ItemsRepeater>
+                        </Border>
+                        <Border Grid.Row="1">
+                            <Grid ColumnDefinitions="2*,1*">
+                                <TextBox AcceptsReturn="True"
+                                        Text="{Binding Message}"
+                                        Watermark="Message"
+                                        Grid.Row="0" Grid.Column="0"/>
+                                <Grid 
+                                RowDefinitions="*,*"
+                                Grid.Row="0" Grid.Column="1">
+                                    <Button Content="Send" Command="{Binding SendMessage}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="0"/>
+                                    <Button Content="Delete" Command="{Binding DeleteConversation}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Row="1"/>
+                                </Grid>
+                            </Grid>
+                        </Border>
+                    </Grid>
+                </Border>
+            </Grid>
+</UserControl>

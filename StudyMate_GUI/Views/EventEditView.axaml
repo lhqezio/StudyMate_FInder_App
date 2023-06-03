@@ -1,0 +1,63 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="300"
+             x:Class="StudyMate.Views.EventEditView">
+  <DockPanel>
+    <Button DockPanel.Dock="Bottom" Command="{Binding Ok}">Done</Button>
+    <TextBlock Text="Edit Event" FontSize="24" DockPanel.Dock="Top"/>
+    <StackPanel>    
+      <Grid ColumnDefinitions="1*,4*"
+            RowDefinitions="*,*,*,*,*,*,*,*,*"  
+            Margin="4">
+        <TextBlock Text="Title: " Grid.Row="0" Grid.Column="0"/>
+        <TextBox AcceptsReturn="False"
+                Text="{Binding Event.Title}"
+                Watermark="Event Title"
+                Grid.Row="0" Grid.Column="1"/>
+
+      <TextBlock Text="Description: " Grid.Row="1" Grid.Column="0"/>
+      <TextBox AcceptsReturn="False"
+              Text="{Binding Event.Description}"
+              Watermark="Event Description"
+              Grid.Row="1" Grid.Column="1"/>
+      
+
+      <TextBlock Text="Location: " Grid.Row="2" Grid.Column="0"/>
+      <TextBox AcceptsReturn="False"
+              Text="{Binding Event.Location}"
+              Watermark="Event Location"
+              Grid.Row="2" Grid.Column="1"/>
+      
+      <TextBlock Text="Subject: " Grid.Row="3" Grid.Column="0"/>
+      <TextBox AcceptsReturn="False"
+              Text="{Binding Event.Subjects}"
+              Watermark="Event Subject"
+              Grid.Row="3" Grid.Column="1"/>
+
+      <TextBlock Text="Courses: " Grid.Row="4" Grid.Column="0"/>
+      <ItemsControl Items="{Binding Event.Courses}" Grid.Row="4" Grid.Column="1">
+      <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                <TextBox Text="{Binding CourseName}" />
+                </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+      <TextBlock Text="School: " Grid.Row="5" Grid.Column="0"/>
+      <TextBox AcceptsReturn="False"
+              Text="{Binding Event.School.SchoolName}"
+              Watermark="Event School"
+              Grid.Row="5" Grid.Column="1"/>
+
+      <TextBlock Text="Date: " Grid.Row="6" Grid.Column="0"/>
+      <DatePicker SelectedDate="{Binding Event.Date}"
+                  Grid.Row="6" Grid.Column="1"/>
+        <Button Content="Delete Event"
+                Command="{Binding $parent[Window].DataContext.DeleteEvent}"/>
+
+      </Grid>
+    </StackPanel>
+  </DockPanel>
+</UserControl>

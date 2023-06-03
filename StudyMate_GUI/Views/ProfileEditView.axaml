@@ -1,0 +1,93 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+             x:Class="StudyMate.Views.ProfileEditView">
+<ScrollViewer VerticalScrollBarVisibility="Auto">
+  <DockPanel>
+    <Button DockPanel.Dock="Bottom" Command="{Binding Ok}">Done</Button>
+    <TextBlock Text="Edit Profile" FontSize="24" DockPanel.Dock="Top"/>
+    <StackPanel Spacing="10">    
+      <Grid ColumnDefinitions="2*,4*"
+            RowDefinitions="*,*,*,*,*,*,*,*,*,*,*"  
+            Margin="4">
+        <TextBlock Text="Name: " Grid.Row="0" Grid.Column="0"/>
+        <TextBox AcceptsReturn="False"
+                Text="{Binding Profile.Name}"
+                Watermark="Name"
+                Grid.Row="0" Grid.Column="1"/>
+
+      <TextBlock Text="Gender: " Grid.Row="1" Grid.Column="0"/>
+      <TextBox AcceptsReturn="False"
+              Text="{Binding Profile.Gender}"
+              Watermark="Pronouns"
+              Grid.Row="1" Grid.Column="1"/>
+      
+
+      <TextBlock Text="Age: " Grid.Row="2" Grid.Column="0"/>
+      <TextBox AcceptsReturn="False"
+              Text="{Binding Profile.Age}"
+              Watermark="Age"
+              Grid.Row="2" Grid.Column="1"/>
+      
+      <TextBlock Text="Program: " Grid.Row="3" Grid.Column="0"/>
+      <TextBox AcceptsReturn="False"
+              Text="{Binding Profile.Program}"
+              Watermark="Program"
+              Grid.Row="3" Grid.Column="1"/>
+
+      <TextBlock Text="School: " Grid.Row="4" Grid.Column="0"/>
+      <TextBox AcceptsReturn="False"
+              Text="{Binding Profile.School.SchoolName}"
+              Watermark="School"
+              Grid.Row="4" Grid.Column="1"/>
+
+      <TextBlock Text="Description: " Grid.Row="5" Grid.Column="0"/>
+      <TextBox AcceptsReturn="False"
+              Text="{Binding Profile.PersonalDescription}"
+              Watermark="Description"
+              Grid.Row="5" Grid.Column="1"/>
+
+        <TextBlock Text="Courses Taken:" Grid.Row="6" Grid.Column="0"/>
+        <ItemsControl Items="{Binding CoursesTaken}" Grid.Row="6" Grid.Column="1">
+        <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                <TextBox Text="{Binding CourseName}" />
+                </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        </ItemsControl>
+
+        
+        <TextBlock Text="Courses Can Help With:" Grid.Row="7" Grid.Column="0"/>
+        <ItemsControl Items="{Binding CoursesCanHelpWith}" Grid.Row="7" Grid.Column="1">
+        <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                <TextBox Text="{Binding CourseName}" Grid.Row="7" Grid.Column="1"/>
+                </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
+        
+        <TextBlock Text="Courses Need Help With:" Grid.Row="8" Grid.Column="0"/>
+        <ItemsControl Items="{Binding CoursesNeedHelpWith}" Grid.Row="8" Grid.Column="1">
+        <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                <TextBox Text="{Binding CourseName}" Grid.Row="8" Grid.Column="1"/>
+                </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        </ItemsControl>
+        
+        <TextBlock Text="Hobbies:" Grid.Row="9" Grid.Column="0"/>
+        <ItemsControl Items="{Binding Hobbies}" Grid.Row="9" Grid.Column="1">
+        <ItemsControl.ItemTemplate>
+                <DataTemplate>
+                <TextBox Text="{Binding HobbyName}" Grid.Row="9" Grid.Column="1"/>
+                </DataTemplate>
+        </ItemsControl.ItemTemplate>
+        </ItemsControl>
+      </Grid>
+    </StackPanel>
+   </DockPanel>
+  </ScrollViewer>
+</UserControl>
