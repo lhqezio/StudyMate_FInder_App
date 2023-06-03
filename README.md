@@ -93,14 +93,6 @@ A study mate matching app, based on favorite subjects and interest.
 
 3. Every single class will be tested thus each of these class will have its corresponding unit test
 
-## Work Planning
-
-1. Amir: Profile, dtb for profile, unit test for profile, message, partially conversation, matching, link primary key foreign key for user (1 to 1 relationship) 
-
-2. Hoang: Users, dtb for users, unit test for users, conversation, Password Hashing, login, authentication 
-
-3. Mohamed: Reminder Email, EventCalendar (dtb/unit test), EventManager(dtb/unit test), Search (dtb/ unit test)
-
 ## Coding Standards and Team Collaboration
 ### Overview
 This document outlines the coding standards and collaboration practices that we will follow as a team to ensure that our code is readable, maintainable, and adheres to best practices.
