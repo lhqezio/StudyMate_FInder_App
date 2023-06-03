@@ -1,5 +1,8 @@
 # Study Mate
 
+## Goal
+Demonstrate C# programming skills, basic usage of Entity Framework and Avalonia GUI
+
 ## Description
 
 A study mate matching app, based on favorite subjects and interest.
